@@ -1,0 +1,80 @@
+
+<!doctype html>
+<html lang="en">
+	<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>5-名义图谱</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<!-- 忽略页面中的数字识别为电话号码  email识别 -->
+	<meta content="telephone=no, email=no" name="format-detection" />
+	<!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<!-- 当启动webapp功能时，显示手机信号、时间、电池的顶部导航栏的颜色。默认值为default（白色），可以定为black（黑色）和black-translucent（灰色半透明）。这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<!-- 不让 Android 手机识别邮箱 -->
+	<meta content="email=no" name="format-detection" />
+	<!-- 启用360浏览器的极速模式(webkit) -->
+	<meta name="renderer" content="webkit">
+	<!-- 避免IE使用兼容模式 -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+	<meta name="HandheldFriendly" content="true">
+	<!-- Reset Css -->
+	<link rel="stylesheet" href="../css/reset.css">
+	<link rel="stylesheet" href="index.css">
+	</head>
+	<body>
+		<div class="dj-base-wrap">
+			<img src="http://5.f1.dajieimg.com/n/micro_blog/T1ZaKvB_dT1RXrhCrK_c.jpg" alt="" class="response-img">
+			<h1 class="text">民意图谱</h1>
+			<div class="mainwrap">
+				<div id="main">
+				      	<canvas id = "myCanvas" width = '320' height="200">Canvas画线技巧</canvas>
+    					<canvas id = "myCanvas1" width = '320' height="200">Canvas画线技巧</canvas>
+				</div>
+			</div>
+			<span class="info"><p><i></i>你的选择分布</p><p><i></i>民意选择分布</p></span>
+			<div class="wrap"><a href="http://www.baidu.com{msg}" class="btn">分享民意图谱，查看公司榜单</a></div>
+		</div>
+		<div class="mask" style="display:none">
+			<div class="headerwrap">
+	                 	<h1>分享到朋友圈后 <br> 获得详细榜单  </h1>
+	                	<i></i>
+		            </div>
+		             <a href="http://www.baidu.com" class="giveup bm">放弃红包</a>
+		</div>
+	<!---
+	<script type="text/javascript" src="/up/dj-mobile/pushover/content/js/zepto.min.js"></script>
+	<script type="text/javascript" src="/up/dj-mobile/pushover/content/js/weixin1.0.js"></script>
+	<script type="text/javascript" src="/up/dj-mobile/pushover/content/js/fastclick.min.js"></script>-->
+	<script type="text/javascript" src="../lib/zepto.js"></script>
+	<script>
+		  var pageData = {
+		  	//提交数据的地址
+		  	//url: '/up/dj-mobile/pushover/json/ajax.php?error=1&msg=服务端存储错误',
+		  	//提交数据的类型
+		  	type: 'post',
+		  	postData: {},
+		  	data: [1, 3, 7],
+		  	selData: [3, 6, 8],
+		  	//showData:['薪资丰xx厚', '环境好', '老板很nice', '帅哥美女多', '福利够赞', '良好成长空间', '团队够牛', '看好公司前景 ', '位置优越']
+		  };
+
+		/*dj.setPageData({
+		  	'i-weixin-share-success-callback': function() {
+		  		$.ajax({
+		  			url: '',
+		  			type: 'post',
+		  			data: '',
+		  			dataType: 'json',
+		  			success: function(result) {
+		  				location.href = 'nextUrl';
+		  			},
+		  			error: function() {}
+		  		})
+		  	}
+		  });*/
+	</script>
+	<script type="text/javascript" src="index.js"></script>
+	</body>
+</html>
