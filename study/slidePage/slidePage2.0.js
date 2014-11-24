@@ -1,4 +1,5 @@
 /*
+ *20141021 this.els = $(el.children[0]).find('div'); has bug fix this.els = $(el.children[0]).find('>div');
  *20141022 操作外围的元素，而不是里面的每个元素，实现循环滚动的，自动播放加上拖动
  *
  */
