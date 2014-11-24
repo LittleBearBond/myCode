@@ -1,0 +1,108 @@
+.center {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+}
+.show{
+	display: block !important;
+}
+.hide{
+	display: none !important;
+}
+.clearfix {
+    clear: both;
+}
+.clearfix:after {
+    content: '.';
+    visibility: hidden;
+    height: 0;
+    display: block;
+    clear: both;
+}
+.notext {
+    overflow: hidden;
+    text-align: left;
+    letter-spacing: -3em;
+}
+.notext:first-letter {
+    margin-left: -20em;
+}
+
+html, body, .dj-wrap {
+	height: 100%;
+	min-height: 100%;
+}
+.dj-wrap {
+	position: relative;
+}
+.dj-wrap>footer {
+	position: absolute;
+	height: 50px;
+	bottom: 0;
+	width: 100%;
+	background-color: #E4E4E4;
+}
+.dj-wrap>footer>ul {
+	width: 100%;
+	height: 100%;
+}
+.dj-wrap>footer>ul>li {
+	position: relative;
+	width: 25%;
+	height: 100%;
+	text-align: center;
+	float: left;
+
+}
+.dj-wrap>footer>ul>li>a {
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	background-color: #FF9A00;
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+.dj-wrap .wrap{
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+
+.moving {
+    -webkit-transition: none 0 step-start;
+    -o-transition: none 0 step-start;
+    -moz-transition: none 0 step-start;
+    -ms-transition: none 0 step-start;
+    transition: none 0 step-start;
+}
+.swipe {
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+}
+.swipe>.swipe-wrap {
+    overflow: hidden;
+    position: relative;
+}
+.swipe>.swipe-wrap>div,
+.swipe>.swipe-wrap {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.swipe>.swipe-wrap>div {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+

@@ -1,0 +1,743 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body>
+<header><div class="nvbt iback" onclick="back();"></div>
+<div class="nvtt">Contacts Document</div></header><div id="content" class="content">
+<h1><a name="plus.contacts">contacts</a></h1>
+<p>Contacts模块管理系统通讯录，用于可对系统通讯录进行增、删、改、查等操作。通过plus.contacts获取系统通讯录管理对象。</p>
+<h2>常量：</h2>
+<ul>
+<li>
+<a href="#plus.contacts.ADDRESSBOOK_PHONE">ADDRESSBOOK_PHONE</a>: 手机通讯录</li>
+<li>
+<a href="#plus.contacts.ADDRESSBOOK_SIM">ADDRESSBOOK_SIM</a>: SIM卡通讯录</li>
+</ul>
+<h2>方法：</h2>
+<ul><li>
+<a href="#plus.contacts.getAddressBook">getAddressBook</a>: 获取通讯录对象</li></ul>
+<h2>对象：</h2>
+<ul>
+<li>
+<a href="#plus.contacts.AddressBook">AddressBook</a>: 通讯录对象</li>
+<li>
+<a href="#plus.contacts.Contact">Contact</a>: 联系人对象</li>
+<li>
+<a href="#plus.contacts.ContactField">ContactField</a>: JSON对象，联系人域数据对象</li>
+<li>
+<a href="#plus.contacts.ContactName">ContactName</a>: JSON对象，联系人名称对象</li>
+<li>
+<a href="#plus.contacts.ContactAddress">ContactAddress</a>: JSON对象，联系人地址对象</li>
+<li>
+<a href="#plus.contacts.ContactOrganization">ContactOrganization</a>: JSON对象，联系人所属组织信息</li>
+<li>
+<a href="#plus.contacts.ContactFindOption">ContactFindOption</a>: JSON对象，查找联系人参数</li>
+<li>
+<a href="#plus.contacts.ContactFindFilter">ContactFindFilter</a>: JSON对象，联系人查找过滤器</li>
+</ul>
+<h2>回调方法：</h2>
+<ul>
+<li>
+<a href="#plus.contacts.AddressBookSuccessCallback">AddressBookSuccessCallback</a>: 获取通讯录操作成功回调函数</li>
+<li>
+<a href="#plus.contacts.FindSuccessCallback">FindSuccessCallback</a>: 查找联系人操作成功回调函数</li>
+<li>
+<a href="#plus.contacts.ContactsSuccessCallback">ContactsSuccessCallback</a>: 联系人操作成功回调函数</li>
+<li>
+<a href="#plus.contacts.ContactsErrorCallback">ContactsErrorCallback</a>: 联系人操作失败回调</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"Contacts": {
+	"description": "访问系统联系人"
+}
+			</pre>
+<h1><a name="plus.contacts.ADDRESSBOOK_PHONE">ADDRESSBOOK_PHONE</a></h1>
+<p>手机通讯录</p>
+<pre class="prettyprint linenums">
+plus.contacts.ADDRESSBOOK_PHONE;
+				</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p>通讯录类型常量，数值类型，固定值为0，用于获取系统的联系人信息。</p>
+<h1><a name="plus.contacts.ADDRESSBOOK_SIM">ADDRESSBOOK_SIM</a></h1>
+<p>SIM卡通讯录</p>
+<pre class="prettyprint linenums">
+plus.contacts.ADDRESSBOOK_SIM;
+				</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p>通讯录类型常量，数值类型，固定值为1，用于获取SIM卡上的联系人信息。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (不支持): 暂未实现SIM卡联系人的访问</li>
+<li>iOS4.3+ (不支持): 不支持SIM卡联系人的访问</li>
+<li>WP7.5+ (不支持): 不支持SIM卡联系人的访问</li>
+</ul>
+<h1><a name="plus.contacts.getAddressBook">getAddressBook</a></h1>
+<p>获取通讯录对象</p>
+<pre class="prettyprint linenums">
+void plus.contacts.getAddressBook( type, succesCB, errorCB );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	根据指定通讯录类型获取通讯录对象，获取通讯录对象后可对其进行增、删、改操作。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>type: 
+		<em>(
+			<a href="#Number">Number</a>
+			)
+			必选 </em>要获取的通讯录类型<br>可取通讯录类型常量，可获取手机通讯录或SIM卡通讯录。</li>
+<li>successCB: 
+		<em>(
+			<a href="#plus.contacts.AddressBookSuccessCallback">AddressBookSuccessCallback</a>
+			)
+			必选 </em>获取通讯录对象成功回调<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.contacts.ContactsErrorCallback">ContactsErrorCallback</a>
+			)
+			可选 </em>获取通讯录对象失败回调<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Contacts Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+	plus.contacts.getAddressBook( plus.contacts.ADDRESSBOOK_PHONE, function( addressbook ) {
+		// 可通过addressbook进行通讯录操作
+		alert( "Get address book success!" );
+	}, function ( e ) {
+		alert( "Get address book failed: " + e.message );
+	} );
+}, false );
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.contacts.AddressBook">AddressBook</a></h1>
+<p>通讯录对象</p>
+<pre class="prettyprint linenums">
+interface AddressBook {
+	function Contact create();
+	function void find( contactFields, successCB, errorCB, findOptions );
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">通讯录管理对象，可对系统通讯录进行联系人的增、删、改、查操作。</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.contacts.AddressBook.create">create</a>: 创建联系人</li>
+<li>
+<a href="#plus.contacts.AddressBook.find">find</a>: 在通讯录中查找联系人</li>
+</ul>
+<h1><a name="plus.contacts.AddressBook.create">create</a></h1>
+<p>创建联系人</p>
+<pre class="prettyprint linenums">
+	Contact addressbook.create();
+						</pre>
+<h2>说明：</h2>
+<p class="des">创建一个系统联系人，并返回联系人对象，可对联系人对象进行操作设置联系人信息，如名称、地址、电话等。</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#plus.contacts.Contact">Contact</a>
+			: 联系人对象<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Contacts Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+	plus.contacts.getAddressBook( plus.contacts.ADDRESSBOOK_PHONE, function( addressbook ) {
+		// 向通讯录中添加联系人
+		var contact = addressbook.create();
+		contact.name = {givenName:"王安"};
+		contact.phoneNumbers = [{type:"手机",value:"88888888",preferred:true}];
+		contact.save();
+	}, function ( e ) {
+		alert( "Get address book failed: " + e.message );
+	} );
+}, false );
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.contacts.AddressBook.find">find</a></h1>
+<p>在通讯录中查找联系人</p>
+<pre class="prettyprint linenums">
+void addressbook.find( contactFields, successCB, errorCB, findOptions );
+						</pre>
+<h2>说明：</h2>
+<p class="des">在通讯录中安装指定的规则查找联系人，contactFields可设定查找返回的联系人中包含的字段值，查找联系人成功时通过successCB回调返回，查找联系人失败则通过errorCB回调返回。</p>
+<h2>参数：</h2>
+<ul>
+<li>contactFields: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>查找返回联系人中需要包含的信息<br>可取Contact对象的属性名称，若指定为null或""或空数组则包含所有联系人信息。可通过“.”来分割子项，如“name.familyName”指定获取联系人名称中的姓；对于ContactField类型的值则可指定类型值，如“phoneNumbers.mobile”指定获取联系人的手机号码。</li>
+<li>successCB: 
+		<em>(
+			<a href="#plus.contacts.FindSuccessCallback">FindSuccessCallback</a>
+			)
+			必选 </em>查找联系人操作成功回调<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.contacts.ContactsErrorCallback">ContactsErrorCallback</a>
+			)
+			可选 </em>查找联系人操作失败回调<br>
+</li>
+<li>findOptions: 
+		<em>(
+			<a href="#plus.contacts.ContactFindOption">ContactFindOption</a>
+			)
+			必选 </em>查找联系人的参数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.contacts.Contact">Contact</a></h1>
+<p>联系人对象</p>
+<pre class="prettyprint linenums">
+interface Contact {
+	attribute DOMString displayName;
+	attribute ContactName name;
+	attribute DOMString nickname;
+	attribute ContackField[] phoneNumbers;
+	attribute ContactField[] emails;
+	attribute ContactAddress[] addresses;
+	attribute ContactField[] ims;
+	attribute ContactOriganization[] organizations;
+	attribute Date birthday;
+	attribute DOMString note;
+	attribute ContactField[] photos;
+	attribute ContactField[] categories;
+	attribute ContactField[] urls;
+	function Contact clone();
+	function void remove( successCB, errorCB );
+	function void save( successCB, errorCB );
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">联系人对象，包括联系人的各种信息，如名称、电话号码、地址等。也包括新增、删除联系人的操作方法。</p>
+<h2>属性：</h2>
+<ul>
+<li>
+<a href="#plus.contacts.Contact.displayName">displayName</a>: 联系人显示的名字</li>
+<li>
+<a href="#plus.contacts.Contact.name">name</a>: 联系人的名称</li>
+<li>
+<a href="#plus.contacts.Contact.nickname">nickname</a>: 联系人的昵称</li>
+<li>
+<a href="#plus.contacts.Contact.phoneNumbers">phoneNumbers</a>: 数组，联系人的电话</li>
+<li>
+<a href="#plus.contacts.Contact.emails">emails</a>: 数组，联系人的邮箱</li>
+<li>
+<a href="#plus.contacts.Contact.addresses">addresses</a>: 数组，联系人的地址</li>
+<li>
+<a href="#plus.contacts.Contact.ims">ims</a>: 数组，联系人的即时通讯地址</li>
+<li>
+<a href="#plus.contacts.Contact.organizations">organizations</a>: 数组，联系人所属组织信息</li>
+<li>
+<a href="#plus.contacts.Contact.birthday">birthday</a>: 联系人的生日</li>
+<li>
+<a href="#plus.contacts.Contact.note">note</a>: 联系人的备注</li>
+<li>
+<a href="#plus.contacts.Contact.photos">photos</a>: 数组，联系人的头像</li>
+<li>
+<a href="#plus.contacts.Contact.categories">categories</a>: 数组，联系人的组名</li>
+<li>
+<a href="#plus.contacts.Contact.urls">urls</a>: 数组，联系人的网址</li>
+</ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.contacts.Contact.clone">clone</a>: 克隆联系人</li>
+<li>
+<a href="#plus.contacts.Contact.remove">remove</a>: 删除联系人</li>
+<li>
+<a href="#plus.contacts.Contact.save">save</a>: 保存联系人</li>
+</ul>
+<h1><a name="plus.contacts.Contact.displayName">displayName</a></h1>
+<p>联系人显示的名字</p>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 可选属性</p>
+<p>联系人显示的名字通常有其姓和名组合而成。</p>
+<h1><a name="plus.contacts.Contact.name">name</a></h1>
+<p>联系人的名称</p>
+<h2>说明：</h2>
+<p><a href="#plus.contacts.ContactName">ContactName</a>
+	类型
+</p>
+<p></p>
+<h1><a name="plus.contacts.Contact.nickname">nickname</a></h1>
+<p>联系人的昵称</p>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 可选属性</p>
+<p></p>
+<h1><a name="plus.contacts.Contact.phoneNumbers">phoneNumbers</a></h1>
+<p>数组，联系人的电话</p>
+<h2>说明：</h2>
+<p><a href="#plus.contacts.ContactField">ContactField</a>
+	类型
+ 可选属性</p>
+<p></p>
+<h1><a name="plus.contacts.Contact.emails">emails</a></h1>
+<p>数组，联系人的邮箱</p>
+<h2>说明：</h2>
+<p><a href="#plus.contacts.ContactField">ContactField</a>
+	类型
+ 可选属性</p>
+<p></p>
+<h1><a name="plus.contacts.Contact.addresses">addresses</a></h1>
+<p>数组，联系人的地址</p>
+<h2>说明：</h2>
+<p><a href="#plus.contacts.ContactAddress">ContactAddress</a>
+	类型
+ 可选属性</p>
+<p></p>
+<h1><a name="plus.contacts.Contact.ims">ims</a></h1>
+<p>数组，联系人的即时通讯地址</p>
+<h2>说明：</h2>
+<p><a href="#plus.contacts.ContactField">ContactField</a>
+	类型
+ 可选属性</p>
+<p></p>
+<h1><a name="plus.contacts.Contact.organizations">organizations</a></h1>
+<p>数组，联系人所属组织信息</p>
+<h2>说明：</h2>
+<p><a href="#plus.contacts.ContactOrganization">ContactOrganization</a>
+	类型
+ 可选属性</p>
+<p></p>
+<h1><a name="plus.contacts.Contact.birthday">birthday</a></h1>
+<p>联系人的生日</p>
+<h2>说明：</h2>
+<p><a href="#Date">Date</a>
+	类型
+ 可选属性</p>
+<p></p>
+<h1><a name="plus.contacts.Contact.note">note</a></h1>
+<p>联系人的备注</p>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 可选属性</p>
+<p></p>
+<h1><a name="plus.contacts.Contact.photos">photos</a></h1>
+<p>数组，联系人的头像</p>
+<h2>说明：</h2>
+<p><a href="#plus.contacts.ContactField">ContactField</a>
+	类型
+ 可选属性</p>
+<p>
+	其值为头像图片url地址或图片数据：
+	url地址：仅支持本地图片地址，可以是绝对路径或相对路径，如“_doc/a.png”；
+	图片数据：必须符合Data URI scheme（RFC2397）格式的数据，如“image/png;base64,XXXX”，其中XXXX为base64编码的图片数据。在获取联系人时默认返回此类型的数据。
+						</p>
+<h1><a name="plus.contacts.Contact.categories">categories</a></h1>
+<p>数组，联系人的组名</p>
+<h2>说明：</h2>
+<p><a href="#plus.contacts.ContactOrganization">ContactOrganization</a>
+	类型
+ 可选属性</p>
+<p></p>
+<h1><a name="plus.contacts.Contact.urls">urls</a></h1>
+<p>数组，联系人的网址</p>
+<h2>说明：</h2>
+<p><a href="#plus.contacts.ContactOrganization">ContactOrganization</a>
+	类型
+ 可选属性</p>
+<p></p>
+<h1><a name="plus.contacts.Contact.clone">clone</a></h1>
+<p>克隆联系人</p>
+<pre class="prettyprint linenums">
+Contact contact.clone();
+						</pre>
+<h2>说明：</h2>
+<p class="des">克隆联系人，创建出一个新的联系人对象。</p>
+<h2>参数：</h2>
+<ul></ul>
+<h2>返回值：</h2>
+<a href="#plus.contacts.Contact">Contact</a>
+			: 克隆出的Contact对象<h2>示例：</h2>
+<pre class="prettyprint linenums">
+var newcnt = contact.clone();
+						</pre>
+<h1><a name="plus.contacts.Contact.remove">remove</a></h1>
+<p>删除联系人</p>
+<pre class="prettyprint linenums">
+void contact.remove( successCB, errorCB );
+						</pre>
+<h2>参数：</h2>
+<ul>
+<li>successCB: 
+		<em>(
+			<a href="#plus.contacts.ContactsSuccessCallback">ContactsSuccessCallback</a>
+			)
+			必选 </em>删除联系人操作成功回调<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.contacts.ContactsErrorCallback">ContactsErrorCallback</a>
+			)
+			可选 </em>删除联系人操作失败回调<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+plus.contacts.getAddressBook( plus.contacts.ADDRESSBOOK_PHONE, function( addressbook ) {
+	// 可通过addressbook进行通讯录操作
+	var contact = addressbook.find( null, function ( contacts ) {
+		if ( contacts.length&gt; 0 ) {
+			var dc = contacts[0];
+			dc.remove( function () {
+				alert( "Remove "+dc.displayName+" success!" );
+			}
+		}, function ( e ) {
+			alert( "Find contact error: " e.message );
+	}, {filter:[{logic:"or",field:"phoneNumbers",value:"88888888"}],multi:false} );
+} );
+						</pre>
+<h1><a name="plus.contacts.Contact.save">save</a></h1>
+<p>保存联系人</p>
+<pre class="prettyprint linenums">
+void contact.save( successCB, errorCB );
+						</pre>
+<h2>说明：</h2>
+<p class="des">将联系人数据保存到通讯录中，操作成功将通过successCB回调函数返回保存结果，操作失败将通过通过errorCB回调函数返回错误信息。</p>
+<h2>参数：</h2>
+<ul>
+<li>successCB: 
+		<em>(
+			<a href="#plus.contacts.ContactsSuccessCallback">ContactsSuccessCallback</a>
+			)
+			必选 </em>添加联系人操作成功回调<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.contacts.ContactsErrorCallback">ContactsErrorCallback</a>
+			)
+			可选 </em>添加联系人操作失败回调<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+plus.contacts.getAddressBook( plus.contacts.ADDRESSBOOK_PHONE, function( addressbook ) {
+	// 可通过addressbook进行通讯录操作
+	var contact = addressbook.create();
+		contact.name = {givenName:"王安"};
+		contact.phoneNumbers = [{type:"手机",value:"88888888",preferred:true}];
+		contact.save( function () {
+			alert( "保存联系人成功" );
+		}, function ( e ) {
+			alert( "保存联系人失败：" + e.message );
+		} );
+	}, function ( e ) {
+		alert( "Get address book failed: " + e.message );
+} );
+						</pre>
+<h1><a name="plus.contacts.ContactField">ContactField</a></h1>
+<p>JSON对象，联系人域数据对象</p>
+<pre class="prettyprint linenums">
+interface ContactField {
+	attribute DOMString type;
+	attribute DOMString value;
+	attribute Boolean preferred;
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">联系人域数据对象，保存联系人特定域信息。</p>
+<h2>属性：</h2>
+<ul>
+<li>type: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>联系人域类型，如电话号码中的“mobile”、“home”、“company”<br>
+</li>
+<li>value: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>联系人域值<br>
+</li>
+<li>preferred: <em>(<a href="#Boolean">Boolean</a>
+	类型
+)</em>是否为首选项<br>
+</li>
+</ul>
+<h1><a name="plus.contacts.ContactName">ContactName</a></h1>
+<p>JSON对象，联系人名称对象</p>
+<pre class="prettyprint linenums">
+interface ContactName {
+	attribute DOMString formatted;
+	attribute DOMString familyName;
+	attribute DOMString givenName;
+	attribute DOMString middleName;
+	attribute DOMString honorificPrefix;
+	attribute DOMString honorificSuffix;
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">联系人名称对象，保存联系人名称信息，如姓、名等。</p>
+<h2>属性：</h2>
+<ul>
+<li>formatted: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>联系人的完整名称，由其它字段组合生成<br>
+</li>
+<li>familyName: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>联系人的姓<br>
+</li>
+<li>givenName: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>联系人的名<br>
+</li>
+<li>middleName: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>联系人的中间名<br>
+</li>
+<li>honorificPrefix: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>联系人的前缀（如Mr.或Dr.）<br>
+</li>
+<li>honorificSuffix: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>联系人的后缀<br>
+</li>
+</ul>
+<h1><a name="plus.contacts.ContactAddress">ContactAddress</a></h1>
+<p>JSON对象，联系人地址对象</p>
+<pre class="prettyprint linenums">
+interface ContactAddress {
+	attribute DOMString type;
+	attribute DOMString formatted;
+	attribute DOMString streetAddress;
+	attribute DOMString locality;
+	attribute DOMString region;
+	attribute DOMString country;
+	attribute DOMString postalCode;
+	attribute Boolean preferred;
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">联系人地址对象，保存联系人地址信息，如国家、省份、城市等。</p>
+<h2>属性：</h2>
+<ul>
+<li>type: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>联系人地址类型，如“home”表示家庭地址、“company”表示单位地址<br>
+</li>
+<li>formatted: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>完整地址，由其它字段组合而成<br>
+</li>
+<li>streetAddress: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>完整的街道地址<br>
+</li>
+<li>locality: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>城市或地区<br>
+</li>
+<li>region: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>省或地区<br>
+</li>
+<li>country: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>国家<br>
+</li>
+<li>postalCode: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>邮政编码<br>
+</li>
+<li>preferred: <em>(<a href="#Boolean">Boolean</a>
+	类型
+)</em>是否为首选项<br>
+</li>
+</ul>
+<h1><a name="plus.contacts.ContactOrganization">ContactOrganization</a></h1>
+<p>JSON对象，联系人所属组织信息</p>
+<pre class="prettyprint linenums">
+interface ContactOrganization {
+	attribute DOMString type;
+	attribute DOMString name;
+	attribute DOMString department;
+	attribute DOMString title;
+	attribute Boolean preferred;
+}
+				</pre>
+<h2>属性：</h2>
+<ul>
+<li>type: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>联系人所属组织类型，如"company"<br>
+</li>
+<li>name: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em> 联系人所属组织名称<br>
+</li>
+<li>department: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>联系人所属组织部门<br>
+</li>
+<li>title: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>联系人在组织中的职位<br>
+</li>
+<li>preferred: <em>(<a href="#Boolean">Boolean</a>
+	类型
+)</em>是否为首选项<br>
+</li>
+</ul>
+<h1><a name="plus.contacts.ContactFindOption">ContactFindOption</a></h1>
+<p>JSON对象，查找联系人参数</p>
+<pre class="prettyprint linenums">
+interface ContactFindOption {
+	attribute ContactFindFilte[] filter;
+	attribute Boolean multiple;
+}
+				</pre>
+<h2>属性：</h2>
+<ul>
+<li>filter: <em>(<a href="#plus.contacts.ContactFindFilter">ContactFindFilter</a>
+	类型
+)</em>数组，查找时的过滤器<br><p>可设置为空，表示不过滤。</p>
+</li>
+<li>multiple: <em>(<a href="#Boolean">Boolean</a>
+	类型
+)</em>是否查找多个联系人，默认值为true<br>
+</li>
+</ul>
+<h1><a name="plus.contacts.ContactFindFilter">ContactFindFilter</a></h1>
+<p>JSON对象，联系人查找过滤器</p>
+<pre class="prettyprint linenums">
+interface ContactFindFilter {
+	attribute DOMString logic;
+	attribute DOMString field;
+	attribute DOMString value;
+}
+				</pre>
+<h2>属性：</h2>
+<ul>
+<li>logic: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>区配的逻辑<br><p>可取“and”、“or”、“not”，默认值为“and”。</p>
+</li>
+<li>field: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>区配的联系人域，可取联系人的属性名称<br>
+</li>
+<li>value: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>区配的联系人值，可使用区配符号“?”和“*”<br>
+</li>
+</ul>
+<h1><a name="plus.contacts.AddressBookSuccessCallback">AddressBookSuccessCallback</a></h1>
+<p>获取通讯录操作成功回调函数</p>
+<pre class="prettyprint linenums">
+void onSuccess( addressbook ){
+	// Code AddressBook here
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>addressbook: 
+		<em>(
+			<a href="#plus.contacts.AddressBook">AddressBook</a>
+			)
+			必选 </em>获取到的通讯录对象<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.contacts.FindSuccessCallback">FindSuccessCallback</a></h1>
+<p>查找联系人操作成功回调函数</p>
+<pre class="prettyprint linenums">
+void onSuccess( contacts ){
+	// Find contact success.
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>contacts: 
+		<em>(
+			<a href="#plus.contacts.Contact">Contact</a>
+			)
+			必选 </em>数组，查找到的联系人对象<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.contacts.ContactsSuccessCallback">ContactsSuccessCallback</a></h1>
+<p>联系人操作成功回调函数</p>
+<pre class="prettyprint linenums">
+void onSuccess(){
+	// Operate success
+}
+				</pre>
+<h2>参数：</h2>
+<ul></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.contacts.ContactsErrorCallback">ContactsErrorCallback</a></h1>
+<p>联系人操作失败回调</p>
+<pre class="prettyprint linenums">
+void onError( error ){
+	// Handle the error
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>error: 
+		<em>(
+			<a href="#DOMException">DOMException</a>
+			)
+			必选 </em>联系人操作的错误信息<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无</div>
+</body>
+</html>

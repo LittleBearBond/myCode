@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body>
+<header><div class="nvbt iback" onclick="back();"></div>
+<div class="nvtt">Interface Orientation Document</div></header><div id="content" class="content">
+<h1><a name="plus.InterfaceOrientation">InterfaceOrientation</a></h1>
+<p>获取应用的横竖屏信息</p>
+<h2>方法：</h2>
+<ul><li>
+<a href="#plus.InterfaceOrientation.window.orientation">window.orientation</a>: 获取当前设备横竖屏状态</li></ul>
+<h2>事件：</h2>
+<ul><li>
+<a href="#plus.InterfaceOrientation.orientationchange">orientationchange</a>: 当屏幕旋转时的通知事件</li></ul>
+<h1><a name="plus.InterfaceOrientation.window.orientation">window.orientation</a></h1>
+<p>获取当前设备横竖屏状态</p>
+<pre class="prettyprint linenums">
+var screen_orientation = window.orientation;
+				</pre>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#number">number</a>
+			: 
+	0 正常方向
+	-90 屏幕顺时钟旋转90度
+	90 屏幕逆时针旋转90度
+	180 屏幕旋转180度	
+					<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持): 支持</li>
+<li>iOS4.3+ (支持): 支持</li>
+<li>WP7.5+ (支持): 暂不支持</li>
+</ul>
+<h1><a name="plus.InterfaceOrientation.orientationchange">orientationchange</a></h1>
+<p>当屏幕旋转时的通知事件</p>
+<pre class="prettyprint linenums">
+document.addEventListener("orientationchange", orientationchangeCB);
+				</pre>
+<h2>说明：</h2>
+<p><a href="#orientationchangeCB">orientationchangeCB</a>
+	类型
+</p>
+<p></p>
+<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持): 支持</li>
+<li>iOS4.3+ (支持): 支持</li>
+<li>WP7.5+ (支持): 暂不支持</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"&gt;
+	&lt;title&gt;Orientation Example&lt;/title&gt;
+	&lt;script type="text/javascript" &gt;
+
+		function updateOrientation() {
+		  var displayStr = "Orientation : ";
+		  switch(window.orientation)
+		  {
+			case 0:
+			  displayStr += "Portrait";
+			  break;
+			case -90:
+			  displayStr += "Landscape (right, screen turned clockwise)";
+			  break;
+			case 90:
+			  displayStr += "Landscape (left, screen turned counterclockwise)";
+			  break;
+			case 180:
+			  displayStr += "Portrait (upside-down portrait)";
+			  break;
+		  }
+		  document.getElementById("output").innerHTML = displayStr;
+		}
+
+		//Get initialize orientation. 
+		document.addEventListener("orientationchange", updateOrientation());
+
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body style="background:#0f0" &gt;
+	&lt;div id="output"&gt;&lt;/div&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+</div>
+</body>
+</html>

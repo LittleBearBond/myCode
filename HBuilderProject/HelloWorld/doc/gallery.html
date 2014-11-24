@@ -1,0 +1,321 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body>
+<header><div class="nvbt iback" onclick="back();"></div>
+<div class="nvtt">Gallery Document</div></header><div id="content" class="content">
+<h1><a name="plus.gallery">gallery</a></h1>
+<p>Gallery模块管理系统相册，支持从相册中选择图片或视频文件、保存图片或视频文件到相册等功能。通过plus.gallery获取相册管理对象。</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.gallery.pick">pick</a>: 从系统相册选择文件（图片或视频）</li>
+<li>
+<a href="#plus.gallery.save">save</a>: 保存文件到系统相册中</li>
+</ul>
+<h2>对象：</h2>
+<ul>
+<li>
+<a href="#plus.gallery.GalleryOption">GalleryOption</a>: JSON对象，从相册中选择文件的参数</li>
+<li>
+<a href="#plus.gallery.GalleryFilter">GalleryFilter</a>: 相册选择文件过滤类型</li>
+<li>
+<a href="#plus.gallery.PopPosition">PopPosition</a>: JSON对象，弹出拍照或摄像界面指示位置</li>
+</ul>
+<h2>回调方法：</h2>
+<ul>
+<li>
+<a href="#plus.gallery.GalleryPickSuccessCallback">GalleryPickSuccessCallback</a>: 选择系统相册图片成功的回调</li>
+<li>
+<a href="#plus.gallery.GallerySuccessCallback">GallerySuccessCallback</a>: 操作系统相册成功的回调</li>
+<li>
+<a href="#plus.gallery.GalleryErrorCallback">GalleryErrorCallback</a>: 系统相册操作失败的回调</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"Gallery": {
+	"description": "访问系统相册"
+}
+			</pre>
+<h1><a name="plus.gallery.pick">pick</a></h1>
+<p>从系统相册选择文件（图片或视频）</p>
+<pre class="prettyprint linenums">
+void plus.gallery.pick( successCB, errorCB, option );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	从系统相册中选择图片或视频文件。每次仅能选择一个文件，选择后将返回选择的文件路径。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>succesCB: 
+		<em>(
+			<a href="#plus.gallery.GalleryPickSuccessCallback">GalleryPickSuccessCallback</a>
+			)
+			必选 </em>从系统相册中选择文件完成后的回调函数<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.gallery.GalleryErrorCallback">GalleryErrorCallback</a>
+			)
+			可选 </em>从系统相册中选择文件操作错误的回调函数<br>
+</li>
+<li>option: 
+		<em>(
+			<a href="#plus.gallery.GalleryOption">GalleryOption</a>
+			)
+			可选 </em>设置选择文件的参数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Gallery Example&lt;/title&gt;
+	&lt;script type="text/javascript" &gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null; 
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+}
+// 从相册中选择图片 
+function selectPicture() {
+	plus.gallery.pick( function (path){
+		alert( "Success: " + path );
+	}, function ( err ) {
+		alert( "Failed: " + err.message );
+	} );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body &gt;
+	&lt;input type="button" value="Select picture frome Gallery" onclick="selectPicture();" &gt;&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.gallery.save">save</a></h1>
+<p>保存文件到系统相册中</p>
+<pre class="prettyprint linenums">
+void plus.gallery.save( path, successCB, errorCB );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	保存文件到系统相册中。
+	每次仅能保存一个文件，支持图片类型（jpg/jpeg、png、bmp等格式）和视频文件（3gp、mov等格式）。
+	若保存的文件系统不支持，则通过errorCB返回错误信息。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>path  : 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>要保存到系统相册中的文件文件地址<br>仅支持本地路径，不支持网络路径。</li>
+<li>succesCB: 
+		<em>(
+			<a href="#plus.gallery.GallerySuccessCallback">GallerySuccessCallback</a>
+			)
+			必选 </em>保存文件到系统相册中成功的回调函数<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.gallery.GalleryErrorCallback">GalleryErrorCallback</a>
+			)
+			可选 </em>保存文件到系统相册中失败的回调函数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Gallery Example&lt;/title&gt;
+	&lt;script type="text/javascript" &gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null; 
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+}
+// 保存图片到相册中 
+function savePicture() {
+	plus.gallery.save( "_doc/a.jpg", function () {
+		alert( "保存图片到相册成功" );
+	} );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body &gt;
+	&lt;input type="button" value="Save picture to Gallery" onclick="savePicture();" &gt;&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.gallery.GalleryOption">GalleryOption</a></h1>
+<p>JSON对象，从相册中选择文件的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>filename: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>选择文件保存的路径<br><p>从系统相册中选择文件的保存路径，如果路径中包括文件后缀名称，则表明指定文件路径及名称，否则仅指定文件保存目录，文件名称由程序自动生成。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (不支持): 不支持设置文件路径。</li>
+<li>iOS4.3+ (支持): iOS会将相册中的文件拷贝到当前应用沙箱系统中，可通过此参数设置路径。</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+</li>
+<li>filter: <em>(<a href="#plus.gallery.GalleryFilter">GalleryFilter</a>
+	类型
+)</em>相册中选择文件类型过滤器<br><p>可通过此参数设定相册选择器中可选择的文件类型，可设置仅可选择图片文件或视频文件，默认值为仅可选择图片文件。</p>
+</li>
+<li>animation: <em>(<a href="#Boolean">Boolean</a>
+	类型
+)</em>是否显示系统相册文件选择界面的动画<br><p>是否显示系统相册文件选择界面的动画，可取值true、false，默认值为true。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (不支持): 忽略此参数，无动画效果。</li>
+<li>iOS4.3+ (支持): 支持动画效果。</li>
+<li>WP7.5+ (不支持): 忽略此参数，无动画效果。</li>
+</ul>
+</li>
+<li>popover: <em>(<a href="#plus.gallery.PopPosition">PopPosition</a>
+	类型
+)</em>相册选择界面弹出指示区域<br><p>
+	对于大屏幕设备如iPad，相册选择界面为弹出窗口，此时可通过此参数设置弹出窗口位置。
+	其为JSON对象，格式如{top:"10",left:10,width:200,height:200}，所有值为像素值，左上坐标相对于容器的位置，默认弹出位置为屏幕居中。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.gallery.GalleryFilter">GalleryFilter</a></h1>
+<p>相册选择文件过滤类型</p>
+<h2>属性：</h2>
+<ul>
+<li>"image": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>仅可选择图片文件<br>
+</li>
+<li>"video": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>仅可选择视频文件<br>
+</li>
+<li>"none": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>不过滤，可选择图片或视频文件<br>
+</li>
+</ul>
+<h1><a name="plus.gallery.PopPosition">PopPosition</a></h1>
+<p>JSON对象，弹出拍照或摄像界面指示位置</p>
+<h2>属性：</h2>
+<ul>
+<li>top: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>指示区域距离容器顶部的距离<br><p>
+	弹出拍照或摄像窗口指示区域距离容器顶部的距离，单位支持像素值（如100px）和百分比（如50%），如不写单位则为像素值值。</p>
+</li>
+<li>left: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>指示区域距离容器左侧的距离<br><p>
+	弹出拍照或摄像窗口指示区域距离容器左侧的距离，单位支持像素值（如100px）和百分比（如50%），如不写单位则为像素值。</p>
+</li>
+<li>width: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>指示区域的宽度<br><p>
+	弹出拍照或摄像窗口指示区域的宽度，单位支持像素值（如100px）和百分比（如50%），如不写单位则为像素值。</p>
+</li>
+<li>height: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>指示区域的高度<br><p>
+	弹出拍照或摄像窗口指示区域的高度，单位支持像素值（如100px）和百分比（如50%），如不写单位则为像素值。</p>
+</li>
+</ul>
+<h1><a name="plus.gallery.GalleryPickSuccessCallback">GalleryPickSuccessCallback</a></h1>
+<p>选择系统相册图片成功的回调</p>
+<pre class="prettyprint linenums">
+void onSuccess( file ) {
+	// Success code
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	系统相册中选择文件成功的回调函数，在选择文件操作成功时调用。
+	选择操作失败或取消选择不调用此方法。
+				</p>
+<h2>参数：</h2>
+<ul><li>file: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>选择的图片或视频文件路径<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.gallery.GallerySuccessCallback">GallerySuccessCallback</a></h1>
+<p>操作系统相册成功的回调</p>
+<pre class="prettyprint linenums">
+void onSuccess() {
+	// Success code
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	系统相册操作成功的回调函数，在保存文件到系统相册操作成功时调用。
+	选择操作失败或取消选择不调用此方法。
+				</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.gallery.GalleryErrorCallback">GalleryErrorCallback</a></h1>
+<p>系统相册操作失败的回调</p>
+<pre class="prettyprint linenums">
+void onError( error ) {
+	// Error code.
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	系统相册操作失败的回调函数，在选择或保存图片操作失败时调用。
+	选择图片时用户取消选择调用此方法。
+				</p>
+<h2>参数：</h2>
+<ul><li>error: 
+		<em>(
+			<a href="#DOMException">DOMException</a>
+			)
+			必选 </em>相册操作失败的错误信息<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无</div>
+</body>
+</html>

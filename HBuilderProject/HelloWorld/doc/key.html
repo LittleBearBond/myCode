@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body>
+<header><div class="nvbt iback" onclick="back();"></div>
+<div class="nvtt">Key Document</div></header><div id="content" class="content">
+<h1><a name="plus.key">key</a></h1>
+<p>Key管理设备按键事件</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.key.addEventListener">addEventListener</a>: 添加按键事件监听器</li>
+<li>
+<a href="#plus.key.removeEventListener">removeEventListener</a>: 移除按键事件监听器</li>
+</ul>
+<h2>对象：</h2>
+<ul><li>
+<a href="#plus.key.KeyType">KeyType</a>: 按键类型</li></ul>
+<h2>回调方法：</h2>
+<ul><li>
+<a href="#plus.key.KeyEventCallback">KeyEventCallback</a>: 按键事件的回调函数</li></ul>
+<h1><a name="plus.key.addEventListener">addEventListener</a></h1>
+<p>添加按键事件监听器</p>
+<pre class="prettyprint linenums">
+plus.key.addEventListener( keyevent, listener, capture );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	添加按键事件监听器，当指定的按键事件发生时，回调函数将触发。
+	应用中存在多个Webview窗口时，按照窗口的显示栈顺序从后往前查找，查找到添加按键事件监听器的窗口后停止（中断前面Webview窗口对按键事件的监听），并向窗口触发执行按键回调事件。
+	在同一Webview窗口中可多次调用此方法对同一事件添加多个监听器，触发时按照添加的顺序先后调用。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>event: 
+		<em>(
+			<a href="#plus.key.KeyType">KeyType</a>
+			)
+			必选 </em>要监听的按键事件类型<br>
+</li>
+<li>listener: 
+		<em>(
+			<a href="#plus.key.KeyEventCallback">KeyEventCallback</a>
+			)
+			必选 </em>监听按键事件发生时调用的回调函数<br>
+</li>
+<li>capture: 
+		<em>(
+			<a href="#Boolean">Boolean</a>
+			)
+			可选 </em>捕获按键事件流顺序，暂作为保留参数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Key Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 监听“返回”按钮事件
+function addEventTest() {
+	plus.key.addEventListener("backbutton",function(){
+		alert( "BackButton Key pressed!" );
+	});
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;button onclick="addEventTest()"&gt;监听“返回”按键&lt;/button&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.key.removeEventListener">removeEventListener</a></h1>
+<p>移除按键事件监听器</p>
+<pre class="prettyprint linenums">
+plus.key.removeEventListener( event, listener );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	从窗口移除指定的事件监听器。若没有查找到对应的事件监听器，则无任何作用。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>event: 
+		<em>(
+			<a href="#plus.key.KeyType">KeyType</a>
+			)
+			必选 </em>要移除的事件类型<br>
+</li>
+<li>listener: 
+		<em>(
+			<a href="#plus.key.EventCallback">EventCallback</a>
+			)
+			必选 </em>要移除回调函数对象<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Key Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+function onback(){
+	alert( "BackButton Key pressed!" );
+}
+// 监听“返回”按钮事件
+function addEventTest() {
+	plus.key.addEventListener("backbutton",onback);
+}
+// 取消监听“返回”按钮事件
+function removeEventTest(){
+	plus.key.removeEventListener("backbutton",onback);
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;button onclick="addEventTest()"&gt;监听“返回”按键&lt;/button&gt;
+		&lt;button onclick="removeEventTest()"&gt;取消监听“返回”按键&lt;/button&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.key.KeyType">KeyType</a></h1>
+<p>按键类型</p>
+<h2>常量：</h2>
+<ul>
+<li>"backbutton": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>设备“返回”按钮按键事件<br><p>	
+	如果需要改变默认“返回”按钮的处理逻辑，则可通过plus.key.addEventListener来注册监听"backbutton"事件。
+						</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持): 
+	默认处理逻辑为退出应用。
+								</li>
+<li>WP7.5+ (支持): 
+	默认处理逻辑为退出应用。
+								</li>
+</ul>
+</li>
+<li>"menubutton": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>设备“菜单”按钮按键事件<br><p>
+	如果需要改变默认“菜单”按钮的处理逻辑，则可通过plus.key.addEventListener来注册监听"menubutton"事件。
+						</p>
+<h3>平台支持</h3>
+<ul><li>Android2.2+ (支持): 
+	默认处理逻辑无操作。
+								</li></ul>
+</li>
+<li>"searchbutton": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>设备“搜索”按钮按键事件<br><p>
+	如果需要改变默认“搜索”按钮的处理逻辑，则可通过plus.key.addEventListener来注册监听"searchbutton"事件。
+						</p>
+<h3>平台支持</h3>
+<ul><li>Android2.2+ (支持): 
+	默认处理逻辑为打开系统搜索应用。
+								</li></ul>
+</li>
+<li>"volumeupbutton": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>设备“音量+”按钮按键事件<br>
+</li>
+<li>"volumedownbutton": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>设备“音量-”按钮按键事件<br>
+</li>
+</ul>
+<h1><a name="plus.key.KeyEventCallback">KeyEventCallback</a></h1>
+<p>按键事件的回调函数</p>
+<pre class="prettyprint linenums">
+void onKeyEvent( Event event ){
+	// Event handled code.
+	var key=event.keycode; // 用户按键的键值
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>event: 
+		<em>(
+			<a href="#Event">Event</a>
+			)
+			必选 </em>监听用户按键操作返回的数据<br>
+	可通过event的keycode属性（String类型）获取用户按键的类型，参考KeyType类型。
+						</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无</div>
+</body>
+</html>

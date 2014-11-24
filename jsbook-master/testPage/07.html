@@ -1,0 +1,65 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>点击弹出层以外的地方隐藏层 by 司徒正美</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style>
+          #taxiway{
+        width:800px;
+        height:100px;
+        background:#E8E8FF;
+        position: relative;
+    }
+    #move{
+        position: absolute;
+        left:0px;
+        width:100px;
+        height:100px;
+        background:#a9ea00;
+    }
+    </style>
+ 
+</head>
+<body>
+    <div id="taxiway">
+　　   <div id="move" ></div>
+</div>
+<script>
+window.onload = function() {
+    var el = document.getElementById("move");
+    var parent = document.getElementById("taxiway")
+    var change = parent.offsetWidth - el.offsetWidth;				//★总变化量
+    var begin = parseFloat(window.getComputedStyle(el, null).left);//★起始值
+    var end = begin + change;						//★结束值
+    var fps = 30;									//刷新率
+    var interval = 1000 / fps;						//每相隔多少ms刷新一次
+    var duration = 2000;							//★时长
+    var bounce = function(per) {						//★缓动公式，弹簧
+        if (per < (1 / 2.75)) {
+            return (7.5625 * per * per);
+        } else if (per < (2 / 2.75)) {
+            return (7.5625 * (per -= (1.5 / 2.75)) * per + .75);
+        } else if (per < (2.5 / 2.75)) {
+            return (7.5625 * (per -= (2.25 / 2.75)) * per + .9375);
+        } else {
+            return (7.5625 * (per -= (2.625 / 2.75)) * per + .984375);
+        }
+    }
+    el.onclick = function() {
+        var beginTime = new Date
+        var id = setInterval(function() {
+            var per = (new Date - beginTime) / duration;//★进度
+            if (per >= 1) {
+                el.style.left = end + "px";
+                clearInterval(id);
+            } else {
+                el.style.left = begin + bounce(per) * change + "px";
+            }
+        }, interval)
+    }
+}
+</script>
+</body>
+</html>

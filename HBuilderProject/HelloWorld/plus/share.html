@@ -1,0 +1,174 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<meta name="HandheldFriendly" content="true"/>
+		<meta name="MobileOptimized" content="320"/>
+		<title>Hello H5+</title>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript">
+var shares=null;
+var list=null,sharecontent=null,pic=null;
+// H5 plus事件处理
+function plusReady(){
+	if(shares||!list||!window.plus){
+		return;
+	}
+	// 扩展API加载完毕，现在可以正常调用扩展API
+	updateServices();
+}
+if(window.plus){
+	plusReady();
+}else{
+	document.addEventListener("plusready",plusReady,false);
+}
+// DOMContentLoaded事件处理
+document.addEventListener("DOMContentLoaded",function(){
+	list=document.getElementById("dlist");
+	sharecontent=document.getElementById("sharecontent");
+	pic=document.getElementById("pic");
+	plusReady();
+},false);
+/**
+ * 更新分享列表
+ */
+function updateServices(){
+	list.innerHTML="";
+	plus.share.getServices( function(ss){
+		shares = ss;
+		for( var i in ss ) {
+			var s = ss[i];
+			var item = document.createElement("li");
+			item.setAttribute( "class", "ditem" );
+			item.setAttribute( "onclick", (s.id=="weixin")?"shareWeiXin(this.plusShare)":"shareAction(this.plusShare)" );
+			item.innerText = s.description;
+			item.plusShare = s;
+			list.appendChild( item );
+		}
+	}, function(e){
+		outSet( "获取分享服务列表失败："+e.message );
+	} );
+}
+/**
+ * 分享操作
+ * @param {plus.share.ShareService} s
+ */
+function shareAction(s,ex) {
+	outSet( "分享操作：" );
+	if ( !s ) {
+		outLine( "无效的分享服务！" );
+		return;
+	}
+	if ( s.authenticated ) {
+		outLine( "---已授权---" );
+		shareMessage(s,ex);
+	} else {
+		outLine( "---未授权---" );
+		s.authorize( function(){
+				shareMessage(s,ex);
+			},function(e){
+			outLine( "认证授权失败："+e.code+" - "+e.message );
+		});
+	}
+}
+function shareWeiXin(s){
+	plus.ui.confirm( "微信分享", function(i){
+		switch(i){
+			case 0:
+			shareAction(s,"WXSceneSession");
+			break;
+			case 1:
+			shareAction(s,"WXSceneTimeline");
+			break;
+			default:
+			break;
+		}
+	},"",["分享到好友","分享到朋友圈","取消"]);
+}
+/**
+ * 发送分享消息
+ * @param {plus.share.ShareService} s
+ */
+function shareMessage(s,ex){
+	var msg={content:sharecontent.value,extra:{scene:ex}};
+	if(pic&&pic.realUrl){
+		msg.pictures=[pic.realUrl];
+	}
+	outLine(JSON.stringify(msg));
+	s.send( msg, function(){
+		outLine( "分享到\""+s.description+"\"成功！ " );
+	}, function(e){
+		outLine( "分享到\""+s.description+"\"失败: "+e.code+" - "+e.message );
+	} );
+}
+/**
+ * 解除所有分享服务的授权
+ */
+function cancelAuth(){try{
+	outSet( "解除授权：" );
+	for ( var i in shares ) {
+		var s = shares[i];
+		if ( s.authenticated ) {
+			outLine( "取消\""+s.description+"\"");
+		}
+		s.forbid();
+	}
+	// 取消授权后需要更新服务列表
+	updateServices();
+	outLine( "操作成功！" );}catch(e){alert(e);}
+}
+// 添加图片
+function changePicture(){
+	outSet("添加分享图片：");
+	var cmr=plus.camera.getCamera();
+	cmr.captureImage(function(p){
+		plus.io.resolveLocalFileSystemURL(p,function(entry){
+			pic.src=entry.toLocalURL();
+			pic.realUrl=pic.src;
+		},function(e){
+			outLine("读取拍照文件错误："+e.message);
+		} );
+	},function(e){
+		outLine( "拍照失败："+e.message );
+	});
+}
+// 分享Logo图片
+function changeLogo(){
+	outSet("添加默认分享图片：");
+	var url="_www/logo.png";
+	plus.io.resolveLocalFileSystemURL(url,function(entry){
+		pic.src=entry.toLocalURL();
+		pic.realUrl=url;
+	},function(e){
+		outLine("读取Logo文件错误："+e.message);
+	} );
+}
+		</script>
+		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8"/>
+	</head>
+	<body>
+		<header>
+			<div class="nvbt iback" onclick="back(true);"></div>
+			<div class="nvtt">Share</div>
+			<div class="nvbt idoc" onclick="clicked('../doc/share.html',true);"></div>
+		</header>
+		<div id="dcontent" class="dcontent">
+			<br/>
+			<p style="margin:0 10%;text-align:left;">分享内容：</p>
+			<textarea id="sharecontent" rows="3" style="width:80%;">我正在使用HBuilder工具开发的移动应用，欢迎大家一起来体验！http://www.dcloud.net.cn/</textarea>
+			<br/>
+			<img style="max-width:100px;max-height:100px;" src="../img/add.png" id="pic" onclick="changePicture();"></img>
+			<div style="width:50%;margin:0.3em auto;" class="button" onclick="changeLogo();">使用logo图标</div>
+			<br/>
+			<ul id="dlist" class="dlist">
+				<!--<li class="ditem" onclick="getOrient();">新浪微博</li>-->
+			</ul>
+			<br/>
+			<div class="button" onclick="cancelAuth();">解除授权</div>
+		</div>
+		<div id="output">
+Share模块管理客户端的社交分享功能，提供调用终端社交软件的分享能力。通过plus.share可获取社交分享管理对象。
+		</div>
+	</body>
+</html>

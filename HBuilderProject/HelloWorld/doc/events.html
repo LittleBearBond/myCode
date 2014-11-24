@@ -1,0 +1,319 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body>
+<header><div class="nvbt iback" onclick="back();"></div>
+<div class="nvtt">Events Document</div></header><div id="content" class="content">
+<h1><a name="plus.Events">Events</a></h1>
+<p>Events模块管理客户端事件，包括系统事件，如扩展API加载完毕、程序前后台切换等。</p>
+<h2>常量：</h2>
+<ul>
+<li>
+<a href="#plus.Events.%22plusready%22">"plusready"</a>: 扩展API加载完成事件</li>
+<li>
+<a href="#plus.Events.%22pause%22">"pause"</a>: 运行环境从前台切换到后台事件</li>
+<li>
+<a href="#plus.Events.%22resume%22">"resume"</a>: 运行环境从后台切换到前台事件</li>
+<li>
+<a href="#plus.Events.%22netchange%22">"netchange"</a>: 设备网络状态变化事件</li>
+<li>
+<a href="#plus.Events.%22newintent%22">"newintent"</a>: 新意图事件</li>
+</ul>
+<h2>方法：</h2>
+<ul><li>
+<a href="#plus.Events.addEventListener">addEventListener</a>: 添加事件监听函数</li></ul>
+<h2>回调方法：</h2>
+<ul><li>
+<a href="#plus.Events.EventTrigCallback">EventTrigCallback</a>: 事件触发回调</li></ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+			
+"Events": {
+	"description": "访问应用状态变化事件"
+}
+			
+			</pre>
+<h1><a name="plus.Events.%22plusready%22">"plusready"</a></h1>
+<p>扩展API加载完成事件</p>
+<pre class="prettyprint linenums">
+				
+document.addEventListener( "plusready", plusreadyCallback, capture );
+				
+				</pre>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+</p>
+<p>
+	为了保证扩展API的有效调用，所有应用页面都会用到的重要事件。
+	应用页面显示时需要首先加载扩展和API代码库，当扩展API代码库加载完成时会触发pluseready事件，当设备触发该事件后，用户就可以安全的调用扩展API。
+	如果程序中打开多个页面，每个都会收到此事件。
+				</p>
+<h3>平台支持</h3>
+<ul></ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+				
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Events Example&lt;/title&gt;
+	&lt;script type="text/javascript" &gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false ); 
+function onPlusReady() {
+	// 扩展API加载完毕，现在可以正常调用扩展API
+	// ...... 
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body &gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				
+				</pre>
+<h1><a name="plus.Events.%22pause%22">"pause"</a></h1>
+<p>运行环境从前台切换到后台事件</p>
+<pre class="prettyprint linenums">
+				
+document.addEventListener( "pause", pauseCallback, capture );
+				
+				</pre>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+</p>
+<p>
+	当程序从前台切换到后台时会触发此事件。
+	若应用需要处理从前台切换到后台的事件行为，可通过注册事件监听器来监听“pause”事件，此事件需要在plusready事件后通过document进行注册。
+				</p>
+<h3>平台支持</h3>
+<ul></ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+				
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Events Example&lt;/title&gt;
+	&lt;script type="text/javascript" &gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false ); 
+function onPlusReady() {
+	document.addEventListener( "pause", onAppPause, false );
+}
+function onAppPause() {
+	console.log( "Application paused!" ); 
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body &gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				
+				</pre>
+<h1><a name="plus.Events.%22resume%22">"resume"</a></h1>
+<p>运行环境从后台切换到前台事件</p>
+<pre class="prettyprint linenums">
+				
+document.addEventListener( "resume", resumeCallback, capture );
+				
+				</pre>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+</p>
+<p>
+	当程序从后台切换到前台时会触发此事件。
+	若应用需要处理从后台切换到前台的事件行为，可通过注册事件监听器来监听“resume”事件，此事件需要在plusready事件后通过document进行注册。
+				</p>
+<h3>平台支持</h3>
+<ul></ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+				
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Events Example&lt;/title&gt;
+	&lt;script type="text/javascript" &gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false ); 
+function onPlusReady() {
+	document.addEventListener( "resume", onAppReume, false );
+}
+function onAppReume() {
+	alert( "Application resumed!" ); 
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body &gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				
+				</pre>
+<h1><a name="plus.Events.%22netchange%22">"netchange"</a></h1>
+<p>设备网络状态变化事件</p>
+<pre class="prettyprint linenums">
+				
+document.addEventListener( "netchange", netchangeCallback, capture );
+				
+				</pre>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+</p>
+<p>
+	设备网络状态发生时会触发此事件。
+	若应用需要处理网络状态变化的事件行为，可通过注册事件监听器来监听“netchange”事件，此事件需要在plusready事件后通过document进行注册。
+				</p>
+<h3>平台支持</h3>
+<ul></ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+				
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Events Example&lt;/title&gt;
+	&lt;script type="text/javascript" &gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+function onPlusReady() {
+	document.addEventListener( "netchange", onNetChange, false );  
+}
+function onNetChange() {
+	var nt = plus.networkinfo.getConnectionType();
+	switch ( nt ) {
+		case plus.networkinfo.CONNECTION_ETHERNET:
+		case plus.networkinfo.CONNECTION_WIFI:
+		alert("Switch to Wifi networks!"); 
+		break; 
+		case plus.networkinfo.CONNECTION_CELL2G:
+		case plus.networkinfo.CONNECTION_CELL3G:
+		case plus.networkinfo.CONNECTION_CELL4G:
+		alert("Switch to Cellular networks!");  
+		break; 
+		default:
+		alert("Not networks!"); 
+		break;
+	}
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body &gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				
+				</pre>
+<h1><a name="plus.Events.%22newintent%22">"newintent"</a></h1>
+<p>新意图事件</p>
+<pre class="prettyprint linenums">
+				
+document.addEventListener( "newintent", newintentCallback, capture );
+				
+				</pre>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+</p>
+<p>
+	程序从后台被第三方程序调用并传入新意图事件。
+	此时程序将切换到前台运行，若应用需要处理新意图的事件行为，可通过注册事件监听器来监听“newintent”事件，此事件需要在plusready事件后通过document进行注册。
+				</p>
+<h3>平台支持</h3>
+<ul></ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+				
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;Events Example&lt;/title&gt;
+		&lt;script type="text/javascript" &gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+function onPlusReady() {
+	document.addEventListener( "newintent", onNetIntent, false );
+}
+function onNetIntent() {
+	// 获取新意图传入的参数
+	var args = plus.runtime.arguments;
+	// 处理意图事件
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body &gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				
+				</pre>
+<h1><a name="plus.Events.addEventListener">addEventListener</a></h1>
+<p>添加事件监听函数</p>
+<pre class="prettyprint linenums">
+				
+void document.addEventListener( event, callback, capture );
+				
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	通过Html中标准document对象的addEventListener方法添加扩展事件监听器，当指定事件发生时，将触发对应额监听回调函数。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>event: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>要添加监听的事件类型，可取上面列出的所有事件常量<br>
+</li>
+<li>callback: 
+		<em>(
+			<a href="#plus.Events.EventTrigCallback">EventTrigCallback</a>
+			)
+			必选 </em>扩展API加载完毕触发的回调函数<br>
+</li>
+<li>capture: 
+		<em>(
+			<a href="#Boolean">Boolean</a>
+			)
+			可选 </em>事件流捕获顺序，可忽略<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.Events.EventTrigCallback">EventTrigCallback</a></h1>
+<p>事件触发回调</p>
+<pre class="prettyprint linenums">
+				
+void onTrig() {
+	// Event trig code
+}
+				
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	指定事件触发时的回调函数，在指定的事件已经发生时调用。
+				</p>
+<h2>参数：</h2>
+<ul></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无</div>
+</body>
+</html>

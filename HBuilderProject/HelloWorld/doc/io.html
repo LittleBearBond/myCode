@@ -1,0 +1,2404 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body>
+<header><div class="nvbt iback" onclick="back();"></div>
+<div class="nvtt">File System Document</div></header><div id="content" class="content">
+<h1><a name="plus.io">io</a></h1>
+<p>File模块管理本地文件系统，用于对文件系统的目录浏览、文件的读取、文件的写入等操作。通过plus.io可获取文件系统管理对象。</p>
+<h2>常量：</h2>
+<ul>
+<li>
+<a href="#plus.io.PRIVATE_WWW">PRIVATE_WWW</a>: 应用运行资源目录常量</li>
+<li>
+<a href="#plus.io.PRIVATE_DOC">PRIVATE_DOC</a>: 应用私有文档目录常量</li>
+<li>
+<a href="#plus.io.PUBLIC_DOCUMENTS">PUBLIC_DOCUMENTS</a>: 程序公用文档目录常量</li>
+<li>
+<a href="#plus.io.PUBLIC_DOWNLOADS">PUBLIC_DOWNLOADS</a>: 程序公用下载目录常量</li>
+</ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.io.requestFileSystem">requestFileSystem</a>: 请求本地文件系统对象</li>
+<li>
+<a href="#plus.io.resolveLocalFileSystemURL">resolveLocalFileSystemURL</a>: 通过URL参数获取目录对象或文件对象</li>
+<li>
+<a href="#plus.io.convertLocalFileSystemURL">convertLocalFileSystemURL</a>: 将本地URL路径转换成平台绝对路径</li>
+<li>
+<a href="#plus.io.convertAbsoluteFileSystem">convertAbsoluteFileSystem</a>: 将平台绝对路径转换成本地URL路径</li>
+</ul>
+<h2>对象：</h2>
+<ul>
+<li>
+<a href="#plus.io.DirectoryEntry">DirectoryEntry</a>: 文件系统中的目录对象，用于管理特定的本地目录</li>
+<li>
+<a href="#plus.io.DirectoryReader">DirectoryReader</a>: 读取目录信息对象，用于获取目录中包含的文件及子目录</li>
+<li>
+<a href="#plus.io.File">File</a>: 文件系统中的文件数据对象，用于获取文件的数据</li>
+<li>
+<a href="#plus.io.FileEntry">FileEntry</a>: 文件系统中的文件对象，用于管理特定的本地文件</li>
+<li>
+<a href="#plus.io.FileReader">FileReader</a>: 文件系统中的读取文件对象，用于获取文件的内容</li>
+<li>
+<a href="#plus.io.FileWriter">FileWriter</a>: 文件系统中的写文件对象，用于写入文件内容</li>
+<li>
+<a href="#plus.io.FileSystem">FileSystem</a>: 文件系统对象，用于管理特定本地文件目录</li>
+<li>
+<a href="#plus.io.Flags">Flags</a>: JSON对象，获取文件操作的参数</li>
+<li>
+<a href="#plus.io.Metadata">Metadata</a>: JSON对象，保存文件或目录的状态信息对象</li>
+<li>
+<a href="#plus.io.FileEvent">FileEvent</a>: 文件或目录操作事件对象</li>
+<li>
+<a href="#plus.io.URLType">URLType</a>: 文件路径类型</li>
+<li>
+<a href="#plus.io.RelativeURL">RelativeURL</a>: 相对路径URL</li>
+<li>
+<a href="#plus.io.LocalURL">LocalURL</a>: 本地路径URL</li>
+<li>
+<a href="#plus.io.RemoteURL">RemoteURL</a>: 网络路径URL</li>
+</ul>
+<h2>回调方法：</h2>
+<ul>
+<li>
+<a href="#plus.io.FileEventCallback">FileEventCallback</a>: 文件事件回调</li>
+<li>
+<a href="#plus.io.FileSystemSuccessCallback">FileSystemSuccessCallback</a>: 请求文件系统成功的回调函数</li>
+<li>
+<a href="#plus.io.FileResolveSuccessCallback">FileResolveSuccessCallback</a>: 通过URL参数获取目录或文件对象成功的回调函数</li>
+<li>
+<a href="#plus.io.MetadataSuccessCallback">MetadataSuccessCallback</a>: 获取文件或目录状态信息成功的回调函数</li>
+<li>
+<a href="#plus.io.EntrySuccessCallback">EntrySuccessCallback</a>: 操作文件或目录对象成功的回调函数</li>
+<li>
+<a href="#plus.io.EntrysSuccessCallback">EntrysSuccessCallback</a>: 操作文件或目录对象数组成功的回调函数</li>
+<li>
+<a href="#plus.io.FileWriterSuccessCallback">FileWriterSuccessCallback</a>: 写文件操作成功的回调函数</li>
+<li>
+<a href="#plus.io.FileSuccessCallback">FileSuccessCallback</a>: 文件操作成功的回调函数</li>
+<li>
+<a href="#plus.io.FileErrorCallback">FileErrorCallback</a>: 文件操作失败的回调函数</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"File": {
+	"description": "访问本地文件系统"
+}
+			</pre>
+<h1><a name="plus.io.PRIVATE_WWW">PRIVATE_WWW</a></h1>
+<p>应用运行资源目录常量</p>
+<pre class="prettyprint linenums">
+plus.io.PRIVATE_WWW;
+				</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p>
+	本地文件系统常量，Number类型，固定值1。应用运行资源目录，仅本应用可访问。
+				</p>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;File Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	plus.io.requestFileSystem( plus.io.PRIVATE_WWW, function( fs ) {
+		// 可通过fs操作PRIVATE_WWW文件系统 
+		// ......
+	}, function ( e ) {
+		alert( "Request file system failed: " + e.message );
+	} );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		Local file system
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.io.PRIVATE_DOC">PRIVATE_DOC</a></h1>
+<p>应用私有文档目录常量</p>
+<pre class="prettyprint linenums">
+plus.io.PRIVATE_DOC;
+				</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p>
+	本地文件系统常量，Number类型，固定值2。应用私有文档目录，仅本应用可访问。
+				</p>
+<h3>平台支持</h3>
+<ul></ul>
+<h1><a name="plus.io.PUBLIC_DOCUMENTS">PUBLIC_DOCUMENTS</a></h1>
+<p>程序公用文档目录常量</p>
+<pre class="prettyprint linenums">
+plus.io.PUBLIC_DOCUMENTS;
+				</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p>
+	本地文件系统常量，Number类型，固定值3。程序公用文档目录，所有应用可访问。
+				</p>
+<h3>平台支持</h3>
+<ul></ul>
+<h1><a name="plus.io.PUBLIC_DOWNLOADS">PUBLIC_DOWNLOADS</a></h1>
+<p>程序公用下载目录常量</p>
+<pre class="prettyprint linenums">
+plus.io.PUBLIC_DOWNLOADS;
+				</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p>
+	本地文件系统常量，Number类型，固定值4。程序公用下载目录，所有应用可访问。
+				</p>
+<h3>平台支持</h3>
+<ul></ul>
+<h1><a name="plus.io.requestFileSystem">requestFileSystem</a></h1>
+<p>请求本地文件系统对象</p>
+<pre class="prettyprint linenums">
+void plus.io.requestFileSystem( type, succesCB, errorCB );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	获取指定的文件系统，可通过type指定获取文件系统的类型。
+	获取指定的文件系统对象成功通过succesCB回调返回，失败则通过errorCB返回。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>type: 
+		<em>(
+			<a href="#Number">Number</a>
+			)
+			必选 </em>本地文件系统常量<br>可取plus.io下的常量，如plus.io.PRIVATE_DOC、plus.io.PUBLIC_DOCUMENTS等。</li>
+<li>succesCB: 
+		<em>(
+			<a href="#plus.io.FileSystemSuccessCallback">FileSystemSuccessCallback</a>
+			)
+			必选 </em>请求文件系统成功的回调<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.io.FileErrorCallback">FileErrorCallback</a>
+			)
+			可选 </em>请求文件系统失败的回调<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;File Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	plus.io.requestFileSystem( plus.io.PRIVATE_WWW, function( fs ) {
+		// 可通过fs进行文件操作 
+		alert( "Request file system success!" );
+	}, function ( e ) {
+		alert( "Request file system failed: " + e.message );
+	} );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		Request file system
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.io.resolveLocalFileSystemURL">resolveLocalFileSystemURL</a></h1>
+<p>通过URL参数获取目录对象或文件对象</p>
+<pre class="prettyprint linenums">
+void plus.io.resolveLocalFileSystemURL( url, succesCB, errorCB );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	快速获取指定的目录或文件操作对象，如通过URL值“_www/test.html”可直接获取文件操作对象。
+	url值可支持相对路径URL、本地路径URL、网络路径URL(http://localhost:13131/开头)。
+	获取指定的文件或目录操作对象成功通过succesCB回调返回，如果指定URL路径或文件不存在则失败通过errorCB回调返回。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>url : 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>要操作文件或目录的URL地址<br>
+</li>
+<li>succesCB: 
+		<em>(
+			<a href="#plus.io.FileResolveSuccessCallback">FileResolveSuccessCallback</a>
+			)
+			必选 </em>获取操作文件或目录对象成功的回调函数<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.io.FileErrorCallback">FileErrorCallback</a>
+			)
+			可选 </em>获取操作文件或目录对象失败的回调函数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;File Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	plus.io.resolveLocalFileSystemURL( "_www/test.html", function( entry ) {
+		// 可通过entry对象操作test.html文件 
+		entry.file( function(file){
+			var fileReader = new plus.io.FileReader();
+			alert("getFile:" + JSON.stringify(file));
+			fileReader.readAsText(file, 'utf-8');
+			fileReader.onloadend = function(evt) {
+				alert("11" + evt);
+				alert("evt.target" + evt.target);
+				alert(evt.target.result);
+			}
+			alert(file.size + '--' + file.name);
+		} );
+	}, function ( e ) {
+		alert( "Resolve file URL failed: " + e.message );
+	} );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		Request file system
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.io.convertLocalFileSystemURL">convertLocalFileSystemURL</a></h1>
+<p>将本地URL路径转换成平台绝对路径</p>
+<pre class="prettyprint linenums">
+String plus.io.convertLocalFileSystemURL( url );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	绝对路径符合各平台文件路径格式，通常用于系统原生文件操作API。
+				</p>
+<h2>参数：</h2>
+<ul><li>url: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			必选 </em>要转换的文件或目录URL地址<br>URL地址必须是合法的路径，如果地址不合法则返回null。</li></ul>
+<h2>返回值：</h2>
+<a href="#String">String</a>
+			: 转换后的平台路径<h1><a name="plus.io.convertAbsoluteFileSystem">convertAbsoluteFileSystem</a></h1>
+<p>将平台绝对路径转换成本地URL路径</p>
+<pre class="prettyprint linenums">
+String plus.io.convertAbsoluteFileSystem( path );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	绝对路径符合各平台文件路径格式，转换后变成RelativeURL类型格式。
+				</p>
+<h2>参数：</h2>
+<ul><li>path: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			必选 </em>要转换的平台绝对路径<br>绝对路径必须是合法的路径，如果绝对路径不合法则返回null。</li></ul>
+<h2>返回值：</h2>
+<a href="#DOMString">DOMString</a>
+			: 转换后本地URL路径<h1><a name="plus.io.DirectoryEntry">DirectoryEntry</a></h1>
+<p>文件系统中的目录对象，用于管理特定的本地目录</p>
+<h2>属性：</h2>
+<ul>
+<li>
+<a href="#plus.io.DirectoryEntry.isFile">isFile</a>: 操作对象的是否为文件，DirectoryEntry对象固定其值为false</li>
+<li>
+<a href="#plus.io.DirectoryEntry.isDirectory">isDirectory</a>: 操作对象是否为目录，DirectoryEntry对象固定其值为true</li>
+<li>
+<a href="#plus.io.DirectoryEntry.name">name</a>: 目录操作对象的名称，不包括路径</li>
+<li>
+<a href="#plus.io.DirectoryEntry.fullPath">fullPath</a>: 目录操作对象的完整路径，文件系统的绝对路径</li>
+<li>
+<a href="#plus.io.DirectoryEntry.fileSystem">fileSystem</a>: 文件操作对象所属的文件系统对象，参考FileSystem</li>
+</ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.io.DirectoryEntry.getMetadata">getMetadata</a>: 获取目录的属性</li>
+<li>
+<a href="#plus.io.DirectoryEntry.moveTo">moveTo</a>: 移动目录</li>
+<li>
+<a href="#plus.io.DirectoryEntry.copyTo">copyTo</a>: 拷贝目录</li>
+<li>
+<a href="#plus.io.DirectoryEntry.toURL">toURL</a>: 获取目录路径转换为URL地址</li>
+<li>
+<a href="#plus.io.DirectoryEntry.toLocalURL">toLocalURL</a>: 获取目录路径转换为本地路径URL地址</li>
+<li>
+<a href="#plus.io.DirectoryEntry.toRemoteURL">toRemoteURL</a>: 获取目录路径转换为网络路径URL地址</li>
+<li>
+<a href="#plus.io.DirectoryEntry.remove">remove</a>: 删除目录</li>
+<li>
+<a href="#plus.io.DirectoryEntry.getParent">getParent</a>: 获取目录所属的父目录</li>
+<li>
+<a href="#plus.io.DirectoryEntry.createReader">createReader</a>: 创建目录读取对象</li>
+<li>
+<a href="#plus.io.DirectoryEntry.getDirectory">getDirectory</a>: 创建或打开子目录</li>
+<li>
+<a href="#plus.io.DirectoryEntry.getFile">getFile</a>: 创建或打开文件</li>
+<li>
+<a href="#plus.io.DirectoryEntry.removeRecursively">removeRecursively</a>: 递归删除目录</li>
+</ul>
+<h1><a name="plus.io.DirectoryEntry.isFile">isFile</a></h1>
+<p>操作对象的是否为文件，DirectoryEntry对象固定其值为false</p>
+<h2>说明：</h2>
+<p><a href="#Boolean">Boolean</a>
+	类型
+ 只读属性</p>
+<p></p>
+<h1><a name="plus.io.DirectoryEntry.isDirectory">isDirectory</a></h1>
+<p>操作对象是否为目录，DirectoryEntry对象固定其值为true</p>
+<h2>说明：</h2>
+<p><a href="#Boolean">Boolean</a>
+	类型
+ 只读属性</p>
+<p></p>
+<h1><a name="plus.io.DirectoryEntry.name">name</a></h1>
+<p>目录操作对象的名称，不包括路径</p>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 只读属性</p>
+<p></p>
+<h1><a name="plus.io.DirectoryEntry.fullPath">fullPath</a></h1>
+<p>目录操作对象的完整路径，文件系统的绝对路径</p>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 只读属性</p>
+<p></p>
+<h1><a name="plus.io.DirectoryEntry.fileSystem">fileSystem</a></h1>
+<p>文件操作对象所属的文件系统对象，参考FileSystem</p>
+<h2>说明：</h2>
+<p><a href="#FileSystem">FileSystem</a>
+	类型
+ 只读属性</p>
+<p></p>
+<h1><a name="plus.io.DirectoryEntry.getMetadata">getMetadata</a></h1>
+<p>获取目录的属性</p>
+<pre class="prettyprint linenums">
+entry.getMetadata( successCB, errorCB, recursive );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	用于获取文件或目录的属性信息。
+	获取属性信息成功通过succesCB回调返回，失败则通过errorCB返回。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>succesCB: 
+		<em>(
+			<a href="#plus.io.MetadataSuccessCallback">MetadataSuccessCallback</a>
+			)
+			必选 </em>获取文件或目录属性信息成功的回调<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.io.FileErrorCallback">FileErrorCallback</a>
+			)
+			必选 </em>获取文件或目录属性信息失败的回调<br>
+</li>
+<li>recursive: 
+		<em>(
+			<a href="#Boolean">Boolean</a>
+			)
+			必选 </em>是否递归计算目录信息<br>true为递归计算获取信息，false不递归计算获取，默认值为false。</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// Request the metadata object for this entry
+entry.getMetadata( function ( metadata ) {
+	plus.console.log("Last Modified: " + metadata.modificationTime);
+}, function () {
+	alert( e.message );
+} );
+						</pre>
+<h1><a name="plus.io.DirectoryEntry.moveTo">moveTo</a></h1>
+<p>移动目录</p>
+<pre class="prettyprint linenums">
+entry.moveTo( parent, newName, succesCB, errorCB );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	以下情况移动目录将会导致失败：
+	将父目录移动到子目录中；
+	要移动到的目标目录无效；
+	要移动到的目标路径被文件占用；
+	要移动到的目标目录已经存在并且不为空。
+	移动目录成功通过succesCB回调返回，失败则通过errorCB返回。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>parent: 
+		<em>(
+			<a href="#plus.io.DirectoryEntry">DirectoryEntry</a>
+			)
+			必选 </em>要移动到的目标目录<br>
+</li>
+<li>newName: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>移动后的目录名称，默认为原始目录名称<br>
+</li>
+<li>succesCB: 
+		<em>(
+			<a href="#plus.io.EntrySuccessCallback">EntrySuccessCallback</a>
+			)
+			可选 </em>移动目录成功的回调函数<br>回调函数中的参数保存新的目录对象。</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.io.FileErrorCallback">FileErrorCallback</a>
+			)
+			可选 </em>移动目录失败的回调函数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+function moveDirecty(srcEntry,dstEntry) {
+	var newName = document.getElementById('newName').value,
+
+	// move the directory to a new directory and rename it
+	srcEntry.moveTo( dstEntry, newName, function( entry ) {
+		plus.console.log("New Path: " + entry.fullPath);
+	}, function ( e ) {
+		alert( e.message );
+	} );
+}
+						</pre>
+<h1><a name="plus.io.DirectoryEntry.copyTo">copyTo</a></h1>
+<p>拷贝目录</p>
+<pre class="prettyprint linenums">
+entry.copyTo( parent, newName, succesCB, errorCB );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	以下情况拷贝目录将会导致失败：
+	将父目录拷贝到子目录中；
+	要拷贝到的目标目录无效；
+	要拷贝到的目标路径被文件占用；
+	要拷贝到的目标目录已经存在并且不为空。
+	拷贝目录成功通过succesCB回调返回，失败则通过errorCB返回。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>parent: 
+		<em>(
+			<a href="#plus.io.DirectoryEntry">DirectoryEntry</a>
+			)
+			必选 </em>要拷贝到的目标目录<br>
+</li>
+<li>newName: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>拷贝后的目录名称，默认为原始目录名称<br>
+</li>
+<li>succesCB: 
+		<em>(
+			<a href="#plus.io.EntrySuccessCallback">EntrySuccessCallback</a>
+			)
+			可选 </em>拷贝目录成功的回调函数<br>回调函数中的参数保存新的目录对象。</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.io.FileErrorCallback">FileErrorCallback</a>
+			)
+			可选 </em>拷贝目录失败的回调函数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+function copyDirecty(srcEntry,dstEntry){
+	var newName = document.getElementById('newName').value,
+
+	// copy the directory to a new directory and rename it
+	srcEntry.copyTo( dstEntry, newName, function( entry ){
+		plus.console.log("New Path: " + entry.fullPath);
+	}, function( e ){
+		alert( e.message );
+	} );
+}
+						</pre>
+<h1><a name="plus.io.DirectoryEntry.toURL">toURL</a></h1>
+<p>获取目录路径转换为URL地址</p>
+<pre class="prettyprint linenums">
+DOMString entry.toURL();
+						</pre>
+<h2>参数：</h2>
+<ul></ul>
+<h2>返回值：</h2>
+<a href="#DOMString">DOMString</a>
+			: 格式为相对路径URL<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// Get the URL for this directory
+var dirURL = entry.toURL();
+plus.console.log(dirURL);
+						</pre>
+<h1><a name="plus.io.DirectoryEntry.toLocalURL">toLocalURL</a></h1>
+<p>获取目录路径转换为本地路径URL地址</p>
+<pre class="prettyprint linenums">
+DOMString entry.toLocalURL();
+						</pre>
+<h2>参数：</h2>
+<ul></ul>
+<h2>返回值：</h2>
+<a href="#DOMString">DOMString</a>
+			: 格式为本地路径URL<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// Get the local URL for this directory
+var dirURL = entry.toLocalURL();
+plus.console.log(dirURL);
+						</pre>
+<h1><a name="plus.io.DirectoryEntry.toRemoteURL">toRemoteURL</a></h1>
+<p>获取目录路径转换为网络路径URL地址</p>
+<pre class="prettyprint linenums">
+DOMString entry.toRemoteURL();
+						</pre>
+<h2>参数：</h2>
+<ul></ul>
+<h2>返回值：</h2>
+<a href="#DOMString">DOMString</a>
+			: 
+	URL地址格式为以“http://localhost:13131/”开头的网络路径。
+							<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// Get the remote URL for this directory
+var dirURL = entry.toRemoteURL();
+plus.console.log(dirURL);
+						</pre>
+<h1><a name="plus.io.DirectoryEntry.remove">remove</a></h1>
+<p>删除目录</p>
+<pre class="prettyprint linenums">
+entry.remove( succesCB, errorCB );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	以下情况删除目录将会导致失败：
+	目录中存在文件；
+	删除根目录；
+	删除目录成功通过succesCB回调返回，失败则通过errorCB返回。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>succesCB: 
+		<em>(
+			<a href="#plus.io.EntrySuccessCallback">EntrySuccessCallback</a>
+			)
+			可选 </em>删除目录成功的回调函数<br>回调函数中无参数。</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.io.FileErrorCallback">FileErrorCallback</a>
+			)
+			可选 </em>删除目录失败的回调函数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// remove this directory
+entry.remove( function ( entry ) {
+	plus.console.log( "Remove succeeded" );
+}, function ( e ) {
+	alert( e.message );
+} );
+						</pre>
+<h1><a name="plus.io.DirectoryEntry.getParent">getParent</a></h1>
+<p>获取目录所属的父目录</p>
+<pre class="prettyprint linenums">
+entry.getParent( succesCB, errorCB );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	获取父目录成功通过succesCB回调返回，失败则通过errorCB返回。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>succesCB: 
+		<em>(
+			<a href="#plus.io.EntrySuccessCallback">EntrySuccessCallback</a>
+			)
+			可选 </em>获取父目录成功的回调函数<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.io.FileErrorCallback">FileErrorCallback</a>
+			)
+			可选 </em>获取父目录失败的回调函数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// Get the parent DirectoryEntry
+entry.getParent( function ( entry ) {
+	plus.console.log( "Parent Name: " + entry.name );
+}, function ( e ) {
+	alert( e.message );
+} );
+						</pre>
+<h1><a name="plus.io.DirectoryEntry.createReader">createReader</a></h1>
+<p>创建目录读取对象</p>
+<pre class="prettyprint linenums">
+DirectoryReader entry.createReader();
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	创建一个目录读取对象，用户读取目下的文件及子目录。
+						</p>
+<h2>参数：</h2>
+<ul></ul>
+<h2>返回值：</h2>
+<a href="#plus.io.DirectoryReader">DirectoryReader</a>
+			: 目录读取对象<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// create a directory reader
+var directoryReader = entry.createReader();
+						</pre>
+<h1><a name="plus.io.DirectoryEntry.getDirectory">getDirectory</a></h1>
+<p>创建或打开子目录</p>
+<pre class="prettyprint linenums">
+entry.getDirectory( path, flag, succesCB, errorCB );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	创建或打开当前目录指定的目录。
+	创建或打开目录操作成功通过succesCB回调返回，失败则通过errorCB返回。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>path: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>要操作目录相对于当前目录的地址<br>
+</li>
+<li>flag: 
+		<em>(
+			<a href="#plus.io.Flags">Flags</a>
+			)
+			可选 </em>要操作文件或目录的参数<br>
+</li>
+<li>succesCB: 
+		<em>(
+			<a href="#plus.io.EntrySuccessCallback">EntrySuccessCallback</a>
+			)
+			可选 </em>创建或打开目录成功的回调函数<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.io.FileErrorCallback">FileErrorCallback</a>
+			)
+			可选 </em>创建或打开目录失败的回调函数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// Retrieve an existing directory, or create it if it does not already exist
+entry.getDirectory( "newDir", {create:true,exclusive:false}, function( dir ){
+	console.log("Directory Entry Name: " + dir.name);
+}, function () {
+	alert( e.message );
+} );
+						</pre>
+<h1><a name="plus.io.DirectoryEntry.getFile">getFile</a></h1>
+<p>创建或打开文件</p>
+<pre class="prettyprint linenums">
+entry.getFile( path, flag, succesCB, errorCB );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	创建或打开当前目录下指定的文件。
+	创建或打开文件操作对象成功通过succesCB回调返回，失败则通过errorCB返回。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>path: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>要操作文件相对于当前目录的地址<br>
+</li>
+<li>flag: 
+		<em>(
+			<a href="#plus.io.Flags">Flags</a>
+			)
+			可选 </em>要操作文件或目录的参数<br>
+</li>
+<li>succesCB: 
+		<em>(
+			<a href="#plus.io.EntrySuccessCallback">EntrySuccessCallback</a>
+			)
+			可选 </em>创建或打开文件成功的回调函数<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.io.FileErrorCallback">FileErrorCallback</a>
+			)
+			可选 </em>创建或打开文件失败的回调函数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;File Example&lt;/title&gt;
+&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	plus.io.requestFileSystem( plus.io.PRIVATE_WWW, function(fs){
+		// fs.root是根目录操作对象DirectoryEntry
+		fs.root.getFile('config.xml',{create:true}, function(fileEntry){
+			fileEntry.file( function(file){
+				var fileReader = new plus.io.FileReader();
+				alert("getFile:" + JSON.stringify(file));
+				fileReader.readAsText(file, 'utf-8');
+				fileReader.onloadend = function(evt) {
+					alert("11" + evt);
+					alert("evt.target" + evt.target);
+					alert(evt.target.result);
+				}
+				alert(file.size + '--' + file.name);
+			} );
+		});
+	} );
+}
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+Request file system
+&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.io.DirectoryEntry.removeRecursively">removeRecursively</a></h1>
+<p>递归删除目录</p>
+<pre class="prettyprint linenums">
+entry.removeRecursively( succesCB, errorCB );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	删除目录将会删除其下的所有文件及子目录
+	不能删除根目录，如果操作删除根目录将会删除目录下的文件及子目录，不会删除根目录自身。
+	删除目录成功通过succesCB回调返回，失败则通过errorCB返回。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>succesCB: 
+		<em>(
+			<a href="#plus.io.EntrySuccessCallback">EntrySuccessCallback</a>
+			)
+			可选 </em>删除目录成功的回调函数<br>回调函数中无参数。</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.io.FileErrorCallback">FileErrorCallback</a>
+			)
+			可选 </em>删除目录失败的回调函数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// remove the directory and all it's contents
+entry.removeRecursively( function ( entry ) {
+	plus.console.log( "Remove Recursively Succeeded" );
+}, function ( e ) {
+	alert( e.message );
+} );
+						</pre>
+<h1><a name="plus.io.DirectoryReader">DirectoryReader</a></h1>
+<p>读取目录信息对象，用于获取目录中包含的文件及子目录</p>
+<h2>方法：</h2>
+<ul><li>
+<a href="#plus.io.DirectoryReader.readEntries">readEntries</a>: 获取当前目录中的所有文件和子目录</li></ul>
+<h1><a name="plus.io.DirectoryReader.readEntries">readEntries</a></h1>
+<p>获取当前目录中的所有文件和子目录</p>
+<pre class="prettyprint linenums">
+directoryReader.readEntries( succesCB, errorCB );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	获取当前目录下的所有文件和子目录。
+	获取操作成功通过succesCB回调返回，失败则通过errorCB返回。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>succesCB: 
+		<em>(
+			<a href="#plus.io.EntrySuccessCallback">EntrySuccessCallback</a>
+			)
+			可选 </em>获取成功的回调函数<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.io.FileErrorCallback">FileErrorCallback</a>
+			)
+			可选 </em>获取失败的回调函数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;File Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	plus.io.requestFileSystem( plus.io.PRIVATE_WWW, function(fs){
+		// fs.root是根目录操作对象DirectoryEntry
+		// 创建读取目录信息对象 
+		var directoryReader = fs.root.createReader();
+		directoryReader.readEntries( function( entries ){
+			var i;
+			for( i=0; i &lt; entries.length; i++ ) {
+				alert( entries[i].name );
+			}
+		}, function ( e ) {
+			alert( "Read entries failed: " + e.message );
+		} );
+	} );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		Request file system
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.io.File">File</a></h1>
+<p>文件系统中的文件数据对象，用于获取文件的数据</p>
+<h2>属性：</h2>
+<ul>
+<li>
+<a href="#plus.io.File.size">size</a>: 文件数据对象的数据大小，单位为字节</li>
+<li>
+<a href="#plus.io.File.type">type</a>: 文件数据对象MIME类型</li>
+<li>
+<a href="#plus.io.File.name">name</a>: 文件数据对象的名称，不包括路径</li>
+<li>
+<a href="#plus.io.File.lastModifiedDate">lastModifiedDate</a>: 文件对象的最后修改时间</li>
+</ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.io.File.slice">slice</a>: 获取文件指定的数据内容</li>
+<li>
+<a href="#plus.io.File.close">close</a>: 关闭文件数据对象</li>
+</ul>
+<h1><a name="plus.io.File.size">size</a></h1>
+<p>文件数据对象的数据大小，单位为字节</p>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+ 只读属性</p>
+<p></p>
+<h1><a name="plus.io.File.type">type</a></h1>
+<p>文件数据对象MIME类型</p>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 只读属性</p>
+<p></p>
+<h1><a name="plus.io.File.name">name</a></h1>
+<p>文件数据对象的名称，不包括路径</p>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 只读属性</p>
+<p></p>
+<h1><a name="plus.io.File.lastModifiedDate">lastModifiedDate</a></h1>
+<p>文件对象的最后修改时间</p>
+<h2>说明：</h2>
+<p><a href="#Date">Date</a>
+	类型
+ 只读属性</p>
+<p></p>
+<h1><a name="plus.io.File.slice">slice</a></h1>
+<p>获取文件指定的数据内容</p>
+<pre class="prettyprint linenums">
+file.slice( start, end );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	获取文件指定的数据内容，其中end必须大于start。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>start: 
+		<em>(
+			<a href="#Number">Number</a>
+			)
+			可选 </em>获取文件数据的其实位置<br>
+</li>
+<li>end: 
+		<em>(
+			<a href="#Number">Number</a>
+			)
+			可选 </em>获取文件数据的结束位置<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#plus.io.File">File</a>
+			: 指定数据内容的文件对象<h2>示例：</h2>
+<pre class="prettyprint linenums">
+var slice1 = file.slice(100, 400);
+var slice2 = slice1.slice(20, 35);
+var slice3 = file.slice(120, 135);
+// slice2 and slice3 are equivalent.
+						</pre>
+<h1><a name="plus.io.File.close">close</a></h1>
+<p>关闭文件数据对象</p>
+<pre class="prettyprint linenums">
+file.close();
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	当文件数据对象不再使用时，可通过此方法关闭，释放系统资源。
+						</p>
+<h2>参数：</h2>
+<ul></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+var slice1 = file.slice(100, 400);
+var slice2 = slice1.slice(20, 35);
+var slice3 = file.slice(120, 135);
+// slice2 and slice3 are equivalent.
+// ......
+slice3.close();
+						</pre>
+<h1><a name="plus.io.FileEntry">FileEntry</a></h1>
+<p>文件系统中的文件对象，用于管理特定的本地文件</p>
+<h2>属性：</h2>
+<ul>
+<li>
+<a href="#plus.io.FileEntry.isFile">isFile</a>: 文件操作对象的是否为文件，FileEntry对象固定其值为true</li>
+<li>
+<a href="#plus.io.FileEntry.isDirectory">isDirectory</a>: 文件操作对象是否为目录，FileEntry对象固定其值为false</li>
+<li>
+<a href="#plus.io.FileEntry.name">name</a>: 文件操作对象的名称，不包括路径</li>
+<li>
+<a href="#plus.io.FileEntry.fullPath">fullPath</a>: 文件操作对象的完整路径，文件系统的绝对路径</li>
+<li>
+<a href="#plus.io.FileEntry.fileSystem">fileSystem</a>: 文件操作对象所属的文件系统对象，参考FileSystem</li>
+</ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.io.FileEntry.getMetadata">getMetadata</a>: 获取文件的属性信息</li>
+<li>
+<a href="#plus.io.FileEntry.moveTo">moveTo</a>: 移动文件</li>
+<li>
+<a href="#plus.io.FileEntry.copyTo">copyTo</a>: 拷贝文件</li>
+<li>
+<a href="#plus.io.FileEntry.toURL">toURL</a>: 获取文件路径转换为URL地址</li>
+<li>
+<a href="#plus.io.FileEntry.toLocalURL">toLocalURL</a>: 获取文件路径转换为本地路径URL地址</li>
+<li>
+<a href="#plus.io.FileEntry.toRemoteURL">toRemoteURL</a>: 获取文件路径转换为网络路径URL地址</li>
+<li>
+<a href="#plus.io.FileEntry.remove">remove</a>: 删除文件</li>
+<li>
+<a href="#plus.io.FileEntry.getParent">getParent</a>: 获取文件所属的父目录</li>
+<li>
+<a href="#plus.io.FileEntry.createWriter">createWriter</a>: 获取文件关联的写文件操作对象FileWriter</li>
+<li>
+<a href="#plus.io.FileEntry.file">file</a>: 获取文件数据对象</li>
+</ul>
+<h1><a name="plus.io.FileEntry.isFile">isFile</a></h1>
+<p>文件操作对象的是否为文件，FileEntry对象固定其值为true</p>
+<h2>说明：</h2>
+<p><a href="#Boolean">Boolean</a>
+	类型
+ 只读属性</p>
+<p></p>
+<h1><a name="plus.io.FileEntry.isDirectory">isDirectory</a></h1>
+<p>文件操作对象是否为目录，FileEntry对象固定其值为false</p>
+<h2>说明：</h2>
+<p><a href="#Boolean">Boolean</a>
+	类型
+ 只读属性</p>
+<p></p>
+<h1><a name="plus.io.FileEntry.name">name</a></h1>
+<p>文件操作对象的名称，不包括路径</p>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 只读属性</p>
+<p></p>
+<h1><a name="plus.io.FileEntry.fullPath">fullPath</a></h1>
+<p>文件操作对象的完整路径，文件系统的绝对路径</p>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 只读属性</p>
+<p></p>
+<h1><a name="plus.io.FileEntry.fileSystem">fileSystem</a></h1>
+<p>文件操作对象所属的文件系统对象，参考FileSystem</p>
+<h2>说明：</h2>
+<p><a href="#plus.io.FileSystem">FileSystem</a>
+	类型
+ 只读属性</p>
+<p></p>
+<h1><a name="plus.io.FileEntry.getMetadata">getMetadata</a></h1>
+<p>获取文件的属性信息</p>
+<pre class="prettyprint linenums">
+entry.getMetadata( successCB, errorCB );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	用于获取文件的属性信息。
+	获取属性信息成功通过succesCB回调返回，失败则通过errorCB返回。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>succesCB: 
+		<em>(
+			<a href="#plus.io.MetadataSuccessCallback">MetadataSuccessCallback</a>
+			)
+			必选 </em>获取文件属性信息成功的回调函数<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.io.FileErrorCallback">FileErrorCallback</a>
+			)
+			必选 </em>获取文件属性信息失败的回调函数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// Request the metadata object for this entry
+entry.getMetadata( function ( metadata ) {
+	plus.console.log("Last Modified: " + metadata.modificationTime);
+}, function () {
+	alert( e.message );
+} );
+						</pre>
+<h1><a name="plus.io.FileEntry.moveTo">moveTo</a></h1>
+<p>移动文件</p>
+<pre class="prettyprint linenums">
+entry.moveTo( parent, newName, succesCB, errorCB );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	以下情况移动目录将会导致失败：
+	要移动到的目标目录无效；
+	要移动到的目标路径被其它文件占用；
+	移动文件成功通过succesCB回调返回，失败则通过errorCB返回。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>parent: 
+		<em>(
+			<a href="#plus.io.DirectoryEntry">DirectoryEntry</a>
+			)
+			必选 </em>要移动到的目标目录<br>
+</li>
+<li>newName: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>移动后的文件名称，默认为原始文件名称<br>
+</li>
+<li>succesCB: 
+		<em>(
+			<a href="#plus.io.EntrySuccessCallback">EntrySuccessCallback</a>
+			)
+			可选 </em>移动文件成功的回调函数<br>回调函数中的参数保存新的文件对象。</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.io.FileErrorCallback">FileErrorCallback</a>
+			)
+			可选 </em>移动文件失败的回调函数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+function moveFile(fileEntry,dstEntry){
+	// move the file to a new directory and rename it
+	fileEntry.moveTo( dstEntry, "newfile.txt", function( entry ){
+		plus.console.log("New Path: " + entry.fullPath);
+	}, function( e ){
+		alert( e.message );
+	} );
+}
+						</pre>
+<h1><a name="plus.io.FileEntry.copyTo">copyTo</a></h1>
+<p>拷贝文件</p>
+<pre class="prettyprint linenums">
+entry.copyTo( parent, newName, succesCB, errorCB );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	以下情况拷贝文件将会导致失败：
+	要拷贝到的目标目录无效；
+	要拷贝到的目标路径被其它文件占用；
+	拷贝文件成功通过succesCB回调返回，失败则通过errorCB返回。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>parent: 
+		<em>(
+			<a href="#plus.io.DirectoryEntry">DirectoryEntry</a>
+			)
+			必选 </em>要拷贝到的目标目录<br>
+</li>
+<li>newName: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>拷贝后的文件名称，默认为原始文件名称<br>
+</li>
+<li>succesCB: 
+		<em>(
+			<a href="#plus.io.EntrySuccessCallback">EntrySuccessCallback</a>
+			)
+			可选 </em>拷贝文件成功的回调函数<br>回调函数中的参数保存新的文件对象。</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.io.FileErrorCallback">FileErrorCallback</a>
+			)
+			可选 </em>拷贝文件失败的回调函数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+function copyFile(fileEntry,dstEntry) {
+	// copy the file to a new directory and rename it
+	fileEntry.copyTo( dstEntry, "file.copy", function( entry ){
+		plus.console.log("New Path: " + entry.fullPath);
+	}, function( e ){
+		alert( e.message );
+	} );
+}
+						</pre>
+<h1><a name="plus.io.FileEntry.toURL">toURL</a></h1>
+<p>获取文件路径转换为URL地址</p>
+<pre class="prettyprint linenums">
+DOMString entry.toURL();
+						</pre>
+<h2>参数：</h2>
+<ul></ul>
+<h2>返回值：</h2>
+<a href="#DOMString">DOMString</a>
+			: 格式为相对路径URL<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// Get the URL for this file
+var fileURL = entry.toURL();
+plus.console.log(fileURL);
+						</pre>
+<h1><a name="plus.io.FileEntry.toLocalURL">toLocalURL</a></h1>
+<p>获取文件路径转换为本地路径URL地址</p>
+<pre class="prettyprint linenums">
+DOMString entry.toLocalURL();
+						</pre>
+<h2>参数：</h2>
+<ul></ul>
+<h2>返回值：</h2>
+<a href="#DOMString">DOMString</a>
+			: 格式为本地路径URL<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// Get the local URL for this file
+var fileURL = entry.toLocalURL();
+plus.console.log(dirURL);
+						</pre>
+<h1><a name="plus.io.FileEntry.toRemoteURL">toRemoteURL</a></h1>
+<p>获取文件路径转换为网络路径URL地址</p>
+<pre class="prettyprint linenums">
+DOMString entry.toRemoteURL();
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	URL地址格式为以“http://localhost:13131/”开头的网络路径。
+						</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#DOMString">DOMString</a>
+			: 网络格式路径URL<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// Get the remote URL for this file
+var fileURL = entry.toRemoteURL();
+plus.console.log(dirURL);
+						</pre>
+<h1><a name="plus.io.FileEntry.remove">remove</a></h1>
+<p>删除文件</p>
+<pre class="prettyprint linenums">
+entry.remove( succesCB, errorCB );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	删除文件成功通过succesCB回调返回，失败则通过errorCB返回。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>succesCB: 
+		<em>(
+			<a href="#plus.io.EntrySuccessCallback">EntrySuccessCallback</a>
+			)
+			可选 </em>删除文件成功的回调函数<br>回调函数中无参数。</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.io.FileErrorCallback">FileErrorCallback</a>
+			)
+			可选 </em>删除文件失败的回调函数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// remove this file
+entry.remove( function ( entry ) {
+	plus.console.log( "Remove succeeded" );
+}, function ( e ) {
+	alert( e.message );
+} );
+						</pre>
+<h1><a name="plus.io.FileEntry.getParent">getParent</a></h1>
+<p>获取文件所属的父目录</p>
+<pre class="prettyprint linenums">
+entry.getParent( succesCB, errorCB );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	获取父目录成功通过succesCB回调返回，失败则通过errorCB返回。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>succesCB: 
+		<em>(
+			<a href="#plus.io.EntrySuccessCallback">EntrySuccessCallback</a>
+			)
+			可选 </em>获取父目录成功的回调函数<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.io.FileErrorCallback">FileErrorCallback</a>
+			)
+			可选 </em>获取父目录失败的回调函数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// Get the parent DirectoryEntry
+entry.getParent( function ( entry ) {
+	plus.console.log( "Parent Name: " + entry.name );
+}, function ( e ) {
+	alert( e.message );
+} );
+						</pre>
+<h1><a name="plus.io.FileEntry.createWriter">createWriter</a></h1>
+<p>获取文件关联的写文件操作对象FileWriter</p>
+<pre class="prettyprint linenums">
+entry.createWriter( succesCB, errorCB );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	获取写文件操作对象成功通过succesCB回调返回，失败则通过errorCB返回。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>succesCB: 
+		<em>(
+			<a href="#plus.io.FileWriterSuccessCallback">FileWriterSuccessCallback</a>
+			)
+			可选 </em>获取写文件操作对象成功的回调函数<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.io.FileErrorCallback">FileErrorCallback</a>
+			)
+			可选 </em>获取写文件操作对象失败的回调函数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// create a FileWriter to write to the file
+entry.createWriter( function ( writer ) {
+	// Write data to file.
+	writer.write( "Data " );
+}, function ( e ) {
+	alert( e.message );
+} );
+						</pre>
+<h1><a name="plus.io.FileEntry.file">file</a></h1>
+<p>获取文件数据对象</p>
+<pre class="prettyprint linenums">
+entry.file( succesCB, errorCB );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	获取文件数据对象成功通过succesCB回调返回，失败则通过errorCB返回。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>succesCB: 
+		<em>(
+			<a href="#plus.io.FileSuccessCallback">FileSuccessCallback</a>
+			)
+			可选 </em>获取文件数据对象成功的回调函数<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.io.FileErrorCallback">FileErrorCallback</a>
+			)
+			可选 </em>获取文件数据对象失败的回调函数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// Get the parent DirectoryEntry
+entry.file( function ( file ) {
+	plus.console.log("File size: " + file.size);
+}, function ( e ) {
+	alert( e.message );
+} );
+						</pre>
+<h1><a name="plus.io.FileReader">FileReader</a></h1>
+<p>文件系统中的读取文件对象，用于获取文件的内容</p>
+<h2>说明：</h2>
+<p class="des">
+	FileReader对象是从设备文件系统读取文件FileReader对象是从设备文件系统读取文件的一种方式，文件以文本或者Base64编码的字符串形式读出来。
+	用户注册自己的事件监听器来接收loadstart、progress、load、loadend、error和abort事件。
+				</p>
+<h2>构造：</h2>
+<ul><li>
+<a href="#plus.io.FileReader.FileReader">FileReader</a>: 创建读取文件对象</li></ul>
+<h2>常量：</h2>
+<ul>
+<li>
+<a href="#plus.io.FileReader.EMPTY">EMPTY</a>: 值为0，开始读取文件状态</li>
+<li>
+<a href="#plus.io.FileReader.LOADING">LOADING</a>: 值为1，正在读取文件状态</li>
+<li>
+<a href="#plus.io.FileReader.DONE">DONE</a>: 值为2，读文件操作完成状态</li>
+</ul>
+<h2>属性：</h2>
+<ul>
+<li>
+<a href="#plus.io.FileReader.readyState">readyState</a>: 当前读取文件所处的状态</li>
+<li>
+<a href="#plus.io.FileReader.result">result</a>: 已读取文件的内容</li>
+<li>
+<a href="#plus.io.FileReader.error">error</a>: 文件操作错误代码</li>
+</ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.io.FileReader.abort">abort</a>: 终止文件读取操作</li>
+<li>
+<a href="#plus.io.FileReader.readAsDataURL">readAsDataURL</a>: 以URL编码格式读取文件数据内容</li>
+<li>
+<a href="#plus.io.FileReader.readAsText">readAsText</a>: 以文本格式读取文件数据内容</li>
+</ul>
+<h2>事件：</h2>
+<ul>
+<li>
+<a href="#plus.io.FileReader.onloadstart">onloadstart</a>: 读取文件开始时的回调函数</li>
+<li>
+<a href="#plus.io.FileReader.onprogress">onprogress</a>: 读取文件过程中的回调函数</li>
+<li>
+<a href="#plus.io.FileReader.onload">onload</a>: 读取文件成功完成的回调函数</li>
+<li>
+<a href="#plus.io.FileReader.onabort">onabort</a>: 取消读取文件时的回调函数</li>
+<li>
+<a href="#plus.io.FileReader.onerror">onerror</a>: 文件读取操作失败时调用的回调函数</li>
+<li>
+<a href="#plus.io.FileReader.onloadend">onloadend</a>: 文件读取操作完成时的回调函数</li>
+</ul>
+<h1><a name="plus.io.FileReader.FileReader">FileReader</a></h1>
+<p>创建读取文件对象</p>
+<h2>说明：</h2>
+<p class="des">创建读取文件对象</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#plus.io.FileReader">FileReader</a>
+			: <h1><a name="plus.io.FileReader.EMPTY">EMPTY</a></h1>
+<p>值为0，开始读取文件状态</p>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p></p>
+<h1><a name="plus.io.FileReader.LOADING">LOADING</a></h1>
+<p>值为1，正在读取文件状态</p>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p></p>
+<h1><a name="plus.io.FileReader.DONE">DONE</a></h1>
+<p>值为2，读文件操作完成状态</p>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p></p>
+<h1><a name="plus.io.FileReader.readyState">readyState</a></h1>
+<p>当前读取文件所处的状态</p>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+ 只读属性</p>
+<p>可取上面定义的常量值，EMPTY（0）、LOADING（1）、DONE（2）。</p>
+<h1><a name="plus.io.FileReader.result">result</a></h1>
+<p>已读取文件的内容</p>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 只读属性</p>
+<p></p>
+<h1><a name="plus.io.FileReader.error">error</a></h1>
+<p>文件操作错误代码</p>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+ 只读属性</p>
+<p></p>
+<h1><a name="plus.io.FileReader.abort">abort</a></h1>
+<p>终止文件读取操作</p>
+<pre class="prettyprint linenums">
+reader.abort();
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	读取文件操作开始后，可通过此方法取消读取文件。
+	调用此方法后将触发文件读取对象的onabort事件。
+						</p>
+<h2>参数：</h2>
+<ul></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// Read data from file
+var reader = null;
+entry.file( function ( file ) {
+	reader = new plus.io.FileReader();
+	reader.onloadend = function ( e ) {
+		plus.console.log( "Read success" );
+		// Get data
+		plus.console.log( e.target.result );
+	};
+	reader.readAsText( file );
+}, function ( e ) {
+	alert( e.message );
+} );
+
+// ......
+// Abort read data from file
+reader.abort();
+						</pre>
+<h1><a name="plus.io.FileReader.readAsDataURL">readAsDataURL</a></h1>
+<p>以URL编码格式读取文件数据内容</p>
+<pre class="prettyprint linenums">
+reader.readAsDataURL( file, encoding );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	读取文件的数据内容，并将数据内容进行URL编码。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>file: 
+		<em>(
+			<a href="#plus.io.File">File</a>
+			)
+			必选 </em>要读取的文件数据对象<br>
+</li>
+<li>encoding : 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>读取文件数据内容的字符编码格式<br>目前仅支持UTF-8编码格式。</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// Read data from file
+var reader = null;
+entry.file( function ( file ) {
+	reader = new plus.io.FileReader();
+	reader.onloadend = function ( e ) {
+		plus.console.log( "Read success" );
+		// Get data
+		plus.console.log( e.target.result );
+	};
+	reader.readAsDataURL( file );
+}, function ( e ) {
+	alert( e.message );
+} );
+						</pre>
+<h1><a name="plus.io.FileReader.readAsText">readAsText</a></h1>
+<p>以文本格式读取文件数据内容</p>
+<pre class="prettyprint linenums">
+reader.readAsText( file, encoding );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	读取文件的数据内容。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>file: 
+		<em>(
+			<a href="#plus.io.File">File</a>
+			)
+			必选 </em>要读取的文件数据对象<br>
+</li>
+<li>encoding : 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>读取文件数据内容的字符编码格式<br>目前仅支持UTF-8编码格式。</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// Read data from file
+var reader = null;
+entry.file( function ( file ) {
+	reader = new plus.io.FileReader();
+	reader.onloadend = function ( e ) {
+		plus.console.log( "Read success" );
+		// Get data
+		plus.console.log( e.target.result );
+	};
+	reader.readAsText( file );
+}, function ( e ) {
+	alert( e.message );
+} );
+						</pre>
+<h1><a name="plus.io.FileReader.onloadstart">onloadstart</a></h1>
+<p>读取文件开始时的回调函数</p>
+<h2>说明：</h2>
+<p><a href="#plus.io.FileEventCallback">FileEventCallback</a>
+	类型
+</p>
+<p></p>
+<h1><a name="plus.io.FileReader.onprogress">onprogress</a></h1>
+<p>读取文件过程中的回调函数</p>
+<h2>说明：</h2>
+<p><a href="#plus.io.FileEventCallback">FileEventCallback</a>
+	类型
+</p>
+<p>用于获取文件读取进度。</p>
+<h1><a name="plus.io.FileReader.onload">onload</a></h1>
+<p>读取文件成功完成的回调函数</p>
+<h2>说明：</h2>
+<p><a href="#plus.io.FileEventCallback">FileEventCallback</a>
+	类型
+</p>
+<p></p>
+<h1><a name="plus.io.FileReader.onabort">onabort</a></h1>
+<p>取消读取文件时的回调函数</p>
+<h2>说明：</h2>
+<p><a href="#plus.io.FileEventCallback">FileEventCallback</a>
+	类型
+</p>
+<p></p>
+<h1><a name="plus.io.FileReader.onerror">onerror</a></h1>
+<p>文件读取操作失败时调用的回调函数</p>
+<h2>说明：</h2>
+<p><a href="#plus.io.FileEventCallback">FileEventCallback</a>
+	类型
+</p>
+<p></p>
+<h1><a name="plus.io.FileReader.onloadend">onloadend</a></h1>
+<p>文件读取操作完成时的回调函数</p>
+<h2>说明：</h2>
+<p><a href="#plus.io.FileEventCallback">FileEventCallback</a>
+	类型
+</p>
+<p>不管成功或失败都会触发。</p>
+<h1><a name="plus.io.FileWriter">FileWriter</a></h1>
+<p>文件系统中的写文件对象，用于写入文件内容</p>
+<h2>说明：</h2>
+<p class="des">
+	FileWriter对象是从设备文件系统写入文件FileWriter对象是从设备文件系统写入文件的一种方式，用户注册自己的事件监听器来接收writestart、progress、write、writeend、error和abort事件。
+	一个FileWriter对象是为单个文件的操作而创建。你可以使用该对象多次对相应文件进行写入操作。FileWriter维护该文件的指针位置及长度属性，这样你就可以寻找和写入文件的任何地方。
+	默认情况下，FileWriter从文件的开头开始写入（将覆盖现有数据）。FileWriter对象的seek方法可设置文件操作指定位置，如fw.seek(fw.length-1)写入操作就会从文件的末尾开始。
+				</p>
+<h2>常量：</h2>
+<ul>
+<li>
+<a href="#plus.io.FileWriter.INIT">INIT</a>: 值为0，写文件初始化状态</li>
+<li>
+<a href="#plus.io.FileWriter.WRITING">WRITING</a>: 值为1，正在写入文件状态</li>
+<li>
+<a href="#plus.io.FileWriter.DONE">DONE</a>: 值为2，写文件操作完成状态</li>
+</ul>
+<h2>属性：</h2>
+<ul>
+<li>
+<a href="#plus.io.FileWriter.readyState">readyState</a>: 当前写入文件所处的状态</li>
+<li>
+<a href="#plus.io.FileWriter.length">length</a>: 文件当前的长度，单位为字节</li>
+<li>
+<a href="#plus.io.FileWriter.position">position</a>: 文件当前操作的指针位置</li>
+<li>
+<a href="#plus.io.FileWriter.error">error</a>: 文件写入操作错误代码</li>
+</ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.io.FileWriter.abort">abort</a>: 终止文件写入操作</li>
+<li>
+<a href="#plus.io.FileWriter.seek">seek</a>: 定位文件操作位置</li>
+<li>
+<a href="#plus.io.FileWriter.truncate">truncate</a>: 按照指定长度截断文件</li>
+<li>
+<a href="#plus.io.FileWriter.write">write</a>: 向文件中写入数据</li>
+</ul>
+<h2>事件：</h2>
+<ul>
+<li>
+<a href="#plus.io.FileWriter.onwritestart">onwritestart</a>: 写入文件开始时的回调函数</li>
+<li>
+<a href="#plus.io.FileWriter.onprogress">onprogress</a>: 写入文件过程中的回调函数</li>
+<li>
+<a href="#plus.io.FileWriter.onwrite">onwrite</a>: 写入文件成功完成的回调函数</li>
+<li>
+<a href="#plus.io.FileWriter.onabort">onabort</a>: 取消写入文件时的回调函数</li>
+<li>
+<a href="#plus.io.FileWriter.onerror">onerror</a>: 文件写入操作失败时调用的回调函数</li>
+<li>
+<a href="#plus.io.FileWriter.onwriteend">onwriteend</a>: 文件写入操作完成时的回调函数</li>
+</ul>
+<h1><a name="plus.io.FileWriter.INIT">INIT</a></h1>
+<p>值为0，写文件初始化状态</p>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p></p>
+<h1><a name="plus.io.FileWriter.WRITING">WRITING</a></h1>
+<p>值为1，正在写入文件状态</p>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p></p>
+<h1><a name="plus.io.FileWriter.DONE">DONE</a></h1>
+<p>值为2，写文件操作完成状态</p>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p></p>
+<h1><a name="plus.io.FileWriter.readyState">readyState</a></h1>
+<p>当前写入文件所处的状态</p>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+ 只读属性</p>
+<p>可取上面定义的常量值，INIT(0)、WRITING（1）、DONE（2）。</p>
+<h1><a name="plus.io.FileWriter.length">length</a></h1>
+<p>文件当前的长度，单位为字节</p>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+ 只读属性</p>
+<p></p>
+<h1><a name="plus.io.FileWriter.position">position</a></h1>
+<p>文件当前操作的指针位置</p>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+ 只读属性</p>
+<p></p>
+<h1><a name="plus.io.FileWriter.error">error</a></h1>
+<p>文件写入操作错误代码</p>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+ 只读属性</p>
+<p></p>
+<h1><a name="plus.io.FileWriter.abort">abort</a></h1>
+<p>终止文件写入操作</p>
+<pre class="prettyprint linenums">
+writer.abort();
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	写入文件数据操作开始后，可通过此方法取消写入文件数据操作。
+	调用此方法后将触发文件写入对象的onabort事件。
+						</p>
+<h2>参数：</h2>
+<ul></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// Write data to file
+var w = null;
+entry.createWriter( function ( writer ) {
+	w = writer;
+	// fast forwards file pointer to end of file
+	writer.seek( writer.length-1 );
+}, function ( e ) {
+	alert( e.message );
+} );
+
+// ......
+// Abort write data to file
+w.abort();
+						</pre>
+<h1><a name="plus.io.FileWriter.seek">seek</a></h1>
+<p>定位文件操作位置</p>
+<pre class="prettyprint linenums">
+writer.seek( position );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	定位文件的操作位置，有效值为0到文件的总长度减1。
+	0表示文件的起始位置。
+						</p>
+<h2>参数：</h2>
+<ul><li>position: 
+		<em>(
+			<a href="#Number">Number</a>
+			)
+			必选 </em>要定位到的位置<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// Write data to file
+var w = null;
+entry.createWriter( function ( writer ) {
+	w = writer;
+	// fast forwards file pointer to end of file
+	writer.seek( writer.length-1 );
+}, function ( e ) {
+	alert( e.message );
+} );
+						</pre>
+<h1><a name="plus.io.FileWriter.truncate">truncate</a></h1>
+<p>按照指定长度截断文件</p>
+<pre class="prettyprint linenums">
+writer.truncate( length );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	从文件当前定位的位置开始，按照指定长度截断文件。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>length : 
+		<em>(
+			<a href="#Number">Number</a>
+			)
+			必选 </em>要读取的文件数据对象<br>
+</li>
+<li>encoding : 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>要截断的文件长度<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// Truncate file
+entry.createWriter( function ( writer ) {
+	// Truncate file data length to 100
+	writer.truncate( 100 );
+}, function ( e ) {
+	alert( e.message );
+} );
+						</pre>
+<h1><a name="plus.io.FileWriter.write">write</a></h1>
+<p>向文件中写入数据</p>
+<pre class="prettyprint linenums">
+writer.write( data );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	从文件当前定位的位置开始，写入数据到文件中。
+	如果文件中已经存在数据，新写入的数据将覆盖已有数据。
+						</p>
+<h2>参数：</h2>
+<ul><li>data : 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>要写入的数据内容<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+// Write data to file
+entry.createWriter( function ( writer ) {
+	writer.onwrite = function ( e ) {
+		plus.console.log( "Write data success!" );
+	};
+	// Write data to the end of file.
+	writer.seek( writer.length );
+	writer.write( "New data!" );
+}, function ( e ) {
+	alert( e.message );
+} );
+						</pre>
+<h1><a name="plus.io.FileWriter.onwritestart">onwritestart</a></h1>
+<p>写入文件开始时的回调函数</p>
+<h2>说明：</h2>
+<p><a href="#plus.io.FileEventCallback">FileEventCallback</a>
+	类型
+</p>
+<p></p>
+<h1><a name="plus.io.FileWriter.onprogress">onprogress</a></h1>
+<p>写入文件过程中的回调函数</p>
+<h2>说明：</h2>
+<p><a href="#plus.io.FileEventCallback">FileEventCallback</a>
+	类型
+</p>
+<p>用于获取文件读取进度。</p>
+<h1><a name="plus.io.FileWriter.onwrite">onwrite</a></h1>
+<p>写入文件成功完成的回调函数</p>
+<h2>说明：</h2>
+<p><a href="#plus.io.FileEventCallback">FileEventCallback</a>
+	类型
+</p>
+<p></p>
+<h1><a name="plus.io.FileWriter.onabort">onabort</a></h1>
+<p>取消写入文件时的回调函数</p>
+<h2>说明：</h2>
+<p><a href="#plus.io.FileEventCallback">FileEventCallback</a>
+	类型
+</p>
+<p></p>
+<h1><a name="plus.io.FileWriter.onerror">onerror</a></h1>
+<p>文件写入操作失败时调用的回调函数</p>
+<h2>说明：</h2>
+<p><a href="#plus.io.FileEventCallback">FileEventCallback</a>
+	类型
+</p>
+<p></p>
+<h1><a name="plus.io.FileWriter.onwriteend">onwriteend</a></h1>
+<p>文件写入操作完成时的回调函数</p>
+<h2>说明：</h2>
+<p><a href="#plus.io.FileEventCallback">FileEventCallback</a>
+	类型
+</p>
+<p>不管成功或失败都会触发。</p>
+<h1><a name="plus.io.FileSystem">FileSystem</a></h1>
+<p>文件系统对象，用于管理特定本地文件目录</p>
+<h2>说明：</h2>
+<p class="des">
+	文件系统对象表示一个应用可访问的根目录。name属性用于标识此根目录的名称，与LocalFileSystem中的文件系统类型一一对应。root属性为文件目录对象，用于实际操作文件系统，参考DirectoryEntry。
+				</p>
+<h2>属性：</h2>
+<ul>
+<li>
+<a href="#plus.io.FileSystem.name">name</a>: 文件系统的名称</li>
+<li>
+<a href="#plus.io.FileSystem.root">root</a>: 文件系统的根目录</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;File Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	plus.io.requestFileSystem( plus.io.PRIVATE_WWW, function( fs ) {
+		// 可通过fs进行文件操作 
+		alert( "File system name: " + fs.name );
+		// 通过fs.root获取DirectoryEntry对象进行操作 
+		// fs.root 
+	}, function ( e ) {
+		alert( "Request file system failed: " + e.message );
+	} );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		Request file system
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.io.FileSystem.name">name</a></h1>
+<p>文件系统的名称</p>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 只读属性</p>
+<p>值为文件系统类型常量值字符串，如“PRIVATE_WWW”、“PRIVATE_DOCUMENTS”。</p>
+<h1><a name="plus.io.FileSystem.root">root</a></h1>
+<p>文件系统的根目录</p>
+<h2>说明：</h2>
+<p><a href="#plus.io.DirectoryEntry">DirectoryEntry</a>
+	类型
+ 只读属性</p>
+<p></p>
+<h1><a name="plus.io.Flags">Flags</a></h1>
+<p>JSON对象，获取文件操作的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>create: <em>(<a href="#Boolean">Boolean</a>
+	类型
+)</em>是否创建对象标记<br><p>指示如果文件或目录不存在时是否进行创建，默认值为false。</p>
+</li>
+<li>exclusive: <em>(<a href="#Boolean">Boolean</a>
+	类型
+)</em>反向操作标记<br><p>其本身没有任何效果，需与create属性值设置为true时一起使用，如果目标文件或目录已经存在则会导致文件或目录打开失败，默认值为false。</p>
+</li>
+</ul>
+<h1><a name="plus.io.Metadata">Metadata</a></h1>
+<p>JSON对象，保存文件或目录的状态信息对象</p>
+<h2>说明：</h2>
+<p class="des">可通过DirectoryEntry或FileEntry对象的getMetaData方法获取</p>
+<h2>属性：</h2>
+<ul>
+<li>modificationTime: <em>(<a href="#Date">Date</a>
+	类型
+)</em>文件或目录的最后修改时间<br>
+</li>
+<li>size: <em>(<a href="#Number">Number</a>
+	类型
+)</em>文件的大小<br><p>若获取的是目录对象的属性则值为0。</p>
+</li>
+<li>directoryCount: <em>(<a href="#Number">Number</a>
+	类型
+)</em>包含的子目录数<br><p>若自身是文件则其值为0。</p>
+</li>
+<li>fileCount: <em>(<a href="#Number">Number</a>
+	类型
+)</em>目录的文件数<br><p>若自身是文件则其值为0。</p>
+</li>
+</ul>
+<h1><a name="plus.io.FileEvent">FileEvent</a></h1>
+<p>文件或目录操作事件对象</p>
+<h2>说明：</h2>
+<p class="des">
+	所有文件或目录操作事件回调函数中都创建该对象的实例。
+	该对象从DOMEvent继承而来，可通过该其target属性获取事件触发的文件或目录操作对象。
+				</p>
+<h2>属性：</h2>
+<ul><li>target: <em>(<a href="#plus.io.DirectoryEntry">DirectoryEntry</a>
+	类型
+)</em>文件或目录操作对象<br><p>在不同的回调中指向的对象不同，可指向的对象包括：FileEntry、DirectoryEntry、FileReader、FileWriter。</p>
+</li></ul>
+<h1><a name="plus.io.URLType">URLType</a></h1>
+<p>文件路径类型</p>
+<h2>说明：</h2>
+<p class="des">在文件系统中的文件路径需转换成URL格式，已方便runtime快速加载。</p>
+<h1><a name="plus.io.RelativeURL">RelativeURL</a></h1>
+<p>相对路径URL</p>
+<h2>说明：</h2>
+<p class="des">只能在扩展API中使用，相对于基座提供的特定目录，以“_”开头。</p>
+<h2>常量：</h2>
+<ul>
+<li>"_www": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>应用资源目录<br><p>保存应用的所有html、css、js等资源文件，与文件系统中根目录PRIVATE_WWW，如“_www/res/icon.png”。</p>
+</li>
+<li>"_doc": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>应用私有文档目录<br><p>用于保存应用运行期业务逻辑数据，与文件系统中根目录PRIVATE_DOCUMENTS，如“_doc/userdata.xml”。</p>
+</li>
+<li>"_documents": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>程序公用文档目录<br><p>用于保存程序中各应用间可共享文件的目录，与文件系统中根目录PUBLIC_DOCUMENTS，如“_document/share.doc”。</p>
+</li>
+<li>"_downloads": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>程序公用下载目录 <br><p>用于保存程序下载文件的目录，与文件系统中根目录PUBLIC_DOWNLOADS，如“_download/mydoc.doc”。</p>
+</li>
+</ul>
+<h1><a name="plus.io.LocalURL">LocalURL</a></h1>
+<p>本地路径URL</p>
+<h2>说明：</h2>
+<p class="des">
+	可在html页面中直接访问本地资源，以“file:///”开头，后面跟随系统的绝对路径。
+	如示例：“file:///D:/res/hello.html”。
+				</p>
+<h1><a name="plus.io.RemoteURL">RemoteURL</a></h1>
+<p>网络路径URL</p>
+<h2>说明：</h2>
+<p class="des">
+	可在html页面中以网络资源模式访问本地资源，以“http://”开头，后面跟随相对路径。
+	如示例：“http://localhost:13131/_www/res/icon.png”，其中“_www”字段可支持类型与相对路径URL一致。
+				</p>
+<h1><a name="plus.io.FileEventCallback">FileEventCallback</a></h1>
+<p>文件事件回调</p>
+<pre class="prettyprint linenums">
+void onEvent( event ) {
+	// Event code.
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	文件或目录操作回调事件。
+	通常在FileReader和FileWriter对象的事件函数中触发。
+				</p>
+<h2>参数：</h2>
+<ul><li>event: 
+		<em>(
+			<a href="#plus.io.FileEvent">FileEvent</a>
+			)
+			必选 </em>文件事件对象<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.io.FileSystemSuccessCallback">FileSystemSuccessCallback</a></h1>
+<p>请求文件系统成功的回调函数</p>
+<pre class="prettyprint linenums">
+void onSuccess( fs ) {
+	// File System operate code.
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>fs: 
+		<em>(
+			<a href="#plus.io.FileSystem">FileSystem</a>
+			)
+			必选 </em>请求到的文件系统对象<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.io.FileResolveSuccessCallback">FileResolveSuccessCallback</a></h1>
+<p>通过URL参数获取目录或文件对象成功的回调函数</p>
+<pre class="prettyprint linenums">
+void onSuccess( entry ) {
+	// File or Direcory entry operate code.
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>entry: 
+		<em>(
+			<a href="#plus.io.DirectoryEntry">DirectoryEntry</a>
+			)
+			必选 </em>请求到的目录或文件对象<br>可指向文件或目录对象（DirectoryEntry|FileEntry）。</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.io.MetadataSuccessCallback">MetadataSuccessCallback</a></h1>
+<p>获取文件或目录状态信息成功的回调函数</p>
+<pre class="prettyprint linenums">
+void onSuccess( metadata ) {
+	// Metadata code.
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>metadata: 
+		<em>(
+			<a href="#plus.io.Metadata">Metadata</a>
+			)
+			必选 </em>文件或目录的状态信息<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.io.EntrySuccessCallback">EntrySuccessCallback</a></h1>
+<p>操作文件或目录对象成功的回调函数</p>
+<pre class="prettyprint linenums">
+void onSuccess( entry ) {
+	// Entry code.
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>entry: 
+		<em>(
+			<a href="#plus.io.DirectoryEntry">DirectoryEntry</a>
+			)
+			必选 </em>文件或目录对象的引用<br>可指向文件或目录对象（DirectoryEntry|FileEntry）。</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.io.EntrysSuccessCallback">EntrysSuccessCallback</a></h1>
+<p>操作文件或目录对象数组成功的回调函数</p>
+<pre class="prettyprint linenums">
+void onSuccess( entrys ) {
+	// Entrys code.
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>entrys: 
+		<em>(
+			<a href="#plus.io.DirectoryEntry">DirectoryEntry</a>
+			)
+			必选 </em>文件或目录对象数组<br>可指向文件或目录对象数组（DirectoryEntry[]|FileEntry[]）。</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.io.FileWriterSuccessCallback">FileWriterSuccessCallback</a></h1>
+<p>写文件操作成功的回调函数</p>
+<pre class="prettyprint linenums">
+void onSuccess( writer ) {
+	// FileWriter code.
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>writer: 
+		<em>(
+			<a href="#plus.io.FileWriter">FileWriter</a>
+			)
+			必选 </em>写文件对象的引用<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.io.FileSuccessCallback">FileSuccessCallback</a></h1>
+<p>文件操作成功的回调函数</p>
+<pre class="prettyprint linenums">
+void onSuccess( file ) {
+	// file code.
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>file: 
+		<em>(
+			<a href="#File">File</a>
+			)
+			必选 </em>文件数据对象的引用<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.io.FileErrorCallback">FileErrorCallback</a></h1>
+<p>文件操作失败的回调函数</p>
+<pre class="prettyprint linenums">
+void onError( error ) {
+	// Error code.
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>error: 
+		<em>(
+			<a href="#DOMException">DOMException</a>
+			)
+			必选 </em>文件操作失败的信息<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无</div>
+</body>
+</html>

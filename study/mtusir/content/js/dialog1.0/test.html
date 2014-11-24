@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>title</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<meta content="telephone=no" name="format-detection">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link rel="stylesheet" href="dialog1.0.css">
+</head>
+<body>
+<button type="" id="show1">show1</button>
+<button type="" id="show2">show2</button>
+<script src="../../../dist/zepto.js"></script>
+<script src="dialog.js"></script>
+<script>
+	$('#show1').on('click', function() {
+		popDialog({
+			//title: '招行积分提现规则',
+			//显示内容选择器
+			//dataSelector: '.pop_text',
+			content: '显示内容选择器',
+			//是否显示阴影
+			shadow: true,
+			closeBtn:false
+		}).show();
+		return false;
+	});
+	$('#show2').on('click', function() {
+		popDialog({
+			//显示内容选择器
+			content: '招行积招行积分提现规则招行积分提现规则招行积分提现规则招行积分提现规则分提现规则',
+			closeBtn:false
+		}).show();
+		return false;
+	});
+
+</script>
+</body>
+</html>

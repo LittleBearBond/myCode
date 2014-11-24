@@ -1,0 +1,76 @@
+ .pop_dialog_mask {
+ 	position: fixed;
+ 	z-index: 666;
+ 	left: 0;
+ 	right: 0;
+ 	bottom: 0;
+ 	top: 0;
+ 	background-color: rgba(0, 0, 0, .5);
+ 	z-index: 999;
+ }
+ .dialog_wrap {
+ 	z-index: 1000;
+ 	padding: 10px 15px;
+ 	border-radius: 6px;
+ 	background: #FFFFFF;
+ 	position: fixed;
+ 	top: 50%;
+ 	transform: translateY(-50%);
+ 	-webkit-transform: translateY(-50%);
+ 	opacity: 0;
+ 	visibility: hidden;
+ 	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+ }
+ .dialog_wrap_shadow {
+ 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+ 	-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+ }
+ .dialog_wrap_show {
+ 	opacity: 1;
+ 	visibility: visible;
+ }
+ .dialog_wrap .dialog_title {
+ 	color: #333333;
+ 	font-size: 15px;
+ 	line-height: 2.5;
+ 	font-weight: bold;
+ 	text-overflow: ellipsis;
+ 	border-bottom: 1px solid #d2d2d2;
+ }
+ .dialog_wrap .dialog_close,
+ .dialog_wrap .dialog_close:hover,
+ .dialog_wrap .dialog_close:visited {
+ 	position: absolute;
+ 	width: 30px;
+ 	height: 30px;
+ 	background-color: rgba(0, 0, 0, .5);
+ 	border-radius: 50%;
+ 	right: -10px;
+ 	top: -15px;
+ }
+ .dialog_wrap .dialog_close:after,
+ .dialog_wrap .dialog_close:before {
+ 	content: "";
+ 	background-color: #FFFFFF;
+ 	height: 2px;
+ 	width: 22px;
+ 	border-radius: 2px;
+ 	position: absolute;
+ 	left: 0;
+ 	top: 0;
+ 	right: 0;
+ 	bottom: 0;
+ 	margin: auto;
+ 	transform: rotate(45deg);
+ 	-webkit-transform: rotate(45deg);
+ }
+ .dialog_wrap .dialog_close:before {
+ 	transform: rotate(-45deg);
+ 	-webkit-transform: rotate(-45deg);
+ }
+ .dialog_wrap .dialog_content {
+ 	padding: 5px 0;
+ 	font-size: 14px;
+ }

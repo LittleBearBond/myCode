@@ -1,0 +1,590 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body>
+<header><div class="nvbt iback" onclick="back();"></div>
+<div class="nvtt">Camera Document</div></header><div id="content" class="content">
+<h1><a name="plus.camera">camera</a></h1>
+<p>Camera模块管理设备的摄像头，可用于拍照、摄像操作，通过plus.camera获取摄像头管理对象。</p>
+<h2>方法：</h2>
+<ul><li>
+<a href="#plus.camera.getCamera">getCamera</a>: 获取摄像头管理对象</li></ul>
+<h2>对象：</h2>
+<ul>
+<li>
+<a href="#plus.camera.Camera">Camera</a>: 摄像头对象</li>
+<li>
+<a href="#plus.camera.CameraOption">CameraOption</a>: JSON对象，调用摄像头的参数</li>
+<li>
+<a href="#plus.camera.PopPosition">PopPosition</a>: JSON对象，弹出拍照或摄像界面指示位置</li>
+</ul>
+<h2>回调方法：</h2>
+<ul>
+<li>
+<a href="#plus.camera.CameraSuccessCallback">CameraSuccessCallback</a>: 调用摄像头操作成功回调</li>
+<li>
+<a href="#plus.camera.CameraErrorCallback">CameraErrorCallback</a>: 摄像头操作失败回调</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"Camera": {
+	"description": "访问摄像头设备"
+}
+			</pre>
+<h1><a name="plus.camera.getCamera">getCamera</a></h1>
+<p>获取摄像头管理对象</p>
+<pre class="prettyprint linenums">
+Camera plus.camera.getCamera( index );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	获取需要操作的摄像头对象，如果要进行拍照或摄像操作，需先通过此方法获取摄像头对象。
+				</p>
+<h2>参数：</h2>
+<ul><li>index: 
+		<em>(
+			<a href="#Number">Number</a>
+			)
+			可选 </em>要获取摄像头的索引值<br>指定要获取摄像头的索引值，1表示主摄像头，2表示辅摄像头。如果没有设置则使用系统默认主摄像头。</li></ul>
+<h2>返回值：</h2>
+<a href="#plus.camera.Camera">Camera</a>
+			: 摄像头对象<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Camera Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null; 
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	// 获取设备默认的摄像头对象 
+	var cmr = plus.camera.getCamera();
+	// ...... 
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.camera.Camera">Camera</a></h1>
+<p>摄像头对象</p>
+<pre class="prettyprint linenums">
+interface Camera {
+	readonly attribute DOMString[] supportedImageResolutions;
+	readonly attribute DOMString[] supportedVideoResolutions;
+	readonly attribute DOMString[] supportedImageFormats;
+	readonly attribute DOMString[] supportedVideoFormats;
+	function void captureImage( successCB, errorCB, option );
+	function void startVideoCapture( successCB, errorCB, option );
+	function void stopVideoCapture();
+}
+				</pre>
+<h2>属性：</h2>
+<ul>
+<li>
+<a href="#plus.camera.Camera.supportedImageResolutions">supportedImageResolutions</a>: 字符串数组，摄像头支持的拍照分辨率</li>
+<li>
+<a href="#plus.camera.Camera.supportedVideoResolutions">supportedVideoResolutions</a>: 字符串数组，摄像头支持的摄像分辨率</li>
+<li>
+<a href="#plus.camera.Camera.supportedImageFormats">supportedImageFormats</a>: 字符串数组，摄像头支持的拍照文件格式</li>
+<li>
+<a href="#plus.camera.Camera.supportedVideoFormats">supportedVideoFormats</a>: 字符串数组，摄像头支持的摄像文件格式</li>
+</ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.camera.Camera.captureImage">captureImage</a>: 进行拍照操作</li>
+<li>
+<a href="#plus.camera.Camera.startVideoCapture">startVideoCapture</a>: 调用摄像头进行摄像操作</li>
+<li>
+<a href="#plus.camera.Camera.stopVideoCapture">stopVideoCapture</a>: 结束摄像操作</li>
+</ul>
+<h1><a name="plus.camera.Camera.supportedImageResolutions">supportedImageResolutions</a></h1>
+<p>字符串数组，摄像头支持的拍照分辨率</p>
+<h2>说明：</h2>
+<p><a href="#Array">Array</a>
+	类型
+ 只读属性</p>
+<p>属性类型为DOMString[]，若不支持此属性则返回空数组对象。摄像头支持的拍照图片分辨率字符串形式“WIDTH*Height”，如“400*800”；如果支持任意自定义分辨率则“*”。</p>
+<h2>平台支持：</h2>
+<ul>
+<li>Android (支持)</li>
+<li>iOS (不支持): 返回空数组对象</li>
+<li>WP (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Camera Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	var cmr = plus.camera.getCamera();
+	alert( "Camera supperted image resolutions: " + cmr.supportedImageResolutions );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.camera.Camera.supportedVideoResolutions">supportedVideoResolutions</a></h1>
+<p>字符串数组，摄像头支持的摄像分辨率</p>
+<h2>说明：</h2>
+<p><a href="#Array">Array</a>
+	类型
+ 只读属性</p>
+<p>属性类型为String[]，若不支持此属性则返回空数组对象。摄像头支持的视频分辨率字符串形式为“WIDTH*Height”，如“400*800”；如果支持任意自定义分辨率则“*”。</p>
+<h2>平台支持：</h2>
+<ul>
+<li>Android (支持)</li>
+<li>iOS (不支持): 返回空数组对象</li>
+<li>WP (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Camera Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	var cmr = plus.camera.getCamera();
+	alert( "Camera supperted image resolutions: " + cmr.supportedImageResolutions );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.camera.Camera.supportedImageFormats">supportedImageFormats</a></h1>
+<p>字符串数组，摄像头支持的拍照文件格式</p>
+<h2>说明：</h2>
+<p><a href="#Array">Array</a>
+	类型
+ 只读属性</p>
+<p>属性类型为String[]，若不支持此属性则返回空数组对象。摄像头支持的图片文件格式字符串形式为文件格式后缀名，如“jpg”、“png”、“bmp”。</p>
+<h2>平台支持：</h2>
+<ul>
+<li>Android (支持)</li>
+<li>iOS (不支持): 返回空数组对象</li>
+<li>WP (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Camera Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	var cmr = plus.camera.getCamera();
+	alert( "Camera supperted image formats: " + cmr.supportedImageFormats );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.camera.Camera.supportedVideoFormats">supportedVideoFormats</a></h1>
+<p>字符串数组，摄像头支持的摄像文件格式</p>
+<h2>说明：</h2>
+<p><a href="#Array">Array</a>
+	类型
+ 只读属性</p>
+<p>	
+	属性类型为String[]，若不支持此属性则返回空数组对象。摄像头支持的视频文件格式字符串形式为文件格式后缀名，如“3gp”、“mp4”、“avi”。
+						</p>
+<h2>平台支持：</h2>
+<ul>
+<li>Android (支持)</li>
+<li>iOS (不支持): 返回空数组对象</li>
+<li>WP (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Camera Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	var cmr = plus.camera.getCamera();
+	alert( "Camera supperted video formats: " + cmr.supportedVideoFormats );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.camera.Camera.captureImage">captureImage</a></h1>
+<p>进行拍照操作</p>
+<pre class="prettyprint linenums">
+cmr.captureImage( successCB, errorCB, option );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	摄像头资源为独占资源，如果其它程序或页面已经占用摄像头，再次操作则失败。
+	拍照操作成功将通过successCB返回拍照获取的图片路径。
+	可通过option设置摄像头的各种属性参数。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>successCB: 
+		<em>(
+			<a href="#plus.camera.CameraSuccessCallback">CameraSuccessCallback</a>
+			)
+			必选 </em>拍照操作成功的回调函数<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.camera.CameraErrorCallback">CameraErrorCallback</a>
+			)
+			可选 </em>拍照操作失败的回调函数<br>
+</li>
+<li>option: 
+		<em>(
+			<a href="#plus.camera.CameraOption">CameraOption</a>
+			)
+			必选 </em>摄像头拍照参数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Camera Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null; 
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	var cmr = plus.camera.getCamera();
+	var res = cmr.supportedImageResolutions[0];
+	var fmt = cmr.supportedImageFormats[0];
+	cmr.captureImage( function( path ){
+			aletr( "Capture image success: " + path );  
+		},
+		function( error ) {
+			alert( "Capture image failed: " + error.message );
+		},
+		{resolution:res,
+			format:fmt
+		}
+	);
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.camera.Camera.startVideoCapture">startVideoCapture</a></h1>
+<p>调用摄像头进行摄像操作</p>
+<pre class="prettyprint linenums">
+cmr.startVideoCapture( successCB, errorCB, option );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	摄像头资源为独占资源，如果其它程序或页面已经占用摄像头，再次操作则失败。
+	拍照操作成功将通过successCB返回摄像获取的视频文件路径。
+	可通过option设置摄像头的各种属性参数。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>successCB: 
+		<em>(
+			<a href="#plus.camera.CameraSuccessCallback">CameraSuccessCallback</a>
+			)
+			必选 </em>摄像操作成功的回调函数<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.camera.CameraErrorCallback">CameraErrorCallback</a>
+			)
+			可选 </em>拍摄像操作失败的回调函数<br>
+</li>
+<li>option: 
+		<em>(
+			<a href="#plus.camera.CameraOption">CameraOption</a>
+			)
+			必选 </em>摄像头拍照参数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Camera Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null; 
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	var cmr = plus.camera.getCamera();
+	var res = cmr.supportedVideoResolutions[0];
+	var fmt = cmr.supportedVideoFormats[0];
+	cmr.startVideoCapture( function( path ){
+			aletr( "Capture video success: " + path );  
+		},
+		function( error ) {
+			alert( "Capture video failed: " + error.message );
+		},
+		{resolution:res,
+			format:fmt
+		}
+	);
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.camera.Camera.stopVideoCapture">stopVideoCapture</a></h1>
+<p>结束摄像操作</p>
+<pre class="prettyprint linenums">
+cmr.stopVideoCapture();
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	开始调用摄像头进行摄像操作后，可在后台结束摄像操作，与用户在界面结束操作效果一致。
+	摄像操作成功将通过startVideoCapture函数中的successCB返回拍照获取的图片路径。
+	用户如果没有进行摄像操作关闭摄像头页面则调用失败回调函数。
+						</p>
+<h2>参数：</h2>
+<ul></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Camera Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null; 
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	var cmr = plus.camera.getCamera();
+	var res = cmr.supportedVideoResolutions[0];
+	var fmt = cmr.supportedVideoFormats[0];
+	cmr.startVideoCapture( function( path ){
+			aletr( "Capture video success: " + path );  
+		},
+		function( error ) {
+			alert( "Capture video failed: " + error.message );
+		},
+		{resolution:res,
+			format:fmt
+		}
+	);
+
+	// 拍摄10s后自动完成 
+	setTimeout( function () {
+		cmr.stopVideoCapture();
+	}, 10000 );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.camera.CameraOption">CameraOption</a></h1>
+<p>JSON对象，调用摄像头的参数</p>
+<pre class="prettyprint linenums">
+interface CameraOption {
+	attribute DOMString filename;
+	attribute DOMString resolution;
+	attribute DOMString format;
+	attribute DOMString index;
+	attribute PopPosition popover;
+}
+				</pre>
+<h2>属性：</h2>
+<ul>
+<li>filename: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>拍照或摄像文件保存的路径<br><p>
+	可设置具体文件名，也可只设置路径，如果以“/”结尾则表明是路径，如未设置文件名称或设置的文件名冲突则文件名由程序程序自动生成。
+						</p>
+</li>
+<li>resolution: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>拍照或摄像使用的分辨率<br><p>
+	可通过Camera对象的supportedImageResolutions或supportedVideoResolutions获取，如果设置的参数无效则使用系统默认值。
+	注：暂不支持此属性。
+						</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (不支持): 暂未实现此属性功能</li>
+<li>iOS4.3+ (不支持): 暂不支持此属性功能</li>
+<li>WP7.5+ (不支持): 暂不支持此属性功能</li>
+</ul>
+</li>
+<li>format: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>拍照或摄像的文件格式<br><p>
+	可通过Camera对象的supportedImageFormats或supportedVideoFormats获取，如果设置的参数无效则使用系统默认值。
+						</p>
+</li>
+<li>index: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>拍照或摄像默认使用的摄像头<br><p>
+	拍照或摄像界面默认使用的摄像头编号，1表示主摄像头，2表示辅摄像头。
+						</p>
+</li>
+<li>popover: <em>(<a href="#plus.camera.PopPosition">PopPosition</a>
+	类型
+)</em>拍照或摄像界面弹出指示区域<br><p>
+	对于大屏幕设备如iPad，拍照或摄像界面为弹出窗口，此时可通过此参数设置弹出窗口位置，其为JSON对象，格式如{top:10,left:10,width:200,height:200}，默认弹出位置为屏幕居中。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.camera.PopPosition">PopPosition</a></h1>
+<p>JSON对象，弹出拍照或摄像界面指示位置</p>
+<h2>属性：</h2>
+<ul>
+<li>top: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>指示区域距离容器顶部的距离<br><p>
+	弹出拍照或摄像窗口指示区域距离容器顶部的距离，支持像素值（如100px）和百分比（如50%）。</p>
+</li>
+<li>left: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>指示区域距离容器左侧的距离<br><p>
+	弹出拍照或摄像窗口指示区域距离容器左侧的距离，支持像素值（如100px）和百分比（如50%）。</p>
+</li>
+<li>width: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>指示区域的宽度<br><p>
+	弹出拍照或摄像窗口指示区域的宽度，支持像素值（如100px）和百分比（如50%）。</p>
+</li>
+<li>height: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>指示区域的高度<br><p>
+	弹出拍照或摄像窗口指示区域的高度，支持像素值（如100px）和百分比（如50%）。</p>
+</li>
+</ul>
+<h1><a name="plus.camera.CameraSuccessCallback">CameraSuccessCallback</a></h1>
+<p>调用摄像头操作成功回调</p>
+<pre class="prettyprint linenums">
+void onSuccess( capturedFile ) {
+	// Caputre image/video file code.
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">调用摄像头操作成功的回调函数，在拍照或摄像操作成功时调用，用于返回图片或视频文件的路径。</p>
+<h2>参数：</h2>
+<ul><li>capturedFile: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>拍照或摄像操作保存的文件路径<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h1><a name="plus.camera.CameraErrorCallback">CameraErrorCallback</a></h1>
+<p>摄像头操作失败回调</p>
+<pre class="prettyprint linenums">
+void onError( error ) {
+	// Handle camera error
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>error: 
+		<em>(
+			<a href="#DOMException">DOMException</a>
+			)
+			必选 </em>摄像头操作的错误信息<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,1207 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body>
+<header><div class="nvbt iback" onclick="back();"></div>
+<div class="nvtt">Device Document</div></header><div id="content" class="content">
+<h1><a name="plus.device">device</a></h1>
+<p>Device模块管理设备信息，用于获取手机设备的相关信息，如IMEI、IMSI、型号、厂商等。通过plus.device获取设备信息管理对象。</p>
+<h2>属性：</h2>
+<ul>
+<li>
+<a href="#plus.device.imei">imei</a>: 设备的国际移动设备身份码</li>
+<li>
+<a href="#plus.device.imsi">imsi</a>: 设备的国际移动用户识别码</li>
+<li>
+<a href="#plus.device.model">model</a>: 设备的型号</li>
+<li>
+<a href="#plus.device.vendor">vendor</a>: 设备的生产厂商</li>
+</ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.device.dial">dial</a>: 拨打电话</li>
+<li>
+<a href="#plus.device.beep">beep</a>: 发出蜂鸣声</li>
+<li>
+<a href="#plus.device.vibrate">vibrate</a>: 设备振动</li>
+<li>
+<a href="#plus.device.setWakelock">setWakelock</a>: 设置应用是否保持唤醒（屏幕常亮）状态</li>
+<li>
+<a href="#plus.device.isWakelock">isWakelock</a>: 获取程序是否一直保持唤醒（屏幕常亮）状态</li>
+<li>
+<a href="#plus.device.setVolume">setVolume</a>: 设置设备的系统音量</li>
+<li>
+<a href="#plus.device.getVolume">getVolume</a>: 获取设备的系统音量</li>
+</ul>
+<h2>对象：</h2>
+<ul>
+<li>
+<a href="#plus.screen">screen</a>: Screen模块管理设备屏幕信息</li>
+<li>
+<a href="#plus.display">display</a>: Display模块管理应用可使用的显示区域信息</li>
+<li>
+<a href="#plus.networkinfo">networkinfo</a>: Device模块用于获取网络信息</li>
+<li>
+<a href="#plus.os">os</a>: OS模块管理操作系统信息</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"Device": {
+	"description": "访问设备信息"
+}
+			</pre>
+<h1><a name="plus.device.imei">imei</a></h1>
+<p>设备的国际移动设备身份码</p>
+<pre class="prettyprint linenums">
+plus.device.imei;
+				</pre>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 只读属性</p>
+<p>
+	调用此属性获取设备的国际移动设备身份码。
+	如果设备不支持则返回空字符串。
+				</p>
+<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Device Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null; 
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	alert( "IMEI: " + plus.device.imei ); 
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	IMEI
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.device.imsi">imsi</a></h1>
+<p>设备的国际移动用户识别码</p>
+<pre class="prettyprint linenums">
+plus.device.imsi;
+				</pre>
+<h2>说明：</h2>
+<p><a href="#Array">Array</a>
+	类型
+ 只读属性</p>
+<p>
+	字符串数组类型，获取设备上插入SIM的国际移动设备身份码。
+	如果设备支持多卡模式则返回所有SIM身份码。
+	如果设备不支持或没有插入SIM卡则返回空数组。
+				</p>
+<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Device Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null; 
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	alert( "IMSI: " + plus.device.imsi ); 
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	IMSI
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.device.model">model</a></h1>
+<p>设备的型号</p>
+<pre class="prettyprint linenums">
+plus.device.imei;
+				</pre>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 只读属性</p>
+<p>
+	调用此属性获取设备的型号信息。
+	如果设备不支持则返回空字符串。
+				</p>
+<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Device Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null; 
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	alert( "Device: " + plus.device.model ); 
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	Model
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.device.vendor">vendor</a></h1>
+<p>设备的生产厂商</p>
+<pre class="prettyprint linenums">
+plus.device.vendor;
+				</pre>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 只读属性</p>
+<p>
+	调用此属性获取设备的生产厂商信息。
+	如果设备不支持则返回空字符串。
+				</p>
+<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Device Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null; 
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	alert( "Vendor: " + plus.device.vendor ); 
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	Vendor
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.device.dial">dial</a></h1>
+<p>拨打电话</p>
+<pre class="prettyprint linenums">
+void plus.device.dial( number, confirm );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	调用系统程序拨打电话。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>number: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>要获取通讯录的类型，可取通讯录类型常量<br>
+</li>
+<li>confirm: 
+		<em>(
+			<a href="#Boolean">Boolean</a>
+			)
+			可选 </em>是否弹出确认对话框<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持): 忽略confirm参数</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持): 忽略confirm参数</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Device Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null;
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function dialTest() {
+	plus.device.dial( "10086", false );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;input type="button" value="Dial Test" onclick="dialTest();"&gt;&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+    			</pre>
+<h1><a name="plus.device.beep">beep</a></h1>
+<p>发出蜂鸣声</p>
+<pre class="prettyprint linenums">
+void plus.device.beep( times );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	调用此方法使得设备发出蜂鸣声。
+				</p>
+<h2>参数：</h2>
+<ul><li>times: 
+		<em>(
+			<a href="#Number">Number</a>
+			)
+			可选 </em>蜂鸣声重复的次数，默认发出一次蜂鸣声<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持): 播放系统设置中指定的默认通知铃声</li>
+<li>iOS4.3+ (支持): 忽略times参数，播放系统的通知铃声</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Device Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null; 
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	plus.device.beep( 3 ); 
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	Beep
+	&lt;/body&gt;
+&lt;/html&gt;
+    			</pre>
+<h1><a name="plus.device.vibrate">vibrate</a></h1>
+<p>设备振动</p>
+<pre class="prettyprint linenums">
+plus.device.vibrate( milliseconds );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	调用此方法使得设备振动。
+				</p>
+<h2>参数：</h2>
+<ul><li>milliseconds: 
+		<em>(
+			<a href="#Number">Number</a>
+			)
+			必选 </em>设备振动持续的时间<br>数值类型，单位为ms，默认为500ms。</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持): 振动指定的时长</li>
+<li>iOS4.3+ (支持): 
+	不支持milliseconds参数，使用系统默认振动时长，仅iPhone设备支持，iPad和iTouch设备不支持，调用此接口无任何效果。
+	注意：如果在系统设置中关闭振动功能则无法调用设备振动（设置-&gt;声音-&gt;振动）。
+						</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Vibrate Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null; 
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	plus.device.vibreate( 2000 ); 
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	Vibreate
+	&lt;/body&gt;
+&lt;/html&gt;
+    			</pre>
+<h1><a name="plus.device.setWakelock">setWakelock</a></h1>
+<p>设置应用是否保持唤醒（屏幕常亮）状态</p>
+<pre class="prettyprint linenums">
+plus.device.setWakelock( lock );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	调用此方法设置应用是否一直保持唤醒状态，保持唤醒状态将会导致程序屏幕常亮、系统不会自动锁屏，从而导致消耗更多的电量。若未设置一直保持唤醒状态则会根据系统设置自动锁定屏幕。
+				</p>
+<h2>参数：</h2>
+<ul><li>lock: 
+		<em>(
+			<a href="#Boolean">Boolean</a>
+			)
+			必选 </em>是否设置程序一直保持唤醒状态<br>可取值ture或false，true表示设定程序一直保持唤醒状态，false表示关闭程序一直保持唤醒状态。程序退出后将恢复默认状态，默认为关闭程序保持唤醒状态。</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Wake lock Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null; 
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	// 开启一直保持程序唤醒状态
+	plus.device.setWakelock( true ); 
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;input type='button' onclick='plus.device.setWakelock(false);' value='Unlocak'/&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+    			</pre>
+<h1><a name="plus.device.isWakelock">isWakelock</a></h1>
+<p>获取程序是否一直保持唤醒（屏幕常亮）状态</p>
+<pre class="prettyprint linenums">
+Boolean plus.device.isWakelock();
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	调用此方法获取程序是否一致保持唤醒状态。
+				</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#Boolean">Boolean</a>
+			: 返回ture表示程序已设置为一直保持唤醒状态，返回false表示程序未设置为一直保持唤醒状态。<h1><a name="plus.device.setVolume">setVolume</a></h1>
+<p>设置设备的系统音量</p>
+<pre class="prettyprint linenums">
+plus.device.setVolume( volume );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	调用此方法调节设备的系统音量。
+				</p>
+<h2>参数：</h2>
+<ul><li>volume: 
+		<em>(
+			<a href="#Number">Number</a>
+			)
+			必选 </em>设备的系统音量值<br>取值范围为0到1，0表示静音，1表示最大音量值。设置设备音量后对所有程序生效，退出程序系统仍然保持最后设定的音量值。</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>iOS4.3+ (支持)</li>
+<li>Android2.2+ (支持): 设置音量后对所有项的音量生效，如通话音量、系统音量、铃声音量、音乐音量、提示声音音量。</li>
+<li>WP7.5+ (不支持): 暂不支持</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Volume Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null; 
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	// 设置音量
+	plus.device.setVolume( 0.5 );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		音量设置
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.device.getVolume">getVolume</a></h1>
+<p>获取设备的系统音量</p>
+<pre class="prettyprint linenums">
+Number plus.device.getVolume();
+				</pre>
+<h2>说明：</h2>
+<p class="des">系统音量值范围为0到1，0表示静音，1表示最大音量值。</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#Number">Number</a>
+			: 系统的音量值<h1><a name="plus.screen">screen</a></h1>
+<p>Screen模块管理设备屏幕信息</p>
+<h2>属性：</h2>
+<ul>
+<li>
+<a href="#plus.screen.resolutionHeight">resolutionHeight</a>: 设备屏幕高度分辨率</li>
+<li>
+<a href="#plus.screen.resolutionWidth">resolutionWidth</a>: 设备屏幕宽度分辨率</li>
+<li>
+<a href="#plus.screen.scale">scale</a>: 逻辑分辨率与实际分辨率的比例</li>
+<li>
+<a href="#plus.screen.dpiX">dpiX</a>: 设备屏幕水平方向的密度</li>
+<li>
+<a href="#plus.screen.dpiY">dpiY</a>: 设备屏幕垂直方向的密度</li>
+</ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.screen.setBrightness">setBrightness</a>: 设置屏幕亮度</li>
+<li>
+<a href="#plus.screen.getBrightness">getBrightness</a>: 获取屏幕亮度值</li>
+<li>
+<a href="#plus.screen.lockOrientation">lockOrientation</a>: 锁定屏幕方向</li>
+<li>
+<a href="#plus.screen.unlockOrientation">unlockOrientation</a>: 解除锁定屏幕方向</li>
+</ul>
+<h1><a name="plus.screen.resolutionHeight">resolutionHeight</a></h1>
+<p>设备屏幕高度分辨率</p>
+<pre class="prettyprint linenums">
+plus.screen.resolutionHeight;
+						</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+ 只读属性</p>
+<p>
+	设备屏幕区域包括系统状态栏显示区域和应用显示区域，screen获取的是设备屏幕总区域的逻辑分辨率，单位为px。
+	如果需要获取实际分辨率则需要乘以比例值scale。
+						</p>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Device Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	alert( "Screen height: " + plus.screen.resolutionHeight*plus.screen.scale + "px" );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+&lt;body&gt;
+Device screen height resolution
+&lt;/body&gt;
+&lt;/html&gt;
+    					</pre>
+<h1><a name="plus.screen.resolutionWidth">resolutionWidth</a></h1>
+<p>设备屏幕宽度分辨率</p>
+<pre class="prettyprint linenums">
+plus.screen.resolutionWidth;
+						</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+ 只读属性</p>
+<p>
+	设备屏幕区域包括系统状态栏显示区域和应用显示区域，screen获取的是设备屏幕总区域的分辨率，单位为px。
+	如果需要获取实际分辨率则需要乘以比例值scale。
+						</p>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Device Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	alert( "Screen width: " + plus.screen.resolutionWidtht*plus.screen.scale + "px" );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+&lt;body&gt;
+Device screen width resolution
+&lt;/body&gt;
+&lt;/html&gt;
+    					</pre>
+<h1><a name="plus.screen.scale">scale</a></h1>
+<p>逻辑分辨率与实际分辨率的比例</p>
+<pre class="prettyprint linenums">
+plus.display.scale;
+						</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+ 只读属性</p>
+<p>
+		屏幕分辨率分逻辑分辨率率和实际分辨率，在html页面中使用的像素值都是相对于逻辑分辨率，此值就是逻辑分辨率和实际分辨率的比例，实际分辨率=逻辑分辨率*比例。
+						</p>
+<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Device Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	alert( "Screen resolution: " + plus.screen.resolutionWidth*plus.screen.scale + " x " + plus.screen.resolutionHeight*plus.screen.scale );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	Screen resolution
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.screen.dpiX">dpiX</a></h1>
+<p>设备屏幕水平方向的密度</p>
+<pre class="prettyprint linenums">
+plus.screen.dpiX;
+						</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+ 只读属性</p>
+<p>
+		设备屏幕的密度为每英寸所显示的像素点数，密度越高显示清晰度越高，单位为dpi。
+						</p>
+<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Device Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	alert( "Screen dip in X: " + plus.screen.dpiX );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	Device screen dip in x
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.screen.dpiY">dpiY</a></h1>
+<p>设备屏幕垂直方向的密度</p>
+<pre class="prettyprint linenums">
+plus.screen.dpiY;
+						</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+ 只读属性</p>
+<p>
+		设备屏幕的密度为每英寸所显示的像素点数，密度越高显示清晰度越高，单位为dpi。
+						</p>
+<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Device Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	alert( "Screen dip in Y: " + plus.screen.dpiY );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	Device screen dip in y
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.screen.setBrightness">setBrightness</a></h1>
+<p>设置屏幕亮度</p>
+<pre class="prettyprint linenums">
+plus.screen.setBrightness( brightness );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	调用此方法调节设备屏幕亮度。
+						</p>
+<h2>参数：</h2>
+<ul><li>brightness: 
+		<em>(
+			<a href="#Number">Number</a>
+			)
+			必选 </em>屏幕的亮度值<br>取值范围为0到1，0表示最低亮度值，1表示最高亮度值。设置屏幕亮度仅对当前程序在前台运行时有效，退出程序后屏幕亮度由系统设置的值决定。</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Brightness Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null; 
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	// 设置屏幕亮度
+	plus.screen.setBrightness( 0.5 ); 
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		屏幕亮度设置
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.screen.getBrightness">getBrightness</a></h1>
+<p>获取屏幕亮度值</p>
+<pre class="prettyprint linenums">
+Number plus.screen.getBrightness();
+						</pre>
+<h2>说明：</h2>
+<p class="des">屏幕亮度值范围为0到1，0表示最低亮度值，1表示最高亮度值。</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#Number">Number</a>
+			: 返回程序的屏幕亮度值<h1><a name="plus.screen.lockOrientation">lockOrientation</a></h1>
+<p>锁定屏幕方向</p>
+<pre class="prettyprint linenums">
+void plus.screen.lockOrientation( String orientation );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	锁定屏幕方向后屏幕只能按锁定的屏幕方向显示，关闭当前页面后仍然有效。
+	可再次调用此方法修改屏幕锁定方向或调用unlockOrientation()方法恢复到应用的默认值。
+						</p>
+<h2>参数：</h2>
+<ul><li>orientation: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			必选 </em>要锁定的屏幕方向值<br>
+	锁定屏幕方向可取以下值：
+	"portrait-primary": 竖屏正方向；
+	"portrait-secondary": 竖屏反方向，屏幕正方向按顺时针旋转180°；
+	"landscape-primary": 横屏正方向，屏幕正方向按顺时针旋转90°；
+	"landscape-secondary": 横屏方向，屏幕正方向按顺时针旋转270°；
+	"portrait": 竖屏正方向或反方向，根据设备重力感应器自动调整；
+	"landscape": 横屏正方向或反方向，根据设备重力感应器自动调整；
+								</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.screen.unlockOrientation">unlockOrientation</a></h1>
+<p>解除锁定屏幕方向</p>
+<pre class="prettyprint linenums">
+void plus.screen.unlockOrientation();
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	解除锁定屏幕方向后将恢复应用默认的屏幕显示方向（通常为应用打包发布时设置的方向）。
+						</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.display">display</a></h1>
+<p>Display模块管理应用可使用的显示区域信息</p>
+<h2>属性：</h2>
+<ul>
+<li>
+<a href="#plus.display.resolutionHeight">resolutionHeight</a>: 应用可使用的屏幕高度逻辑分辨率</li>
+<li>
+<a href="#plus.display.resolutionWidth">resolutionWidth</a>: 应用可使用的屏幕宽度逻辑分辨率</li>
+</ul>
+<h1><a name="plus.display.resolutionHeight">resolutionHeight</a></h1>
+<p>应用可使用的屏幕高度逻辑分辨率</p>
+<pre class="prettyprint linenums">
+plus.display.resolutionHeight;
+						</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+ 只读属性</p>
+<p>
+	设备屏幕区域包括系统状态栏显示区域和应用显示区域，display获取的是应用显示区域的逻辑分辨率，单位为px。
+	如果需要获取实际分辨率则需要乘以比例值scale。
+						</p>
+<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Device Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null; 
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	alert( "Display height: " + plus.display.resolutionHeight*plus.display.scale + "px" );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	Application display height resolution
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.display.resolutionWidth">resolutionWidth</a></h1>
+<p>应用可使用的屏幕宽度逻辑分辨率</p>
+<pre class="prettyprint linenums">
+plus.display.resolutionHeight;
+						</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+ 只读属性</p>
+<p>
+	设备屏幕区域包括系统状态栏显示区域和应用显示区域，display获取的是应用显示区域的逻辑分辨率，单位为px。
+	如果需要获取实际分辨率则需要乘以比例值scale。
+						</p>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Device Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null; 
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	alert( "Display width: " + plus.display.resolutionWidth*plus.display.scale + "px" );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	Application display width resolution
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.networkinfo">networkinfo</a></h1>
+<p>Device模块用于获取网络信息</p>
+<h2>常量：</h2>
+<ul>
+<li>
+<a href="#plus.networkinfo.CONNECTION_UNKNOW">CONNECTION_UNKNOW</a>: 网络连接状态未知</li>
+<li>
+<a href="#plus.networkinfo.CONNECTION_NONE">CONNECTION_NONE</a>: 未连接网络</li>
+<li>
+<a href="#plus.networkinfo.CONNECTION_ETHERNET">CONNECTION_ETHERNET</a>: 有线网络</li>
+<li>
+<a href="#plus.networkinfo.CONNECTION_WIFI">CONNECTION_WIFI</a>: 无线WIFI网络</li>
+<li>
+<a href="#plus.networkinfo.CONNECTION_CELL2G">CONNECTION_CELL2G</a>: 蜂窝移动2G网络</li>
+<li>
+<a href="#plus.networkinfo.CONNECTION_CELL3G">CONNECTION_CELL3G</a>: 蜂窝移动3G网络</li>
+<li>
+<a href="#plus.networkinfo.CONNECTION_CELL4G">CONNECTION_CELL4G</a>: 蜂窝移动4G网络</li>
+</ul>
+<h2>方法：</h2>
+<ul><li>
+<a href="#plus.networkinfo.getCurrentType">getCurrentType</a>: 获取设备当前连接的网络类型</li></ul>
+<h1><a name="plus.networkinfo.CONNECTION_UNKNOW">CONNECTION_UNKNOW</a></h1>
+<p>网络连接状态未知</p>
+<pre class="prettyprint linenums">
+plus.networkinfo.CONNECTION_UNKNOW;
+						</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p>网络状态常量，表示当前设备网络状态未知，固定值为0。</p>
+<h3>平台支持</h3>
+<ul></ul>
+<h1><a name="plus.networkinfo.CONNECTION_NONE">CONNECTION_NONE</a></h1>
+<p>未连接网络</p>
+<pre class="prettyprint linenums">
+plus.networkinfo.CONNECTION_NONE;
+						</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p>网络状态常量，当前设备网络未连接网络，固定值为1。</p>
+<h3>平台支持</h3>
+<ul></ul>
+<h1><a name="plus.networkinfo.CONNECTION_ETHERNET">CONNECTION_ETHERNET</a></h1>
+<p>有线网络</p>
+<pre class="prettyprint linenums">
+plus.networkinfo.CONNECTION_ETHERNET;
+						</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p>网络状态常量，当前设备连接到有线网络，固定值为2。</p>
+<h3>平台支持</h3>
+<ul></ul>
+<h1><a name="plus.networkinfo.CONNECTION_WIFI">CONNECTION_WIFI</a></h1>
+<p>无线WIFI网络</p>
+<pre class="prettyprint linenums">
+plus.networkinfo.CONNECTION_WIFI;
+						</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p>网络状态常量，当前设备连接到无线WIFI网络，固定值为3。</p>
+<h3>平台支持</h3>
+<ul></ul>
+<h1><a name="plus.networkinfo.CONNECTION_CELL2G">CONNECTION_CELL2G</a></h1>
+<p>蜂窝移动2G网络</p>
+<pre class="prettyprint linenums">
+plus.networkinfo.CONNECTION_CELL2G;
+						</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p>网络状态常量，当前设备连接到蜂窝移动2G网络，固定值为4。</p>
+<h3>平台支持</h3>
+<ul></ul>
+<h1><a name="plus.networkinfo.CONNECTION_CELL3G">CONNECTION_CELL3G</a></h1>
+<p>蜂窝移动3G网络</p>
+<pre class="prettyprint linenums">
+plus.networkinfo.CONNECTION_CELL3G;
+						</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p>网络状态常量，当前设备连接到蜂窝移动3G网络，固定值为5。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持): 在iPhone上无法区分蜂窝网络类型，只能返回CONNECTION_CELL2G类型。</li>
+</ul>
+<h1><a name="plus.networkinfo.CONNECTION_CELL4G">CONNECTION_CELL4G</a></h1>
+<p>蜂窝移动4G网络</p>
+<pre class="prettyprint linenums">
+plus.networkinfo.CONNECTION_CELL4G;
+						</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p>网络状态常量，当前设备连接到蜂窝移动4G网络，固定值为6。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持): 在iPhone上无法区分蜂窝网络类型，只能返回CONNECTION_CELL2G类型。</li>
+</ul>
+<h1><a name="plus.networkinfo.getCurrentType">getCurrentType</a></h1>
+<p>获取设备当前连接的网络类型</p>
+<pre class="prettyprint linenums">
+Number plus.networkinfo.getCurrentType();
+						</pre>
+<h2>说明：</h2>
+<p class="des">获取当前设备连接的网络类型，返回值为网络类型常量，可取值CONNECTION_*常量。</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#Number">Number</a>
+			: 设备当前网络类型<h2>平台支持：</h2>
+<ul>
+<li>Android2.3+ (支持)</li>
+<li>iOS4.3+ (支持): 无法区分蜂窝移动网络类型，在蜂窝移动网络环境下均返回CONNECTION_CELL2G。</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Device Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null; 
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	var types = {}; 
+	types[plus.networikinfo.CONNECTION_UNKNOW] = "Unknown connection"; 
+	types[plus.networikinfo.CONNECTION_NONE] = "Ethernet connection"; 
+	types[plus.networikinfo.CONNECTION_ETHERNET] = "Ethernet connection"; 
+	types[plus.networikinfo.CONNECTION_WIFI] = "WiFi connection"; 
+	types[plus.networikinfo.CONNECTION_CELL2G] = "Cellular 2G connection"; 
+	types[plus.networikinfo.CONNECTION_CELL3G] = "Cellular 3G connection"; 
+	types[plus.networikinfo.CONNECTION_CELL4G] = "Cellular 4G connection"; 
+
+	alert( "Network: " + plus.networkinfo.getCurrentType() );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	networkinfo
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.os">os</a></h1>
+<p>OS模块管理操作系统信息</p>
+<h2>属性：</h2>
+<ul>
+<li>
+<a href="#plus.os.language">language</a>: 系统语言信息</li>
+<li>
+<a href="#plus.os.version">version</a>: 系统版本信息</li>
+<li>
+<a href="#plus.os.name">name</a>: 系统的名称</li>
+<li>
+<a href="#plus.os.vendor">vendor</a>: 系统的供应商信息</li>
+</ul>
+<h1><a name="plus.os.language">language</a></h1>
+<p>系统语言信息</p>
+<pre class="prettyprint linenums">
+plus.os.language;
+						</pre>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 只读属性</p>
+<p>
+	获取当前操作系统设置的系统语言，字符串类型数据。
+						</p>
+<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Device Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null; 
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	alert( "OS language: " + plus.os.language );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	OS language
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.os.version">version</a></h1>
+<p>系统版本信息</p>
+<pre class="prettyprint linenums">
+plus.os.version;
+						</pre>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 只读属性</p>
+<p>
+	获取当前操作系统的版本信息，字符串类型数据。
+						</p>
+<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Device Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null; 
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	alert( "OS version: " + plus.os.version );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	OS version
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.os.name">name</a></h1>
+<p>系统的名称</p>
+<pre class="prettyprint linenums">
+plus.os.name;
+						</pre>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 只读属性</p>
+<p>
+	获取当前操作系统的名称，字符串类型数据。
+						</p>
+<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持): 返回字符串“Android”</li>
+<li>iOS4.3+ (支持): 返回字符串“iOS”</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Device Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null; 
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	alert( "OS name: " + plus.os.name );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	OS name
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.os.vendor">vendor</a></h1>
+<p>系统的供应商信息</p>
+<pre class="prettyprint linenums">
+plus.os.vendor;
+						</pre>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 只读属性</p>
+<p>
+	获取当前操作系统的供应商名称。，字符串类型数据。
+						</p>
+<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持): 返回字符串“Google”</li>
+<li>iOS4.3+ (支持): 返回字符串“Apple”</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Device Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+var r = null; 
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function onPlusReady() {
+	alert( "OS name: " + plus.os.vendor );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	OS vendor
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+</div>
+</body>
+</html>

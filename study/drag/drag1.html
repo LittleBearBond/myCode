@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Drag</title>
+	<style type="text/css" media="screen">
+		html,body{overflow:hidden;}
+		body,div,h2,p{margin:0;padding:0;}
+		body{color:#fff;background:#000;font:12px/2 Arial;}
+		.main { position: absolute; width:300px; height: 200px; border:3px solid #FFF; left: 50%; top: 50%; margin-left: -150px; margin-top: -100px;  background: #333;}
+		.main .header{ height:25px; border-bottom: 3px solid #fff; background: #333; cursor: move;}
+		.header b{float: right; margin-right: 5px;}
+		.body i{margin-right: 5px; color: #fff; font-weight: bold;}
+		.body b{color: yellow;}
+	</style>
+</head>
+<body>
+<!-- <h1>.main>(.header>i)+(.body>(i+b)*3)</h1> -->
+<div class="main" id='box'>
+	<div class="header"><b>点击回放</b></div>
+	<div class="body">
+		<p><i>Drag</i><b>false</b></p>
+		<p><i>offsetTop</i><b>0</b></p>
+		<p><i>offsetLeft</i><b>0</b></p>
+	</div>
+</div>
+</body>
+</html>

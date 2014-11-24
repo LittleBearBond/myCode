@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+	<style>
+		table{border-collapse: separate; border-spacing: 3px 5px;}  
+		td{border:3px solid black; padding: 3px;}
+
+
+		ol li{ list-style-type: decimal; }
+		li.off{list-style-type: none; }
+		a[href]:after{
+			content: attr(href);
+		}
+
+		.bg{
+		    width:400px;
+		    height:200px;
+		    background:#caca8c;
+		    background-image:-webkit-gradient(linear,50% 0,0 100%,
+		                                        from(transparent),
+		                                        color-stop(.5,transparent),
+		                                        color-stop(.5,#f00),
+		                                        to(#f00)    
+		                    ),
+		                    -webkit-gradient(linear,50% 0,100% 100%,
+		                                        from(transparent),
+		                                        color-stop(.5,transparent),
+		                                        color-stop(.5,#f00),
+		                                        to(#f00)                                            
+		                    );
+		    background-image:-moz-linear-gradient(50% 0 -45deg,
+		                                transparent,
+		                                transparent 50%,
+		                                #f00 50%,
+		                                #f00                                            
+		                    ),-moz-linear-gradient(50% 0 -135deg,
+		                                transparent,
+		                                transparent 50%,
+		                                #f00 50%,
+		                                #f00                                            
+		                    );                                
+		    background-size:400px 200px;
+		    background-repeat:repeat-x;
+		    background-position:0 100%;                    
+		}
+		.bg1{
+		    width:400px;
+		    height:200px;
+		    background:#caca8c;
+		    background-image:-webkit-gradient(linear,50% 0,0 100%,
+		                                        from(transparent),
+		                                        color-stop(.5,transparent),
+		                                        color-stop(.5,#f00),
+		                                        to(#f00)    
+		                    ),
+		                    -webkit-gradient(linear,50% 0,100% 100%,
+		                                        from(transparent),
+		                                        color-stop(.5,transparent),
+		                                        color-stop(.5,#f00),
+		                                        to(#f00)                                            
+		                    );
+		    background-image:-moz-linear-gradient(50% 0 -45deg,
+		                                transparent,
+		                                transparent 50%,
+		                                #f00 50%,
+		                                #f00                                            
+		                    ),-moz-linear-gradient(50% 0 -135deg,
+		                                transparent,
+		                                transparent 50%,
+		                                #f00 50%,
+		                                #f00                                            
+		                    );                                
+		    background-size:40px 20px;
+		    background-repeat:repeat-x;
+		    background-position:5% 100%;                    
+		}
+
+		.bg2{
+		 	margin-top: 20px;
+		    width:400px;
+		    height:200px;
+		    background:#f00;
+		    background-image:-webkit-gradient(linear,50% 0,0 100%,
+		                                        from(transparent),
+		                                        color-stop(.5,transparent),
+		                                        color-stop(.5,#fff),
+		                                        to(#fff)    
+		                    ),
+		                    -webkit-gradient(linear,50% 0,100% 100%,
+		                                        from(transparent),
+		                                        color-stop(.5,transparent),
+		                                        color-stop(.5,#fff),
+		                                        to(#fff)                                            
+		                    );
+		    background-image:-moz-linear-gradient(50% 0 -45deg,
+		                                transparent,
+		                                transparent 50%,
+		                                #fff 50%,
+		                                #fff                                            
+		                    ),-moz-linear-gradient(50% 0 -135deg,
+		                                transparent,
+		                                transparent 50%,
+		                                #fff 50%,
+		                                #fff                                            
+		                    );                                
+		    background-size:40px 20px;
+		    background-repeat:repeat-x;
+		    background-position:5% 100%;                    
+		}
+	</style>
+</head>
+<body>
+	<table>
+		<tbody></tbody>
+		<tr   >
+			<td colspan="2" width="425" valign="top" bgcolor="#eeeee3">1XXXX</td>
+			<td>2XXXX</td>
+		</tr>
+		<tr>
+			<td vspace="0"  hspace=3 border=0 alt="not looking back"  align="right" >1XXXX</td>
+			<td>MyCode/study/highQ/st1.html</td>
+		</tr>
+		<tr>
+			<td>MyCode/study/highQ/st1.html</td>
+			<td>2XXXX</td>
+		</tr>
+	</table>
+	<ol>
+		<li>MyCode/study/highQ/st1.html</li>
+		<li class='off'>sdgfsdfdsa</li>
+		<li>sdfdsafsdafds</li>
+		<li class='off'>dsfsdfdsafsddas</li>
+	</ol>
+		<a href="www.baidu.com">XXXX</a>
+
+		<div class="bg"></div>
+		<div class="bg1"></div>
+		<div class="bg2"></div>
+</body>
+</html>

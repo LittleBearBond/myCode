@@ -1,0 +1,294 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body>
+<header><div class="nvbt iback" onclick="back();"></div>
+<div class="nvtt">Console Document</div></header><div id="content" class="content">
+<h1><a name="plus.console">console</a></h1>
+<p>Console模块用于跟踪调试的API，可根据调试需求输出日志，协助开发人员定位业务逻辑问题。</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.console.log">log</a>: 记录用户日志</li>
+<li>
+<a href="#plus.console.info">info</a>: 记录用户提示信息</li>
+<li>
+<a href="#plus.console.warn">warn</a>: 记录用户警告信息</li>
+<li>
+<a href="#plus.console.error">error</a>: 记录用户错误信息</li>
+<li>
+<a href="#plus.console.assert">assert</a>: 断言操作</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"Console": {
+	"description": "跟踪调试输出日志"
+}
+			</pre>
+<h1><a name="plus.console.log">log</a></h1>
+<p>记录用户日志</p>
+<pre class="prettyprint linenums">
+plus.console.log( obj, ... );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	调用此方法在日志文件中写入日志信息。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>obj: 
+		<em>(
+			<a href="#Object">Object</a>
+			)
+			必选 </em>要写入日志文件的对象<br>为兼容各种对象，如果传入的参数不是字符串对象，系统将自动转换为字符串。</li>
+<li>...: 
+		<em>(
+			<a href="#Object">Object</a>
+			)
+			可选 </em>要写入日志文件的其它对象<br>不定个数参数，为兼容各种对象，如果传入的参数不是字符串对象，系统将自动转换为字符串。</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Console Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+	plus.console.log( "Plus ready for log!" );
+}, false );
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.console.info">info</a></h1>
+<p>记录用户提示信息</p>
+<pre class="prettyprint linenums">
+plus.console.info( obj, ... );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	调用此方法在日志文件中写入提示信息。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>obj: 
+		<em>(
+			<a href="#Object">Object</a>
+			)
+			必选 </em>要写入日志文件的对象<br>为兼容各种对象，如果传入的参数不是字符串对象，系统将自动转换为字符串。</li>
+<li>...: 
+		<em>(
+			<a href="#Object">Object</a>
+			)
+			可选 </em>要写入日志文件的其它对象<br>
+	不定个数参数，为兼容各种对象，如果传入的参数不是字符串对象，系统将自动转换为字符串。
+						</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Console Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+	plus.console.info( "Plus ready for info!" );
+}, false );
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.console.warn">warn</a></h1>
+<p>记录用户警告信息</p>
+<pre class="prettyprint linenums">
+plus.console.warn( obj, ... );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	调用此方法在日志文件中写入警告信息。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>obj: 
+		<em>(
+			<a href="#Object">Object</a>
+			)
+			必选 </em>要写入日志文件的对象<br>为兼容各种对象，如果传入的参数不是字符串对象，系统将自动转换为字符串。</li>
+<li>...: 
+		<em>(
+			<a href="#Object">Object</a>
+			)
+			可选 </em>要写入日志文件的其它对象<br>不定个数参数，为兼容各种对象，如果传入的参数不是字符串对象，系统将自动转换为字符串。</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Console Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+	plus.console.warn( "Plus ready for warn!" );
+}, false );
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.console.error">error</a></h1>
+<p>记录用户错误信息</p>
+<pre class="prettyprint linenums">
+plus.console.error( obj, ... );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	调用此方法在日志文件中写入警告信息。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>obj: 
+		<em>(
+			<a href="#Object">Object</a>
+			)
+			必选 </em>要写入日志文件的对象<br>为兼容各种对象，如果传入的参数不是字符串对象，系统将自动转换为字符串。</li>
+<li>...: 
+		<em>(
+			<a href="#Object">Object</a>
+			)
+			可选 </em>要写入日志文件的其它对象<br>不定个数参数，为兼容各种对象，如果传入的参数不是字符串对象，系统将自动转换为字符串。</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Console Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+	plus.console.error( "Plus ready for error!" );
+}, false );
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.console.assert">assert</a></h1>
+<p>断言操作</p>
+<pre class="prettyprint linenums">
+plus.console.assert( expression );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	如果执行语句不为true则终止脚本运行并抛出异常，并把异常记录到日志中。
+				</p>
+<h2>参数：</h2>
+<ul><li>obj: 
+		<em>(
+			<a href="#Object">Object</a>
+			)
+			必选 </em>要断言的脚本<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+  (支持)</li>
+<li>WP7.5+  (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Console Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+	plus.console.assert( trueAssert() );
+	plus.console.assert( falseAssert() );
+}, false );
+function trueAssert() {
+	var s1 = "Hello";
+	var t = "abc" + s1;
+	return true;
+}
+function falseAssert() {
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+</div>
+</body>
+</html>

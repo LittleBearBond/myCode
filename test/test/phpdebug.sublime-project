@@ -1,0 +1,40 @@
+{
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "E:\\MyCode\\test"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "E:\\MyCode\\study"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "E:\\MyCode\\PHP"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "E:\\MyCode\\jsbook-master"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "E:\\Work\\Code\\assets\\up\\dj-mobile\\pushover"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "D:\\googledownload\\artDialog-master"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "D:\\googledownload\\dolphinx.github.com-master"
+		}
+	],
+	"settings":
+	{
+		"xdebug":
+		{
+			"url": "http://127.0.0.1/"
+		}
+	}
+}

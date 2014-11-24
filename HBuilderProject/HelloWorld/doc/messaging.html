@@ -1,0 +1,433 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body>
+<header><div class="nvbt iback" onclick="back();"></div>
+<div class="nvtt">Messaging Document</div></header><div id="content" class="content">
+<h1><a name="plus.messaging">messaging</a></h1>
+<p>Messaging模块管理设备通讯功能，可用于短信、彩信、邮件发送等。通过plus.messaging可获取设备通讯管理对象。另外也可以直接通过html中的href直接快速发送短信、拨打电话、发送邮件等。</p>
+<h2>常量：</h2>
+<ul>
+<li>
+<a href="#plus.messaging.TYPE_SMS">TYPE_SMS</a>: 简单短信类型常量</li>
+<li>
+<a href="#plus.messaging.TYPE_MMS">TYPE_MMS</a>: 彩信类型常量</li>
+<li>
+<a href="#plus.messaging.TYPE_EMAIL">TYPE_EMAIL</a>: 邮件类型常量</li>
+</ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.messaging.createMessage">createMessage</a>: 创建消息对象</li>
+<li>
+<a href="#plus.messaging.sendMessage">sendMessage</a>: 发送消息</li>
+</ul>
+<h2>对象：</h2>
+<ul>
+<li>
+<a href="#plus.messaging.Message">Message</a>: 消息对象</li>
+<li>
+<a href="#plus.messaging.BodyType">BodyType</a>: 消息体内容类型</li>
+</ul>
+<h2>回调方法：</h2>
+<ul>
+<li>
+<a href="#plus.messaging.MessageSendSuccessCallback">MessageSendSuccessCallback</a>: 消息发送成功的回调函数</li>
+<li>
+<a href="#plus.messaging.MessageErrorCallback">MessageErrorCallback</a>: 消息发送失败的回调函数</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"Messaging": {
+	"description": "访问设备通讯能力"
+}
+			</pre>
+<h1><a name="plus.messaging.TYPE_SMS">TYPE_SMS</a></h1>
+<p>简单短信类型常量</p>
+<pre class="prettyprint linenums">
+plus.messaging.TYPE_SMS;
+				</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p>消息类型常量，Number类型，固定值为1，用于创建并发送短信。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持): 支持</li>
+<li>iOS4.3+ (支持): 支持</li>
+<li>WP7.5+ (不支持): 暂不支持</li>
+</ul>
+<h1><a name="plus.messaging.TYPE_MMS">TYPE_MMS</a></h1>
+<p>彩信类型常量</p>
+<pre class="prettyprint linenums">
+plus.messaging.TYPE_MMS;
+				</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p>消息类型常量，Number类型，固定值为2，用于创建并发送多媒体短信（彩信）。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持): 支持</li>
+<li>iOS4.3+ (不支持): 不支持彩信的发送</li>
+<li>WP7.5+ (不支持): 暂不支持</li>
+</ul>
+<h1><a name="plus.messaging.TYPE_EMAIL">TYPE_EMAIL</a></h1>
+<p>邮件类型常量</p>
+<pre class="prettyprint linenums">
+plus.messaging.TYPE_EMAIL;
+				</pre>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p>消息类型常量，Number类型，固定值为3，用于创建并发送邮件。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持): 支持</li>
+<li>iOS4.3+ (支持): 支持</li>
+<li>WP7.5+ (支持): 暂不支持</li>
+</ul>
+<h1><a name="plus.messaging.createMessage">createMessage</a></h1>
+<p>创建消息对象</p>
+<pre class="prettyprint linenums">
+Message plus.messaging.createMessage( type );
+				</pre>
+<h2>说明：</h2>
+<p class="des">创建指定类型的消息，消息类型可取plus.messaging.TYPE_SMS、plus.messaging.TYPE_MMS、plus.messaging.TYPE_EMAIL。</p>
+<h2>参数：</h2>
+<ul><li>type : 
+		<em>(
+			<a href="#Number">Number</a>
+			)
+			必选 </em>消息类型<br>要创建的消息类型常量，可取plus.messaging.TYPE_SMS、plus.messaging.TYPE_MMS、plus.messaging.TYPE_EMAIL。</li></ul>
+<h2>返回值：</h2>
+<a href="#plus.messaging.Message">Message</a>
+			: Message对象<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持): 支持</li>
+<li>iOS4.3+ (支持): 支持</li>
+<li>WP7.5+ (支持): 暂不支持</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Messaging Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+//短信
+function smsTest(){
+	var msg = plus.messaging.createMessage(plus.messaging.TYPE_SMS);
+	msg.to = ['18611497504', '15811140520'];
+	msg.body = 'This is Pandora example test message';
+	plus.messaging.sendMessage( msg );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;input type='button' onclick='smsTest();' value='sms'/&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.messaging.sendMessage">sendMessage</a></h1>
+<p>发送消息</p>
+<pre class="prettyprint linenums">
+void plus.messaging.sendMessage( msg, successCB, errorCB );
+				</pre>
+<h2>说明：</h2>
+<p class="des">发送消息，发送成功回调successCB函数，发送失败回调errorCB函数。</p>
+<h2>参数：</h2>
+<ul>
+<li>msg: 
+		<em>(
+			<a href="#plus.messaging.Message">Message</a>
+			)
+			必选 </em><br>要发送的消息对象</li>
+<li>successCB: 
+		<em>(
+			<a href="#plus.messaging.MessageSendSuccessCallback">MessageSendSuccessCallback</a>
+			)
+			可选 </em><br>消息发送成功回调函数</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.messaging.MessageErrorCallback">MessageErrorCallback</a>
+			)
+			可选 </em><br>消息发送失败回调函数</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持): 支持</li>
+<li>iOS4.3+ (支持): 支持</li>
+<li>WP7.5+ (支持): 暂不支持</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Messaging Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+//邮件
+function mailTest(){
+	var msg = plus.messaging.createMessage(plus.messaging.TYPE_EMAIL);
+	msg.to = ['test@163.com', 'test@173.com'];
+	msg.cc = ['test@163.com', 'test@173.com'];
+	msg.bcc = ['test@163.com', 'test@173.com'];
+	msg.subject = '测试邮件';
+	msg.body = 'This is Pandora example test message';
+	plus.messaging.sendMessage( msg, function () {
+		alert( "Send success!" );
+	}, function () {
+		alert( "Send failed!" );
+	} );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;input type='button' onclick='mailTest();' value='Send Mail'/&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.messaging.Message">Message</a></h1>
+<p>消息对象</p>
+<h2>属性：</h2>
+<ul>
+<li>
+<a href="#plus.messaging.Message.to">to</a>: 收件人信息</li>
+<li>
+<a href="#plus.messaging.Message.cc">cc</a>: 抄送人信息</li>
+<li>
+<a href="#plus.messaging.Message.bcc">bcc</a>: 暗送人信息</li>
+<li>
+<a href="#plus.messaging.Message.subject">subject</a>: 发送消息主题</li>
+<li>
+<a href="#plus.messaging.Message.body">body</a>: 发送消息内容</li>
+<li>
+<a href="#plus.messaging.Message.bodyType">bodyType</a>: 发送消息内容类型</li>
+<li>
+<a href="#plus.messaging.Message.silent">silent</a>: 是否采用静默方式发送消息</li>
+</ul>
+<h2>方法：</h2>
+<ul><li>
+<a href="#plus.messaging.Message.addAttachment">addAttachment</a>: 添加附件</li></ul>
+<h1><a name="plus.messaging.Message.to">to</a></h1>
+<p>收件人信息</p>
+<h2>说明：</h2>
+<p><a href="#DOMString%5B%5D">DOMString[]</a>
+	类型
+ 可选属性</p>
+<p>字符串数组类型，输入的地址收件人信息必须符合消息类型格式。</p>
+<h1><a name="plus.messaging.Message.cc">cc</a></h1>
+<p>抄送人信息</p>
+<h2>说明：</h2>
+<p><a href="#DOMString%5B%5D">DOMString[]</a>
+	类型
+ 可选属性</p>
+<p>字符串数组类型，仅发送邮件时有效，输入的地址收件人信息必须符合消息类型格式。</p>
+<h1><a name="plus.messaging.Message.bcc">bcc</a></h1>
+<p>暗送人信息</p>
+<h2>说明：</h2>
+<p><a href="#DOMString%5B%5D">DOMString[]</a>
+	类型
+ 可选属性</p>
+<p>字符串数组类型，仅发送邮件时有效，输入的地址收件人信息必须符合消息类型格式。</p>
+<h1><a name="plus.messaging.Message.subject">subject</a></h1>
+<p>发送消息主题</p>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 可选属性</p>
+<p>字符串类型，仅发送邮件时有效。</p>
+<h1><a name="plus.messaging.Message.body">body</a></h1>
+<p>发送消息内容</p>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 可选属性</p>
+<p>字符串类型，要发送的消息体内容，其格式必须与bodyType指定的一致。</p>
+<h1><a name="plus.messaging.Message.bodyType">bodyType</a></h1>
+<p>发送消息内容类型</p>
+<h2>说明：</h2>
+<p><a href="#plus.messaging.BodyType">BodyType</a>
+	类型
+ 可选属性</p>
+<p>要发送消息体内容的类型，可取值"text"表示文本内容，"html"表示为html页面，默认值为"text"。</p>
+<h2>平台支持：</h2>
+<ul>
+<li>iOS4.3+ (支持): 支持指定消息体内容类型，可支持html和text模式。</li>
+<li>Android2.2+ (不支持): 不支持指定消息体内容类型，仅支持text模式。</li>
+<li>WP7.5+ (不支持): 不支持指定消息体内容类型，仅支持text模式。</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Messaging Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+// send mail
+function mailTest(){
+	var msg = plus.messaging.createMessage(plus.messaging.TYPE_SMS);
+	msg.to = ['service@dcloud.io'];
+	msg.bodyType = "text/html";
+	msg.body = '&lt;html&gt;&lt;body&gt;hello world!&lt;/body&gt;&lt;/html&gt;';
+	plus.messaging.sendMessage( msg );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;input type='button' onclick='mailTest();' value='Mail'/&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.messaging.Message.silent">silent</a></h1>
+<p>是否采用静默方式发送消息</p>
+<h2>说明：</h2>
+<p><a href="#Boolean">Boolean</a>
+	类型
+ 可选属性</p>
+<p>布尔类型，可取值为true或false，true表示静默方式发送，不弹出界面；false表示非静默方式发送。默认采用非静默方式。</p>
+<h2>平台支持：</h2>
+<ul>
+<li>iOS4.3+ (不支持): 不支持静默方式发送消息，将忽略此属性值。</li>
+<li>Android2.2+ (支持): 支持静默方式发送短信（彩信和邮件不支持），发送成功后不会保留在系统的已发送信箱中，默认采用非静默方式发送消息。</li>
+<li>WP7.5+ (不支持): 不支持静默方式发送消息，将忽略此属性值。</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Messaging Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+// send SMS
+function smsTest(){
+	var msg = plus.messaging.createMessage(plus.messaging.TYPE_SMS);
+	msg.to = ['10086', '10001'];
+	msg.body = 'CXYE';
+	msg.silent = true;
+	plus.messaging.sendMessage( msg );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;input type='button' onclick='smsTest();' value='SMS'/&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.messaging.Message.addAttachment">addAttachment</a></h1>
+<p>添加附件</p>
+<pre class="prettyprint linenums">
+msg.addAttachment( url );
+						</pre>
+<h2>说明：</h2>
+<p class="des">向消息中添加附件，仅邮件类型消息支持，其它类型消息不支持。</p>
+<h2>参数：</h2>
+<ul><li>url: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>要添加的附件资源地址<br>附件资源必须是本地文件，支持相对路径及本地文件相对路径格式。</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Messaging Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 监听plusready事件 
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+},false);
+// send mail
+function mailTest(){
+	var msg = plus.messaging.createMessage(plus.messaging.TYPE_MAIL);
+	msg.to = ['service@dcloud.io'];
+	msg.body = 'This is an example mail';
+	msg.addAttachment("_www/a.doc");
+	plus.messaging.sendMessage( msg );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;input type='button' onclick='mailTest();' value='Mail'/&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.messaging.BodyType">BodyType</a></h1>
+<p>消息体内容类型</p>
+<h2>说明：</h2>
+<p class="des">用于设定消息的消息体内容。</p>
+<h1><a name="plus.messaging.MessageSendSuccessCallback">MessageSendSuccessCallback</a></h1>
+<p>消息发送成功的回调函数</p>
+<pre class="prettyprint linenums">
+void onSuccess() {
+	// Send message success code.
+}
+					</pre>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.messaging.MessageErrorCallback">MessageErrorCallback</a></h1>
+<p>消息发送失败的回调函数</p>
+<pre class="prettyprint linenums">
+void onError( error ) {
+	// Error code.
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>error: 
+		<em>(
+			<a href="#DOMException">DOMException</a>
+			)
+			必选 </em>失败信息<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无</div>
+</body>
+</html>

@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>17-阿里巴巴人才储备库_学生版</title>
+    <!-- 全站公用css -->
+    <!--#include virtual="/up/job-project-2013/demo/dajie.html"-->
+    <!-- 本页需要的静态文件 -->
+    <link rel="stylesheet" href="/up/dj-mobile/pushover/css/mail_source.css">
+    <script type="text/javascript" src="/up/dj-mobile/pushover/lib/jquery.formvalidate.js"></script>
+    <script type="text/javascript" src="/up/dj-mobile/pushover/js/base-pc.js"></script>
+    <script type="text/javascript" src="/up/dj-mobile/pushover/js/reg-base-pc.js"></script>
+    <!--和其他页面不一样 这个页面有时间选择，所以需要高版本的jquery 以及jqueryui-->
+    <link rel="stylesheet" href="/up/dj-mobile/pushover/lib/jqueryui/themes/base/jquery.ui.all.css">
+    <!-- <script type="text/javascript" src="/up/dj-mobile/pushover/lib/jqueryui/jquery-1.10.2.js"></script> -->
+    <script type="text/javascript" src="/up/dj-mobile/pushover/lib/jqueryui/ui/jquery.ui.core.js"></script>
+    <script type="text/javascript" src="/up/dj-mobile/pushover/lib/jqueryui/ui/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="/up/dj-mobile/pushover/lib/jqueryui/ui/jquery.ui.datepicker.js"></script>
+    <script type="text/javascript" src="/up/dj-mobile/pushover/lib/jqueryui/ui/i18n/jquery.ui.datepicker-zh-CN.js"></script>
+    <script type="text/javascript" src="/up/dj-mobile/pushover/js/mail_form.js"></script>
+</head>
+<body>
+    <div class="header">
+        <h1>
+            <img src="http://5.f1.dajieimg.com/n/micro_blog/T1madvB7_T1R4cSCrK_c.png" width="30" height="30" alt="小米"><b>阿里巴巴</b>-人才储备库
+        </h1>
+    </div>
+    <div class="content" id="1233">
+        <h2>请填写简单的个人资料</h2>
+        <p>让我们了解你的背景，并在有合适机会时联系你</p>
+        <form action="" method="GET" id="J_pageValidateForm" class="p-form">
+            <ul>
+                <li>
+                    <label class="box" for="pf-name">
+                        <span class="name">姓名</span>
+                        <input type="text" name="name" id="pf-name" placeholder="请填写真实姓名" />
+                    </label>
+                    <span class="error"></span>
+                </li>
+                <li>
+                    <label class="box" for="pf-corp">
+                        <span class="name">学校</span>
+                        <input type="text" name="schoolName" maxlength="40" id="pf-corp" />
+                    </label>
+                    <span class="error"><a href="http://192.168.20.48/up/dj-mobile/pushover/demo/num/102316.html">我已工作</a></span>
+                </li>
+                <li>
+                    <label class="box" for="pf-department">
+                        <span class="name">院系</span>
+                        <!--                         <select name="department"  id="pf-department">
+                            <option value="">请选择</option>
+                            <option value="1">信息科技学院</option>
+                            <option value="2">美术学院</option>
+                        </select> -->
+                        <input type="text" name="department" value="" id="pf-department" placeholder="请填写">
+                    </label>
+                    <span class="error"></span>
+                </li>
+                <li>
+                    <!-- <label class="box" for="pf-professional">
+                        <span class="name">专业</span>
+                        <select name="professional"  id="pf-professional">
+                            <option value="">请选择</option>
+                            <option value="1">软件工程</option>
+                            <option value="2">网络工程</option>
+                        </select>
+                    </label> -->
+                    <label class="box timewrap">
+                        <span class="name">在校时间</span>
+                        <select name="professional" id="pf-professional">
+                            <option value="">请选择</option>
+                            <option value="1">软件工程</option>
+                            <option value="2">网络工程</option>
+                        </select>
+                        <em>-</em>
+                        <select name="professional" id="pf-professional">
+                            <option value="">请选择</option>
+                            <option value="1">软件工程</option>
+                            <option value="2">网络工程</option>
+                        </select>
+                    </label>
+                    <span class="error"></span>
+                    <span class="error"></span>
+                </li>
+                <li>
+                    <label class="box timewrap">
+                        <span class="name">在校时间</span>
+                        <input type="text" name="starttime" />
+                        <em>-</em>
+                        <input type="text" name="endtime" />
+                        <span class="info hide" style="display:none">目前在职</span>
+                    </label>
+                    <span class="error"></span>
+                </li>
+
+                <li class="item-corp">
+                    <label class="box" for="pf-mail">
+                        <span class="name">邮箱</span>
+                        <input type="text" name="email" placeholder="用于接收HR反馈" id="pf-mail">
+                    </label>
+                    <span class="error"></span>
+                </li>
+                <li>
+                    <label class="box" for="pf-tel">
+                        <span class="name">电话</span>
+                        <input type="text" placeholder="红包话费将发送至此" name="mobile" id="pf-tel" />
+                    </label>
+                    <span class="error"></span>
+                </li>
+
+            </ul>
+            <a class="btn-submit J_pageValidateBtn" href="#">立即加入</a>
+            <p class="footer-tip">根据提示操作，领取话费红包</p>
+        </form>
+    </div>
+    <div class="footer">
+        From：小米-小推鸡微信服务
+    </div>
+    <script type="text/javascript">
+        dj['setPageData']({
+            validate: [{
+                strBtnClass: 'J_pageValidateBtn',
+                strFormID: 'J_pageValidateForm',
+                urlFormAction: '/up/dj-mobile/pushover/json/ajax.html',
+                urlNext: './qcode_20140717.html',
+                item: {
+                    name: {
+                        reg: 'fun:verifyName',
+                        regEmpty: '请填写真实姓名',
+                        ajaxUrl: '/up/dj-mobile/pushover/json/ajax-name.php?error=1',
+                        urlPlus: 'name',
+                        urlErr: '请填写真实姓名'
+                    },
+                    mobile: {
+                        reg: '^((13[0-9])|(15[^4,\\D])|(18[0-9])|(14[2,5,7]))\\d{8}$',
+                        regErr: '请填写真实的11位⼿手机号码',
+                        regEmpty: '请填写手机号码'
+                    },
+                    email: {
+                        // reg: '^[_a-z0-9\\.\\-]{1,50}@([\\._a-z0-9\\-]+\\.)+[a-z0-9]{2,4}$',
+                        reg: 'fun:checkEmail',
+                        regEmpty: '请填写邮箱',
+                        regErr: '请填写正确的邮箱地址'
+                    },
+                    department: {
+                        regEmpty: '请选择院系',
+                        regErr: '请选择院系'
+                    },
+                    professional: {
+                        regEmpty: '请选择专业',
+                        regErr: '请选择专业'
+                    },
+                    starttime: {
+                        regEmpty: '请选择任职时间',
+                        regErr: '请选择任职时间'
+                    },
+                    schoolName: {
+                        reg: '^.{2,40}$',
+                        regErr: '请填写有效的学校名称(2-40字)',
+                        regEmpty: '请填写学校名称'
+                    },
+                    position: {
+                        reg: '^.{2,40}$',
+                        regErr: '请填写有效的职位名称(2-40字)',
+                        regEmpty: '请填写你的当前职位'
+                    }
+                }
+            }]
+        });
+    </script>
+</body>
+</html>

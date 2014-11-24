@@ -1,0 +1,997 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body>
+<header><div class="nvbt iback" onclick="back();"></div>
+<div class="nvtt">NavtiveUI Document</div></header><div id="content" class="content">
+<h1><a name="plus.nativeUI">nativeUI</a></h1>
+<p>nativeUI管理系统原生界面，可用于弹出系统原生提示对话框窗口、时间日期选择对话框、等待对话框等。</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.nativeUI.alert">alert</a>: 弹出系统提示对话框</li>
+<li>
+<a href="#plus.nativeUI.confirm">confirm</a>: 弹出系统确认对话框</li>
+<li>
+<a href="#plus.nativeUI.closeWaiting">closeWaiting</a>: 关闭系统等待对话框</li>
+<li>
+<a href="#plus.nativeUI.showWaiting">showWaiting</a>: 显示系统等待对话框</li>
+<li>
+<a href="#plus.nativeUI.pickDate">pickDate</a>: 弹出系统日期选择对话框</li>
+<li>
+<a href="#plus.nativeUI.pickTime">pickTime</a>: 弹出系统时间选择对话框</li>
+<li>
+<a href="#plus.nativeUI.prompt">prompt</a>: 弹出系统输入对话框</li>
+<li>
+<a href="#plus.nativeUI.toast">toast</a>: 显示自动消失的提示消息</li>
+</ul>
+<h2>对象：</h2>
+<ul>
+<li>
+<a href="#plus.nativeUI.PickDateOption">PickDateOption</a>: JSON对象，日期选择对话框的参数</li>
+<li>
+<a href="#plus.nativeUI.PickTimeOption">PickTimeOption</a>: JSON对象，时间选择对话框的参数</li>
+<li>
+<a href="#plus.nativeUI.Waiting">Waiting</a>: 系统等待对话框对象</li>
+<li>
+<a href="#plus.nativeUI.WaitingOption">WaitingOption</a>: JSON对象，原生等待对话框的参数</li>
+<li>
+<a href="#plus.nativeUI.ToastOption">ToastOption</a>: JSON对象，系统提示消息框要设置的参数</li>
+</ul>
+<h2>回调方法：</h2>
+<ul>
+<li>
+<a href="#plus.nativeUI.AlertCallback">AlertCallback</a>: 系统提示框确认的回调函数</li>
+<li>
+<a href="#plus.nativeUI.ConfirmCallback">ConfirmCallback</a>: 关闭确认对话框的回调函数</li>
+<li>
+<a href="#plus.nativeUI.PromptCallback">PromptCallback</a>: 系统输入对话框关闭后的回调函数</li>
+<li>
+<a href="#plus.nativeUI.PickDatetimeSuccessCallback">PickDatetimeSuccessCallback</a>: 选择日期或时间操作成功的回调函数</li>
+<li>
+<a href="#plus.nativeUI.PickDatetimeErrorCallback">PickDatetimeErrorCallback</a>: 选择日期或时间操作取消或失败的回调函数</li>
+</ul>
+<h1><a name="plus.nativeUI.alert">alert</a></h1>
+<p>弹出系统提示对话框</p>
+<pre class="prettyprint linenums">
+void plus.nativeUI.alert( message, alertCB, title, buttonCapture );
+					</pre>
+<h2>说明：</h2>
+<p class="des">
+	创建并显示系统样式提示对话框，可设置提示对话框的标题、内容、按钮文字等。
+	弹出的提示对话框为非阻塞模式，用户点击提示对话框上的按钮后关闭，并通过alertCB回调函数通知对话框已关闭。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>message: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			必选 </em>提示对话框上显示的内容<br>
+</li>
+<li>alertCB: 
+		<em>(
+			<a href="#plus.nativeUI.AlertCallback">AlertCallback</a>
+			)
+			可选 </em>提示对话框上关闭后的回调函数<br>
+</li>
+<li>title: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			可选 </em>提示对话框上显示的标题<br>
+</li>
+<li>buttonCapture: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			必选 </em>提示对话框上按钮显示的内容<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;nativeUI Example&lt;/title&gt;
+		&lt;script type="text/javascript"&gt;
+// H5 plus事件处理
+function plusReady(){
+	// 弹出系统提示对话框
+	plus.nativeUI.alert( "Plus is ready!", function(){
+		console.log( "User pressed!" );
+	}, "nativeUI", "OK" );
+}
+if(window.plus){
+	plusReady();
+}else{
+	document.addEventListener("plusready",plusReady,false);
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	弹出系统提示对话框
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.nativeUI.confirm">confirm</a></h1>
+<p>弹出系统确认对话框</p>
+<pre class="prettyprint linenums">
+void plus.nativeUI.confirm( message, confirmCB, title, buttons );
+					</pre>
+<h2>说明：</h2>
+<p class="des">
+	创建并显示系统样式确认对话框，可设置确认对话框的标题、内容、按钮数目及其文字。
+	弹出的确认对话框为非阻塞模式，用户点击确认对话框上的按钮后关闭，并通过confirmCB回调函数通知用户点击的按钮索引值。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>message: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			必选 </em>确认对话框上显示的内容<br>
+</li>
+<li>confirmCB: 
+		<em>(
+			<a href="#plus.nativeUI.ConfirmCallback">ConfirmCallback</a>
+			)
+			可选 </em>确认对话框关闭后的回调函数<br>
+	回调函数中包括Event参数，可通过其index属性（Number类型）获取用户点击按钮的索引值。
+						</li>
+<li>title: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			可选 </em>确认对话框上显示的标题<br>
+</li>
+<li>buttons: 
+		<em>(
+			<a href="#String%5B%5D">String[]</a>
+			)
+			可选 </em>确认对话框上显示的按钮<br>
+	字符串数组，每项对应在确认对话框上显示一个按钮，用户点击后通过confirmCB返回用户点击按钮的在数组中的索引值。
+						</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;nativeUI Example&lt;/title&gt;
+		&lt;script type="text/javascript"&gt;
+// H5 plus事件处理
+function plusReady(){
+	// 弹出提示信息对话框
+	plus.nativeUI.confirm( "Are you sure ready?", function(e){
+		console.log( (e.index==0)?"Yes!":"No!" );
+	}, "nativeUI", ["Yes","No"] );
+}
+if(window.plus){
+	plusReady();
+}else{
+	document.addEventListener("plusready",plusReady,false);
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	弹出系统确认对话框
+	&lt;/body&gt;
+&lt;/html&gt;
+					</pre>
+<h1><a name="plus.nativeUI.closeWaiting">closeWaiting</a></h1>
+<p>关闭系统等待对话框</p>
+<pre class="prettyprint linenums">
+void plus.nativeUI.closeWaiting();
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	关闭已经显示的所有系统样式等待对话框，触发Waiting对象的onclose事件。
+				</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;nativeUI Example&lt;/title&gt;
+		&lt;script type="text/javascript"&gt;
+// H5 plus事件处理
+function plusReady(){
+	// 弹出系统等待对话框
+	plus.nativeUI.showWaiting( "等待中..." );
+	setTimeout( function(){
+		plus.nativeUI.closeWaiting();
+	}, 5000 );
+}
+if(window.plus){
+	plusReady();
+}else{
+	document.addEventListener("plusready",plusReady,false);
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	显示系统等待对话框
+	5S后自动关闭
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.nativeUI.showWaiting">showWaiting</a></h1>
+<p>显示系统等待对话框</p>
+<pre class="prettyprint linenums">
+Waiting plus.nativeUI.showWaiting( title, options );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	创建并显示系统样式等待对话框，并返回等待对话框对象Waiting，显示后需调用其close方法进行关闭。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>title: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			可选 </em>等待对话框上显示的提示标题内容<br>
+</li>
+<li>options: 
+		<em>(
+			<a href="#plus.nativeUI.WaitingOption">WaitingOption</a>
+			)
+			可选 </em>等待对话框的显示参数<br>可设置等待对话框的宽、高、边距、背景等样式。</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#plus.nativeUI.Waiting">Waiting</a>
+			: Waiting对象<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;nativeUI Example&lt;/title&gt;
+		&lt;script type="text/javascript"&gt;
+// H5 plus事件处理
+function plusReady(){
+	// 弹出系统等待对话框
+	var w = plus.nativeUI.showWaiting( "等待中..." );
+}
+if(window.plus){
+	plusReady();
+}else{
+	document.addEventListener("plusready",plusReady,false);
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	显示系统等待对话框
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.nativeUI.pickDate">pickDate</a></h1>
+<p>弹出系统日期选择对话框</p>
+<pre class="prettyprint linenums">
+void plus.nativeUI.pickDate( successCB, errorCB, options );
+					</pre>
+<h2>说明：</h2>
+<p class="des">
+	创建并显示系统样式日期选择对话框，可进行日期的选择。
+	用户操作确认后通过successCB回调函数返回用户选择的日期，若用户取消选择则通过errorCB回调。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>successCB: 
+		<em>(
+			<a href="#plus.nativeUI.PickDatetimeSuccessCallback">PickDatetimeSuccessCallback</a>
+			)
+			必选 </em>日期选择操作成功的回调函数<br>
+	回调函数中包括Event参数，可通过其date属性（Date类型）获取用户选择的时间。
+						</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.nativeUI.PickDatetimeErrorCallback">PickDatetimeErrorCallback</a>
+			)
+			可选 </em>日期选择操作取消或失败的回调函数<br>
+</li>
+<li>options: 
+		<em>(
+			<a href="#plus.nativeUI.PickDateOption">PickDateOption</a>
+			)
+			可选 </em>日期选择操作的参数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;nativeUI Example&lt;/title&gt;
+		&lt;script type="text/javascript"&gt;
+// H5 plus事件处理
+function plusReady(){
+}
+if(window.plus){
+	plusReady();
+}else{
+	document.addEventListener("plusready",plusReady,false);
+}
+// 选择日期
+function pickDate(){
+	plus.nativeUI.pickDate( function(e){
+		var d=e.date;
+		console.log( "选择的日期："+d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate() );
+	},function(e){
+		console.log( "未选择日期："+e.message );
+	});
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	弹出系统日期选择对话框
+	&lt;br/&gt;
+	&lt;button onclick="pickDate()"&gt;选择日期&lt;/button&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.nativeUI.pickTime">pickTime</a></h1>
+<p>弹出系统时间选择对话框</p>
+<pre class="prettyprint linenums">
+void plus.nativeUI.pickTime( successCB, errorCB, options );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	创建并弹出系统样式时间选择对话框，可进行时间的选择。
+	用户操作确认后通过successCB回调函数返回用户选择的时间，若用户取消选择则通过errorCB回调。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>successCB: 
+		<em>(
+			<a href="#plus.nativeUI.PickDatetimeSuccessCallback">PickDatetimeSuccessCallback</a>
+			)
+			必选 </em>时间选择操作成功的回调函数<br>
+	回调函数中包括Event参数，可通过其date属性（Date类型）获取用户选择的时间。
+						</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.nativeUI.PickDatetimeErrorCallback">PickDatetimeErrorCallback</a>
+			)
+			可选 </em>时间选择操作取消或失败的回调函数<br>
+</li>
+<li>options: 
+		<em>(
+			<a href="#plus.nativeUI.PickTimeOption">PickTimeOption</a>
+			)
+			可选 </em>时间选择操作的参数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;nativeUI Example&lt;/title&gt;
+		&lt;script type="text/javascript"&gt;
+// H5 plus事件处理
+function plusReady(){
+}
+if(window.plus){
+	plusReady();
+}else{
+	document.addEventListener("plusready",plusReady,false);
+}
+// 选择时间
+function pickTime(){
+	plus.nativeUI.pickTime( function(e){
+		var d=e.date;
+		console.log( "选择的时间："+d.getHours()+":"+d.getMinutes() );
+	},function(e){
+		console.log( "未选择时间："+e.message );
+	});
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	弹出系统时间选择对话框
+	&lt;br/&gt;
+	&lt;button onclick="pickTime()"&gt;选择时间&lt;/button&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.nativeUI.prompt">prompt</a></h1>
+<p>弹出系统输入对话框</p>
+<pre class="prettyprint linenums">
+void plus.nativeUI.prompt( message, promptCB, title, tip, buttons );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	创建并显示系统样式输入对话框，可设置输入对话框的标题、内容、提示输入信息、按钮数目及其文字。
+	弹出的输入对话框为非阻塞模式，其中包含编辑框供用户输入内容，用户点击输入对话框上的按钮后自动关闭，并通过promptCB回调函数返回用户点击的按钮及输入的内容。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>message: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			必选 </em>输入对话框上显示的内容<br>
+</li>
+<li>promptCB: 
+		<em>(
+			<a href="#plus.nativeUI.PromptCallback">PromptCallback</a>
+			)
+			可选 </em>关闭输入对话框的回调函数<br>
+	回调函数中包括Event参数，可通过其index属性（Number类型）获取用户点击按钮的索引值，通过其value属性（String类型）获取用户输入的内容。
+						</li>
+<li>title: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			可选 </em>输入对话框上显示的标题<br>
+</li>
+<li>tip: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			可选 </em>输入对话框上编辑框显示的提示文字<br>
+</li>
+<li>buttons: 
+		<em>(
+			<a href="#Array(String)">Array(String)</a>
+			)
+			可选 </em>输入对话框上显示的按钮数组<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;nativeUI Example&lt;/title&gt;
+		&lt;script type="text/javascript"&gt;
+// H5 plus事件处理
+function plusReady(){
+	// 弹出输入对话框
+	plus.nativeUI.prompt( "Input your name: ", function(e){
+		console.log( ((e.index==0)?"OK: ":"Cancel")+e.value );
+	},"nativeUI", "your name", ["OK","Cancel"]);
+}
+if(window.plus){
+	plusReady();
+}else{
+	document.addEventListener("plusready",plusReady,false);
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	弹出系统输入对话框
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.nativeUI.toast">toast</a></h1>
+<p>显示自动消失的提示消息</p>
+<pre class="prettyprint linenums">
+void plus.nativeUI.toast( message, options );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	创建并显示系统样式提示消息，弹出的提示消息为非阻塞模式，显示指定时间后自动消失。
+	提示消息显示时间可通过options的duration属性控制，长时间提示消息显示时间约为3.5s，短时间提示消息显示时间约为2s。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>message: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			必选 </em>提示消息上显示的文字内容<br>
+</li>
+<li>options: 
+		<em>(
+			<a href="#plus.nativeUI.ToastOption">ToastOption</a>
+			)
+			可选 </em>提示消息的参数<br>
+	可设置提示消息显示的图标、持续时间、位置等。
+						</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul><li>Android2.2+ (支持)</li></ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;nativeUI Example&lt;/title&gt;
+		&lt;script type="text/javascript"&gt;
+// H5 plus事件处理
+function plusReady(){
+	// 显示自动消失的提示消息
+	plus.nativeUI.toast( "I'am toast information!");
+}
+if(window.plus){
+	plusReady();
+}else{
+	document.addEventListener("plusready",plusReady,false);
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	显示自动消失的提示消息
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.nativeUI.PickDateOption">PickDateOption</a></h1>
+<p>JSON对象，日期选择对话框的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>title: <em>(<a href="#String">String</a>
+	类型
+)</em>日期选择对话框显示的标题<br><p>
+	如果未设置标题，则默认显示标题为当前选择的日期。
+						</p>
+</li>
+<li>date: <em>(<a href="#Date">Date</a>
+	类型
+)</em>日期选择对话框默认显示的日期<br><p>
+	如果未设置默认显示的日期，则显示当前的日期。
+						</p>
+</li>
+<li>minDate: <em>(<a href="#Date">Date</a>
+	类型
+)</em>日期选择对话框可选择的最小日期<br><p>
+	Date类型对象，如果未设置可选择的最小日期，则使用系统默认可选择的最小日期值。
+						</p>
+</li>
+<li>maxDate: <em>(<a href="#Date">Date</a>
+	类型
+)</em>日期选择对话框可选择的最大日期<br><p>
+	Date类型对象，如果未设置可选择的最大日期，则使用系统默认可选择的最大日期值。
+	其值必须大于minDate设置的值，否则使用系统默认可选择的最大日期值。
+						</p>
+</li>
+<li>popover: <em>(<a href="#JSON">JSON</a>
+	类型
+)</em>时间选择对话框弹出指示区域<br><p>
+	JSON类型对象，格式如{top:10;left:10;width:200;height:200;}，所有值为像素值，其值为相对于容器Webview的位置。
+	如未设置此值，默认在屏幕居中显示。仅在iPad上有效，其它设备忽略此值。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.nativeUI.PickTimeOption">PickTimeOption</a></h1>
+<p>JSON对象，时间选择对话框的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>time: <em>(<a href="#Date">Date</a>
+	类型
+)</em>时间选择对话框默认显示的时间<br><p>
+	如果未设置标题，则默认显示标题为当前选择的时间。
+						</p>
+</li>
+<li>title: <em>(<a href="#String">String</a>
+	类型
+)</em>时间选择对话框显示的标题<br><p>
+	如果未设置标题，则默认显示标题为当前选择的时间。
+						</p>
+</li>
+<li>is24Hour: <em>(<a href="#Boolean">Boolean</a>
+	类型
+)</em>是否24小时制模式<br><p>
+	true表示使用24小时制模式显示，fale表示使用12小时制模式显示，默认值为true。
+						</p>
+</li>
+<li>popover: <em>(<a href="#JSON">JSON</a>
+	类型
+)</em>日期选择对话框弹出指示区域<br><p>
+	JSON类型对象，格式如{top:10;left:10;width:200;height:200;}，所有值为像素值，其值相对于容器webview的位置。
+	如未设置此值，默认在屏幕居中显示。仅在iPad上有效，其它设备忽略此值。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.nativeUI.Waiting">Waiting</a></h1>
+<p>系统等待对话框对象</p>
+<h2>说明：</h2>
+<p class="des">
+	可通过plus.nativeUI.showWaiting方法创建，用于控制系统样式等待对话框的操作，如关闭、设置标题内容等。
+				</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.nativeUI.Waiting.setTitle">setTitle</a>: 设置等待对话框上显示的文字内容</li>
+<li>
+<a href="#plus.nativeUI.Waiting.close">close</a>: 关闭显示的系统等待对话框</li>
+</ul>
+<h2>事件：</h2>
+<ul><li>
+<a href="#plus.nativeUI.Waiting.onclose">onclose</a>: 等待对话框关闭事件</li></ul>
+<h1><a name="plus.nativeUI.Waiting.setTitle">setTitle</a></h1>
+<p>设置等待对话框上显示的文字内容</p>
+<pre class="prettyprint linenums">
+wobj.setTitle( title );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	在调用plus.nativeUI.showWaiting方法时设置等待对话框初始显示的文字内容，显示后可通过此方法动态修改等待对话框上显示的文字，设置后文字内容将立即更新。
+						</p>
+<h2>参数：</h2>
+<ul><li>title: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			必选 </em>要设置的文本信息<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;nativeUI Example&lt;/title&gt;
+		&lt;script type="text/javascript"&gt;
+// H5 plus事件处理
+function plusReady(){
+	// 弹出系统等待对话框
+	var w = plus.nativeUI.showWaiting( "等待中..." );
+	// 2秒后更新
+	setTimeout( function(){
+			w.setTitle( "正在更新" );
+	}, 2000 );
+}
+if(window.plus){
+	plusReady();
+}else{
+	document.addEventListener("plusready",plusReady,false);
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	显示系统等待对话框&lt;br/&gt;
+	设置等待对话框上显示的文字内容
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.nativeUI.Waiting.close">close</a></h1>
+<p>关闭显示的系统等待对话框</p>
+<pre class="prettyprint linenums">
+wobj.close();
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	调用plus.nativeUI.showWaiting方法创建并显示系统等待界后，可通过其close方法将原生等待控件关闭。
+	一个系统等待对话框只能关闭一次，多次调用将无任何作用。
+						</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;nativeUI Example&lt;/title&gt;
+		&lt;script type="text/javascript"&gt;
+// H5 plus事件处理
+function plusReady(){
+	// 弹出系统等待对话框
+	var w = plus.nativeUI.showWaiting( "等待中..." );
+	// 2秒后关闭
+	setTimeout( function(){
+			w.close();
+	}, 2000 );
+}
+if(window.plus){
+	plusReady();
+}else{
+	document.addEventListener("plusready",plusReady,false);
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	显示系统等待对话框&lt;br/&gt;
+	关闭显示的系统等待对话框
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.nativeUI.Waiting.onclose">onclose</a></h1>
+<p>等待对话框关闭事件</p>
+<pre class="prettyprint linenums">
+wobj.onclose = function() {
+	console.log( "Waiting closed!" );
+};
+						</pre>
+<h2>说明：</h2>
+<p><a href="#function">function</a>
+	类型
+</p>
+<p>
+	等待框关闭时触发，当调用close方法或用户点击返回按钮导致等待框关闭时触发。
+						</p>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;nativeUI Example&lt;/title&gt;
+		&lt;script type="text/javascript"&gt;
+// H5 plus事件处理
+function plusReady(){
+	// 弹出系统等待对话框
+	var w = plus.nativeUI.showWaiting( "等待中..." );
+	// 关闭事件
+	w.onclose = function() {
+		console.log( "Waiting onclose!" );
+	}
+	// 2秒后关闭
+	setTimeout( function(){
+			w.close();
+	}, 2000 );
+}
+if(window.plus){
+	plusReady();
+}else{
+	document.addEventListener("plusready",plusReady,false);
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	显示系统等待对话框&lt;br/&gt;
+	关闭显示的系统等待对话框
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.nativeUI.WaitingOption">WaitingOption</a></h1>
+<p>JSON对象，原生等待对话框的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>width: <em>(<a href="#String">String</a>
+	类型
+)</em>等待框背景区域的宽度<br><p>
+	值支持像素值（"500px"）或百分比（"50%"），百分比相对于屏幕的宽计算，如果不设置则根据内容自动计算合适的宽度。
+						</p>
+</li>
+<li>height: <em>(<a href="#String">String</a>
+	类型
+)</em>等待框背景区域的高度<br><p>
+	值支持像素绝对值（"500px"）或百分比（"50%"），如果不设置则根据内容自动计算合适的高度。
+						</p>
+</li>
+<li>color: <em>(<a href="#String">String</a>
+	类型
+)</em>等待框中文字的颜色<br><p>
+	颜色值支持(参考CSS颜色规范)：颜色名称(参考CSS Color Names)/十六进制值/rgb值/rgba值，默认值为白色。
+						</p>
+</li>
+<li>textalign: <em>(<a href="#String">String</a>
+	类型
+)</em>等待对话框中标题文字的水平对齐方式<br><p>
+	对齐方式可选值包括："left"：水平居左对齐显示，"center"：水平居中对齐显示，"right"：水平居右对齐显示。默认值为水平居中对齐显示，即"center"。
+						</p>
+</li>
+<li>padding: <em>(<a href="#String">String</a>
+	类型
+)</em>等待对话框的内边距<br><p>
+	值支持像素值（"10px"）和百分比（"5%"），百分比相对于屏幕的宽计算，默认值为"3%"。
+						</p>
+</li>
+<li>background: <em>(<a href="#String">String</a>
+	类型
+)</em>等待对话框显示区域的背景色<br><p>
+	背景色的值支持(参考CSS颜色规范)：颜色名称(参考CSS Color Names)/十六进制值/rgb值/rgba值，默认值为rgba(0,0,0,0.8)。
+						</p>
+</li>
+<li>style: <em>(<a href="#String">String</a>
+	类型
+)</em>等待对话框样式<br><p>
+	可取值"black"、"white"，black表示等待框为黑色雪花样式，通常在背景主色为浅色时使用；white表示等待框为白色雪花样式，通常在背景主色为深色时使用。
+	仅在iOS平台有效，其它平台忽略此值，未设置时默认值为white。
+						</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.3+ (不支持): 忽略此属性值。</li>
+<li>iOS4.5+ (支持): 支持"black"、"white"两种样式。</li>
+</ul>
+</li>
+<li>modal: <em>(<a href="#Boolen">Boolen</a>
+	类型
+)</em>等待框是否模态显示<br><p>
+	模态显示时用户不可操作直到等待对话框关闭，否则用户在等待对话框显示时也可操作下面的内容，未设置时默认为true。
+						</p>
+</li>
+<li>round: <em>(<a href="#Number">Number</a>
+	类型
+)</em>等待框显示区域的圆角<br><p>
+	值支持像素值（"10px"），未设置时使用默认值"10px"。
+						</p>
+</li>
+<li>padlock: <em>(<a href="#Boolen">Boolen</a>
+	类型
+)</em>点击等待显示区域是否自动关闭<br><p>
+	true表示点击等待对话框显示区域时自动关闭，false则不关闭，未设置时默认值为false。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.nativeUI.ToastOption">ToastOption</a></h1>
+<p>JSON对象，系统提示消息框要设置的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>icon: <em>(<a href="#String">String</a>
+	类型
+)</em>提示消息框上显示的图标<br>
+</li>
+<li>duration: <em>(<a href="#String">String</a>
+	类型
+)</em>提示消息框显示的时间<br><p>
+	可选值为"long"、"short"，值为"long"时显示时间约为3.5s，值为"short"时显示时间约为2s，未设置时默认值为"short"。
+						</p>
+</li>
+<li>align: <em>(<a href="#String">String</a>
+	类型
+)</em>提示消息框在屏幕中的水平位置<br><p>
+	可选值为"left"、"center"、"right"，分别为水平居左、居中、居右，未设置时默认值为"center"。
+						</p>
+</li>
+<li>verticalAlign: <em>(<a href="#String">String</a>
+	类型
+)</em>提示消息在屏幕中的垂直位置<br><p>
+	可选值为"top"、"center"、"bottom"，分别为垂直居顶、居中、居底，未设置时默认值为"bottom"。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.nativeUI.AlertCallback">AlertCallback</a></h1>
+<p>系统提示框确认的回调函数</p>
+<pre class="prettyprint linenums">
+void onAlerted(){
+	// Alert handled code.
+}
+				</pre>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持): 
+	用户点击设备“返回”按键导致提示对话框关闭，也会触发此回调函数。
+						</li>
+<li>iOS4.3+ (支持): 
+	用户只能通过点击提示对话框上的按钮进行关闭。
+						</li>
+<li>WP7.5+ (支持): 
+	用户点击设备“返回”按键导致提示对话框关闭，也会触发此回调函数。
+						</li>
+</ul>
+<h1><a name="plus.nativeUI.ConfirmCallback">ConfirmCallback</a></h1>
+<p>关闭确认对话框的回调函数</p>
+<pre class="prettyprint linenums">
+void onConfirmed( Event event ) {
+	// Confirm handled code.
+	var index=event.index; // 用户关闭确认对话框点击按钮的索引值
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>event: 
+		<em>(
+			<a href="#Event">Event</a>
+			)
+			必选 </em>用户操作确认对话框关闭后返回的数据<br>
+	可通过event的index属性（Number类型）获取用户关闭确认对话框点击按钮的索引值，索引值从0开始；
+						</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持): 
+	用户点击设备“返回”按键导致确认对话框关闭，则回调函数中event的index属性值为-1。
+						</li>
+<li>iOS4.3+ (支持): 
+	用户只能通过点击确认对话框上的按钮进行关闭。
+						</li>
+<li>WP7.5+ (支持): 
+	用户点击设备“返回”按键导致确认对话框关闭，则回调函数中event的index属性值为-1。
+						</li>
+</ul>
+<h1><a name="plus.nativeUI.PromptCallback">PromptCallback</a></h1>
+<p>系统输入对话框关闭后的回调函数</p>
+<pre class="prettyprint linenums">
+function void onPrompted( Event event ) {
+	// Prompt handled code.
+	var index=event.index; // 用户关闭输入对话框点击按钮的索引值
+	var value=event.value; // 用户输入的内容
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>event: 
+		<em>(
+			<a href="#Event">Event</a>
+			)
+			必选 </em>用户操作输入对话框关闭后返回的数据<br>
+	可通过event的index属性（Number类型）获取用户关闭输入对话框点击按钮的索引值，索引值从0开始；
+	通过event的value属性（String类型）获取用户输入的内容，如果没有输入则返回空字符串。
+						</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持): 
+	用户点击设备“返回”按键导致输入对话框关闭，则回调函数中event的index属性值为-1，value值为空字符串。
+						</li>
+<li>iOS4.3+ (支持): 
+	用户只能通过点击输入对话框上的按钮进行关闭。
+						</li>
+<li>WP7.5+ (支持): 
+	用户点击设备“返回”按键导致输入对话框关闭，则回调函数中event的index属性值为-1，value值为空字符串。
+						</li>
+</ul>
+<h1><a name="plus.nativeUI.PickDatetimeSuccessCallback">PickDatetimeSuccessCallback</a></h1>
+<p>选择日期或时间操作成功的回调函数</p>
+<pre class="prettyprint linenums">
+function void onPickSuccess( Event event ) {
+	// Date picked code.
+	var date = event.date;// 用户选择的日期或时间
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>event: 
+		<em>(
+			<a href="#Event">Event</a>
+			)
+			必选 </em>用户完成选择日期或时间后返回的数据<br>
+	可通过event的date属性获取选择的日期或时间值。
+	若调用的是日期选择操作则仅年、月、日信息有效，若调用的是时间选择操作则仅时、分信息有效。
+						</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.nativeUI.PickDatetimeErrorCallback">PickDatetimeErrorCallback</a></h1>
+<p>选择日期或时间操作取消或失败的回调函数</p>
+<pre class="prettyprint linenums">
+function void onPickError( Exception error ) {
+	// Date picked error.
+	alert( error.message );
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>error: 
+		<em>(
+			<a href="#Exception">Exception</a>
+			)
+			必选 </em>用户选择操作失败信息<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无</div>
+</body>
+</html>

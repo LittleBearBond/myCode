@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<meta name="HandheldFriendly" content="true"/>
+		<meta name="MobileOptimized" content="320"/>
+		<title>Hello H5+</title>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript">
+function getImage(){
+	var cmr = plus.camera.getCamera();
+	cmr.captureImage( function ( path ) {
+		plus.gallery.save( path );
+		outSet( "照片已成功保存到系统相册" );
+	}, function ( e ) {
+		outSet( "取消拍照" );
+	}, {filename:"_doc/gallery/",index:1} );
+}
+function galleryImg() {
+	// 从相册中选择图片
+    plus.gallery.pick( function ( path ) {
+        showImg( path );
+    }, function ( e ) {
+    	outSet( "取消选择图片" );
+    } );
+}
+function showImg( url ){
+	var _body_ = document.body;
+	var _div_ = document.createElement("div");
+	_div_.style.height = "100%";
+	_div_.style.width = "100%";
+	_div_.style.zIndex = "99999";
+	_div_.style.position = "fixed";
+	_div_.style.background = "#ffffff";
+	_div_.id = "imgShow";
+	_div_.onclick = closeImg;
+	var _img_ = document.createElement("img");
+	_img_.src = "file://" + url;
+	_img_.style.width = "100%";
+	_body_.appendChild(_div_);
+	_div_.appendChild(_img_);
+}
+function closeImg(){
+	var trnode=document.getElementById("imgShow");
+	trnode.parentNode.removeChild(trnode);
+}
+		</script>
+		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8"/>
+	</head>
+	<body>
+		<header>
+			<div class="nvbt iback" onclick="back(true);"></div>
+			<div class="nvtt">Gallery</div>
+			<div class="nvbt idoc" onclick="clicked('../doc/gallery.html',true);"></div>
+		</header>
+		<div id="dcontent" class="dcontent">
+			<br/>
+			<ul class="dlist">
+				<li class="ditem" onclick="getImage();">拍照并保存到相册</li>
+				<li class="ditem" onclick="galleryImg();">从相册中选择图片</li>
+			</ul>
+		</div>
+		<div id="output">
+Gallery模块管理系统相册，如从相册中选择图片或视频文件、保存图片或视频文件到相册等功能。
+		</div>
+	</body>
+</html>

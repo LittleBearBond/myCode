@@ -1,0 +1,16 @@
+.c1, .c2, .c3, .c4, .swipe-wrap h1 {
+	width: 100%;
+	height: 100%;
+}
+.c1 {
+	background-color: #272822;
+}
+.c2 {
+	background-color: #80Ac50;
+}
+.c3 {
+	background-color: #A186C4;
+}
+.c4 {
+	background-color: #F1754C;
+}

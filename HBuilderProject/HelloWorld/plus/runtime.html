@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<meta name="HandheldFriendly" content="true"/>
+		<meta name="MobileOptimized" content="320"/>
+		<title>Hello H5+</title>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript">
+function getVersion(){
+	outSet( "程序版本号："+plus.runtime.version+"<br/>内核版本号："+plus.runtime.innerVersion );
+}
+function restartApp() {
+	plus.runtime.restart();
+}
+function getWidgetInfo() {
+	plus.runtime.getProperty( plus.runtime.appid, function ( wgtinfo ) {
+		//appid属性
+		var wgtStr = "appid:"+wgtinfo.appid;
+		//version属性
+		wgtStr += "<br/>version:"+wgtinfo.version;
+		//name属性
+		wgtStr += "<br/>name:"+wgtinfo.name;
+		//description属性
+		wgtStr += "<br/>description:"+wgtinfo.description;
+		//author属性
+		wgtStr += "<br/>author:"+wgtinfo.author;
+		//email属性
+		wgtStr += "<br/>email:"+wgtinfo.email;
+		//licence属性
+		wgtStr += "<br/>license:"+wgtinfo.license;
+		//licensehref属性
+		wgtStr += "<br/>licensehref:"+wgtinfo.licensehref;
+		//features 属性
+		wgtStr += "<br/>features:"+wgtinfo.features;
+		outSet( wgtStr );
+	} );
+}
+function setBadge() {
+	if(plus.os.name=="iOS"){
+		plus.runtime.setBadgeNumber( 50 );
+		outSet( "设置程序图标右上角显示的提示数字为50<br/>请按Home键回桌面查看" );
+		outLine( '*如果无法设置提示数字，请到"设置"->"通知"中配置应用在通知中心显示!' );
+	}else{
+		outSet( "此平台不支持设置程序图标右上角数字！" );
+	}
+}
+function clearBadge() {
+	if(plus.os.name=="iOS"){
+		plus.runtime.setBadgeNumber( 0 );
+		outSet( "清除程序图标右上角显示的提示数字<br/>请按Home键回桌面查看" );
+		outLine( '*如果无法清除提示数字，请到"设置"->"通知"中配置应用在通知中心显示!' );
+	}else{
+		outSet( "此平台不支持设置程序图标右上角数字！" );
+	}
+}
+function exitApp(){
+	if(plus.os.name=="Android"){
+		plus.runtime.quit();
+	}else{
+		outSet( "此平台不支持直接退出程序，请按Home键切换应用" );
+	}
+}
+		</script>
+		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8"/>
+	</head>
+	<body>
+		<header>
+			<div class="nvbt iback" onclick="back(true);"></div>
+			<div class="nvtt">Runtime</div>
+			<div class="nvbt idoc" onclick="clicked('../doc/runtime.html',true);"></div>
+		</header>
+		<div id="dcontent" class="dcontent">
+			<br/>
+			<div class="button" onclick="clicked('runtime_launch.html',true);">
+				调用第三方程序
+			</div>
+			<br/>
+			<ul class="dlist">
+				<li class="ditem" onclick="getVersion();">获取版本信息</li>
+				<li class="ditem" onclick="restartApp();">重启当前应用</li>
+	            <li class="ditem" onclick="getWidgetInfo();">获取当前应用的基本属性</li>
+				<li class="ditem" onclick="setBadge();">设置程序图标右上角数字(iOS)</li>
+				<li class="ditem" onclick="clearBadge();">清除程序图标右上角数字(iOS)</li>
+				<li class="ditem" onclick="exitApp();">退出当前应用(Android)</li>
+			</ul>
+		</div>
+		<div id="output">
+Runtime管理程序运行时环境，可用于获取程序的各种信息、与第三方程序通讯等。
+		</div>
+	</body>
+</html>

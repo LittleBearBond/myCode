@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body>
+<header><div class="nvbt iback" onclick="back();"></div>
+<div class="nvtt">Proximity Document</div></header><div id="content" class="content">
+<h1><a name="plus.proximity">proximity</a></h1>
+<p>Proximity模块管理设备距离传感器，可获取当前设备的接近距离信息，通过plus.proximity可获取设备距离传感管理对象。</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.proximity.getCurrentProximity">getCurrentProximity</a>: 获取当前设备的接近距离信息</li>
+<li>
+<a href="#plus.proximity.watchProximity">watchProximity</a>: 监听设备接近距离的变化</li>
+<li>
+<a href="#plus.proximity.clearWatch">clearWatch</a>: 关闭监听设备接近距离变化</li>
+</ul>
+<h2>回调方法：</h2>
+<ul>
+<li>
+<a href="#plus.proximity.ProximitySuccessCallback">ProximitySuccessCallback</a>: 获取设备接近距离信息成功的回调函数</li>
+<li>
+<a href="#plus.proximity.ProximityErrorCallback">ProximityErrorCallback</a>: 获取设备接近距离信息失败的回调函数</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"Proximity": {
+	"description": "访问距离感应器信息"
+}
+			</pre>
+<h1><a name="plus.proximity.getCurrentProximity">getCurrentProximity</a></h1>
+<p>获取当前设备的接近距离信息</p>
+<pre class="prettyprint linenums">
+void plus.proximity.getCurrentProximity( successCB, errorCB );
+				</pre>
+<h2>说明：</h2>
+<p class="des">获取当前接近设备的距离信息，距离值单位为厘米。如果感应器无法获取准确的距离值，则在接近设备时返回0，否则返回Infinity。 获取成功则调用successCB回调函数返接近回距离值。获取失败则调用errorCB回调函数错误信息。</p>
+<h2>参数：</h2>
+<ul>
+<li>successCB: 
+		<em>(
+			<a href="#plus.proximity.ProximitySuccessCallback">ProximitySuccessCallback</a>
+			)
+			必选 </em>获取距离信息成功回调函数<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.proximity.ProximityErrorCallback">ProximityErrorCallback</a>
+			)
+			可选 </em>获取距离信息失败回调函数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持): 支持</li>
+<li>iOS4.3+ (支持): 支持</li>
+<li>WP7.5+ (支持): 暂不支持</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+				
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Proximity Example&lt;/title&gt;
+	&lt;script type="text/javascript" &gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function getProximity() {
+	plus.proximity.getCurrentProximity( function ( d ) {
+			alert( "Get distance success: "+d );
+		}, function ( e ) {
+			alert( "Error: "+e.message );
+		} );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body &gt;
+		&lt;input type='button' onclick='getProximity();' value='Proximity'/&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				
+				</pre>
+<h1><a name="plus.proximity.watchProximity">watchProximity</a></h1>
+<p>监听设备接近距离的变化</p>
+<pre class="prettyprint linenums">
+Number plus.proximity.watchProximity( changeCB, errorCB );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	watchProximity将监听设备的接近距离信息变化事件，当接近距离发生变化时通过changeCB回调函数返回距离值。监听距离变化事件失败则通过errorCB回调函数返回错误信息。</p>
+<h2>参数：</h2>
+<ul>
+<li>changeCB: 
+		<em>(
+			<a href="#plus.proximity.ProximitySuccessCallback">ProximitySuccessCallback</a>
+			)
+			必选 </em>设备接近距离变化时的回调函数<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.proximity.ProximityErrorCallback">ProximityErrorCallback</a>
+			)
+			可选 </em><br>监听设备接近距离变化事件失败的回调函数</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#Number">Number</a>
+			: 用于标识接近距离变化事件监听器，可通过clearWatch方法取消监听。<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持): 支持</li>
+<li>iOS4.3+ (支持): 支持</li>
+<li>WP7.5+ (支持): 暂不支持</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Proximity Example&lt;/title&gt;
+	&lt;script type="text/javascript" &gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	plus.proximity.watchProximity( function ( d ) {
+		document.getElementById("inf").innerText="Proximity: "+d;
+	}, function ( e ) {
+		alert( "Error: " + e.message ); 
+	} ); 
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body &gt;
+		Proximity watch&lt;br/&gt;
+		&lt;span id="inf"&gt;&lt;/span&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.proximity.clearWatch">clearWatch</a></h1>
+<p>关闭监听设备接近距离变化</p>
+<pre class="prettyprint linenums">
+void plus.proximity.clearWatch( watchId );
+				</pre>
+<h2>参数：</h2>
+<ul><li>watchId: 
+		<em>(
+			<a href="#Number">Number</a>
+			)
+			必选 </em><br>需要取消的距离监听器标识，调用watchProximity方法的返回值。</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持): 支持</li>
+<li>iOS4.3+ (支持): 支持</li>
+<li>WP7.5+ (支持): 暂不支持</li>
+</ul>
+<h1><a name="plus.proximity.ProximitySuccessCallback">ProximitySuccessCallback</a></h1>
+<p>获取设备接近距离信息成功的回调函数</p>
+<pre class="prettyprint linenums">
+void onSuccess( distance ) {
+	// Get distance success code.
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>distance: 
+		<em>(
+			<a href="#Number">Number</a>
+			)
+			必选 </em>设备接近距离<br>设备接近距离传感器获取的距离值，单位为厘米。如果感应器无法获取准确的距离值，则在接近设备时返回0，否则返回Infinity。</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.proximity.ProximityErrorCallback">ProximityErrorCallback</a></h1>
+<p>获取设备接近距离信息失败的回调函数</p>
+<pre class="prettyprint linenums">
+void onError( error ) {
+	// Get distance error code.
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>error: 
+		<em>(
+			<a href="#DOMException">DOMException</a>
+			)
+			必选 </em>失败信息<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无</div>
+</body>
+</html>

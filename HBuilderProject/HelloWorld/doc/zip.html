@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body>
+<header><div class="nvbt iback" onclick="back();"></div>
+<div class="nvtt">Zip Document</div></header><div id="content" class="content">
+<h1><a name="plus.zip">zip</a></h1>
+<p>Zip模块管理文件压缩和解压，通过plus.zip可获取压缩管理对象。</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.zip.compress">compress</a>: 用于压缩Zip文件</li>
+<li>
+<a href="#plus.zip.decompress">decompress</a>: 用于解压缩Zip文件。</li>
+</ul>
+<h2>回调方法：</h2>
+<ul>
+<li>
+<a href="#plus.zip.ZipSuccessCallback">ZipSuccessCallback</a>: 操作成功回调函数接口，在解压Zip文件或压缩成Zip文件成功时调用</li>
+<li>
+<a href="#plus.zip.ZipErrorCallback">ZipErrorCallback</a>: 操作错误回调函数接口，在解压Zip文件或压缩成Zip文件失败时调用</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"Zip": {
+	"description": "文件压缩与解压缩"
+}
+			</pre>
+<h1><a name="plus.zip.compress">compress</a></h1>
+<p>用于压缩Zip文件</p>
+<pre class="prettyprint linenums">
+void plus.zip.compress(src, zipfile, successCB, errorCB);
+				</pre>
+<h2>参数：</h2>
+<ul>
+<li>src: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>要压缩的源文件路径，支持文件路径或目录<br>
+</li>
+<li>zipfile: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>压缩后保存的Zip文件路径<br>
+</li>
+<li>successCB: 
+		<em>(
+			<a href="#plus.zip.ZipSuccessCallback">ZipSuccessCallback</a>
+			)
+			必选 </em>压缩Zip文件操作成功回调，在压缩操作成功时调用<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.zip.ZipErrorCallback">ZipErrorCallback</a>
+			)
+			必选 </em>压缩Zip文件操作失败回调，在压缩操作失败时调用<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="UTF-8" /&gt;
+	&lt;script type="text/javascript"&gt;
+//压缩
+function zipCompress(){
+	var zipfile = "_doc/text11.zip";
+	var targetPath = '_doc/dir/';
+	plus.zip.compress(targetPath,zipfile,
+		function() {
+			alert("Compress success!");
+		},function(error) {
+			alert("Compress error!");
+	});
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body &gt;
+		&lt;input type='button' onclick='zipCompress()' value='zip压缩' /&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.zip.decompress">decompress</a></h1>
+<p>用于解压缩Zip文件。</p>
+<pre class="prettyprint linenums">
+void plus.zip.decompress( zipfile, target, successCB, errorCB);
+				</pre>
+<h2>参数：</h2>
+<ul>
+<li>zipfile: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em><br>需解压Zip文件路径</li>
+<li>target: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em><br>解压Zip文件的目标路径，必须是路径</li>
+<li>successCB: 
+		<em>(
+			<a href="#plus.zip.ZipSuccessCallback">ZipSuccessCallback</a>
+			)
+			必选 </em><br>解压Zip文件操作成功回调，在解压操作成功时调用。</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.zip.ZipErrorCallback">ZipErrorCallback</a>
+			)
+			必选 </em><br>解压Zip文件操作失败回调，在解压操作失败时调用。</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset="UTF-8" /&gt;
+	&lt;script type="text/javascript"&gt;
+//解压缩
+function zipDecompress() {
+	var zipfile = "_doc/text.zip";
+	var targetPath = '_doc/dir/';
+	plus.zip.decompress(zipfile, targetPath,
+		function() {
+			alert("Decompress success!");
+		},function(error) {
+			alert("Compress error!");
+	});
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body &gt;
+		&lt;input type='button' onclick='zipDecompress()' value='zip解压' /&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.zip.ZipSuccessCallback">ZipSuccessCallback</a></h1>
+<p>操作成功回调函数接口，在解压Zip文件或压缩成Zip文件成功时调用</p>
+<pre class="prettyprint linenums">
+void onSuccess(){
+	// Code here
+}
+				</pre>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.zip.ZipErrorCallback">ZipErrorCallback</a></h1>
+<p>操作错误回调函数接口，在解压Zip文件或压缩成Zip文件失败时调用</p>
+<pre class="prettyprint linenums">
+void onError(error){
+	// Handle the error
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>error: 
+		<em>(
+			<a href="#DOMException">DOMException</a>
+			)
+			可选 </em><br>Zip文件操作的错误信息</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无</div>
+</body>
+</html>

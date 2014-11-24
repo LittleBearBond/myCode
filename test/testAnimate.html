@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test4</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background: blue;
+            transition: width 2s;
+            -moz-transition: width 2s; /* Firefox 4 */
+            -webkit-transition: width 2s; /* Safari and Chrome */
+            -o-transition: width 2s; /* Opera */
+        }
+
+        div:hover {
+            width: 300px;
+        }
+    </style>
+    <script id="others_zepto_10rc1" type="text/javascript" class="library" src="zepto.js"></script>
+</head>
+<body>
+    <div id='demo'></div>
+    <br />
+    <span id="msg"></span>
+    <p>请把鼠标指针移动到蓝色的 div 元素上，就可以看到过渡效果。</p>
+    <p><b>注释：</b>本例在 Internet Explorer 中无效。</p>
+    <script type="text/javascript">
+        var demo = document.getElementById('demo');
+        var msg = document.getElementById('msg');
+        function transitionEnd() {
+            var el = document.createElement('bootstrap');
+            var transEndEventNames = {
+                WebkitTransition: 'webkitTransitionEnd',
+                MozTransition: 'transitionend',
+                OTransition: 'oTransitionEnd otransitionend',
+                transition: 'transitionend'
+            };
+            for (var name in transEndEventNames) {
+                if (el.style[name] !== undefined) {
+                    return transEndEventNames[name];
+                }
+            }
+            return ''; // explicit for ie8 (  ._.)
+        }
+
+        function animate(el, css, time, fn) {
+            if (!el) {
+                return;
+            }
+            var tn = transitionEnd(),
+            cb = function () {
+                fn(arguments);
+                el.removeListener(tn, fn);
+            };
+
+            el.addEventListener(tn, cb);
+
+            for (var k in css) {
+                if (css.hasOwnProperty(k)) {
+                    el.style['-webkit-transition'] = k + ' ' + time + 's';
+                    el.style[k] = css[k];
+                }
+            }
+        }
+        var fn = function () {
+            msg.innerHTML = '事件回调，当前原始宽度：' + transitionEnd() + window.getComputedStyle(demo).width;
+        };
+
+        /*demo.addEventListener(transitionEnd(), function () {
+                msg.innerHTML = '事件回调，当前原始宽度：' + transitionEnd()+ window.getComputedStyle(demo).width ;
+            });*/
+
+demo.addEventListener('mouseenter', function () {
+    animate(demo, { width: '300px' }, 1, fn);
+});
+
+demo.addEventListener('mouseout', function () {
+    animate(demo, { width: '100px' }, 2, fn);
+});
+</script>
+</body>
+</html>

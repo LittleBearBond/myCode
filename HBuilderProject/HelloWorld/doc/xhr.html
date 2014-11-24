@@ -1,0 +1,489 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body>
+<header><div class="nvbt iback" onclick="back();"></div>
+<div class="nvtt">XMLHttpRequest Document</div></header><div id="content" class="content">
+<h1><a name="plus.net">net</a></h1>
+<p>XMLHttpRequest模块管理网络请求，与标准HTML中的XMLHttpRequest用途一致，差别在于前者可以进行跨域访问。通过plus.net可获取网络请求管理对象。</p>
+<h2>对象：</h2>
+<ul><li>
+<a href="#plus.net.XMLHttpRequest">XMLHttpRequest</a>: 跨域网络请求对象</li></ul>
+<h2>回调方法：</h2>
+<ul><li>
+<a href="#plus.net.XhrStateChangeCallback">XhrStateChangeCallback</a>: 网络请求状态变化的回调函数</li></ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"XMLHttpRequest": {
+	"description": "跨域网络访问"
+}
+			</pre>
+<h1><a name="plus.net.XMLHttpRequest">XMLHttpRequest</a></h1>
+<p>跨域网络请求对象</p>
+<h2>构造：</h2>
+<ul><li>
+<a href="#plus.net.XMLHttpRequest.XMLHttpRequest()">XMLHttpRequest()</a>: 创建一个XMLHttpRequest 对象，对象创建时不触发任何时间和网络请求，需和open，send方法配合使用。</li></ul>
+<h2>属性：</h2>
+<ul>
+<li>
+<a href="#plus.net.XMLHttpRequest.readyState">readyState</a>: HTTP 请求的状态</li>
+<li>
+<a href="#plus.net.XMLHttpRequest.response">response</a>: 请求从服务器接收到的响应数据</li>
+<li>
+<a href="#plus.net.XMLHttpRequest.responseText">responseText</a>: 请求从服务器接收到的响应数据（字符串数据）</li>
+<li>
+<a href="#plus.net.XMLHttpRequest.responseType">responseType</a>: 请求响应数据response的类型</li>
+<li>
+<a href="#plus.net.XMLHttpRequest.responseXML">responseXML</a>: 请求响应的Document对象</li>
+<li>
+<a href="#plus.net.XMLHttpRequest.status">status</a>: 服务器返回的HTTP状态代码</li>
+<li>
+<a href="#plus.net.XMLHttpRequest.statusText">statusText</a>: 服务器返回的HTTP状态描述</li>
+<li>
+<a href="#plus.net.XMLHttpRequest.timeout">timeout</a>: 请求服务器的超时时间，单位为毫秒（ms）</li>
+<li>
+<a href="#plus.net.XMLHttpRequest.withCredentials">withCredentials</a>: 是否支持跨域请求</li>
+</ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.net.XMLHttpRequest.abort">abort</a>: 取消当前响应，关闭连接并且结束任何未决的网络活动</li>
+<li>
+<a href="#plus.net.XMLHttpRequest.getAllResponseHeaders">getAllResponseHeaders</a>: 获取HTTP响应头部信息</li>
+<li>
+<a href="#plus.net.XMLHttpRequest.getResponseHeader">getResponseHeader</a>: 获取指定的HTTP响应头部的值</li>
+<li>
+<a href="#plus.net.XMLHttpRequest.open">open</a>: 初始化HTTP请求参数，例如URL和HTTP方法，但是并不发送请求</li>
+<li>
+<a href="#plus.net.XMLHttpRequest.send">send</a>: 发送一个HTTP请求</li>
+<li>
+<a href="#plus.net.XMLHttpRequest.setRequestHeader">setRequestHeader</a>: 指定一个HTTP请求的Header</li>
+</ul>
+<h2>事件：</h2>
+<ul><li>
+<a href="#plus.net.XMLHttpRequest.onreadystatechange">onreadystatechange</a>: 网络请求状态发生变化事件</li></ul>
+<h1><a name="plus.net.XMLHttpRequest.XMLHttpRequest()">XMLHttpRequest()</a></h1>
+<p>创建一个XMLHttpRequest 对象，对象创建时不触发任何时间和网络请求，需和open，send方法配合使用。</p>
+<pre class="prettyprint linenums">
+var xhr = new plus.net.XMLHttpRequest();
+						</pre>
+<h2>说明：</h2>
+<p class="des"></p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#plus.net.XMLHttpRequest">XMLHttpRequest</a>
+			: <h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="UTF-8"/&gt;
+		&lt;script type="text/javascript"&gt;
+document.addEventListener('plusready', function(){
+var xhr = new plus.net.XMLHttpRequest();
+xhr.onreadystatechange = function () {
+	switch ( xhr.readyState ) {
+		case 0:
+			alert( "xhr请求已初始化" );
+		break;
+		case 1:
+			alert( "xhr请求已打开" );
+		break;
+		case 2:
+			alert( "xhr请求已发送" );
+		break;
+		case 3:
+			alert( "xhr请求已响应");
+			break;
+		case 4:
+			if ( xhr.status == 200 ) {
+				alert( "xhr请求成功："+xhr.responseText );
+			} else {
+				alert( "xhr请求失败："+xhr.readyState );
+			}
+			break;
+		default :
+			break;
+	}
+}
+xhr.open( "GET", "http://www.baidu.com/" );
+xhr.send();
+}, false );
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body onload="onload();"&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.net.XMLHttpRequest.readyState">readyState</a></h1>
+<p>HTTP 请求的状态</p>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p>
+	当一个 XMLHttpRequest 初次创建时，这个属性的值从 0 开始，直到接收到完整的 HTTP 响应，这个值增加到 4。
+	5 个状态中每一个都有一个相关联的非正式的名称，下表列出了状态、名称和含义：
+		0 Uninitialized，未初始化状态。XMLHttpRequest对象已创建或已被abort()方法重置。
+		1 Open，open()方法已调用，但是send()方法未调用。请求还没有被发送。
+		2 Sent，send()方法已调用，HTTP 请求已发送到Web服务器。未接收到响应。
+		3 Receiving，所有响应头部都已经接收到。响应体开始接收但未完成。
+		4 Loaded，HTTP响应已经完全接收。
+						</p>
+<h1><a name="plus.net.XMLHttpRequest.response">response</a></h1>
+<p>请求从服务器接收到的响应数据</p>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 只读属性</p>
+<p>
+	如果没有从服务器接收到数据，则为null；
+	否则根据responseType类型决定：
+		如果responseType设置为空字符串或"text"，则返回空字符串；
+		如果responseType设置为"document"，则返回Document对象；
+		如果responseType设置为"json"，则返回JSON对象；
+	若服务器返回的数据与设置的responseType类型不区配，则返回null。
+						</p>
+<h1><a name="plus.net.XMLHttpRequest.responseText">responseText</a></h1>
+<p>请求从服务器接收到的响应数据（字符串数据）</p>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+</p>
+<p>
+	如果还没有接收到数据的话，就是空字符串。
+	如果 readyState 小于 3，这个属性就是一个空字符串。当 readyState 为 3，这个属性返回目前已经接收的响应部分。如果 readyState 为 4，这个属性保存了完整的响应体。
+	如果响应包含了为响应体指定字符编码的头部，就使用该编码。否则，假定使用 Unicode UTF-8。
+						</p>
+<h1><a name="plus.net.XMLHttpRequest.responseType">responseType</a></h1>
+<p>请求响应数据response的类型</p>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+</p>
+<p>
+	默认值为空字符串，即reponse为DOMString，类型可设置："document"表示Document对象，"json"表示JSON对象，"text"表示字符串。
+						</p>
+<h1><a name="plus.net.XMLHttpRequest.responseXML">responseXML</a></h1>
+<p>请求响应的Document对象</p>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+</p>
+<p>对请求的响应，解析为 XML 并作为 Document 对象返回。</p>
+<h1><a name="plus.net.XMLHttpRequest.status">status</a></h1>
+<p>服务器返回的HTTP状态代码</p>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p>
+	由服务器返回的 HTTP 状态代码，如 200 表示成功，而 404 表示 "Not Found" 错误。当 readyState 小于 3 的时候读取这一属性会返回0。
+						</p>
+<h1><a name="plus.net.XMLHttpRequest.statusText">statusText</a></h1>
+<p>服务器返回的HTTP状态描述</p>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+</p>
+<p>
+	这个属性用名称而不是数字指定了请求的 HTTP 的状态代码。也就是说，当状态为200的时候它是"OK"，当状态为404的时候它是"Not Found"。和status属性一样，当readyState小于3的时候读取这一属性会返回空。
+						</p>
+<h1><a name="plus.net.XMLHttpRequest.timeout">timeout</a></h1>
+<p>请求服务器的超时时间，单位为毫秒（ms）</p>
+<h2>说明：</h2>
+<p><a href="#Number">Number</a>
+	类型
+</p>
+<p>
+	超时时间必须在请求发起前设置，否则当前请求将不生效，在当前请求完成后重新发起新请求时生效。其默认值为120秒。
+						</p>
+<h1><a name="plus.net.XMLHttpRequest.withCredentials">withCredentials</a></h1>
+<p>是否支持跨域请求</p>
+<h2>说明：</h2>
+<p><a href="#Boolean">Boolean</a>
+	类型
+ 只读属性</p>
+<p>
+	此对象创建的HTTP请求都支持跨域，所以永远返回true。
+						</p>
+<h1><a name="plus.net.XMLHttpRequest.abort">abort</a></h1>
+<p>取消当前响应，关闭连接并且结束任何未决的网络活动</p>
+<pre class="prettyprint linenums">
+void abort();
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	这个方法把XMLHttpRequest对象重置为readyState为0的状态，并且取消所有未决的网络活动。
+	例如，如果请求用了太长时间，而且响应不再必要的时候，可以调用这个方法。
+						</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="UTF-8"/&gt;
+		&lt;script type="text/javascript"&gt;
+var xhr=null;
+function testXHR(){
+	if(xhr){
+		return;
+	}
+	xhr=new plus.net.XMLHttpRequest();
+	xhr.onreadystatechange=xhrStatechange;
+	xhr.open( "GET", "http://www.baidu.com/" );
+	xhr.send();
+}
+function xhrStatechange(){
+	switch( xhr.readyState ) {
+		case 0:
+			console.log( "xhr请求已初始化" );
+		break;
+		case 1:
+			console.log( "xhr请求已打开" );
+		break;
+		case 2:
+			console.log( "xhr请求已发送" );
+		break;
+		case 3:
+			console.log( "xhr请求已响应");
+			break;
+		case 4:
+			if ( xhr.status == 200 ) {
+				console.log( "xhr请求成功："+xhr.responseText );
+			} else {
+				console.log( "xhr请求失败："+xhr.readyState );
+			}
+			break;
+		default :
+			break;
+	}
+}
+function abortXHR(){
+	if(xhr){
+		xhr.abort();
+		xhr=null;
+	}
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;button onclick="testXHR()"&gt;Test XMLHttpRequest&lt;/button&gt;&lt;br/&gt;
+		&lt;button onclick="abortXHR()"&gt;Abort XMLHttpRequest&lt;/button&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.net.XMLHttpRequest.getAllResponseHeaders">getAllResponseHeaders</a></h1>
+<p>获取HTTP响应头部信息</p>
+<h2>说明：</h2>
+<p class="des">
+	把HTTP响应头部作为未解析的字符串返回。 如果readyState小于3，这个方法返回null。
+	否则，它返回服务器发送的所有 HTTP 响应的头部。头部作为单个的字符串返回，一行一个头部。每行用换行符"\r\n"隔开。
+						</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#DOMString">DOMString</a>
+			: HTTP 响应头<h1><a name="plus.net.XMLHttpRequest.getResponseHeader">getResponseHeader</a></h1>
+<p>获取指定的HTTP响应头部的值</p>
+<pre class="prettyprint linenums">
+void getResponseHeader( headerName );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	其参数是要返回的 HTTP 响应头部的名称。可以使用任何大小写来制定这个头部名字，和响应头部的比较是不区分大小写的。
+	该方法的返回值是指定的 HTTP 响应头部的值，如果没有接收到这个头部或者readyState小于3则为空字符串。
+	如果接收到多个有指定名称的头部，这个头部的值被连接起来并返回，使用逗号和空格分隔开各个头部的值。
+						</p>
+<h2>参数：</h2>
+<ul><li>headerName: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>HTTP响应头数据名称<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#DOMString">DOMString</a>
+			: HTTP响应头数据值<h1><a name="plus.net.XMLHttpRequest.open">open</a></h1>
+<p>初始化HTTP请求参数，例如URL和HTTP方法，但是并不发送请求</p>
+<pre class="prettyprint linenums">
+void open( method, url, username, password );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	这个方法初始化请求参数以供 send() 方法稍后使用。它把readyState设置为1，删除之前指定的所有请求头部，以及之前接收的所有响应头部，并且把responseText、responseXML、status 以及 statusText 参数设置为它们的默认值。
+	当readyState为0的时候（当XMLHttpRequest对象刚创建或者abort()方法调用后）以及当readyState为4时（已经接收响应时），调用这个方法是安全的。
+	当针对任何其他状态调用的时候，open()方法的行为是为指定的。
+	除了保存供send()方法使用的请求参数，以及重置 XMLHttpRequest 对象以便复用，open()方法没有其他的行为。
+	要特别注意，当这个方法调用的时候，实现通常不会打开一个到Web服务器的网络连接。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>method: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>请求URL的HTTP协议方法<br>值可以为"GET"、"POST"。</li>
+<li>url: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>请求URL地址<br>
+</li>
+<li>username: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>请求URL所需的授权提供认证资格用户名<br>
+</li>
+<li>password: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>请求URL所需的授权提供认证资格密码<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="UTF-8"/&gt;
+		&lt;script type="text/javascript"&gt;
+var xhr=null;
+function testXHR(){
+	if(xhr){
+		return;
+	}
+	xhr=new plus.net.XMLHttpRequest();
+	xhr.onreadystatechange=xhrStatechange;
+	xhr.open( "GET", "http://www.baidu.com/" );
+	xhr.send();
+}
+function xhrStatechange(){
+	switch( xhr.readyState ) {
+		case 0:
+			console.log( "xhr请求已初始化" );
+		break;
+		case 1:
+			console.log( "xhr请求已打开" );
+		break;
+		case 2:
+			console.log( "xhr请求已发送" );
+		break;
+		case 3:
+			console.log( "xhr请求已响应");
+			break;
+		case 4:
+			if ( xhr.status == 200 ) {
+				console.log( "xhr请求成功："+xhr.responseText );
+			} else {
+				console.log( "xhr请求失败："+xhr.readyState );
+			}
+			break;
+		default :
+			break;
+	}
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;button onclick="testXHR()"&gt;Test XMLHttpRequest&lt;/button&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.net.XMLHttpRequest.send">send</a></h1>
+<p>发送一个HTTP请求</p>
+<pre class="prettyprint linenums">
+void send( body );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	这个方法导致一个 HTTP 请求发送。如果之前没有调用 open()，或者更具体地说，如果 readyState 不是 1，send() 抛出一个异常。否则，它发送一个 HTTP 请求，该请求由以下几部分组成：	
+		之前调用 open() 时指定的 HTTP 方法、URL 以及认证资格（如果有的话）。
+		之前调用 setRequestHeader() 时指定的请求头部（如果有的话）。
+		传递给这个方法的 body 参数。
+		一旦请求发布了，send() 把 readyState 设置为 2，并触发 onreadystatechange 事件句柄。
+		如果服务器响应带有一个 HTTP 重定向，send() 方法或后台线程自动遵从重定向。当所有的 HTTP 响应头部已经接收，send() 或后台线程把 readyState 设置为 3 并触发 onreadystatechange 事件句柄。如果响应较长，send() 或后台线程可能在状态 3 中触发 onreadystatechange 事件句柄。最后，当响应完成，send() 或后台线程把 readyState 设置为 4，并最后一次触发事件句柄。
+						</p>
+<h2>参数：</h2>
+<ul><li>body: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>请求HTTP提交的数据内容<br>当参数是open方法的method参数为POST时必选</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.net.XMLHttpRequest.setRequestHeader">setRequestHeader</a></h1>
+<p>指定一个HTTP请求的Header</p>
+<pre class="prettyprint linenums">
+void setRequestHeader( headerName, headerValue );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	这个Http Header应该包含在通过后续send()调用而发起的请求中。这个方法只有当readyState为1的时候才能调用，例如，在调用了open()之后，但在调用send()之前。
+	如果带有指定名称的头部已经被指定了，这个头部的新值就是：之前指定的值，加上逗号、以及这个调用指定的值（形成一个数组）。
+	如果open()调用指定了认证资格，XMLHttpRequest 自动发送一个适当的 Authorization 请求头部。但是，你可以使用setRequestHeader()来添加这个头部。类似地，如果Web服务器已经保存了和传递给open()的URL相关联的cookie，适当的Cookie或Cookie2头部也自动地包含到请求中。可以通过调用setRequestHeader()来把这些cookie添加到头部。XMLHttpRequest也可以为User-Agent头部提供一个默认值。如果它这么做，你为该头部指定的任何值都会添加到这个默认值后面。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>headerName: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>HTTP Header名称<br>
+</li>
+<li>headerValue: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>HTTP Header值<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.net.XMLHttpRequest.onreadystatechange">onreadystatechange</a></h1>
+<p>网络请求状态发生变化事件</p>
+<pre class="prettyprint linenums">
+xhr.onreadystatechange = function(){
+	// 判断xhr状态
+};
+						</pre>
+<h2>说明：</h2>
+<p><a href="#plus.net.XhrStateChangeCallback">XhrStateChangeCallback</a>
+	类型
+</p>
+<p>
+	网络请求状态发生变化时触发，通常在函数中判断对象的state属性值来获取当前请求的状态。
+						</p>
+<h1><a name="plus.net.XhrStateChangeCallback">XhrStateChangeCallback</a></h1>
+<p>网络请求状态变化的回调函数</p>
+<pre class="prettyprint linenums">
+void onSuccess() {
+	// State changed code.
+}
+				</pre>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无</div>
+</body>
+</html>

@@ -1,0 +1,625 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body>
+<header><div class="nvbt iback" onclick="back();"></div>
+<div class="nvtt">Share Document</div></header><div id="content" class="content">
+<h1><a name="plus.share">share</a></h1>
+<p>Share模块管理客户端的社交分享功能，提供调用终端社交软件的分享能力。通过plus.share可获取社交分享管理对象。</p>
+<h2>方法：</h2>
+<ul><li>
+<a href="#plus.share.getServices">getServices</a>: 获取分享服务</li></ul>
+<h2>对象：</h2>
+<ul>
+<li>
+<a href="#plus.share.ShareService">ShareService</a>: 分享服务对象</li>
+<li>
+<a href="#plus.share.ShareServerIdentity">ShareServerIdentity</a>: 分享服务标识</li>
+<li>
+<a href="#plus.share.ShareMessage">ShareMessage</a>: JSON对象，分享消息对象</li>
+<li>
+<a href="#plus.share.GeoPosition">GeoPosition</a>: JSON对象，保存用户位置信息</li>
+<li>
+<a href="#plus.share.Authorize">Authorize</a>: 分享授权控件对象</li>
+</ul>
+<h2>回调方法：</h2>
+<ul>
+<li>
+<a href="#plus.share.ServicesSuccessCallback">ServicesSuccessCallback</a>: 获取分享服务成功回调</li>
+<li>
+<a href="#plus.share.AuthorizeSuccessCallback%20">AuthorizeSuccessCallback </a>: 分享消息成功回调</li>
+<li>
+<a href="#plus.share.ShareSuccessCallback%20">ShareSuccessCallback </a>: 分享操作成功回调</li>
+<li>
+<a href="#plus.share.ShareErrorCallback%20">ShareErrorCallback </a>: 分享操作失败回调</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"Share": {
+	"description": "访问分享插件"
+}
+			</pre>
+<h1><a name="plus.share.getServices">getServices</a></h1>
+<p>获取分享服务</p>
+<pre class="prettyprint linenums">
+void plus.share.getServices( successCB, errorCB );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	在获取终端支持的分享通道列表，可用于提示用户进行分享服务器的选择。获取分享服务成功后通过successCB回调返回支持的所有服务列表，获取服务失败则通过errorCB回调返回。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>successCB: 
+		<em>(
+			<a href="#plus.share.ServicesSuccessCallback">ServicesSuccessCallback</a>
+			)
+			必选 </em>获取分享服务成功回调<br>获取分享服务列表成功时的回调函数，用于返回终端支持的分享服务列表。</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.share.ShareErrorCallback">ShareErrorCallback</a>
+			)
+			可选 </em>获取分享服务失败回调<br>获取分享服务列表失败时的回调函数，用于返回错误信息。</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Share Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+var shares=null;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+	plus.share.getServices( function(s){
+		shares = s;
+	}, function(e){
+		alert( "获取分享服务列表失败："+e.message );
+	} );
+}, false );
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.share.ShareService">ShareService</a></h1>
+<p>分享服务对象</p>
+<pre class="prettyprint linenums">
+interface plus.share.ShareService {
+	// Attributes
+	attribute DOMString id;
+	attribute DOMString description;
+	attribute Boolean authenticated;
+	attribute DOMString accessToken;
+	attribute Boolean nativeClient;
+	
+	// Methods
+	function void authorize( successCallback, errorCallback );
+	function void forbid();
+	function void send( message );
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	ShareService对象用于表示分享服务，在JS中为对象，用于向系统请求分享操作。
+				</p>
+<h2>属性：</h2>
+<ul>
+<li>
+<a href="#plus.share.ShareService.id">id</a>: 分享服务标识</li>
+<li>
+<a href="#plus.share.ShareService.description">description</a>: 分享服务描述</li>
+<li>
+<a href="#plus.share.ShareService.authenticated">authenticated</a>: 是否授权认证</li>
+<li>
+<a href="#plus.share.ShareService.accessToken">accessToken</a>: 授权认证信息</li>
+<li>
+<a href="#plus.share.ShareService.nativeClient">nativeClient</a>: 是否存在对应的分享客户端</li>
+</ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.share.ShareService.authorize">authorize</a>: 授权认证操作</li>
+<li>
+<a href="#plus.share.ShareService.forbid">forbid</a>: 取消授权认证</li>
+<li>
+<a href="#plus.share.ShareService.send">send</a>: 发送分享</li>
+</ul>
+<h1><a name="plus.share.ShareService.id">id</a></h1>
+<p>分享服务标识</p>
+<h2>说明：</h2>
+<p><a href="#plus.share.ShareServerIdentity">ShareServerIdentity</a>
+	类型
+ 只读属性</p>
+<p>用于表示分享服务标识，如“sinaweibo”表示新浪微博、“tencentweibo”表示腾讯微博。</p>
+<h1><a name="plus.share.ShareService.description">description</a></h1>
+<p>分享服务描述</p>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 只读属性</p>
+<p>用于描述分享服务的信息，如“新浪微博”、“腾讯微博”。</p>
+<h1><a name="plus.share.ShareService.authenticated">authenticated</a></h1>
+<p>是否授权认证</p>
+<h2>说明：</h2>
+<p><a href="#Boolean">Boolean</a>
+	类型
+ 只读属性</p>
+<p>用于标识此分享是否已经授权认证过，true表示已完成授权认证；false表示未完成授权认证。</p>
+<h1><a name="plus.share.ShareService.accessToken">accessToken</a></h1>
+<p>授权认证信息</p>
+<h2>说明：</h2>
+<p><a href="#DOMString">DOMString</a>
+	类型
+ 只读属性</p>
+<p>仅在authenticated为true时有效，标识客户认证标识信息，用于发送分享信息。</p>
+<h1><a name="plus.share.ShareService.nativeClient">nativeClient</a></h1>
+<p>是否存在对应的分享客户端</p>
+<h2>说明：</h2>
+<p><a href="#Boolean">Boolean</a>
+	类型
+ 只读属性</p>
+<p>对于某些分享服务，可直接调用本地客户端程序进行授权认证，此属性即可提供此相关信息，若没有安装本地客户端则可能调用其它方式进行分享操作，如WAP方式等。</p>
+<h1><a name="plus.share.ShareService.authorize">authorize</a></h1>
+<p>授权认证操作</p>
+<pre class="prettyprint linenums">
+						
+void obj.authorize( successCB, errorCB );
+						
+						</pre>
+<h2>说明：</h2>
+<p class="des">	对指定的分享服务进行授权认证操作，在授权前可通过ShareService.authenticated属性判断是否已经授权过，通常只需要对没有进行过授权认证的服务进行授权认证操作。授权认证操作成功后通过successCB回调函数通知操作完成，操作失败则通过errorCB回调返回。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>successCB: 
+		<em>(
+			<a href="#plus.share.AuthorizeSuccessCallback">AuthorizeSuccessCallback</a>
+			)
+			必选 </em>分享服务授权认证成功回调<br>分享服务授权认证操作成功时的回调函数，用于返回分享授权操作成功信息。</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.share.ShareErrorCallback">ShareErrorCallback</a>
+			)
+			可选 </em>分享服务授权认证失败回调<br>分享服务授权认证操作失败时的回调函数，用于返回错误信息。</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Share Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+var shares=null;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+	plus.share.getServices( function(s){
+		shares = s;
+	}, function(e){
+		alert( "获取分享服务列表失败："+e.message );
+	} );
+}, false );
+function shareAction(){
+	var s = shares[0];
+	if ( !s.authenticated ) {
+		s.authorize( functioin(){
+			alert( "认证完成！" );
+		}, function(e){
+			outLine( "未进行认证" );
+		} )
+	}
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.share.ShareService.forbid">forbid</a></h1>
+<p>取消授权认证</p>
+<pre class="prettyprint linenums">
+void obj.forbid();
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	对指定的分享服务取消授权认证操作，取消授权认证后，再次分享时需重新进行授权操作。
+						</p>
+<h2>参数：</h2>
+<ul></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Share Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+var shares=null;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+	plus.share.getServices( function(s){
+		shares = s;
+	}, function(e){
+		alert( "获取分享服务列表失败："+e.message );
+	} );
+}, false );
+// 取消所有分享服务的
+function cancelAuthorize(){
+	for ( var i in shares ) {
+		var s = shares[i];
+		if ( s.authenticated ) {
+			s.forbid();
+		}
+	}
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.share.ShareService.send">send</a></h1>
+<p>发送分享</p>
+<pre class="prettyprint linenums">
+void obj.send( msg, successCB, errorCB );
+						</pre>
+<h2>说明：</h2>
+<p class="des">　　发送分享消息，分享消息的内容通过msg设置。发送成功后通过successCB回调函数通知操作完成，发送失败则通过errorCB回调返回。若分享服务没有进行授权认证或授权认证失效则触发失败回调函数。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>msg: 
+		<em>(
+			<a href="#plus.share.ShareMessage">ShareMessage</a>
+			)
+			必选 </em>要发送的分享消息对象<br>用于设置要分享的消息内容，如文字内容，图片等信息。</li>
+<li>successCB: 
+		<em>(
+			<a href="#plus.share.ShareSuccessCallback">ShareSuccessCallback</a>
+			)
+			必选 </em>发送分享消息成功回调<br>发送分享消息操作成功时的回调函数，用于返回发送分享消息操作成功信息。</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.share.ShareErrorCallback">ShareErrorCallback</a>
+			)
+			可选 </em>发送分享消息失败回调<br>发送分享消息操作失败时的回调函数，用于返回错误信息。</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Share Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+var shares=null;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+	plus.share.getServices( function(s){
+		shares = s;
+	}, function(e){
+		alert( "获取分享服务列表失败："+e.message );
+	} );
+}, false );
+/**
+ * 分享操作
+ * @param {plus.share.ShareService} s
+ */
+function shareAction(s) {
+	if ( !s ) {
+		return;
+	}
+	if ( s.authenticated ) {
+		shareMessage( s );
+	} else {
+		s.authorize( shareMessage, function(e){
+			alert( "未进行认证" );
+		} )
+	}
+}
+/**
+ * 发送分享消息
+ * @param {plus.share.ShareService} s
+ */
+function shareMessage(s){
+	s.send( {content:"Hello"}, function(){
+		alert( "分享成功！" );
+	}, function(e){
+		alert( "分享失败："+e.message );
+	} );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.share.ShareServerIdentity">ShareServerIdentity</a></h1>
+<p>分享服务标识</p>
+<h2>常量：</h2>
+<ul>
+<li>"sinaweibo": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>新浪微博<br>
+</li>
+<li>"tencentweibo": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>腾讯微博<br>
+</li>
+<li>"weixin": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>微信<br>
+</li>
+</ul>
+<h1><a name="plus.share.ShareMessage">ShareMessage</a></h1>
+<p>JSON对象，分享消息对象</p>
+<pre class="prettyprint linenums">
+interface plus.share.ShareMessage {
+	attribute DOMString content;
+	attribute DOMString[] pictures;
+	attribute GEOPosition geo;
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">ShareMessage对象用于表示分享消息内容，在JS中为JSON对象，用于向系统发送分享信息操作。</p>
+<h2>属性：</h2>
+<ul>
+<li>content: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>分享消息的内容<br>
+</li>
+<li>pictures: <em>(<a href="#DOMString%5B%5D">DOMString[]</a>
+	类型
+)</em>分享消息的图片<br><p>分享消息中包含的图片路径，仅支持本地路径，暂仅支持提交一张图片，如果传入多张图片则仅提交第一张图片；</p>
+</li>
+<li>geo: <em>(<a href="#plus.share.GeoPosition">GeoPosition</a>
+	类型
+)</em>分享消息中包含的用户地理信息数据<br>
+</li>
+</ul>
+<h1><a name="plus.share.GeoPosition">GeoPosition</a></h1>
+<p>JSON对象，保存用户位置信息</p>
+<pre class="prettyprint linenums">
+interface plus.share.GeoPosition {
+	attribute Number latitude;
+	attribute Number longitude;
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">GeoPosition对象用于表示用户分享消息时的位置信息，在JS中为JSON对象，用于标识分享操作时用户的位置信息。</p>
+<h2>属性：</h2>
+<ul>
+<li>latitude: <em>(<a href="#Number">Number</a>
+	类型
+)</em>用户位置的纬度坐标信息<br>
+</li>
+<li>longitude: <em>(<a href="#Number">Number</a>
+	类型
+)</em>用户位置的经度坐标信息<br>
+</li>
+</ul>
+<h1><a name="plus.share.Authorize">Authorize</a></h1>
+<p>分享授权控件对象</p>
+<pre class="prettyprint linenums">
+interface plus.share.Authorize {
+	// Methods
+	function void load( id );
+	function void setVisible( visible );
+
+	// Events
+	function void onloaded();
+	function void onauthenticated();
+	function void onerror();
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">Authorize对象表示分享控件对象，用于在窗口中显示分享控件，使用此对象可自定义分享授权界面。</p>
+<h2>构造：</h2>
+<ul><li>
+<a href="#plus.share.Authorize.Authorize(id,display)">Authorize(id,display)</a>: 创建分享授权控件对象</li></ul>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.share.Authorize.load">load</a>: 加载分享授权页面</li>
+<li>
+<a href="#plus.share.Authorize.setVisible">setVisible</a>: 设置分享授权控件是否可见</li>
+</ul>
+<h2>事件：</h2>
+<ul>
+<li>
+<a href="#plus.share.Authorize.onloaded">onloaded</a>: 分享控件加载完成事件</li>
+<li>
+<a href="#plus.share.Authorize.onauthenticated">onauthenticated</a>: 分享授权认证成功事件</li>
+<li>
+<a href="#plus.share.Authorize.onerror">onerror</a>: 分享授权认证失败事件</li>
+</ul>
+<h1><a name="plus.share.Authorize.Authorize(id,display)">Authorize(id,display)</a></h1>
+<p>创建分享授权控件对象</p>
+<pre class="prettyprint linenums">
+var obj = new plus.share.Authorize( id, display );
+						</pre>
+<h2>说明：</h2>
+<p class="des">根据指定的id的元素创建分享控件</p>
+<h2>参数：</h2>
+<ul>
+<li>id: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>分享控件在窗口的对应obj节点的id值，此id值用于定位控件位置<br>
+</li>
+<li>visible: 
+		<em>(
+			<a href="#Boolean">Boolean</a>
+			)
+			可选 </em>分享控件是否创建后立即显示，默认值为true<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#plus.share.Authorize">Authorize</a>
+			: 分享控件对象<h1><a name="plus.share.Authorize.load">load</a></h1>
+<p>加载分享授权页面</p>
+<pre class="prettyprint linenums">
+void obj.load( id );
+						</pre>
+<h2>说明：</h2>
+<p class="des">创建分享授权页面后，需要调用此方法指定分享服务标识来加载授权页面数据，此标识可使用ShareService对象的id属性。</p>
+<h2>参数：</h2>
+<ul><li>id: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>要加载的分享服务标识<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.share.Authorize.setVisible">setVisible</a></h1>
+<p>设置分享授权控件是否可见</p>
+<pre class="prettyprint linenums">
+void obj.setVisible( visible );
+						</pre>
+<h2>说明：</h2>
+<p class="des">创建分享授权页面后，调用此方法设置分享授权控件在页面中是否可见。</p>
+<h2>参数：</h2>
+<ul><li>visible: 
+		<em>(
+			<a href="#Boolean">Boolean</a>
+			)
+			必选 </em>要设置分享控件是否可见，true标识可见，false表示不可见。<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.share.Authorize.onloaded">onloaded</a></h1>
+<p>分享控件加载完成事件</p>
+<pre class="prettyprint linenums">
+void obj.onloaded = function () {
+	// loaded code 
+}
+						</pre>
+<h2>说明：</h2>
+<p><a href="#plus.share.EventHandler">EventHandler</a>
+	类型
+</p>
+<p>分享授权控件内容加载完成事件，通过调用load方法加载分享授权控件内容，当内容加载完成时触发。</p>
+<h1><a name="plus.share.Authorize.onauthenticated">onauthenticated</a></h1>
+<p>分享授权认证成功事件</p>
+<pre class="prettyprint linenums">
+void obj.onauthenticated= function ( service) {
+	// Authenticate success code 
+}
+						</pre>
+<h2>说明：</h2>
+<p><a href="#plus.share.ShareSuccessCallback">ShareSuccessCallback</a>
+	类型
+</p>
+<p>用户在分享授权控件上输入操作授权成功时触发，事件方法格式参考ShareSuccessCallback回调函数。</p>
+<h1><a name="plus.share.Authorize.onerror">onerror</a></h1>
+<p>分享授权认证失败事件</p>
+<pre class="prettyprint linenums">
+void obj.onerror= function ( error ) {
+	// Error code 
+}
+						</pre>
+<h2>说明：</h2>
+<p><a href="#plus.share.ShareErrorCallback">ShareErrorCallback</a>
+	类型
+</p>
+<p>用户在分享授权控件上输入操作授权认证错误时触发，事件方法格式参考ShareErrorCallback回调函数。</p>
+<h1><a name="plus.share.ServicesSuccessCallback">ServicesSuccessCallback</a></h1>
+<p>获取分享服务成功回调</p>
+<pre class="prettyprint linenums">
+void ServicesSuccessCallback( services ) {
+	// Get share services success code
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">当获取分享服务列表成功时的回调函数，用于返回终端支持的分享服务列表。</p>
+<h2>参数：</h2>
+<ul><li>services: 
+		<em>(
+			<a href="#plus.share.ShareService">ShareService</a>
+			)
+			必选 </em>数组，运行环境支持的分享服务列表<br>运行环境支持的分享服务列表数组，可通过services.length获取分享服务列表的数目。</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.share.AuthorizeSuccessCallback%20">AuthorizeSuccessCallback </a></h1>
+<p>分享消息成功回调</p>
+<pre class="prettyprint linenums">
+void AuthorizeSuccessCallback( service ) {
+	　　// Authorize success code
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">分享操作成功回调函数，当分享操作成功时调用。</p>
+<h2>参数：</h2>
+<ul><li>service: 
+		<em>(
+			<a href="#plus.share.ShareService">ShareService</a>
+			)
+			必选 </em>认证操作成功的分享服务对象<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.share.ShareSuccessCallback%20">ShareSuccessCallback </a></h1>
+<p>分享操作成功回调</p>
+<pre class="prettyprint linenums">
+void ShareSuccessCallback () {
+	// Share success code
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">分享操作成功回调函数，当分享操作成功时调用。</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.share.ShareErrorCallback%20">ShareErrorCallback </a></h1>
+<p>分享操作失败回调</p>
+<pre class="prettyprint linenums">
+void ShareErrorCallback ( error ) {
+	// Recognition error code
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">　　当分享操作失败时的回调函数，用于返回分享相关操作失败的错误信息。</p>
+<h2>参数：</h2>
+<ul><li>error: 
+		<em>(
+			<a href="#DOMException">DOMException</a>
+			)
+			必选 </em>分享操作失败错误信息，通过error.code获取错误代码<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无</div>
+</body>
+</html>

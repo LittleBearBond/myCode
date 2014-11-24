@@ -1,0 +1,1050 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"w",
+				"window"
+			],
+			[
+				"con",
+				"content"
+			],
+			[
+				"rel",
+				"relative"
+			],
+			[
+				"show",
+				"showError"
+			],
+			[
+				"bor",
+				"border"
+			],
+			[
+				"ba",
+				"background"
+			],
+			[
+				"bo",
+				"border"
+			],
+			[
+				"box",
+				"box-sizing"
+			],
+			[
+				"blo",
+				"bold"
+			],
+			[
+				"backc",
+				"background-color"
+			],
+			[
+				"page",
+				"page1"
+			],
+			[
+				"dis",
+				"display"
+			],
+			[
+				"tex",
+				"text-align"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"win",
+				"window"
+			],
+			[
+				"get",
+				"getElementById  (function)"
+			],
+			[
+				"remo",
+				"removeClass"
+			],
+			[
+				"remove",
+				"removeAttr"
+			],
+			[
+				"inn",
+				"inline-block"
+			],
+			[
+				"wi",
+				"width"
+			],
+			[
+				"pad",
+				"padding"
+			],
+			[
+				"pa",
+				"padding"
+			],
+			[
+				"fons",
+				"font-size"
+			],
+			[
+				"borr",
+				"border-radius"
+			],
+			[
+				"bas",
+				"background-size"
+			],
+			[
+				"bacorr",
+				"background-color"
+			],
+			[
+				"ov",
+				"overflow"
+			],
+			[
+				"op",
+				"opacity"
+			],
+			[
+				"ri",
+				"right"
+			],
+			[
+				"pos",
+				"position"
+			],
+			[
+				"curr",
+				"currNum"
+			],
+			[
+				"touch",
+				"touchTarget"
+			],
+			[
+				"he",
+				"height"
+			],
+			[
+				"vis",
+				"visibility"
+			],
+			[
+				"vi",
+				"visibility"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/E/Work/Code/assets/up/dj-mobile/pushover/content/js/dialog1.0/dialog1.0.js",
+			"settings":
+			{
+				"buffer_size": 10135,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/E/Work/Code/assets/up/dj-mobile/pushover/demo/num/index.html",
+			"settings":
+			{
+				"buffer_size": 13444,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"set java",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"inp",
+				"Package Control: Install Package"
+			],
+			[
+				"insp",
+				"Package Control: Install Package"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"set ja",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"inpac",
+				"Package Control: Install Package"
+			],
+			[
+				"inpa",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 512.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/web-xiaomi"
+	],
+	"file_history":
+	[
+		"/D/googledownload/artDialog-master/src/dialog-config.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/css/num/111806.css",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/css/webpage/xtj-vmware.css",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/web-xiaomi/huaxinguangdian-pc.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/web-xiaomi/huaxinguangdian-pc01.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/test/dialog.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/num/111806.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/web-xiaomi/haiyin-pc01.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/web-xiaomi/haiyin-pc.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/web-xiaomi/shinaide-pc.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/web-xiaomi/shinaide-pc01.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/web-xiaomi/vmware-pc.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/web-xiaomi/vmware-pc01.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/css/webpage/xtj-csot.css",
+		"/D/googledownload/artDialog-master/src/dialog-plus.js",
+		"/D/googledownload/artDialog-master/src/popup.js",
+		"/D/googledownload/artDialog-master/src/drag.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/content/css/dialog1.0.css",
+		"/D/googledownload/artDialog-master/src/dialog.js",
+		"/E/oldwork/AutoLayout20140529/AutoLayout/AutoLayout.Ui/Scripts/zepto.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/content/js/dialog1.0/dialog.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/js/num/100104.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/num/100103.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/js/num/111806.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/content/css/dialog.css",
+		"/E/MyCode/jsbook-master/data.xmind",
+		"/E/MyCode/study/css/reset.css",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/css/recommend-suc.css",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/css/recomm-error.css",
+		"/E/MyCode/jsbook-master/README.md",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/num/102301-1.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/num/102317.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/js/num/102301.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/css/open-packet.css",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/css/item.css",
+		"/E/MyCode/study/validate/form.css",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/js/edit.js",
+		"/E/MyCode/study/mtusir/node_modules/grunt-contrib-nodeunit/node_modules/nodeunit/node_modules/tap/test/independent-timeouts.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/i.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/css/send-step.css",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/num/102301.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/css/num/103001.css",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/css/webpage/xtj-schneider-electric.css",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/content/js/slidepage/slidePage1.0.js",
+		"/C/Users/jian.xiong/Desktop/haha/js/pic360-1.0.0.js",
+		"/E/oldwork/AutoLayout20140529/AutoLayout/AutoLayout.Ui/Scripts/jquery-2.1.1.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/css/num/100101-new.css",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/js/mail_form.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/css/email-verify-suc.css",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/num/100101-new.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/js/num/100101-new.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/js/com/selectprofession.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/num/102305.html",
+		"/C/Users/jian.xiong/Desktop/selectCity.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/content/js/zepto.js",
+		"/E/MyCode/test/zepto.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/css/num/100101.css",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/num/index.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/js/num/100101.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/js/com/basevalidaterule.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/js/num/100105.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/num/100104.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/num/102316.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/js/num/100103.js",
+		"/E/MyCode/test/myJs/utils.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/num/100105.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/css/num/100105.css",
+		"/E/MyCode/test/test/index.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/num/100108.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/num/103003.html",
+		"/C/Users/jian.xiong/Documents/Tencent Files/568915669/FileRecv/demo/index.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/css/mail_source.css",
+		"/E/Work/Code/assets/up/dj-mobile/nitpick/js/avatar.min.js",
+		"/E/Work/Code/assets/up/dj-mobile/nitpick/demo/avatar.html",
+		"/E/Work/Code/assets/up/dj-mobile/nitpick/js/avatar.js",
+		"/E/MyCode/jsbook-master/ch13io.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/two-phase/mail_form_suc.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/two-phase/mail_form_phone.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/email-verify-suc.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/web-xiaomi/mail_form.html",
+		"/E/Work/Code/Gruntfile.js",
+		"/E/Work/Code/package.json",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/js/num/082004.min.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/js/num/102301.min.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/js/num/100103.min.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/content/js/swipe.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/content/js/swipe.min.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/content/js/zepto.min.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/css/num/100101.min.css",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/css/num/100108.css",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/css/num/082002.min.css",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/css/num/082003.min.css",
+		"/E/MyCode/study/mtusir/Gruntfile.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/css/num/103003.css",
+		"/E/MyCode/study/slidePage/slidePage1.2.js",
+		"/E/Work/Code/assets/up/dj-mobile/nitpick/js/slider.js",
+		"/E/MyCode/test/js/selector.js",
+		"/E/MyCode/test/testzeptoevent.html",
+		"/E/MyCode/test/testAlbum.html",
+		"/E/MyCode/test/test.html",
+		"/E/MyCode/test/testAnimate.html",
+		"/E/MyCode/test/testMargin.html",
+		"/E/MyCode/test/m/css/common.css",
+		"/E/MyCode/test/testcenter.html",
+		"/E/MyCode/test/Testbackground-image.html",
+		"/C/Users/jian.xiong/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap",
+		"/D/googledownload/html5-boilerplate-4.3.0/css/main.css",
+		"/D/googledownload/html5-boilerplate-4.3.0/css/normalize.css",
+		"/E/MyCode/test/m/css/reset.css",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/content/css/reset.css",
+		"/E/MyCode/test/js/ajax.js",
+		"/E/MyCode/test/testMediaQuery.html",
+		"/E/MyCode/test/myJs/form.js",
+		"/E/MyCode/test/myJs/inputSuggest.js",
+		"/E/MyCode/test/myJs/MyTemplate.js",
+		"/E/oldwork/AutoLayout20140529/AutoLayout/AutoLayout.Ui/js/ui/core.js",
+		"/E/MyCode/study/validate/validate.js",
+		"/E/MyCode/test/myJs/webseat.common.js",
+		"/E/MyCode/test/myJs/webseat.core.js",
+		"/E/MyCode/test/myJs/webseat.core-new.js",
+		"/E/oldwork/AutoLayout20140529/AutoLayout/AutoLayout.Ui/js/common/utils.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/include/_fileNav.html",
+		"/E/MyCode/study/validate/index.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/js/easy-validate.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/demo/num/082002.html",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/lib/validate.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/lib/jquery.formvalidate.js",
+		"/E/Work/Code/assets/up/dj-mobile/pushover/content/js/weixin1.0.js"
+	],
+	"find":
+	{
+		"height": 37.0
+	},
+	"find_in_files":
+	{
+		"height": 99.0,
+		"where_history":
+		[
+			"E:\\Work\\Code\\assets\\up\\dj-mobile\\pushover\\css",
+			"E:\\Work\\Code\\assets\\up\\dj-mobile\\nitpick",
+			"E:\\Work\\Code\\assets\\up\\dj-mobile\\pushover\\demo"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"ededed",
+			"center",
+			".__center",
+			"reset",
+			"Lock",
+			"lock",
+			"quickClose",
+			"getAnimateEnd",
+			"emptyFunc",
+			"function() {}",
+			"emptyFunc",
+			"function() {}",
+			"jp-code-wrap",
+			"dj-res-tip-layer",
+			";\n",
+			"clsPast",
+			"codePast",
+			"$dom",
+			"jp-get-code",
+			"$dom",
+			"showError",
+			"op-tip-bg",
+			" \n",
+			"setUrlParam",
+			"validateMobileIsExisit",
+			"event",
+			"pc-step3-footer",
+			".pc-step3-footer",
+			"shinaide-phone",
+			"current",
+			"active",
+			";\n",
+			"text",
+			"nodes",
+			"methodAttributes",
+			"showTip",
+			">\n",
+			"<<em",
+			"<<i>",
+			"</a>",
+			"@2x",
+			">li",
+			"</li>",
+			"<li",
+			"<a href=\"javascript:\"",
+			"<li ",
+			"bigbackground",
+			"1970",
+			"2037",
+			"2038",
+			"free",
+			"ww",
+			"$win",
+			"ww",
+			"wh",
+			"clientWidth",
+			"max",
+			"reason",
+			"$",
+			"script",
+			"avatar",
+			"../num/",
+			"hasOwn",
+			"xtjdircss",
+			"moveEnd",
+			"resetPos",
+			"endCallBack",
+			"limit",
+			"complete",
+			"bindEvent",
+			"showNum",
+			"jsonpID",
+			"cssNumber",
+			"methodAttributes",
+			"funcArg",
+			"propMap",
+			"uuid",
+			"empty",
+			"propMap",
+			"listData",
+			"callback",
+			"async",
+			"    $.fn.validate = function() {\n",
+			"errorNum",
+			"ajaxValidate",
+			"AjaxValidate",
+			"ajaxValidate",
+			"regAjaxValidate",
+			"getPageData",
+			"iAlert",
+			"getTranslateDis",
+			"notLastPageCallBack",
+			"手机号已被占用",
+			"parent",
+			"version",
+			"XDebug",
+			"任职",
+			"请选择任职时间",
+			"images",
+			"wrap-swipe",
+			"intention",
+			"http://testb2.xtj.t.dajie.com/wx/xtj/26/candidate/intention",
+			"http://testb2.xtj.t.dajie.com/wx/xtj/26/candidate/intention\n",
+			"content",
+			"slidePage1.2",
+			"slidePage1.1",
+			"slidePage1.0",
+			"LastPageCallBack",
+			"lastPageCallBack",
+			"LastPageCallBack",
+			"lastPageCallBack",
+			"reindent",
+			"wrapEl",
+			"getTranslateDis",
+			"departments",
+			"beforesend"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"/up/dj-mobile/pushover/lib/jqueryui/themes/base/images"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": true,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/E/Work/Code/assets/up/dj-mobile/pushover/content/js/dialog1.0/dialog1.0.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10135,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2969,
+								2969
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content"
+							],
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3969.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/E/Work/Code/assets/up/dj-mobile/pushover/demo/num/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13444,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								12084,
+								12084
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content"
+							],
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 8316.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 29.0
+	},
+	"input":
+	{
+		"height": 37.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.309698409188,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.xdebug":
+	{
+		"height": 0.0
+	},
+	"project": "phpdebug.sublime-project",
+	"replace":
+	{
+		"height": 68.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"111806",
+				"pushover\\demo\\num\\111806.html"
+			],
+			[
+				"dialog1",
+				"pushover\\content\\css\\dialog1.0.css"
+			],
+			[
+				"100104.js",
+				"pushover\\js\\num\\100104.js"
+			],
+			[
+				"100103.html",
+				"pushover\\demo\\num\\100103.html"
+			],
+			[
+				"dia",
+				"pushover\\content\\js\\dialog1.0\\dialog.js"
+			],
+			[
+				"rese",
+				"study\\css\\reset.css"
+			],
+			[
+				"item",
+				"pushover\\css\\item.css"
+			],
+			[
+				"mailfo",
+				"pushover\\js\\mail_form.js"
+			],
+			[
+				"xtj-schneider-electric.css",
+				"pushover\\css\\webpage\\xtj-schneider-electric.css"
+			],
+			[
+				"102317.html",
+				"pushover\\demo\\num\\102317.html"
+			],
+			[
+				"100101-new.css",
+				"pushover\\css\\num\\100101-new.css"
+			],
+			[
+				"100101-new.html",
+				"pushover\\demo\\num\\100101-new.html"
+			],
+			[
+				"100101-new",
+				"pushover\\js\\num\\100101-new.js"
+			],
+			[
+				"102301.js",
+				"pushover\\js\\num\\102301.js"
+			],
+			[
+				"102305.html",
+				"pushover\\demo\\num\\102305.html"
+			],
+			[
+				"100101",
+				"pushover\\css\\num\\100101.css"
+			],
+			[
+				"100101.js",
+				"pushover\\js\\num\\100101.js"
+			],
+			[
+				"100101.css",
+				"pushover\\css\\num\\100101.css"
+			],
+			[
+				"basevalidaterule.js",
+				"pushover\\js\\com\\basevalidaterule.js"
+			],
+			[
+				"100104.html",
+				"pushover\\demo\\num\\100104.html"
+			],
+			[
+				"102301",
+				"pushover\\demo\\num\\102301.html"
+			],
+			[
+				"100105",
+				"pushover\\js\\num\\100105.js"
+			],
+			[
+				"100103.js",
+				"pushover\\js\\num\\100103.js"
+			],
+			[
+				"mails",
+				"pushover\\css\\mail_source.css"
+			],
+			[
+				"mailf",
+				"pushover\\js\\mail_form.js"
+			],
+			[
+				"mail_form.js",
+				"pushover\\js\\mail_form.js"
+			],
+			[
+				"102316.html",
+				"pushover\\demo\\num\\102316.html"
+			],
+			[
+				"100303",
+				"pushover\\demo\\num\\103003.html"
+			],
+			[
+				"100103",
+				"pushover\\js\\num\\100103.js"
+			],
+			[
+				"082020.css",
+				"pushover\\css\\num\\082020.css"
+			],
+			[
+				"082020.html",
+				"pushover\\demo\\num\\082020.html"
+			],
+			[
+				"102301h",
+				"pushover\\demo\\num\\102301.html"
+			],
+			[
+				"082020",
+				"pushover\\css\\num\\082020.css"
+			],
+			[
+				"base.js",
+				"pushover\\js\\base.js"
+			],
+			[
+				"matchbox.css",
+				"pushover\\lib\\matchbox\\matchbox.css"
+			],
+			[
+				"edit",
+				"pushover\\js\\edit.js"
+			],
+			[
+				"two-p/index",
+				"pushover\\demo\\two-phase\\index.html"
+			],
+			[
+				"huntjob",
+				"pushover\\demo\\two-phase\\hunter-jobs.html"
+			],
+			[
+				"hunt",
+				"pushover\\css\\hunter-jobs.css"
+			],
+			[
+				"_headernojs.html",
+				"pushover\\include\\_headerNoJs.html"
+			],
+			[
+				"10231",
+				"pushover\\demo\\num\\102317.html"
+			],
+			[
+				"huntjo",
+				"pushover\\demo\\two-phase\\hunter-jobs.html"
+			],
+			[
+				"102301.html",
+				"pushover\\demo\\num\\102301.html"
+			],
+			[
+				"hunter-jobs.js",
+				"pushover\\js\\hunter-jobs.js"
+			],
+			[
+				"hunter-jobs.html",
+				"pushover\\demo\\two-phase\\hunter-jobs.html"
+			],
+			[
+				"mialfor",
+				"pushover\\js\\mail_form.js"
+			],
+			[
+				"mail",
+				"pushover\\js\\mail_form.js"
+			],
+			[
+				"102301.",
+				"pushover\\js\\num\\102301.js"
+			],
+			[
+				"102317",
+				"pushover\\demo\\num\\102317.html"
+			],
+			[
+				"102304.html",
+				"pushover\\demo\\num\\102304.html"
+			],
+			[
+				"1001",
+				"css\\num\\100101.css"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+		"xdebug":
+		{
+			"hide_conflict": false,
+			"restore_index":
+			{
+				"43":
+				{
+					"group": 0,
+					"index": 0
+				},
+				"44":
+				{
+					"group": 0,
+					"index": 1
+				}
+			},
+			"restore_layout":
+			{
+				"cells":
+				[
+					[
+						0,
+						0,
+						1,
+						1
+					],
+					[
+						1,
+						0,
+						2,
+						1
+					]
+				],
+				"cols":
+				[
+					0.0,
+					0.5,
+					1.0
+				],
+				"rows":
+				[
+					0.0,
+					1.0
+				]
+			}
+		}
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 265.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

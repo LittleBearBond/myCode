@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Test</title>
+	<!-- width – // [pixel_value | device-width] viewport 的宽度，范围从 200 到 10,000，默认为 980 像素
+	height – // [pixel_value | device-height ] viewport 的高度，范围从 223 到 10,000 
+	initial-scale – // float_value，初始的缩放比例 （范围从 > 0 到 10）
+	minimum-scale – // float_value，允许用户缩放到的最小比例
+	maximum-scale – // float_value，允许用户缩放到的最大比例
+	user-scalable – // [yes | no] 用户是否可以手动缩放
+	target-densitydpi = [dpi_value | device-dpi | high-dpi | medium-dpi | low-dpi] 目标屏幕像素密度 -->
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<!-- 忽略页面中的数字识别为电话号码  email识别 -->
+	<meta content="telephone=no, email=no" name="format-detection" />
+	<!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<!-- 当启动webapp功能时，显示手机信号、时间、电池的顶部导航栏的颜色。默认值为default（白色），可以定为black（黑色）和black-translucent（灰色半透明）。这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<!-- 不让 Android 手机识别邮箱 -->
+	<meta content="email=no" name="format-detection" />
+
+	<!-- 其他meta -->
+
+	<!-- 启用360浏览器的极速模式(webkit) -->
+	<meta name="renderer" content="webkit">
+	<!-- 避免IE使用兼容模式 -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+	<meta name="HandheldFriendly" content="true">
+	<!-- 微软的老式浏览器 -->
+	<meta name="MobileOptimized" content="320">
+	<!-- uc强制竖屏 -->
+	<meta name="screen-orientation" content="portrait">
+	<!-- QQ强制竖屏 -->
+	<meta name="x5-orientation" content="portrait">
+	<!-- UC强制全屏 -->
+	<meta name="full-screen" content="yes">
+	<!-- QQ强制全屏 -->
+	<meta name="x5-fullscreen" content="true">
+	<!-- UC应用模式 -->
+	<meta name="browsermode" content="application">
+	<!-- QQ应用模式 -->
+	<meta name="x5-page-mode" content="app">
+	<!-- windows phone 点击无高光 -->
+	<meta name="msapplication-tap-highlight" content="no">
+
+
+	<!-- 关于 iOS 系统中，WebAPP 启动图片在不同设备上的适应性设置 -->
+	<!-- iPhone ICON -->
+	<!-- <link href="apple-touch-icon-57x57.png" sizes="57x57" rel="apple-touch-icon"> -->
+	<!-- iPad ICON-->
+	<!-- <link href="apple-touch-icon-72x72.png" sizes="72x72" rel="apple-touch-icon"> -->
+	<!-- iPhone (Retina) ICON-->
+	<!-- <link href="apple-touch-icon-114x114.png" sizes="114x114" rel="apple-touch-icon"> -->
+	<!-- iPad (Retina) ICON-->
+	<!-- <link href="apple-touch-icon-144x144.png" sizes="144x144" rel="apple-touch-icon"> -->
+	<!-- iPhone SPLASHSCREEN-->
+	<!-- <link href="apple-touch-startup-image-320x460.png" media="(device-width: 320px)" rel="apple-touch-startup-image"> -->
+	<!-- iPhone (Retina) SPLASHSCREEN-->
+	<!-- <link href="apple-touch-startup-image-640x920.png" media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image"> -->
+	<!-- iPad (portrait) SPLASHSCREEN-->
+	<!-- <link href="apple-touch-startup-image-768x1004.png" media="(device-width: 768px) and (orientation: portrait)" rel="apple-touch-startup-image"> -->
+	<!-- iPad (landscape) SPLASHSCREEN-->
+	<!-- <link href="apple-touch-startup-image-748x1024.png" media="(device-width: 768px) and (orientation: landscape)" rel="apple-touch-startup-image"> -->
+	<!-- iPad (Retina, portrait) SPLASHSCREEN-->
+	<!-- <link href="apple-touch-startup-image-1536x2008.png" media="(device-width: 1536px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image"> -->
+	<!-- iPad (Retina, landscape) SPLASHSCREEN-->
+	<!-- <link href="apple-touch-startup-image-2048x1496.png" media="(device-width: 1536px)  and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image"> -->
+
+
+    <style tyle='test/css'>
+    	/* 消除 IE10 里面的那个叉号 */
+		input::-ms-clear{display:none;}
+		input{
+			-webkit-user-modify: read-write-plaintext-only;
+		}
+    </style>
+    <script> 
+	/*关于 iOS 系统中，中文输入法输入英文时，字母之间可能会出现一个六分之一空格(焦点科技葛亮)
+	可以通过正则去掉
+	this.value = this.value.replace(/\u2006/g, '');*/
+    </script>
+</head>
+<body>
+	<input type="text" value='123'   /><br>
+
+	<label for="phone">Phone: *</label>
+	<input type="tel" name="phone" id="phone" minlength="10" maxlength="10" inputmode="latin digits" required="required" />
+	<br>
+	<input placeholder="Date" type="text" onfocus="(this.type='date')"  id="date"> 
+	<br>
+	<input placeholder="Date" type="email"   > 
+</body>
+</html>

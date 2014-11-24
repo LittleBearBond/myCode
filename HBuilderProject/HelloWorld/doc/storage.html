@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body>
+<header><div class="nvbt iback" onclick="back();"></div>
+<div class="nvtt">Storage Document</div></header><div id="content" class="content">
+<h1><a name="plus.storage">storage</a></h1>
+<p>Storage模块管理应用本地数据，用于应用数据的保存和读取。应用本地数据与localStorage、sessionStorage的区别在于数据有效域不同，前者可在应用内跨域操作，并且数据存储期是持久化的。通过plus.storage可获取应用本地数据管理对象。</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.storage.getLength">getLength</a>: 获取storage中保存的键值对的数量</li>
+<li>
+<a href="#plus.storage.getItem">getItem</a>: 通过key值检索键值</li>
+<li>
+<a href="#plus.storage.setItem">setItem</a>: 存储key-value</li>
+<li>
+<a href="#plus.storage.removeItem">removeItem</a>: 通过key值删除键值对</li>
+<li>
+<a href="#plus.storage.clear">clear</a>: 清除应用所有的键值对</li>
+<li>
+<a href="#plus.storage.key">key</a>: 获取键值对中指定索引值的key值</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"Storage": {
+	"description": "访问应用本地存储数据"
+}
+			</pre>
+<h1><a name="plus.storage.getLength">getLength</a></h1>
+<p>获取storage中保存的键值对的数量</p>
+<pre class="prettyprint linenums">
+var foo = plus.storage.getLength();
+				</pre>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#Number">Number</a>
+			: 键值对的数量<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+<h1><a name="plus.storage.getItem">getItem</a></h1>
+<p>通过key值检索键值</p>
+<pre class="prettyprint linenums">
+var foo = plus.storage.getItem(key);
+				</pre>
+<h2>参数：</h2>
+<ul><li>key: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em><br>存储的键值</li></ul>
+<h2>返回值：</h2>
+<a href="#DOMString">DOMString</a>
+			: 键对应的值，如果没有保存则返回null。<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+<h1><a name="plus.storage.setItem">setItem</a></h1>
+<p>存储key-value</p>
+<pre class="prettyprint linenums">
+void plus.storage.setItem(key, value);
+				</pre>
+<h2>参数：</h2>
+<ul>
+<li>key: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em><br>存储的键值</li>
+<li>value: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em><br>存储的内容</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+<h1><a name="plus.storage.removeItem">removeItem</a></h1>
+<p>通过key值删除键值对</p>
+<pre class="prettyprint linenums">
+void plus.storage.removeItem(key);
+				</pre>
+<h2>参数：</h2>
+<ul><li>key: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em><br>存储的键值</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+<h1><a name="plus.storage.clear">clear</a></h1>
+<p>清除应用所有的键值对</p>
+<pre class="prettyprint linenums">
+void plus.storage.clear();
+				</pre>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+<h1><a name="plus.storage.key">key</a></h1>
+<p>获取键值对中指定索引值的key值</p>
+<pre class="prettyprint linenums">
+var foo = plus.storage.key(index);
+				</pre>
+<h2>参数：</h2>
+<ul><li>index: 
+		<em>(
+			<a href="#Number">Number</a>
+			)
+			必选 </em>存储键值的索引<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="UTF-8"/&gt;
+		&lt;script type="text/javascript"&gt;
+function loadAllKeyValue() {
+	var keyNames[];
+	var values[];
+	var numKeys = plus.storage.getLength();
+	for(var i=0; i&lt;numKeys; i++) {
+		keyNames[i] = plus.storage.key(i);
+		values[i] = plus.storage.getItem(keyNames[i]);
+	}
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+</div>
+</body>
+</html>

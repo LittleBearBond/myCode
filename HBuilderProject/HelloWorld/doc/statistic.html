@@ -1,0 +1,251 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body>
+<header><div class="nvbt iback" onclick="back();"></div>
+<div class="nvtt">Statistic Document</div></header><div id="content" class="content">
+<h1><a name="plus.statistic">statistic</a></h1>
+<p>Statistic模块管理统计功能，用于提供应用内统计的能力，支持统计和分析用户属性和用户行为数据。通过plus.statistic可获取统计管理对象。</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.statistic.eventTrig">eventTrig</a>: 触发事件</li>
+<li>
+<a href="#plus.statistic.eventStart">eventStart</a>: 开始持续事件</li>
+<li>
+<a href="#plus.statistic.eventEnd">eventEnd</a>: 结束持续事件</li>
+<li>
+<a href="#plus.statistic.eventDuration">eventDuration</a>: 精确持续事件</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"Statistic": {
+	"description": "访问统计插件"
+}
+			</pre>
+<h1><a name="plus.statistic.eventTrig">eventTrig</a></h1>
+<p>触发事件</p>
+<pre class="prettyprint linenums">
+void plus.statistic.eventTrig( id, label );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	触发指定的统计事件，触发的事件必须要先在统计网站上注册事件ID。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>id: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>要触发的事件ID<br>
+</li>
+<li>label: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>要触发事件的标签<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Statistic Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+	plus.statistic.eventTrig( "example", "open" );
+}, false );
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.statistic.eventStart">eventStart</a></h1>
+<p>开始持续事件</p>
+<pre class="prettyprint linenums">
+void plus.statistic.eventStart( id, label );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	开始指定的持续事件统计，当事件结束时调用eventEnd方法，，触发的事件必须要先在统计网站上注册事件ID。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>id: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>要触发的事件ID<br>
+</li>
+<li>label: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>要触发事件的标签<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Statistic Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+var winsetting = null;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+	winsetting = plus.ui.creatWindow( "setting.html" );
+	winsetting.addEventListener( "", function(){
+		plus.statistic.eventStart( "setting" );
+	}, false );
+	winsetting.addEventListener( "", function(){
+		plus.statistic.eventEnd( "setting" );
+	}, false );
+	winsetting.show();
+}, false );
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.statistic.eventEnd">eventEnd</a></h1>
+<p>结束持续事件</p>
+<pre class="prettyprint linenums">
+void plus.statistic.eventEnd( id, label );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	结束指定的持续事件统计，需先调用eventStart方法开始持续事件统计，触发的事件必须要先在统计网站上注册事件ID。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>id: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>要触发的事件ID<br>
+</li>
+<li>label: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>要触发事件的标签<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Statistic Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+var winsetting = null;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+	winsetting = plus.ui.creatWindow( "setting.html" );
+	winsetting.addEventListener( "", function(){
+		plus.statistic.eventStart( "setting" );
+	}, false );
+	winsetting.addEventListener( "", function(){
+		plus.statistic.eventEnd( "setting" );
+	}, false );
+	winsetting.show();
+}, false );
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.statistic.eventDuration">eventDuration</a></h1>
+<p>精确持续事件</p>
+<pre class="prettyprint linenums">
+void plus.statistic.eventDuration( id, duration, label );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	精确时长的持续事件统计，触发的事件必须要先在统计网站上注册事件ID。
+				</p>
+<h2>参数：</h2>
+<ul>
+<li>id: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>要触发的事件ID<br>
+</li>
+<li>duration: 
+		<em>(
+			<a href="#Number">Number</a>
+			)
+			必选 </em>要触发事件持续的时间，单位为ms<br>
+</li>
+<li>label: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>要触发事件的标签<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Statistic Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+}, false );
+function feedback() {
+	var start = new Date();
+	// Do something for feedback
+	var end = new Date();
+	var d = end.getTime() - start.getTime();
+	plus.statistic.duration( "feedback", d );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;button onclick="feedback();"&gt;feedback&lt;/button&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+</div>
+</body>
+</html>

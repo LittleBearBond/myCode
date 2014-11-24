@@ -1,0 +1,526 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body>
+<header><div class="nvbt iback" onclick="back();"></div>
+<div class="nvtt">Android Document</div></header><div id="content" class="content">
+<h1><a name="plus.android">android</a></h1>
+<p>Native.js for Android封装一条通过JS语法直接调用Native Java接口通道，通过plus.android可调用几乎所有的系统API。</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.android.importClass">importClass</a>: 导入Java类对象</li>
+<li>
+<a href="#plus.android.newObject">newObject</a>: 创建实例对象</li>
+<li>
+<a href="#plus.android.getAttribute">getAttribute</a>: 获取对象（类对象/示例对象）的属性值</li>
+<li>
+<a href="#plus.android.setAttribute">setAttribute</a>: 设置对象（类对象/示例对象）的属性值</li>
+<li>
+<a href="#plus.android.invoke">invoke</a>: 调用对象（类对象/示例对象）的方法</li>
+<li>
+<a href="#plus.android.implements">implements</a>: 实现Interface的方法</li>
+<li>
+<a href="#plus.android.runtimeMainActivity">runtimeMainActivity</a>: 获取应用主Activity实例对象</li>
+</ul>
+<h2>对象：</h2>
+<ul>
+<li>
+<a href="#plus.android.ClassObject">ClassObject</a>: Java类对象</li>
+<li>
+<a href="#plus.android.InstanceObject">InstanceObject</a>: Java实例对象</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"Invocation": {
+	"description": "Javascript桥"
+}
+			</pre>
+<h1><a name="plus.android.importClass">importClass</a></h1>
+<p>导入Java类对象</p>
+<pre class="prettyprint linenums">
+ClassObject plus.android.importClass( String classname );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	导入类对象后，就可以通过.操作符直接调用对象（类对象/示例对象）的常量和方法。
+	注意：导入类对象将会消耗较多的系统资源，通常不应该导入过多的类对象。
+				</p>
+<h2>参数：</h2>
+<ul><li>classname: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			必选 </em>要导入的Java类名，使用"."分割命名空间<br>
+	在类名中可以使用"*"来导入指定命名空间下的所有类对象；
+	如果指定的类名无效，则导入类对象失败；
+						</li></ul>
+<h2>返回值：</h2>
+<a href="#ClassObject">ClassObject</a>
+			: Java类对象，如果导入类对象失败则返回null。<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Android Javascript Bridge&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+}, false );
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.android.newObject">newObject</a></h1>
+<p>创建实例对象</p>
+<pre class="prettyprint linenums">
+void plus.android.newObject( String classname, Object..args );
+				</pre>
+<h2>参数：</h2>
+<ul>
+<li>classname: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			必选 </em>要创建实例对象的类名，使用"."分割命名空间<br>如果指定的类名不存在，则创建对象失败，不会抛出异常。</li>
+<li>args: 
+		<em>(
+			<a href="#Object">Object</a>
+			)
+			可选 </em>创建实例对象的构造参数<br>如果指定的构造参数类型不区配，则创建对象失败，不会抛出异常。</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#InstanceObject">InstanceObject</a>
+			: Android实例对象，如果创建对象失败则返回null。<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Android Javascript Bridge&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+}, false );
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.android.getAttribute">getAttribute</a></h1>
+<p>获取对象（类对象/示例对象）的属性值</p>
+<pre class="prettyprint linenums">
+Object plus.android.getAttribute( Object obj, String name );
+				</pre>
+<h2>参数：</h2>
+<ul>
+<li>obj: 
+		<em>(
+			<a href="#Object">Object</a>
+			)
+			必选 </em>要获取属性值的对象，也可以是类的名称<br>
+	如果obj为类对象，则获取的是类的静态属性值；如果obj为实例对象，则获取的是实例的属性值；
+	如果obj为字符串类型，其值必须是类的名称，则获取是类的静态属性值；
+						</li>
+<li>name: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			必选 </em>要获取的属性名称<br>如果指定的属性名称不存在，则获取属性失败，不会抛出异常。</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#Object">Object</a>
+			: 属性值对象，如果获取属性失败则返回null。<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Android Javascript Bridge&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+}, false );
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.android.setAttribute">setAttribute</a></h1>
+<p>设置对象（类对象/示例对象）的属性值</p>
+<pre class="prettyprint linenums">
+void plus.android.setAttribute( Object obj, String name, Object value );
+				</pre>
+<h2>参数：</h2>
+<ul>
+<li>obj: 
+		<em>(
+			<a href="#Object">Object</a>
+			)
+			必选 </em>要设置属性值的对象，也可以是类的名称<br>
+	如果obj为类对象，则设置的是类的静态属性值；如果obj为实例对象，则设置的是实例的属性值；
+	如果obj为字符串类型，其值必须是类的名称，则设置是类的静态属性值；
+						</li>
+<li>name: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			必选 </em>要设置的属性名称<br>如果指定的属性名称不存在，则操作不生效，不会抛出异常。</li>
+<li>value: 
+		<em>(
+			<a href="#Object">Object</a>
+			)
+			必选 </em>要设置的属性值<br>如果指定的属性值类型不区配，则操作不生效，不会抛出异常。</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Android Javascript Bridge&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+}, false );
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.android.invoke">invoke</a></h1>
+<p>调用对象（类对象/示例对象）的方法</p>
+<pre class="prettyprint linenums">
+Object plus.android.invoke( Object obj, String name, Object... args );
+				</pre>
+<h2>参数：</h2>
+<ul>
+<li>obj: 
+		<em>(
+			<a href="#Object">Object</a>
+			)
+			必选 </em>调用方法所属的对象，也可以是类的名称<br>
+	如果obj为类对象，则调用的是类的静态方法；如果obj为实例对象，则调用的是实例的方法；
+	如果obj为字符串类型，其值必须是类的名称，则调用的是类的静态方法；
+						</li>
+<li>name: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			必选 </em>要调用的方法名称<br>
+	方法名称中使用":"分隔参数。
+	如果指定的方法名称不存在，则调用方法失败，不会抛出异常。
+						</li>
+<li>args: 
+		<em>(
+			<a href="#Object">Object</a>
+			)
+			可选 </em>调用方法的参数<br>如果指定的参数数目或类型不区配，则调用方法失败，不会抛出异常。</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#Object">Object</a>
+			: 调用方法的返回值，如果调用方法失败，则返回undefined。<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Android Javascript Bridge&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+}, false );
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.android.implements">implements</a></h1>
+<p>实现Interface的方法</p>
+<pre class="prettyprint linenums">
+Object plus.android.implements( String name, Object obj );
+				</pre>
+<h2>参数：</h2>
+<ul>
+<li>name: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			必选 </em>Interface的名称，也可以是自定的字符串名称<br>
+	如果name为自定的字符串名称，则自定义一个Interface；
+						</li>
+<li>obj: 
+		<em>(
+			<a href="#Object">Object</a>
+			)
+			必选 </em>JSON对象类型，Interface实现方法的定义<br>
+	JSON对象中key值为Interface方法的名称；value值为Function。
+						</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#InstanceObject">InstanceObject</a>
+			: Interface实例对象。<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Android Javascript Bridge&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+}, false );
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.android.runtimeMainActivity">runtimeMainActivity</a></h1>
+<p>获取应用主Activity实例对象</p>
+<pre class="prettyprint linenums">
+InstanceObject plus.android.runtimeMainActivity();
+				</pre>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#InstanceObject">InstanceObject</a>
+			: 主Activity实例对象。<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Android Javascript Bridge&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+}, false );
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.android.ClassObject">ClassObject</a></h1>
+<p>Java类对象</p>
+<pre class="prettyprint linenums">
+interface ClassObject {
+	// ...
+	function Object plusGetAttribute( String name );
+	function Object plusSetAttribute( String name, Object value );
+	// ...
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	Java类对象，可通过其属性获取类的常量，可通过方法来操作类的静态变量和方法，也通过new方法来创建类的实例对象。
+	对于类的常量，则直接通过.后面跟随常量名称调用即可。
+				</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.android.ClassObject.plusGetAttribute">plusGetAttribute</a>: 获取Java类对象的静态属性</li>
+<li>
+<a href="#plus.android.ClassObject.plusSetAttribute">plusSetAttribute</a>: 设置Java类对象的静态属性</li>
+</ul>
+<h1><a name="plus.android.ClassObject.plusGetAttribute">plusGetAttribute</a></h1>
+<p>获取Java类对象的静态属性</p>
+<pre class="prettyprint linenums">
+Object clsobj.plusGetAttribute( String name );
+						</pre>
+<h2>参数：</h2>
+<ul><li>name: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			必选 </em>要获取的静态属性名称<br>如果指定的属性名称不存在，则返回null。</li></ul>
+<h2>返回值：</h2>
+<a href="#Object">Object</a>
+			: 静态属性实例对象<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Android Javascript Bridge&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+}, false );
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.android.ClassObject.plusSetAttribute">plusSetAttribute</a></h1>
+<p>设置Java类对象的静态属性</p>
+<pre class="prettyprint linenums">
+void clsobj.plusSetAttribute( String name, Object value );
+						</pre>
+<h2>参数：</h2>
+<ul>
+<li>name: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			必选 </em>要设置的静态属性名称<br>如果指定的属性名称不存在，则操作不生效，不会抛出异常。</li>
+<li>value: 
+		<em>(
+			<a href="#Object">Object</a>
+			)
+			必选 </em>要设置的静态属性值<br>如果指定的属性值类型不区配，则操作不生效，不会抛出异常。</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Android Javascript Bridge&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+}, false );
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.android.InstanceObject">InstanceObject</a></h1>
+<p>Java实例对象</p>
+<pre class="prettyprint linenums">
+interface InstanceObject {
+	// ...
+	function Object plusGetAttribute( String name );
+	function Object plusSetAttribute( String name, Object value );
+	// ...
+}
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	Java实例对象，可通过其方法来操作示例的变量和方法。
+	注意：必须通过plusGetAttribute()方法读取示例对象的属性值，通过plusSetAttribute()方法设置示例对象的属性值。
+				</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.android.InstanceObject.plusGetAttribute">plusGetAttribute</a>: 获取Java实例对象的属性</li>
+<li>
+<a href="#plus.android.InstanceObject.plusSetAttribute">plusSetAttribute</a>: 设置Java示例对象的属性</li>
+</ul>
+<h1><a name="plus.android.InstanceObject.plusGetAttribute">plusGetAttribute</a></h1>
+<p>获取Java实例对象的属性</p>
+<pre class="prettyprint linenums">
+Object insobj.plusGetAttribute( String name );
+						</pre>
+<h2>参数：</h2>
+<ul><li>name: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			必选 </em>实例属性的名称<br>如果指定的属性名称不存在，则返回null。</li></ul>
+<h2>返回值：</h2>
+<a href="#Object">Object</a>
+			: 属性的实例对象<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Android Javascript Bridge&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+}, false );
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.android.InstanceObject.plusSetAttribute">plusSetAttribute</a></h1>
+<p>设置Java示例对象的属性</p>
+<pre class="prettyprint linenums">
+void insobj.plusSetAttribute( String name, Object value );
+						</pre>
+<h2>参数：</h2>
+<ul>
+<li>name: 
+		<em>(
+			<a href="#String">String</a>
+			)
+			必选 </em>要设置的属性名称<br>如果指定的属性名称不存在，则操作不生效，不会抛出异常。</li>
+<li>value: 
+		<em>(
+			<a href="#Object">Object</a>
+			)
+			必选 </em>要设置的属性值<br>如果指定的属性值类型不区配，则操作不生效，不会抛出异常。</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"/&gt;
+	&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+	&lt;title&gt;Android Javascript Bridge&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 监听plusready事件  
+document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+}, false );
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+</div>
+</body>
+</html>

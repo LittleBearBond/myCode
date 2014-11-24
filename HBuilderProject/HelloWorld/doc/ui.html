@@ -1,0 +1,3153 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<title>Hello H5+</title>
+<link rel="stylesheet" type="text/css" href="res/doc.css" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="res/prettify.sons.css" charset="utf-8">
+<script type="text/javascript" src="res/doc.js" charset="utf-8"></script><script type="text/javascript" src="res/prettify.js" charset="utf-8"></script>
+</head>
+<body>
+<header><div class="nvbt iback" onclick="back();"></div>
+<div class="nvtt">UI Document</div></header><div id="content" class="content">
+<h1><a name="plus.ui">ui</a></h1>
+<p>UI模块管理应用界面，用于操作加载HTML页面的原生窗口，调用系统原生控件等。由于此模块功能太多，现已根据功能分拆更新为Key、NativeUI、Navigator、Webview等，并对接口和功能做了一些优化调整，请使用新API。</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.ui.alert">alert</a>: 弹出系统提示框</li>
+<li>
+<a href="#plus.ui.closeSplashscreen">closeSplashscreen</a>: 关闭程序启动界面</li>
+<li>
+<a href="#plus.ui.closeWindow">closeWindow</a>: 关闭原生窗口</li>
+<li>
+<a href="#plus.ui.confirm">confirm</a>: 弹出系统确认对话框</li>
+<li>
+<a href="#plus.ui.createView">createView</a>: 创建新的原生控件对象</li>
+<li>
+<a href="#plus.ui.createWaiting">createWaiting</a>: 创建等待对话框</li>
+<li>
+<a href="#plus.ui.createWindow">createWindow</a>: 创建新的原生窗口</li>
+<li>
+<a href="#plus.ui.enumWindow">enumWindow</a>: 枚举所有原生窗口</li>
+<li>
+<a href="#plus.ui.findWindowByName">findWindowByName</a>: 查找指定名称的窗口</li>
+<li>
+<a href="#plus.ui.getSelfWindow">getSelfWindow</a>: 获取自身窗口</li>
+<li>
+<a href="#plus.ui.isFullscreen">isFullscreen</a>: 判断应用当前是否全屏模式运行</li>
+<li>
+<a href="#plus.ui.pickDate">pickDate</a>: 弹出日期选择界面</li>
+<li>
+<a href="#plus.ui.pickTime">pickTime</a>: 弹出时间选择界面</li>
+<li>
+<a href="#plus.ui.prompt">prompt</a>: 弹出系统输入框</li>
+<li>
+<a href="#plus.ui.setFullscreen">setFullscreen</a>: 设置应用是否全屏模式运行</li>
+<li>
+<a href="#plus.ui.toast">toast</a>: 显示自动消失的消息</li>
+</ul>
+<h2>对象：</h2>
+<ul>
+<li>
+<a href="#plus.ui.AnimationTypeShow">AnimationTypeShow</a>: 一组用于定义页面或控件显示动画效果</li>
+<li>
+<a href="#plus.ui.AnimationTypeClose">AnimationTypeClose</a>: 一组用于定义页面或控件关闭的动画效果</li>
+<li>
+<a href="#plus.ui.DateOption">DateOption</a>: JSON对象，选择日期界面设置的参数</li>
+<li>
+<a href="#plus.ui.Metrics">Metrics</a>: JSON对象，窗口实际度量信息</li>
+<li>
+<a href="#plus.ui.NView">NView</a>: 原生控件对象，用于操作页面中显示的原生控件</li>
+<li>
+<a href="#plus.ui.NViewDock">NViewDock</a>: 原生控件在窗口中停靠的方式</li>
+<li>
+<a href="#plus.ui.NViewOption">NViewOption</a>: JSON对象，原生控件元素要设置的参数</li>
+<li>
+<a href="#plus.ui.NViewPosition">NViewPosition</a>: 原生控件在窗口中显示的位置</li>
+<li>
+<a href="#plus.ui.NWaiting">NWaiting</a>: NWaiting是等待控件对象，用于在界面中显示原生等待窗口</li>
+<li>
+<a href="#plus.ui.NWaitingOption">NWaitingOption</a>: JSON对象，原生等待控件要设置的参数</li>
+<li>
+<a href="#plus.ui.NWindow">NWindow</a>: NWindow是窗口对象，用于操作加载html页面的原生窗口</li>
+<li>
+<a href="#plus.ui.NWindowEvent">NWindowEvent</a>: 窗口事件对象</li>
+<li>
+<a href="#plus.ui.NWindowOption">NWindowOption</a>: JSON对象，原生窗口设置参数的对象</li>
+<li>
+<a href="#plus.ui.PullToRefreshOption">PullToRefreshOption</a>: JSON对象，原生窗口设置参数的对象</li>
+<li>
+<a href="#plus.ui.TimeOption">TimeOption</a>: JSON对象，选择时间界面设置的参数</li>
+<li>
+<a href="#plus.ui.ToastOption">ToastOption</a>: JSON对象，系统提示消息框要设置的参数</li>
+<li>
+<a href="#plus.ui.Transform">Transform</a>: 一组用于定义页面或控件变形的属性，暂不支持</li>
+<li>
+<a href="#plus.ui.Transition">Transition</a>: 一组用于定义页面或控件转换效果的属性</li>
+</ul>
+<h2>回调方法：</h2>
+<ul>
+<li>
+<a href="#plus.ui.AlertCallback">AlertCallback</a>: 系统提示框确认的回调函数</li>
+<li>
+<a href="#plus.ui.ConfirmCallback">ConfirmCallback</a>: 系统确认框操作的回调函数</li>
+<li>
+<a href="#plus.ui.PromptCallback">PromptCallback</a>: 系统输入框操作的回调函数</li>
+<li>
+<a href="#plus.ui.ToastCallback">ToastCallback</a>: 系统消息框消失时的回调函数</li>
+<li>
+<a href="#plus.ui.PickDatetimeSuccessCallback">PickDatetimeSuccessCallback</a>: 选择日期或时间操作成功的回调函数</li>
+<li>
+<a href="#plus.ui.PickDatetimeErrorCallback">PickDatetimeErrorCallback</a>: 选择日期或时间操作失败的回调函数</li>
+<li>
+<a href="#plus.ui.MetricsCallback">MetricsCallback</a>: 获取控件或窗口实际度量信息回调函数</li>
+<li>
+<a href="#plus.ui.EventCallback">EventCallback</a>: 窗口事件的回调函数</li>
+<li>
+<a href="#plus.ui.HistoryQueryCallback">HistoryQueryCallback</a>: 历史记录记录查询的回调函数</li>
+<li>
+<a href="#plus.ui.PullToRefreshCallback">PullToRefreshCallback</a>: 窗口刷新操作的回调函数</li>
+</ul>
+<h2>权限：</h2>
+<p>permissions</p>
+<pre class="prettyprint linenums">
+"UI": {
+	"description": "访问系统原生窗口"
+}
+			</pre>
+<h1><a name="plus.ui.alert">alert</a></h1>
+<p>弹出系统提示框</p>
+<pre class="prettyprint linenums">
+void plus.ui.alert( message, alertCB, title, buttonCapture );
+					</pre>
+<h2>说明：</h2>
+<p class="des">弹出系统样式提示对话框，可设置弹出对话框的标题、内容、按钮文字。此API非阻塞模式，用户点击提示框上的按钮需通过alertCB回调函数返回。</p>
+<h2>参数：</h2>
+<ul>
+<li>message: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>提示对话框上显示的内容<br>
+</li>
+<li>alertCB: 
+		<em>(
+			<a href="#plus.ui.AlertCallback">AlertCallback</a>
+			)
+			可选 </em>点击提示对话框上按钮后的回调函数<br>
+</li>
+<li>title: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>提示对话框上显示的标题<br>
+</li>
+<li>buttonCapture: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>提示对话框上按钮的名称<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;UI Example&lt;/title&gt;
+		&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数 
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+// 弹出提示信息框
+plus.ui.alert( "Plus is ready!", function () {
+	alert( "User pressed OK!" );
+}, "Hell0", "OK" );
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	Message notification
+	&lt;/body&gt;
+&lt;/html&gt;
+					</pre>
+<h1><a name="plus.ui.closeSplashscreen">closeSplashscreen</a></h1>
+<p>关闭程序启动界面</p>
+<pre class="prettyprint linenums">
+void plus.ui.closeSplashscreen();
+				</pre>
+<h2>说明：</h2>
+<p class="des">在某些情况下，程序启动后需要较长时间加载数据，为了避免界面显示空白内容，提高用户体验效果，这时可显示启动界面，直到数据加载完成后再关闭启动界面，通常在应用的首界面加载完成并更新显示内容后调用。
+				</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	// 页面内容加载完成，关闭程序启动界面
+	plus.ui.closeSplashscreen();
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	 &lt;body&gt;
+	Message notification
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.ui.closeWindow">closeWindow</a></h1>
+<p>关闭原生窗口</p>
+<pre class="prettyprint linenums">
+void plus.ui.closeWindow( win, aniClose, duration );
+				</pre>
+<h2>说明：</h2>
+<p class="des">关闭已经打开的原生窗口。</p>
+<h2>参数：</h2>
+<ul>
+<li>win: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>要关闭的原生窗口<br>可以是窗口对象，也可以是窗口的name值。</li>
+<li>aniClose: 
+		<em>(
+			<a href="#plus.ui.AnimationTypeClose">AnimationTypeClose</a>
+			)
+			可选 </em>关闭原生窗口的动画效果<br>
+</li>
+<li>duration: 
+		<em>(
+			<a href="#Number">Number</a>
+			)
+			可选 </em>关闭原生窗口的动画持续时间<br>单位为ms，默认为窗口show方法设定的动画时间。</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;UI Example&lt;/title&gt;
+		&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function winAutoClose() {
+	// 打开新窗口
+	var nw = plus.ui.createWindow( "http://www.baidu.com" ); // 百度主页
+	nw.show(); // 显示窗口
+	// 十秒后自动关闭
+	setTimeout( function () {
+		plus.ui.closeWindow( nw );
+	}, 10000 );
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;input id="create" type="button" value="Open Window And Close" onclick="winAutoClose();"&gt;&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.ui.confirm">confirm</a></h1>
+<p>弹出系统确认对话框</p>
+<pre class="prettyprint linenums">
+void plus.ui.confirm( message, confirmCB, title, buttons );
+					</pre>
+<h2>说明：</h2>
+<p class="des">弹出系统样式确认对话框，可设置弹出对话框的标题、内容、按钮数目及其文字。弹出的提示对话框为非阻塞模式，用户点击确认框上的按钮通过confirmCB回调函数返回。</p>
+<h2>参数：</h2>
+<ul>
+<li>message: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>确认对话框上显示的内容<br>
+</li>
+<li>confirmCB: 
+		<em>(
+			<a href="#plus.ui.ConfirmCallback">ConfirmCallback</a>
+			)
+			可选 </em>点击确认对话框上按钮后的回调函数<br>
+</li>
+<li>title: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>确认对话框上显示的标题<br>
+</li>
+<li>buttons: 
+		<em>(
+			<a href="#DOMString%5B%5D">DOMString[]</a>
+			)
+			可选 </em>确认对话框上显示的按钮数组<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;UI Example&lt;/title&gt;
+		&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	// 弹出提示信息框
+	plus.ui.confirm( "Are you sure ready?", function ( i ) {
+		alert( (i==0)?"Yes!":"No!" );
+	}, "Confirm", ["Yes","No"] );
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	Message notification
+	&lt;/body&gt;
+&lt;/html&gt;
+					</pre>
+<h1><a name="plus.ui.createView">createView</a></h1>
+<p>创建新的原生控件对象</p>
+<pre class="prettyprint linenums">
+NView plus.ui.createView( identity, options );
+				</pre>
+<h2>说明：</h2>
+<p class="des">创建原生窗口显示元素，用于加载新的显示元素。可通过options设置原生窗口显示元素的属性。</p>
+<h2>参数：</h2>
+<ul>
+<li>identity: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>新创建显示元素的标识，需通过原生UI扩展注册<br>
+</li>
+<li>options: 
+		<em>(
+			<a href="#plus.ui.NViewOption">NViewOption</a>
+			)
+			可选 </em>新打开原生窗口显示元素的参数（如元素宽、高、位置等信息）<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#plus.ui.NView">NView</a>
+			: NView对象<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;UI Example&lt;/title&gt;
+		&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function createViewTest() {
+	// 打开新窗口
+	var nv = plus.ui.createView('Navigator',{position:'dock',dock:'top'});
+	plus.ui.getSelfWindow().append( nv ); // 显示窗口
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;input id="create" type="button" value="Create New View" onclick="createViewTest();"&gt;&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.ui.createWaiting">createWaiting</a></h1>
+<p>创建等待对话框</p>
+<pre class="prettyprint linenums">
+NWaiting plus.ui.createWaiting( title, options );
+				</pre>
+<h2>说明：</h2>
+<p class="des">在程序中创建并显示等待对话框。</p>
+<h2>参数：</h2>
+<ul>
+<li>title: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>等待框上显示的提示文字<br>
+</li>
+<li>options: 
+		<em>(
+			<a href="#plus.ui.NWaitingOption">NWaitingOption</a>
+			)
+			可选 </em>等待框的显示参数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#plus.ui.NWaiting">NWaiting</a>
+			: NWaiting对象<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;UI Example&lt;/title&gt;
+		&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	// 打开新窗口
+	var w = plus.ui.createWaiting( "等待中..." );
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	等待对话框。
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.ui.createWindow">createWindow</a></h1>
+<p>创建新的原生窗口</p>
+<pre class="prettyprint linenums">
+NWindow plus.ui.createWindow( url, options );
+				</pre>
+<h2>说明：</h2>
+<p class="des">创建原生窗口，用于加载新的系统原生窗口。可通过options设置原生窗口的属性。</p>
+<h2>参数：</h2>
+<ul>
+<li>url: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>创建窗口要打开的页面地址<br>新打开原生窗口要加载html页面地址，可支持本地地址和网络地址。</li>
+<li>options: 
+		<em>(
+			<a href="#plus.ui.NWindowOption">NWindowOption</a>
+			)
+			可选 </em>新打开原生窗口的参数（如窗口宽、高、位置等信息）<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#plus.ui.NWindow">NWindow</a>
+			: NWindow对象<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;UI Example&lt;/title&gt;
+		&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function createWinTest() {
+	// 打开新窗口
+	var nw = plus.ui.createWindow( "http://www.baidu.com" ); // 百度主页
+	nw.show(); // 显示窗口
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;input id="create" type="button" value="Create New Window" onclick="createWinTest();"&gt;&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.ui.enumWindow">enumWindow</a></h1>
+<p>枚举所有原生窗口</p>
+<pre class="prettyprint linenums">
+Array[NWindow] plus.ui.enumWindow();
+				</pre>
+<h2>说明：</h2>
+<p class="des">枚举所有未关闭的原生窗口。返回窗口对象数组中按窗口打开先后顺序排列，即数组中第一个窗口对象用通常是应用默认开启的窗口。</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#plus.ui.NWindow">NWindow</a>
+			: NWindow数组对象<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;UI Example&lt;/title&gt;
+		&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function enumWindow() {
+	// 打开新窗口
+	var winary = plus.ui.enumWindow();
+	var mwin = winary[0]; // 获取主窗口
+	alert( "Main URL: " + mwin.url );
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;input id="enum" type="button" value="Enumerate Window" onclick="enumWindow();"&gt;&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.ui.findWindowByName">findWindowByName</a></h1>
+<p>查找指定名称的窗口</p>
+<pre class="prettyprint linenums">
+NWindow plus.ui.findWindowByName( name );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	在已打开的窗口列表中查找指定名称的窗口并返回。若没有查找到指定名称的窗口则返回null。
+	对于应用的首页面，其窗口名称默认为应用的%APPID%。
+				</p>
+<h2>参数：</h2>
+<ul><li>name: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>要查找的窗口名称<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#NWindow">NWindow</a>
+			: NWindow对象<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;UI Example&lt;/title&gt;
+		&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	// 查找“test”窗口对象
+	var tw = plus.ui.findWindowByName( "test" );
+	if ( tw != null ) {
+		alert( "Finded! " );
+	}
+	// 查找应用首页窗口对象
+	var home = plus.ui.findWindowByName( plus.runtime.appid );
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		Find "test" Window
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.ui.getSelfWindow">getSelfWindow</a></h1>
+<p>获取自身窗口</p>
+<pre class="prettyprint linenums">
+NWindow plus.ui.getSelfWindow();
+				</pre>
+<h2>说明：</h2>
+<p class="des">获取当前运行脚本所属的原生窗口。</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#plus.ui.NWindow">NWindow</a>
+			: NWindow对象<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;UI Example&lt;/title&gt;
+		&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	// 打开新窗口
+	var sw = plus.ui.getSelfWindow();
+	alert( "I'am: " + sw.url );
+}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		Self Window
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.ui.isFullscreen">isFullscreen</a></h1>
+<p>判断应用当前是否全屏模式运行</p>
+<pre class="prettyprint linenums">
+boolean plus.ui.isFullscreen( fullscreen );
+				</pre>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#Boolean">Boolean</a>
+			: 当应用在全屏模式下运行时返回true，否则返回false。<h1><a name="plus.ui.pickDate">pickDate</a></h1>
+<p>弹出日期选择界面</p>
+<pre class="prettyprint linenums">
+void plus.ui.pickDate( successCB, errorCB, options );
+					</pre>
+<h2>说明：</h2>
+<p class="des">弹出系统日期选择界面，用于选择日期。用户完成选择后通过successCB回调函数返回，若用户取消选择则通过errorCB回调。</p>
+<h2>参数：</h2>
+<ul>
+<li>successCB: 
+		<em>(
+			<a href="#plus.ui.PickDatetimeSuccessCallback">PickDatetimeSuccessCallback</a>
+			)
+			必选 </em>日期选择操作成功的回调函数<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.ui.PickDatetimeErrorCallback">PickDatetimeErrorCallback</a>
+			)
+			可选 </em>日期选择操作失败的回调函数<br>
+</li>
+<li>options: 
+		<em>(
+			<a href="#plus.ui.DateOption">DateOption</a>
+			)
+			可选 </em>日期选择操作界面的参数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	// 输入提示信息框
+	plus.ui.pickDate( function ( d ) {
+		alert( d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate() );
+	}, function ( e ) {
+			}, {startYear:2010,endYear:} );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	Pick Date
+	&lt;/body&gt;
+&lt;/html&gt;
+					</pre>
+<h1><a name="plus.ui.pickTime">pickTime</a></h1>
+<p>弹出时间选择界面</p>
+<pre class="prettyprint linenums">
+void plus.ui.pickTime( successCB, errorCB, options );
+				</pre>
+<h2>说明：</h2>
+<p class="des">弹出系统时间选择界面，用于选择时间。用户完成选择后通过successCB回调函数返回，若用户取消选择则通过errorCB回调。</p>
+<h2>参数：</h2>
+<ul>
+<li>successCB: 
+		<em>(
+			<a href="#plus.ui.PickDatetimeSuccessCallback">PickDatetimeSuccessCallback</a>
+			)
+			必选 </em>时间选择操作成功的回调函数<br>
+</li>
+<li>errorCB: 
+		<em>(
+			<a href="#plus.ui.PickDatetimeErrorCallback">PickDatetimeErrorCallback</a>
+			)
+			可选 </em>时间选择操作失败的回调函数<br>
+</li>
+<li>options: 
+		<em>(
+			<a href="#plus.ui.TimeOption">TimeOption</a>
+			)
+			可选 </em>时间选择操作界面的参数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	// 输入提示信息框
+	plus.ui.pickTime( function ( d ) {
+		alert( d.getHours()() + ":" + d.getMinutes() );
+	}, function ( e ) {
+		alert( "Pick time error: " + e.message );
+	}, {is24Hour:true} );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	Pick time
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+<h1><a name="plus.ui.prompt">prompt</a></h1>
+<p>弹出系统输入框</p>
+<pre class="prettyprint linenums">
+void plus.ui.confirm( message, promptCB, title, tip, buttons );
+				</pre>
+<h2>说明：</h2>
+<p class="des">弹出系统样式输入对话框，可设置弹出对话框的标题、内容、提示输入信息、按钮数目及其文字。弹出的提示对话框为非阻塞模式，用户点击确认框上的按钮通过promptCB回调函数返回。</p>
+<h2>参数：</h2>
+<ul>
+<li>message: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>输入对话框上显示的内容<br>
+</li>
+<li>promptCB: 
+		<em>(
+			<a href="#plus.ui.PromptCallback">PromptCallback</a>
+			)
+			可选 </em>点击输入对话框上按钮后的回调函数<br>
+</li>
+<li>title: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>输入对话框上显示的标题<br>
+</li>
+<li>tip: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>输入对话框上显示的提示文字<br>
+</li>
+<li>buttons: 
+		<em>(
+			<a href="#DOMString%5B%5D">DOMString[]</a>
+			)
+			可选 </em>输入对话框上显示的按钮数组<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	// 输入提示信息框
+	plus.ui.confirm( "Please input your name:", function ( i, v ) {
+		alert( (i==0)?"Name:"+v:"No input!" );
+	}, "Input", ["Yes","No"] );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	Message notification
+	&lt;/body&gt;
+&lt;/html&gt;
+					</pre>
+<h1><a name="plus.ui.setFullscreen">setFullscreen</a></h1>
+<p>设置应用是否全屏模式运行</p>
+<pre class="prettyprint linenums">
+void plus.ui.setFullscreen( fullscreen );
+				</pre>
+<h2>说明：</h2>
+<p class="des">
+	当应用在全屏模式下运行时，将隐藏系统状态栏。通常游戏类应用在这种模式下运行。
+				</p>
+<h2>参数：</h2>
+<ul><li>fullscreen: 
+		<em>(
+			<a href="#Boolean">Boolean</a>
+			)
+			必选 </em>是否全屏模式运行，true表示全屏模式运行，false表示非全屏模式运行<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.ui.toast">toast</a></h1>
+<p>显示自动消失的消息</p>
+<pre class="prettyprint linenums">
+void plus.ui.toast( message, options );
+				</pre>
+<h2>说明：</h2>
+<p class="des">弹出系统样式提示消息框。弹出的提示对话框为非阻塞模式，显示指定时间后自动消失。</p>
+<h2>参数：</h2>
+<ul>
+<li>message: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>提示消息框上显示的文字内容<br>
+</li>
+<li>options: 
+		<em>(
+			<a href="#plus.ui.ToastOption">ToastOption</a>
+			)
+			可选 </em>提示消息框的设置参数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	// 输入提示信息框
+	plus.ui.toast( "I'am toast information!", {duration:"long"} );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	Message notification
+	&lt;/body&gt;
+&lt;/html&gt;
+					</pre>
+<h1><a name="plus.ui.AnimationTypeShow">AnimationTypeShow</a></h1>
+<p>一组用于定义页面或控件显示动画效果</p>
+<h2>常量：</h2>
+<ul>
+<li>"none": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>无动画效果<br><p>立即显示页面，无任何动画效果，页面显示默认的动画效果。对应关闭动画"none"。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+</li>
+<li>"slide-in-right": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>从右侧横向滑动效果<br><p>页面从屏幕右侧外向内横向滑动显示。对应关闭动画"slide-out-right"。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+</li>
+<li>"slide-in-left": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>从上侧竖向滑动效果<br><p>页面从屏幕上侧向内竖向滑动显示。对应关闭动画"slide-out-top"。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+</li>
+<li>"slide-in-bottom": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>从下侧竖向滑动效果<br><p>页面从屏幕下侧向内竖向滑动显示。对应关闭动画"slide-out-bottom"。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+</li>
+<li>"fade-in": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>从透明到不透明逐渐显示效果<br><p>页面从完全透明到不透明逐渐显示。对应关闭动画"fade-out"。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (不支持)</li>
+</ul>
+</li>
+<li>"zoom-out": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>从小到大逐渐放大显示效果<br><p>页面在屏幕中间从小到大逐渐放大显示。对应关闭动画"zoom-in"。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (不支持)</li>
+</ul>
+</li>
+<li>"flip-x": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>以x轴从上到下翻转效果<br><p>页面以x轴从上到下翻转显示。对应关闭动画"flip-rx"。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (不支持)</li>
+</ul>
+</li>
+<li>"flip-rx": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>以x轴从下到上翻转转效果<br><p>页面以x轴从下到上翻转显示。对应关闭动画"flip-x"。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (不支持)</li>
+</ul>
+</li>
+<li>"flip-y": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>以y轴从左到右翻转效果<br><p>页面以y轴从左到右翻转显示。对应关闭动画"flip-ry"。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (不支持)</li>
+</ul>
+</li>
+<li>"flip-ry": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>以y轴从右到左翻转效果<br><p>页面以y轴从右到左翻转显示。对应关闭动画"flip-y"。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (不支持)</li>
+</ul>
+</li>
+<li>"page-forward": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>向前翻书动画效果<br><p>页面以向前翻书动画显示，翻书后显示新打开的页面。对应关闭动画"page-backward"。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (不支持)</li>
+</ul>
+</li>
+</ul>
+<h1><a name="plus.ui.AnimationTypeClose">AnimationTypeClose</a></h1>
+<p>一组用于定义页面或控件关闭的动画效果</p>
+<h2>常量：</h2>
+<ul>
+<li>"none": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>无动画<br><p>立即关闭页面，无任何动画效果。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+</li>
+<li>"slide-out-right": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>横向向右侧滑出屏幕动画<br><p>页面从屏幕中横向向右侧滑动到屏幕外关闭。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+</li>
+<li>"slide-out-left": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>横向向左侧滑出屏幕动画<br><p>页面从屏幕中横向向左侧滑动到屏幕外关闭。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+</li>
+<li>"slide-out-top": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>竖向向上侧滑出屏幕动画<br><p>页面从屏幕中竖向向上侧滑动到屏幕外关闭。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+</li>
+<li>"slide-out-bottom": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>竖向向下侧滑出屏幕动画<br><p>页面从屏幕中竖向向下侧滑动到屏幕外关闭。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持)</li>
+</ul>
+</li>
+<li>"fade-out": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>从不透明到透明逐渐隐藏动画<br><p>页面从不透明到透明逐渐隐藏关闭。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (不支持)</li>
+</ul>
+</li>
+<li>"zoom-in": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>从大逐渐缩小关闭动画<br><p>页面逐渐向页面中心缩小关闭。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (不支持)</li>
+</ul>
+</li>
+<li>"flip-x": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>以x轴从上到下翻转动画<br><p>页面以x轴从上到下翻转关闭，翻转后显示以前显示的页面。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (不支持)</li>
+</ul>
+</li>
+<li>"flip-rx": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>以x轴从下到上翻转转动画<br><p>页面以x轴从下到上翻转关闭，翻转后显示以前显示的页面。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (不支持)</li>
+</ul>
+</li>
+<li>"flip-y": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>以y轴从左到右翻转动画<br><p>页面以y轴从左到右翻转关闭，翻转后显示以前显示的页面。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (不支持)</li>
+</ul>
+</li>
+<li>"flip-ry": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>以y轴从右到左翻转动画<br><p>页面以y轴从右到左翻转关闭，翻转后显示以前显示的页面。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (不支持)</li>
+</ul>
+</li>
+<li>"page-backward": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>向后翻书动画<br><p>页面以向后翻书动画关闭，翻书后显示以前显示的页面。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (不支持)</li>
+</ul>
+</li>
+</ul>
+<h1><a name="plus.ui.DateOption">DateOption</a></h1>
+<p>JSON对象，选择日期界面设置的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>title: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>日期选择界面的标题<br><p>默认标题为当前的日期。</p>
+</li>
+<li>date: <em>(<a href="#DOMDate">DOMDate</a>
+	类型
+)</em>日期选择界面默认显示的日期<br><p>默认值为当前的日期。</p>
+</li>
+<li>startYear: <em>(<a href="#Number">Number</a>
+	类型
+)</em>日期选择界面起始的年份<br><p>数字类型，如“1940”。</p>
+</li>
+<li>endYear: <em>(<a href="#Number">Number</a>
+	类型
+)</em>日期选择界面结束的年份<br><p>数字类型，如“2024”，其值必须大于startYear，否则取系统默认值。</p>
+</li>
+<li>minDate: <em>(<a href="#DOMDate">DOMDate</a>
+	类型
+)</em>日期选择界面显示的最小日期<br><p>日期类型对象，其优先级高于startYear属性。</p>
+</li>
+<li>maxDate: <em>(<a href="#DOMDate">DOMDate</a>
+	类型
+)</em>日期选择界面显示的最大日期<br><p>日期类型对象，其值必须大于startYear，否则取系统默认值，优先级高于endYear属性。</p>
+</li>
+<li>popover: <em>(<a href="#JSON">JSON</a>
+	类型
+)</em>时间日期选择界面弹出指示区域<br><p>JSON类型对象，格式如{top:10;left:10;width:200;height:200;}，所有值为像素值，左上坐标相对于容器webview的位置。如未设置此值，默认在屏幕居中显示。仅在iPad上有效。</p>
+</li>
+</ul>
+<h1><a name="plus.ui.Metrics">Metrics</a></h1>
+<p>JSON对象，窗口实际度量信息</p>
+<h2>属性：</h2>
+<ul>
+<li>height: <em>(<a href="#Number">Number</a>
+	类型
+)</em>绝对像素值，窗口的高度<br>
+</li>
+<li>left: <em>(<a href="#Number">Number</a>
+	类型
+)</em>绝对像素值，相对于屏幕或父容器左侧的偏移量<br>
+</li>
+<li>top: <em>(<a href="#Number">Number</a>
+	类型
+)</em>绝对像素值，相对于屏幕或父容器上侧的偏移量<br>
+</li>
+<li>width: <em>(<a href="#Number">Number</a>
+	类型
+)</em>绝对像素值，窗口的宽度<br>
+</li>
+</ul>
+<h1><a name="plus.ui.NView">NView</a></h1>
+<p>原生控件对象，用于操作页面中显示的原生控件</p>
+<h2>方法：</h2>
+<ul><li>
+<a href="#plus.ui.NView.getMetrics">getMetrics</a>: 获取窗口实际度量信息</li></ul>
+<h1><a name="plus.ui.NView.getMetrics">getMetrics</a></h1>
+<p>获取窗口实际度量信息</p>
+<pre class="prettyprint linenums">
+vobj.getMetrics( callback );
+						</pre>
+<h2>说明：</h2>
+<p class="des">用于获取原生控件的度量信息，包括控件的位置、大小等信息。获取成功后通过callback回调返回。</p>
+<h2>参数：</h2>
+<ul><li>callback: 
+		<em>(
+			<a href="#plus.ui.MetricsCallback">MetricsCallback</a>
+			)
+			必选 </em>获取度量信息的回调函数<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+var vobj = null;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	var nv = plus.ui.createView( "navigator", {top:"0px",width:"100%",height:"50px"} );
+	plus.ui.getSelfWindow().append( nv ); // 显示窗口
+}
+function metricsTest() {
+	// 获取控件信息
+	nv.getMetrics( function ( m ) {
+		alert( "Left: " + m.left + "\n Top: " + m.top );
+	} );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;input id="visible" type="button" value="View Metrics" onclick="metricsTest();"&gt;&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NViewDock">NViewDock</a></h1>
+<p>原生控件在窗口中停靠的方式</p>
+<h2>常量：</h2>
+<ul>
+<li>"top": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>控件停靠则页面顶部<br>
+</li>
+<li>"bottom": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>控件停靠在页面中底部<br>
+</li>
+<li>"right": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>控件停靠在页面右侧<br>
+</li>
+<li>"left": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>控件停靠在页面左侧<br>
+</li>
+</ul>
+<h1><a name="plus.ui.NViewOption">NViewOption</a></h1>
+<p>JSON对象，原生控件元素要设置的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>id: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>控件的标识<br>
+</li>
+<li>top: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>控件在所属窗口垂直向下的偏移量，可设置像素值或百分比，默认值为0px<br>
+</li>
+<li>left: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>控件在所属窗口水平向右的偏移量，可设置像素值或百分比，默认值为0px<br>
+</li>
+<li>width: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>控件的宽度，可设置像素值或百分比，默认为控件内部计算的高度（参考扩展自定义控件）<br>
+</li>
+<li>height: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>控件的高度，可设置像素值或百分比，默认为控件内部计算的高度（参考扩展自定义控件）<br>
+</li>
+<li>position: <em>(<a href="#plus.ui.NViewPosition">NViewPosition</a>
+	类型
+)</em>控件的排版位置，默认值为"static"<br>
+</li>
+<li>dock: <em>(<a href="#plus.ui.NViewDock">NViewDock</a>
+	类型
+)</em>控件的停靠方式，默认值为"top"<br>
+</li>
+</ul>
+<h1><a name="plus.ui.NViewPosition">NViewPosition</a></h1>
+<p>原生控件在窗口中显示的位置</p>
+<h2>常量：</h2>
+<ul>
+<li>"static": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>控件在页面中正常定位，如果页面存在滚动条则随窗口内容滚动<br>
+</li>
+<li>"absolute": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>控件在页面中绝对定位，如果页面存在滚动条不随窗口内容滚动<br>
+</li>
+<li>"dock": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>控件在页面中停靠，停靠的位置通过dock属性进行定义<br>
+</li>
+</ul>
+<h1><a name="plus.ui.NWaiting">NWaiting</a></h1>
+<p>NWaiting是等待控件对象，用于在界面中显示原生等待窗口</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.ui.NWaiting.setTitle">setTitle</a>: 设置等待控件上显示的文字</li>
+<li>
+<a href="#plus.ui.NWaiting.close">close</a>: 关闭等待控件</li>
+</ul>
+<h2>事件：</h2>
+<ul><li>
+<a href="#plus.ui.NWaiting.onclose">onclose</a>: 关闭等待控件事件</li></ul>
+<h1><a name="plus.ui.NWaiting.setTitle">setTitle</a></h1>
+<p>设置等待控件上显示的文字</p>
+<pre class="prettyprint linenums">
+wobj.setTitle( title );
+						</pre>
+<h2>说明：</h2>
+<p class="des">设置等待框上显示的文字信息，设置后文字内容将立即更新。</p>
+<h2>参数：</h2>
+<ul><li>title: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>要设置的文本信息<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+var w = null;
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	w = plus.ui.createWaiting("请稍后");
+	setTimeout( function() {
+			w.setTitle( "正在更新" );
+		}, 2000 );
+	setTimeout( function() {
+			w.close();
+		}, 4000 );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWaiting.close">close</a></h1>
+<p>关闭等待控件</p>
+<pre class="prettyprint linenums">
+wobj.close();
+						</pre>
+<h2>说明：</h2>
+<p class="des">将原生等待控件关闭。一个等待控件只能关闭一次，多次调用将无任何作用。</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+var w = null;
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	w = plus.ui.createWaiting("请稍后");
+}
+function closeWaiting() {
+	if ( w == null ) {
+		alert( "未创建等待框" );
+	} else {
+		w.close();
+	}
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;input id="create" type="button" value="Close Waiting" onclick="closeWaiting();"&gt;&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWaiting.onclose">onclose</a></h1>
+<p>关闭等待控件事件</p>
+<pre class="prettyprint linenums">
+wobj.onclose = function () {
+	alert( "Closed!" );
+};
+						</pre>
+<h2>说明：</h2>
+<p><a href="#function">function</a>
+	类型
+</p>
+<p>等待框关闭时触发。当调用close方法或用户点击操作导致等待框关闭时触发。</p>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+var w = null;
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	w = plus.ui.createWaiting("请稍后");
+	w.onclose = function () {
+		alert( "Closed!!" );
+	}
+}
+function closeWaiting() {
+	if ( w == null ) {
+		alert( "未创建等待框" );
+	} else {
+		w.close();
+	}
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;input id="create" type="button" value="Close Waiting" onclick="closeWaiting();"&gt;&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWaitingOption">NWaitingOption</a></h1>
+<p>JSON对象，原生等待控件要设置的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>width: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>等待框背景区域的宽度，默认根据内容自动计算<br>
+</li>
+<li>height: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>等待框背景区域的高度，默认根据内容自动计算<br>
+</li>
+<li>color: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>等待框中文字的颜色<br><p>颜色值支持(参考CSS颜色规范)：颜色名称(参考CSS Color Names)/十六进制值/rgb值/rgba值，默认值为白色。</p>
+</li>
+<li>textalign: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>等待框中的文字的水平对齐方式<br><p>
+	对齐方式可选值包括："left"：水平居左对齐显示，"center"：水平居中对齐显示，"right"：水平居右对齐显示。默认值为水平居中对齐显示。
+						</p>
+</li>
+<li>padding: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>等待框的内边距<br><p>支持像素值和百分比，百分比相对于屏幕的宽计算，默认值为"3%"。</p>
+</li>
+<li>background: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>等待框显示区域的背景色<br><p>背景色的值支持(参考CSS颜色规范)：颜色名称(参考CSS Color Names)/十六进制值/rgb值/rgba值，默认值为rgba(0,0,0,0.8)。</p>
+</li>
+<li>style: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>等待框样式，可取值"black"、"white"<br><p>
+	black表示等待框为黑色雪花样式，通常在背景主色为浅色时使用；white表示等待框为白色雪花样式，通常在背景主色为深色时使用；仅在iOS平台有效，其它平台忽略此值，默认值为white。
+						</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android (不支持): 此属性不产生任何效果</li>
+<li>iOS4.5+ (支持): 支持"black"、"white"两种样式</li>
+<li>WP (支持): 此属性不产生任何效果</li>
+</ul>
+</li>
+<li>modal: <em>(<a href="#Boolen">Boolen</a>
+	类型
+)</em>等待框是否模态显示<br><p>模态显示则用户不可操作直到等待框关闭，否则用户在等待框显示时也可操作，默认为true。</p>
+</li>
+<li>round: <em>(<a href="#Number">Number</a>
+	类型
+)</em>等待框显示区域的圆角，默认值为10px<br>
+</li>
+<li>padlock: <em>(<a href="#Boolen">Boolen</a>
+	类型
+)</em>点击等待显示区域是否自动关闭，默认值为false<br>
+</li>
+</ul>
+<h1><a name="plus.ui.NWindow">NWindow</a></h1>
+<p>NWindow是窗口对象，用于操作加载html页面的原生窗口</p>
+<h2>方法：</h2>
+<ul>
+<li>
+<a href="#plus.ui.NWindow.addEventListener">addEventListener</a>: 添加事件监听器</li>
+<li>
+<a href="#plus.ui.NWindow.append">append</a>: 在窗口中添加原生界面控件</li>
+<li>
+<a href="#plus.ui.NWindow.appendPreloadJsFile">appendPreloadJsFile</a>: 添加页面预先加载的js文件</li>
+<li>
+<a href="#plus.ui.NWindow.back">back</a>: 窗口后退到上次加载的页面内容</li>
+<li>
+<a href="#plus.ui.NWindow.canBack">canBack</a>: 查询窗口是否可后退到上次加载的页面内容</li>
+<li>
+<a href="#plus.ui.NWindow.canForward">canForward</a>: 查询窗口是否可前进到上次加载的页面内容</li>
+<li>
+<a href="#plus.ui.NWindow.clear">clear</a>: 清空原生窗口加载的内容</li>
+<li>
+<a href="#plus.ui.NWindow.close">close</a>: 关闭创建新的原生窗口</li>
+<li>
+<a href="#plus.ui.NWindow.endPullToRefresh">endPullToRefresh</a>: 关闭原生窗口刷新状态</li>
+<li>
+<a href="#plus.ui.NWindow.evalJS">evalJS</a>: 在窗口中执行脚本</li>
+<li>
+<a href="#plus.ui.NWindow.findViewById">findViewById</a>: 在界面中通过id查找控件对象</li>
+<li>
+<a href="#plus.ui.NWindow.forward">forward</a>: 窗口前进到上次加载的页面内容</li>
+<li>
+<a href="#plus.ui.NWindow.getMetrics">getMetrics</a>: 获取窗口实际度量信息</li>
+<li>
+<a href="#plus.ui.NWindow.getOption">getOption</a>: 获取窗口当前的属性值</li>
+<li>
+<a href="#plus.ui.NWindow.getTitle">getTitle</a>: 获取窗口加载页面的标题</li>
+<li>
+<a href="#plus.ui.NWindow.getUrl">getUrl</a>: 获取窗口加载页面的地址</li>
+<li>
+<a href="#plus.ui.NWindow.load">load</a>: 窗口加载新的页面</li>
+<li>
+<a href="#plus.ui.NWindow.reload">reload</a>: 重新加载窗口当前显示的页面</li>
+<li>
+<a href="#plus.ui.NWindow.removeEventListener">removeEventListener</a>: 移除事件监听器</li>
+<li>
+<a href="#plus.ui.NWindow.setContentVisible">setContentVisible</a>: 设置页面内容是否可见</li>
+<li>
+<a href="#plus.ui.NWindow.setOption">setOption</a>: 设置原生窗口的参数</li>
+<li>
+<a href="#plus.ui.NWindow.setPreloadJsFile">setPreloadJsFile</a>: 设置页面预先加载的js文件</li>
+<li>
+<a href="#plus.ui.NWindow.setPullToRefresh">setPullToRefresh</a>: 设置窗口的下拉刷新功能</li>
+<li>
+<a href="#plus.ui.NWindow.setVisible">setVisible</a>: 设置窗口是否可见</li>
+<li>
+<a href="#plus.ui.NWindow.show">show</a>: 显示创建新的原生窗口</li>
+<li>
+<a href="#plus.ui.NWindow.stop">stop</a>: 窗口停止加载页面内容</li>
+</ul>
+<h1><a name="plus.ui.NWindow.addEventListener">addEventListener</a></h1>
+<p>添加事件监听器</p>
+<pre class="prettyprint linenums">
+wobj.addEventListener( event, listener, capture );
+						</pre>
+<h2>说明：</h2>
+<p class="des">为窗口添加事件监听器，当指定的窗口事件发生时，回调函数将触发。可多次调用为同一事件添加多个监听器，触发时按照添加的顺序先后调用。</p>
+<h2>参数：</h2>
+<ul>
+<li>event: 
+		<em>(
+			<a href="#plus.ui.NWindowEvent">NWindowEvent</a>
+			)
+			必选 </em>要监听的事件类型<br>
+</li>
+<li>listener: 
+		<em>(
+			<a href="#plus.ui.EventCallback">EventCallback</a>
+			)
+			必选 </em>监听的事件发生时调用的回调函数<br>
+</li>
+<li>capture: 
+		<em>(
+			<a href="#Boolean">Boolean</a>
+			)
+			可选 </em>捕获事件流顺序，暂无效果<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function eventTest() {
+	// 打开新窗口
+	var nw = plus.ui.createWindow( "http://www.test.com" );
+	nw.addEventListener( "loaded", function () {
+		alert( "New Window loaded!" );
+	}, false );
+	nw.show(); // 显示窗口
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;input id="event" type="button" value="Window Event" onclick="eventTest();"&gt;&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWindow.append">append</a></h1>
+<p>在窗口中添加原生界面控件</p>
+<pre class="prettyprint linenums">
+void wobj.append( view );
+						</pre>
+<h2>说明：</h2>
+<p class="des">将原生控件添加到界面中，随界面一起显示。控件只能添加到一个界面中，多次调用将无任何作用。</p>
+<h2>参数：</h2>
+<ul><li>view: 
+		<em>(
+			<a href="#plus.ui.NView">NView</a>
+			)
+			必选 </em>要添加的控件对象，需通过createView创建<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function createViewTest() {
+	// 创建控件
+	var nv = plus.ui.createView( "navigator" );
+	plus.ui.getSelfWindow().append( nv ); // 显示控件
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;input id="create" type="button" value="Create New View" onclick="createViewTest();"&gt;&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWindow.appendPreloadJsFile">appendPreloadJsFile</a></h1>
+<p>添加页面预先加载的js文件</p>
+<pre class="prettyprint linenums">
+wobj.appendPreloadJsFile( file );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+添加页面加载时需要预先执行的js文件，以完成特殊的页面处理。在窗口页面跳转时也需要执行，添加多个js文件后将按照添加的先后顺序执行。
+						</p>
+<h2>参数：</h2>
+<ul><li>file: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>要预先载入的js文件地址，仅支持本地文件<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.ui.NWindow.back">back</a></h1>
+<p>窗口后退到上次加载的页面内容</p>
+<pre class="prettyprint linenums">
+void wobj.back();
+						</pre>
+<h2>说明：</h2>
+<p class="des">窗口历史记录操作，后退到窗口上次加载的页面内容。如果窗口历史记录中没有可后退的页面则不触发任何操作。</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	// Plus API
+}
+function goBack() {
+	var nw = plus.ui.getSelfWindow();
+	nw.back();
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;button onclick="goBack();"&gt;返回&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWindow.canBack">canBack</a></h1>
+<p>查询窗口是否可后退到上次加载的页面内容</p>
+<pre class="prettyprint linenums">
+void wobj.canBack( queryCallback );
+						</pre>
+<h2>说明：</h2>
+<p class="des">窗口历史记录操作，查询是否可后退到窗口上次加载的页面内容。查询成功将通过queryCallback回调方法返回结果。</p>
+<h2>参数：</h2>
+<ul><li>queryCallback: 
+		<em>(
+			<a href="#plus.ui.HistoryQueryCallback">HistoryQueryCallback</a>
+			)
+			必选 </em>历史记录查询操作回调函数<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	// Plus API
+}
+function queryBack() {
+	var nw = plus.ui.getSelfWindow();
+	nw.canBack( function ( able ) {
+		if ( able ) {
+			alert( "可以后退" );
+		} else {
+			alert( "无法后退" );
+		}
+	} );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;button onclick="queryBack();"&gt;是否可后退&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWindow.canForward">canForward</a></h1>
+<p>查询窗口是否可前进到上次加载的页面内容</p>
+<pre class="prettyprint linenums">
+void wobj.canForward( queryCallback );
+						</pre>
+<h2>说明：</h2>
+<p class="des">窗口历史记录操作，查询是否可前进到窗口上次加载的页面内容。查询成功将通过queryCallback回调方法返回结果。</p>
+<h2>参数：</h2>
+<ul><li>queryCallback: 
+		<em>(
+			<a href="#plus.ui.HistoryQueryCallback">HistoryQueryCallback</a>
+			)
+			必选 </em>历史记录查询操作回调函数<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	// Plus API
+}
+function queryForward() {
+	var nw = plus.ui.getSelfWindow();
+	nw.canForward( function ( able ) {
+		if ( able ) {
+			alert( "可以前进" );
+		} else {
+			alert( "无法前进" );
+		}
+	} );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;button onclick="queryForward();"&gt;是否可前进&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWindow.clear">clear</a></h1>
+<p>清空原生窗口加载的内容</p>
+<pre class="prettyprint linenums">
+void wobj.clear();
+						
+						</pre>
+<h2>说明：</h2>
+<p class="des">清除原生窗口的内容，用于重置重置原生窗口加载的内容，清除其加载的历史记录等内容。</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function clearWin() {
+	// 清除自身窗口
+	var nw = plus.ui.getSelfWindow();
+	nw.clear();
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;input id="close" type="button" value="Clear Window" onclick="clearWin();"&gt;&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWindow.close">close</a></h1>
+<p>关闭创建新的原生窗口</p>
+<pre class="prettyprint linenums">
+void wobj.close( aniClose, duration );
+						
+						</pre>
+<h2>说明：</h2>
+<p class="des">关闭原生窗口，用于销毁创建的系统原生窗口。原生窗口窗口只能关闭一次，关闭窗口后不可再操作窗口对象，操作后将无任何效果。窗口关闭时默认会使用窗口打开时设置的相反动画效果，也可通过aniClose设置原生窗口关闭动画，仅能使用动画类型中的关闭动画效果。</p>
+<h2>参数：</h2>
+<ul>
+<li>aniClose: 
+		<em>(
+			<a href="#plus.ui.AnimationTypeClose">AnimationTypeClose</a>
+			)
+			可选 </em>关闭原生窗口的动画效果<br>
+</li>
+<li>duration: 
+		<em>(
+			<a href="#Number">Number</a>
+			)
+			可选 </em>关闭原生窗口的动画持续时间<br>单位为ms，默认为窗口show方法设定的动画时间。</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function closeWin() {
+	// 关闭自身窗口
+	var nw = plus.ui.getSelfWindow();
+	nw.close(); // 关闭窗口
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;input id="close" type="button" value="Close Window" onclick="closeWin();"&gt;&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWindow.endPullToRefresh">endPullToRefresh</a></h1>
+<p>关闭原生窗口刷新状态</p>
+<pre class="prettyprint linenums">
+void wobj.endPullToRefresh();
+						
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	通过setPullToRefresh方法可开启窗口的下拉刷新功能，当用户操作触发刷新回调事件后，可以通过此方法关闭窗口的刷新状态。
+	关闭刷新状态后，用于依然可以通过下拉操作继续触发刷新事件。
+						</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.5+ (不支持): 暂不支持，建议通过web技术实现</li>
+<li>WP7.5+ (不支持): 暂不支持</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function closeWin() {
+	// 关闭自身窗口
+	var nw = plus.ui.getSelfWindow();
+	nw.close(); // 关闭窗口
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;input id="close" type="button" value="Close Window" onclick="closeWin();"&gt;&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWindow.evalJS">evalJS</a></h1>
+<p>在窗口中执行脚本</p>
+<pre class="prettyprint linenums">
+void wobj.evalJS( js );
+						</pre>
+<h2>说明：</h2>
+<p class="des">可在窗口中运行脚本，实现跨窗口间的数据操作。</p>
+<h2>参数：</h2>
+<ul><li>options: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>要在窗口中运行的脚本<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function evalJSTest() {
+	// 查找到只指定的界面
+	var nw = plus.ui.findWindowByName( "test" );
+	nw.evalJS( "var bt = document.getElementById('bt'); bt.value='NewValue';" );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;input id="evaljs" type="button" value="Eval JS" onclick="evalJSTest();"&gt;&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWindow.findViewById">findViewById</a></h1>
+<p>在界面中通过id查找控件对象</p>
+<pre class="prettyprint linenums">
+void wobj.findViewById( id );
+						</pre>
+<h2>说明：</h2>
+<p class="des">在当前界面中查找控件对象，并返回控件对象的引用。其中控件的id在创建时通过NViewOption中的id字段设置。如果没有找到则返回null</p>
+<h2>参数：</h2>
+<ul><li>id: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>要查找控件的id值<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#NView">NView</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+var sw = null;
+function onPlusReady() {
+	sw = plus.ui.getSelfWindow();
+	// 创建控件
+	var nv = plus.ui.createView( "navigator", {id:"nav"} );
+	sw.append( nv ); // 显示控件
+}
+var fnv = null;
+function findTest() {
+	fnv = sw.findViewById( "nav" );
+	// 可通过fnv对象操作导航控件
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;input id="visible" type="button" value="Window Visible" onclick="visibleTest();"&gt;&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWindow.forward">forward</a></h1>
+<p>窗口前进到上次加载的页面内容</p>
+<pre class="prettyprint linenums">
+void wobj.forward();
+						</pre>
+<h2>说明：</h2>
+<p class="des">窗口历史记录操作，前进到窗口上次加载的页面内容。如果窗口历史记录中没有可前进的页面则不触发任何操作。</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+	// Plus API
+}
+function goForward() {
+	var nw = plus.ui.getSelfWindow();
+	nw.forward();
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;button onclick="goForward();"&gt;返回&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWindow.getMetrics">getMetrics</a></h1>
+<p>获取窗口实际度量信息</p>
+<pre class="prettyprint linenums">
+void wobj.getMetrics( callback );
+						</pre>
+<h2>说明：</h2>
+<p class="des">用于获取窗口实际度量信息，包括窗口的位置、大小等信息。获取度量信息成功后通过callback回调返回。/隐藏，再次调用显示/隐藏则无任何作用。</p>
+<h2>参数：</h2>
+<ul><li>callback: 
+		<em>(
+			<a href="#plus.ui.MetricsCallback">MetricsCallback</a>
+			)
+			必选 </em>获取度量信息的回调函数<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function metricsTest() {
+	// 获取窗口信息
+	var sw = plus.ui.getSelfWindow();
+	sw.getMetrics( function ( m ) {
+		alert( "Left: " + m.left + "\n Top: " + m.top );
+	} );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;input id="visible" type="button" value="Window Metrics" onclick="metricsTest();"&gt;&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWindow.getOption">getOption</a></h1>
+<p>获取窗口当前的属性值</p>
+<pre class="prettyprint linenums">
+NWindowOption wobj.getOption();
+						</pre>
+<h2>说明：</h2>
+<p class="des">获取原生窗口的属性，如窗口位置、大小等信息。</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#plus.ui.NWindowOption">NWindowOption</a>
+			: NWindowOption对象<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function optionTest() {
+	var nw = plus.ui.getSelfWindow();
+	alert( nw.getOption().left );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;input id="option" type="button" value="Get Window Left" onclick="optionTest();"&gt;&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;							
+						</pre>
+<h1><a name="plus.ui.NWindow.getTitle">getTitle</a></h1>
+<p>获取窗口加载页面的标题</p>
+<pre class="prettyprint linenums">
+DOMString wobj.getTitle();
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	标题为窗口加载的html页面head节点下title节点中的文本内容，当窗口内容发生页面内跳转时可通过窗口触发的“loaded”事件中调用此方法来获取跳转后页面的标题。如果页面中午title节点则返回空字符串。
+						</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#DOMString">DOMString</a>
+			: 窗口加载页面的标题<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function test() {
+	// 打开新窗口
+	var nw = plus.ui.createWindow( "http://www.baidu.com" );
+	nw.addEventListener( "loaded", function () {
+		alert( "标题："+nw.getTitle() );
+	}, false );
+	nw.show(); // 显示窗口
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;button onclick="test()"&gt;打开新页面&lt;/button&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWindow.getUrl">getUrl</a></h1>
+<p>获取窗口加载页面的地址</p>
+<pre class="prettyprint linenums">
+DOMString wobj.getUrl();
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	当窗口内容发生页面内跳转时可通过窗口触发的“loaded”事件中调用此方法来获取跳转后页面的地址。
+						</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#DOMString">DOMString</a>
+			: 窗口加载页面的地址<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function test() {
+	// 打开新窗口
+	var nw = plus.ui.createWindow( "http://www.baidu.com" );
+	nw.addEventListener( "loaded", function () {
+		alert( "跳转地址："+nw.getUrl() );
+	}, false );
+	nw.show(); // 显示窗口
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;button onclick="test()"&gt;打开新页面&lt;/button&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWindow.load">load</a></h1>
+<p>窗口加载新的页面</p>
+<pre class="prettyprint linenums">
+void wobj.load( url );
+						</pre>
+<h2>说明：</h2>
+<p class="des">触发原生窗口加载新的页面地址。如果新设置的url地址无效将导致页面显示失败。</p>
+<h2>参数：</h2>
+<ul><li>url: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>要加载的新的页面地址<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function jumpUrl() {
+	var nw = plus.ui.getSelfWindow();
+	nw.load( "http://www.test.com" ); // 跳转到新的页面
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;button onclick="jumpUrl();"&gt;跳转到新页面&lt;/button&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWindow.reload">reload</a></h1>
+<p>重新加载窗口当前显示的页面</p>
+<pre class="prettyprint linenums">
+void wobj.reload( force );
+						</pre>
+<h2>说明：</h2>
+<p class="des">触发原生窗口重新加载当前显示的页面地址。如果当前页面未加载完则停止并重新加载，如果当前没有加载任何页面则无响应。</p>
+<h2>参数：</h2>
+<ul><li>force: 
+		<em>(
+			<a href="#Boolean">Boolean</a>
+			)
+			必选 </em>是否强制不使用本地缓存<br>为加速页面加载速度，默认在重新加载时会使用缓存，若force设置为true则不使用缓存，重新从服务器加载所有页面内容。</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function refresh() {
+	var nw = plus.ui.getSelfWindow();
+	nw.reload( true );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;button onclick="refresh();"&gt;重新加载&lt;/button&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWindow.removeEventListener">removeEventListener</a></h1>
+<p>移除事件监听器</p>
+<pre class="prettyprint linenums">
+wobj.removeEventListener( event, listener );
+						</pre>
+<h2>说明：</h2>
+<p class="des">从窗口移除指定的事件监听器。若没有查找到对应的事件监听器，则无任何作用。</p>
+<h2>参数：</h2>
+<ul>
+<li>event: 
+		<em>(
+			<a href="#plus.ui.NWindowEvent">NWindowEvent</a>
+			)
+			必选 </em>要移除的事件类型<br>
+</li>
+<li>listener: 
+		<em>(
+			<a href="#plus.ui.EventCallback">EventCallback</a>
+			)
+			必选 </em>要移除回调函数对象<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function onloaded () {
+	alert( "New Window loaded!" );
+}
+var nw = null;
+function eventTest() {
+	// 打开新窗口
+	nw = plus.ui.createWindow( "http://www.test.com" );
+	nw.addEventListener( "loaded",onloaded, false );
+	// 10s后显示窗口
+	setTimeout( function () {
+		nw.show();
+	}, 10000 );
+}
+function removeEvent () {
+	nw.removeEventListener( "loaded", onloaded );
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;input id="event" type="button" value="Window Event" onclick="eventTest();"&gt;&lt;/input&gt;
+		&lt;input id="event" type="button" value="Remove Event" onclick="removeEvent();"&gt;&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWindow.setContentVisible">setContentVisible</a></h1>
+<p>设置页面内容是否可见</p>
+<pre class="prettyprint linenums">
+void wobj.setContentVisible( visible );
+						</pre>
+<h2>说明：</h2>
+<p class="des">在某些特殊情况下需要对页面内容进行预处理，如对内容进行过滤转换，为了不让内容在转换完成之前显示，则可先通过此方法设置页面内容不可见，带内容转换完成后再设置页面内容可见。</p>
+<h2>参数：</h2>
+<ul><li>visible: 
+		<em>(
+			<a href="#Boolean">Boolean</a>
+			)
+			必选 </em>设置页面是否可见的值<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.ui.NWindow.setOption">setOption</a></h1>
+<p>设置原生窗口的参数</p>
+<pre class="prettyprint linenums">
+void wobj.setOption( options );
+						</pre>
+<h2>说明：</h2>
+<p class="des">设置原生窗口的属性，如窗口位置、大小等信息。</p>
+<h2>参数：</h2>
+<ul><li>options: 
+		<em>(
+			<a href="#plus.ui.NWindowOption">NWindowOption</a>
+			)
+			必选 </em>要设置新的窗口属性<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function moveWinTo() {
+	var nw = plus.ui.getSelfWindow();
+	nw.setOption( {left:50%} ); // 水平移动窗口到屏幕中间位置
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;button onclick="moveWinTo();"&gt;移动窗口&lt;/button&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWindow.setPreloadJsFile">setPreloadJsFile</a></h1>
+<p>设置页面预先加载的js文件</p>
+<pre class="prettyprint linenums">
+wobj.setPreloadJsFile( file );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+某些页面加载时预先执行插入的js文件，以完成特殊的页面处理。在窗口页面跳转时也需要执行，设置新的js文件后将清空之前设置的值。
+						</p>
+<h2>参数：</h2>
+<ul><li>file: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			必选 </em>要预先载入的js文件地址，仅支持本地文件<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.ui.NWindow.setPullToRefresh">setPullToRefresh</a></h1>
+<p>设置窗口的下拉刷新功能</p>
+<pre class="prettyprint linenums">
+wobj.setPullToRefresh( PullToRefreshOption options, PullToRefreshCallback refreshCB );
+						</pre>
+<h2>说明：</h2>
+<p class="des">
+	窗口自带下拉刷新功能，当用户触发刷新操作时通过refreshCB函数通知应用执行刷新操作。
+	此时窗口进入刷新状态并一直显示下拉刷新控件，直到调用endPullToRefresh方法退出刷新状态。
+						</p>
+<h2>参数：</h2>
+<ul>
+<li>options: 
+		<em>(
+			<a href="#PullToRefreshOption">PullToRefreshOption</a>
+			)
+			必选 </em>设置下拉刷新功能的配置信息，如下拉区域的高度、上面显示的内容等<br>
+</li>
+<li>refreshCB: 
+		<em>(
+			<a href="#PullToRefreshCallback">PullToRefreshCallback</a>
+			)
+			可选 </em>用户触发刷新操作时的回调函数<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.5+ (不支持): 暂不支持，建议通过web技术实现</li>
+<li>WP7.5+ (不支持): 暂不支持</li>
+</ul>
+<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"/&gt;
+		&lt;meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;
+		&lt;title&gt;Pull to refresh&lt;/title&gt;
+		&lt;script type="text/javascript" charset="utf-8"&gt;
+var ws=null;
+var list=null;
+// 扩展API加载完毕，现在可以正常调用扩展API 
+function plusReady(){
+	ws=plus.ui.getSelfWindow();
+	ws.setPullToRefresh({
+		support:true,
+		height:"100px",
+		contentdown:{
+			caption:"下拉可以刷新"
+		},
+		contentover:{
+			caption:"释放立即刷新"
+		},
+		contentrefresh:{
+			caption:"正在刷新..."
+		}
+	},onRefresh);
+}
+// 判断扩展API是否准备，否则监听"plusready"事件
+if(window.plus){
+	plusReady();
+}else{
+	document.addEventListener("plusready",plusReady,false);
+}
+// DOM构建完成获取列表元素
+document.addEventListener("DOMContentLoaded",function(){
+	list=document.getElementById("list");
+})
+// 刷新页面
+function onRefresh(){
+	setTimeout(function(){
+		if(list){
+			var item=document.createElement("li");
+			item.innerHTML="&lt;span&gt;New Item "+dateToStr(new Date())+"&lt;/span&gt;";
+			list.insertBefore(item,list.firstChild);
+		}
+		ws.endPullToRefresh();
+	},2000);
+}
+		&lt;/script&gt;
+		&lt;style type="text/css"&gt;
+li {
+	padding: 1em;
+	border-bottom: 1px solid #eaeaea;
+}
+li:active {
+	background: #f4f4f4;
+}
+		&lt;/style&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;ul id="list" style="list-style:none;margin:0;padding:0;"&gt;
+			&lt;li&gt;&lt;span&gt;Initializ List Item 1&lt;/span&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;span&gt;Initializ List Item 2&lt;/span&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;span&gt;Initializ List Item 3&lt;/span&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;span&gt;Initializ List Item 4&lt;/span&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;span&gt;Initializ List Item 5&lt;/span&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;span&gt;Initializ List Item 6&lt;/span&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;span&gt;Initializ List Item 7&lt;/span&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;span&gt;Initializ List Item 8&lt;/span&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;span&gt;Initializ List Item 9&lt;/span&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;span&gt;Initializ List Item 10&lt;/span&gt;&lt;/li&gt;
+		&lt;/ul&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWindow.setVisible">setVisible</a></h1>
+<p>设置窗口是否可见</p>
+<pre class="prettyprint linenums">
+void wobj.setVisible( visible );
+						</pre>
+<h2>说明：</h2>
+<p class="des">用于隐藏原生窗口，减少显示的窗口数目，可降低占用的系统资源，通常在打开新窗口后隐藏不需要显示的窗口。窗口隐藏后，如果要显示则必须调用此方法将窗口显示，否则将导致窗口不显示。如果当前窗口已经显示/隐藏，再次调用显示/隐藏则无任何作用。</p>
+<h2>参数：</h2>
+<ul><li>visible: 
+		<em>(
+			<a href="#Boolean">Boolean</a>
+			)
+			必选 </em>设置窗口是否可见的值<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function visibleTest() {
+	// 打开新窗口
+	var nw = plus.ui.createWindow( "http://www.test.com" );
+	var sw = plus.ui.getSelfWindow();
+	nw.show(); // 显示窗口
+	sw.setVisible( false ); // 隐藏当前窗口
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;input id="visible" type="button" value="Window Visible" onclick="visibleTest();"&gt;&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWindow.show">show</a></h1>
+<p>显示创建新的原生窗口</p>
+<pre class="prettyprint linenums">
+void wobj.show( aniShow, duration, assWin );
+						</pre>
+<h2>说明：</h2>
+<p class="des">显示原生窗口，用于显示创建的系统原生窗口。原生窗口窗口只能显示一次，多次调用show方法将无任何作用。可通过aniShow设置原生窗口显示动画。</p>
+<h2>参数：</h2>
+<ul>
+<li>aniShow: 
+		<em>(
+			<a href="#plus.ui.AnimationTypeShow">AnimationTypeShow</a>
+			)
+			可选 </em>显示原生窗口的动画效果<br>
+</li>
+<li>duration: 
+		<em>(
+			<a href="#Number">Number</a>
+			)
+			可选 </em>显示原生窗口的动画持续时间<br>单位为ms，默认为600ms。</li>
+<li>assWin: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>新打开原生窗口动画需要关联的窗口名称<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function createWinTest() {
+	// 打开新窗口
+	var nw = plus.ui.createWindow( "http://www.baidu.com" ); // 百度主页
+	nw.show( "slide-in-right", 500 ); // 显示窗口，动画时间为500毫秒
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;input id="create" type="button" value="Create New Window" onclick="createWinTest();"&gt;&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWindow.stop">stop</a></h1>
+<p>窗口停止加载页面内容</p>
+<pre class="prettyprint linenums">
+void wobj.stop();
+						</pre>
+<h2>说明：</h2>
+<p class="des">触发原生窗口停止加载页面内容。如果已经加载部分内容则显示部分内容，如果加载完成则显示全部内容。</p>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>示例：</h2>
+<pre class="prettyprint linenums">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI Example&lt;/title&gt;
+	&lt;script type="text/javascript"&gt;
+// 扩展API加载完毕后调用onPlusReady回调函数
+document.addEventListener( "plusready", onPlusReady, false );
+// 扩展API加载完毕，现在可以正常调用扩展API
+function onPlusReady() {
+}
+function stopLoad() {
+	var nw = plus.ui.getSelfWindow();
+	nw.stop();
+}
+	&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;button onclick="stopLoad();"&gt;停止加载&lt;/input&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+						</pre>
+<h1><a name="plus.ui.NWindowEvent">NWindowEvent</a></h1>
+<p>窗口事件对象</p>
+<h2>常量：</h2>
+<ul>
+<li>"close": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>当窗口关闭时触发此事件<br>
+</li>
+<li>"loading": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>当窗口开始加载新内容时触发此事件<br>
+</li>
+<li>"loaded": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>当窗口内容加载完成时触发此事件<br>
+</li>
+<li>"failed": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>当窗口内容加载失败时触发此事件<br>
+</li>
+<li>"back": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>设备“返回”按钮按键事件<br>
+</li>
+<li>"menu": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>设备“菜单”按钮按键事件<br>
+</li>
+<li>"search": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>设备“搜索”按钮按键事件<br>
+</li>
+<li>"volumeup": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>设备“音量+”按钮按键事件<br>
+</li>
+<li>"volumedown": <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>设备“音量-”按钮按键事件<br>
+</li>
+</ul>
+<h1><a name="plus.ui.NWindowOption">NWindowOption</a></h1>
+<p>JSON对象，原生窗口设置参数的对象</p>
+<h2>属性：</h2>
+<ul>
+<li>background: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>窗口的背景颜色<br><p>
+	窗口空白区域的背景，设置了background则窗口为独占模式显示（占整个屏幕区域），否则为非独占模式，目前仅支持背景色的设置(参考CSS颜色规范)：颜色名称(参考CSS Color Names)/十六进制值/rgb值/rgba值。
+						</p>
+</li>
+<li>bottom: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>窗口垂直向上的偏移量<br><p>
+	支持百分比、像素值，当设置了top和height值时，此属性值忽略；当设置top和bottom属性则自动计算窗口的高度。
+						</p>
+</li>
+<li>bounce: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>窗口遇到边框是否有反弹效果<br><p>
+	可取值：none表示没有反弹效果；vertical表示垂直方向有反弹效果；horizontal表示水平方向有反弹效果；all表示垂直和水平方向都有反弹效果。
+						</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android (不支持)</li>
+<li>iOS (支持): 默认值为none，垂直和水平方向都没有反弹效果。</li>
+<li>WP (不支持)</li>
+</ul>
+</li>
+<li>height: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>窗口的高度<br><p>支持百分比、像素值，默认为100%。</p>
+</li>
+<li>left: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>窗口水平向右的偏移量<br><p>支持百分比、像素值，默认值为0px。</p>
+</li>
+<li>margin: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>窗口的边距<br><p>
+	用于定位窗口的位置，支持auto，auto表示居中。若设置了left、right、top、bottom则对应的边距值失效。
+						</p>
+</li>
+<li>name: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>窗口的名称<br><p>作为窗口的标识，可用于窗口的查找。</p>
+</li>
+<li>opacity: <em>(<a href="#Number">Number</a>
+	类型
+)</em>窗口的不透明度<br><p>0为全透明，1为不透明，默认值为1，即不透明。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持): 需Android4.0及以上平台才支持，Android4.0以前平台忽略此属性。</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (不支持)</li>
+</ul>
+</li>
+<li>right: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>窗口水平向左的偏移量<br><p>支持百分比、像素值，默认无值。当设置了left和width值时，此属性值忽略；当设置left和right属性则自动计算窗口的宽度。</p>
+</li>
+<li>scalable: <em>(<a href="#Boolean">Boolean</a>
+	类型
+)</em>窗口是否可缩放<br><p>
+	默认值为true，即可缩放。
+	窗口设置为可缩放（scalable:true）时，用户可通过双指操作放大或缩小页面，这时html页面可通过meta节点name="viewport"来限制页面是否可缩放。
+	窗口设置为不可缩放（scalable:false）时，用户不可通过双指操作放大或缩小页面，即使页面中的meta节点也无法开启可缩放功能。
+	窗口的默认值为可缩放（scalable:true）。
+						</p>
+</li>
+<li>scrollIndicator: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>窗口是否显示滚动条<br><p>
+	用于控制窗口滚动条样式，可取值："all"：垂直和水平滚动条都显示，"vertical"：仅显示垂直，"horizontal"：仅显示水平滚动条，"none"：垂直和水平滚动条都不显示。默认值为"all"，即垂直和水平滚动条都显示。
+	注意：显示滚动条的前提条件是窗口中的内容超过窗口显示的宽或高。
+						</p>
+</li>
+<li>top: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>窗口垂直向下的偏移量<br><p>支持百分比、像素值，默认值为0px。</p>
+</li>
+<li>transition: <em>(<a href="#plus.ui.Transition">Transition</a>
+	类型
+)</em>窗口定义窗口变换的动画效果，参考Transition<br>
+</li>
+<li>transform: <em>(<a href="#plus.ui.Transform">Transform</a>
+	类型
+)</em>窗口定义窗口变形效果，参考Transform<br>
+</li>
+<li>width: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>窗口的宽度<br><p>支持百分比、像素值，默认为100%。</p>
+</li>
+<li>zindex: <em>(<a href="#Number">Number</a>
+	类型
+)</em>窗口的堆叠顺序值<br><p>拥有更高堆叠顺序的窗口总是会处于堆叠顺序较低的窗口的前面，拥有相同堆叠顺序的窗口后调用show方法则在前面。</p>
+</li>
+</ul>
+<h1><a name="plus.ui.PullToRefreshOption">PullToRefreshOption</a></h1>
+<p>JSON对象，原生窗口设置参数的对象</p>
+<h2>属性：</h2>
+<ul>
+<li>support: <em>(<a href="#Boolean">Boolean</a>
+	类型
+)</em>是否开启下拉刷新功能<br><p>
+	true表示开启下拉刷新功能，false表示关闭下拉刷新功能，默认值为true。
+						</p>
+</li>
+<li>height: <em>(<a href="#String">String</a>
+	类型
+)</em>下拉刷新控件的高度<br><p>
+	当用户下拉操作的高度大于或等于此值事，松开后则进入刷新状态。
+	可支持像素值和百分比，像素值为绝对值，以px结尾；百分比相对窗口的高度，以%结尾；如“60px”、“10%”，默认值为“100px”。
+	注：当下拉的高度大于等于刷新控件的高度时，控件居底显示。
+						</p>
+</li>
+<li>range: <em>(<a href="#String">String</a>
+	类型
+)</em>下拉刷新控件可下拉的最大高度<br><p>
+	用户可下拉的最大高度，此值必须大于height值，否则将会导致无法触发刷新事件。
+	可支持像素值和百分比，像素值为绝对值，以px结尾；百分比相对窗口的高度，以%结尾；
+	如“60px”、“10%”，默认值为height值。
+						</p>
+</li>
+<li>contentdown: <em>(<a href="#JSON">JSON</a>
+	类型
+)</em>下拉刷新控件在下拉状态时显示的内容<br><p>
+	仅支持caption字段，用于设置下拉状态时显示的文本内容。
+						</p>
+</li>
+<li>contentover: <em>(<a href="#JSON">JSON</a>
+	类型
+)</em>下拉刷新控件在达到可刷新状态时显示的内容<br><p>
+	仅支持caption字段，用于设置可刷新状态时显示的文本内容。
+						</p>
+</li>
+<li>contentrefresh: <em>(<a href="#JSON">JSON</a>
+	类型
+)</em>下拉刷新控件正在刷新状态时显示的内容<br><p>
+	仅支持caption字段，用于设置在刷新状态时显示的文本内容。
+						</p>
+</li>
+</ul>
+<h1><a name="plus.ui.TimeOption">TimeOption</a></h1>
+<p>JSON对象，选择时间界面设置的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>title: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>时间选择操作界面显示的标题<br><p>字符串类型，默认标题为当前选择的时间。</p>
+</li>
+<li>is24Hour: <em>(<a href="#Boolean">Boolean</a>
+	类型
+)</em>是否24小时制模式，默认值为true<br>
+</li>
+<li>popover: <em>(<a href="#JSON">JSON</a>
+	类型
+)</em>时间日期选择界面弹出指示区域<br><p>JSON对象，格式如{top:10;left:10;width:200;height:200;}，所有值为像素值，左上坐标相对于容器webview的位置。如未设置此值，默认在屏幕居中显示。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (不支持)</li>
+<li>iOS4.3+ (支持): 仅在iPad上有效，在iPhone上忽略此值。</li>
+<li>WP7.5+ (不支持)</li>
+</ul>
+</li>
+</ul>
+<h1><a name="plus.ui.ToastOption">ToastOption</a></h1>
+<p>JSON对象，系统提示消息框要设置的参数</p>
+<h2>属性：</h2>
+<ul>
+<li>icon: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>提示消息框上显示的图标<br>
+</li>
+<li>duration: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>提示消息框显示的时间<br><p>可选值为"long"、"short"，值为"long"约为3.5s，值为"short"时约为2s，默认值为"short"。</p>
+</li>
+<li>align: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>提示消息框在屏幕中的水平位置<br><p>可选值为"left"、"center"、"right"，分别为水平居左、居中、居右，默认值为"center"。</p>
+</li>
+<li>verticalAlign: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>提示消息框在屏幕中的垂直位置<br><p>可选值为"top"、"center"、"bottom"，分别为垂直居顶、居中、居底，默认值为"bottom"。</p>
+</li>
+</ul>
+<h1><a name="plus.ui.Transform">Transform</a></h1>
+<p>一组用于定义页面或控件变形的属性，暂不支持</p>
+<h2>属性：</h2>
+<ul>
+<li>rotate: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>暂不支持<br>
+</li>
+<li>translate: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>暂不支持<br>
+</li>
+<li>scale: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>暂不支持<br>
+</li>
+<li>skew: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>暂不支持<br>
+</li>
+<li>matrix: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>暂不支持<br>
+</li>
+</ul>
+<h1><a name="plus.ui.Transition">Transition</a></h1>
+<p>一组用于定义页面或控件转换效果的属性</p>
+<h2>属性：</h2>
+<ul>
+<li>property: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>产生变换效果的属性<br><p>默认值为"all"，暂不支持其它值。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (不支持)</li>
+</ul>
+</li>
+<li>duration: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>变换持续的时间<br><p>默认值为0，即无动画效果。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (不支持)</li>
+</ul>
+</li>
+<li>timingfunction: <em>(<a href="#DOMString">DOMString</a>
+	类型
+)</em>窗口变换效果<br><p>可取值linear、ease-in、ease-out、ease-in-out，默认值为linear。</p>
+<h3>平台支持</h3>
+<ul>
+<li>Android2.2+ (支持)</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (不支持)</li>
+</ul>
+</li>
+</ul>
+<h1><a name="plus.ui.AlertCallback">AlertCallback</a></h1>
+<p>系统提示框确认的回调函数</p>
+<pre class="prettyprint linenums">
+void onAlerted() {
+	// Alert handled code.
+}
+				</pre>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.ui.ConfirmCallback">ConfirmCallback</a></h1>
+<p>系统确认框操作的回调函数</p>
+<pre class="prettyprint linenums">
+void onConfirmed( Number index ) {
+	// Confirm handled code.
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>index: 
+		<em>(
+			<a href="#Number">Number</a>
+			)
+			必选 </em>用户点击按钮的索引值，从0开始<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持): 用户点击“返回”按钮则提示框消失，同时回调函数返回的index值为-1。</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持): 用户点击“返回”按钮则提示框消失，同时回调函数返回的index值为-1。</li>
+</ul>
+<h1><a name="plus.ui.PromptCallback">PromptCallback</a></h1>
+<p>系统输入框操作的回调函数</p>
+<pre class="prettyprint linenums">
+function void onPrompted( Number index, DOMString value ) {
+	// Prompt handled code.
+}
+				</pre>
+<h2>参数：</h2>
+<ul>
+<li>index: 
+		<em>(
+			<a href="#Number">Number</a>
+			)
+			必选 </em>用户点击按钮的索引值，从0开始<br>
+</li>
+<li>value: 
+		<em>(
+			<a href="#DOMString">DOMString</a>
+			)
+			可选 </em>用户输入的内容，若没有输入则返回空字符串<br>
+</li>
+</ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h2>平台支持：</h2>
+<ul>
+<li>Android2.2+ (支持): 用户点击“返回”按钮则提示框消失，同时回调函数返回的index值为-1，value值为空字符串。</li>
+<li>iOS4.3+ (支持)</li>
+<li>WP7.5+ (支持): 用户点击“返回”按钮则提示框消失，同时回调函数返回的index值为-1，value值为空字符串。</li>
+</ul>
+<h1><a name="plus.ui.ToastCallback">ToastCallback</a></h1>
+<p>系统消息框消失时的回调函数</p>
+<pre class="prettyprint linenums">
+void onToast() {
+	// Toast close handled code.
+}
+				</pre>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.ui.PickDatetimeSuccessCallback">PickDatetimeSuccessCallback</a></h1>
+<p>选择日期或时间操作成功的回调函数</p>
+<pre class="prettyprint linenums">
+function void onPickSuccess( DOMDate date ) {
+	// Date picked code.
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>date: 
+		<em>(
+			<a href="#DOMDate">DOMDate</a>
+			)
+			必选 </em>用户选择的日期或时间数据<br>若调用的是日期选择操作则仅年、月、日信息有效，若调用的是时间选择操作则仅时、分信息有效。</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.ui.PickDatetimeErrorCallback">PickDatetimeErrorCallback</a></h1>
+<p>选择日期或时间操作失败的回调函数</p>
+<pre class="prettyprint linenums">
+function void onPickError( DOMException error ) {
+	// Date picked error.
+	alert( error.message );
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>error: 
+		<em>(
+			<a href="#DOMException">DOMException</a>
+			)
+			必选 </em>用户选择操作失败信息<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.ui.MetricsCallback">MetricsCallback</a></h1>
+<p>获取控件或窗口实际度量信息回调函数</p>
+<pre class="prettyprint linenums">
+void onMetricsCompleted( Metrics metrics ) {
+	// Get metrics completed code.
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>metrics: 
+		<em>(
+			<a href="#plus.ui.Metrics">Metrics</a>
+			)
+			必选 </em>获取到的窗口或控件的度量信息，参考Metrics<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.ui.EventCallback">EventCallback</a></h1>
+<p>窗口事件的回调函数</p>
+<pre class="prettyprint linenums">
+void onEvent() {
+	// Event handled code.
+}
+				</pre>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.ui.HistoryQueryCallback">HistoryQueryCallback</a></h1>
+<p>历史记录记录查询的回调函数</p>
+<pre class="prettyprint linenums">
+void onQuery( able ) {
+	// Event handled code.
+}
+				</pre>
+<h2>参数：</h2>
+<ul><li>able: 
+		<em>(
+			<a href="#Boolean">Boolean</a>
+			)
+			必选 </em>历史记录操作是否可用，true表示可用，false表示不可用<br>
+</li></ul>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无<h1><a name="plus.ui.PullToRefreshCallback">PullToRefreshCallback</a></h1>
+<p>窗口刷新操作的回调函数</p>
+<pre class="prettyprint linenums">
+void onRefresh() {
+	// Event handled code.
+}
+				</pre>
+<h2>参数：</h2>
+<p>无</p>
+<h2>返回值：</h2>
+<a href="#void">void</a>
+			: 无</div>
+</body>
+</html>
