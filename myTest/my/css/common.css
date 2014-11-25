@@ -34,6 +34,10 @@ only screen and (min-resolution:240dpi), /* 标准 */
 only screen and (min-resolution:2dppx)                      /* 标准 */ {
     .mod .hd h3 { background-image: url(http://img02.taobaocdn.com/tps/i2/T1t9wzXlxXXXczY8cm-212-310.png); background-size: 106px 155px; }
 }
+@media only screen and (-webkit-min-device-pixel-ratio:1.3),only screen and (min--moz-device-pixel-ratio:1.3),only screen and (min-device-pixel-ratio:1.3),only screen and (min-resolution:200dpi)
+{
+	#logo{background-image: url(logo@2x.png);}
+}
 /* 图片 background 属性相关  裁剪  可视区域操作 */
 .p1 { padding: 20px; line-height: 1; background: url(http://img1.niutuku.com/tech/1208/2506/tech-2506-lbdzlreuedi.png) no-repeat; background-origin: content-box; background-clip: content-box; }
 /* 多行文本溢出显示省略号(…)全攻略 */
