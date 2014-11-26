@@ -174,6 +174,7 @@
 				this.translate(this.el, -this.wh * currIndex, 0);
 				this.setData(-this.wh * currIndex);
 			}
+			return this;
 		},
 		initEvent: function() {
 			var self = this,
