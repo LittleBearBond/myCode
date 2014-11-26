@@ -455,9 +455,9 @@ function getVendorPrefix() {
     var body = document.body || document.documentElement,
         style = body.style,
         vendor = ['webkit', 'khtml', 'moz', 'ms', 'o'],
-        i = 0;
+        i = 0,len=vendor.length;
 
-    while (i < vendor.length) {
+    while (i <len) {
         // 此处进行判断是否有对应的内核前缀
         if (typeof style[vendor[i] + 'Transition'] === 'string') {
             return vendor[i];

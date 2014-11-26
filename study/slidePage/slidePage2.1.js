@@ -58,24 +58,21 @@
 				}
 			}
 		},
-		geTransitionEnd = function() {
-			var transitionEnd = (function() {
-				var el = document.createElement('bootstrap'),
-					transEndEventNames = {
-						'WebkitTransition': 'webkitTransitionEnd',
-						'MozTransition': 'transitionend',
-						'OTransition': 'oTransitionEnd otransitionend',
-						'transition': 'transitionend'
-					};
-				for (var name in transEndEventNames) {
-					if (el.style[name] !== undefined) {
-						return transEndEventNames[name];
-					}
+		fxTransitionEnd = (function() {
+			var el = document.createElement('div'),
+				transEndEventNames = {
+					'WebkitTransition': 'webkitTransitionEnd',
+					'MozTransition': 'transitionend',
+					'OTransition': 'oTransitionEnd otransitionend',
+					'transition': 'transitionend'
+				};
+			for (var name in transEndEventNames) {
+				if (el.style[name] !== undefined) {
+					el = null;
+					return transEndEventNames[name];
 				}
-			}());
-			return transitionEnd;
-		},
-		fxTransitionEnd = geTransitionEnd(),
+			}
+		}()),
 		translateX = function(obj, dist, duration) {
 			var style = obj.style;
 			style.webkitTransform = 'translate3d(' + dist + 'px,0,0)';
@@ -416,11 +413,7 @@
 				return;
 			}
 			style.webkitTransitionDuration = style.MozTransitionDuration = style.msTransitionDuration = style.OTransitionDuration = style.transitionDuration = duration + 'ms';
-			if (this.opts.horizontal) {
-				translateX(obj, dist, duration);
-			} else {
-				translateY(obj, dist, duration);
-			}
+			this.opts.horizontal ? translateX(obj, dist, duration) : translateY(obj, dist, duration);
 		},
 		getWidthOrHeight: function() {
 			if (this.opts.horizontal) {
