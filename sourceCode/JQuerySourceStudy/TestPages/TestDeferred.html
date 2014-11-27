@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>tokenize</title>
+    <script src="../JQuery2-3/jquery-2.0.3.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+        $(function () {
+            var s = $('#test>div>ul li ');
+            var s1 = $('div > div.bond p span.red');
+        });
+        var defer = $.Deferred();
+
+        var filtered = defer.then(function (value) {
+            return value * 2;
+        });
+
+        defer.resolve(5);
+
+        filtered.done(function (value) {
+            console.log(value); //10
+        });
+    </script>
+    //第二段代码
+</body>
+</html>

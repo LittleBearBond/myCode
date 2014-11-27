@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>tokenize</title>
+    <script src="../JQuery2-3/jquery-2.0.3.js"></script>
+    <style>
+        div > div.bond p span.red
+        {
+            color: red;
+        }
+
+        #test > div > ul li
+        {
+            text-decoration: none;
+            list-style: none;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div id="test">
+        <div class="bond">
+            <p><span>s1</span></p>
+            <p><span>s2</span></p>
+            <p><span>s3</span></p>
+            <p><span class='red'>s4</span></p>
+        </div>
+        <div>
+            <ul>
+                <li>11</li>
+                <li>11</li>
+                <li>11</li>
+                <li>11</li>
+            </ul>
+            <ul>
+                <li>22</li>
+                <li>22</li>
+                <li>22</li>
+                <li>22</li>
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            var s = $('#test>div>ul li ');
+            var s1 = $('div > div.bond p span.red');
+        });
+    </script>
+    //第一段代码
+    <script>
+        function Bond() {
+            alert("hello");
+        };
+        Bond(); //hello
+    </script>
+
+    //第二段代码
+    <script>
+        function Bond() {
+            alert("world");
+        };
+        Bond(); //world
+    </script>
+</body>
+</html>
