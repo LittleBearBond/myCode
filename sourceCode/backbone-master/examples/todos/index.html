@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <title>Backbone.js Todos</title>
   <link rel="stylesheet" href="todos.css"/>
 </head>
-
 <body>
-
   <div id="todoapp">
 
     <header>
@@ -29,24 +26,12 @@
 
   </div>
 
-  <div id="instructions">
-    Double-click to edit a todo.
-  </div>
-
-  <div id="credits">
-    Created by
-    <br />
-    <a href="http://jgn.me/">J&eacute;r&ocirc;me Gravel-Niquet</a>.
-    <br />Rewritten by: <a href="http://addyosmani.github.com/todomvc">TodoMVC</a>.
-  </div>
-
   <script src="../../test/vendor/json2.js"></script>
   <script src="../../test/vendor/jquery.js"></script>
   <script src="../../test/vendor/underscore.js"></script>
   <script src="../../backbone.js"></script>
   <script src="../backbone.localStorage.js"></script>
   <script src="todos.js"></script>
-
   <!-- Templates -->
 
   <script type="text/template" id="item-template">
@@ -61,9 +46,9 @@
   <script type="text/template" id="stats-template">
     <% if (done) { %>
       <a id="clear-completed">Clear <%= done %> completed <%= done == 1 ? 'item' : 'items' %></a>
-    <% } %>
-    <div class="todo-count"><b><%= remaining %></b> <%= remaining == 1 ? 'item' : 'items' %> left</div>
-  </script>
+      <% } %>
+      <div class="todo-count"><b><%= remaining %></b> <%= remaining == 1 ? 'item' : 'items' %> left</div>
+    </script>
 
   </body>
-</html>
+  </html>

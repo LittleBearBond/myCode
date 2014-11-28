@@ -22,10 +22,6 @@
 .content>p:after { right: 0; bottom: 5px; }
 /* →箭头 》》》》》》 */
 .mian .right_center:after { position: absolute; right: -10px; top: 0; bottom: 0; margin: auto 0; content: ""; display: block; height: 6px; width: 6px; border-top: 2px solid #c6c6c6; border-right: 2px solid #c6c6c6; transform: rotate(45deg); }
-/* 关闭按钮 */
-.dialog_wrap .dialog_close { position: absolute; width: 30px; height: 30px; background-color: rgba(0, 0, 0, .5); border-radius: 50%; right: -10px; top: -15px; }
-.dialog_wrap .dialog_close:after,
-.dialog_wrap .dialog_close:before { content: ""; background-color: #FFFFFF; height: 2px; width: 25px; border-radius: 2px; position: absolute; left: 0; top: 0; right: 0; bottom: 0; margin: auto; transform: rotate(45deg); -webkit-transform: rotate(45deg); }
 /* 媒体查询 */
 @media only screen and (-o-min-device-pixel-ratio:2/1), /* Opera */
 only screen and (min--moz-device-pixel-ratio:2), /* Firefox 16 之前 */
