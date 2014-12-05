@@ -14,15 +14,23 @@
 			events: {},
 		},
 		toStr = ({}).toString,
-		item, getObj = function(obj, str) {
+		isString = function(o) {
+			return toStr.call(o) === '[object String]';
+		},
+		isFunc = function(o) {
+			return toStr.call(o) === '[object Function]';
+		},
+		getObj = function(obj, str) {
 			return str.split('.').reduce(function(o, n) {
 				return o && o[n];
 			}, obj);
-		};
+		},
+		item;
 
 	function MyView(options) {
 		$.extend(this, defaultOpts, options || {});
 		this.initialize.call(this);
+		isString(this.el) && (this.el = $(this.el));
 		this.init();
 	}
 
@@ -47,8 +55,8 @@
 			if (!type || !selector) {
 				return;
 			}
-			toStr.call(func) === '[object String]' && (func = getObj(this, func.trim()));
-			if (toStr.call(func) !== '[object Function]') {
+			isString(func) && (func = getObj(this, func.trim()));
+			if (!isFunc(func)) {
 				return;
 			}
 			if (selector.substr(0, 1) === '$') {
@@ -67,7 +75,7 @@
 		}
 		F.constructor = parent.constructor;
 		F.prototype = MyView.prototype;
-		$.extend(F.prototype, o || {});
+		$.extend(F, o || {});
 		return F;
 	};
 	return MyView;

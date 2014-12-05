@@ -40,7 +40,7 @@
 		<li class="toggle">toggle</li>
 		<li class="view">view</li>
 		<li><a href="" class="destroy">a.destroy</a></li>
-		<li>test4</li>
+		<li id="test4">test4</li>
 		<li>test5</li>
 	</ul>
 	<a href="mailto:joe@example.com?subject=feedback" "email me" id="test">email me</a>
@@ -55,7 +55,8 @@
   		"dblclick .view": "edit",
   		"click a.destroy": "clear",
   		"tap .edit": "edit",
-  		'click $#test':'edit'
+  		'click $#test':'edit',
+  		"click #test4": "clear",
   	},
   	initialize: function() {
   		console.log('initialize');
@@ -79,7 +80,8 @@
   	}
 
   });
-var sview=new TodoView();
+  var sview=new TodoView();
+  console.log(sview)
 </script>
 
 </body>
