@@ -21,9 +21,17 @@
 			return toStr.call(o) === '[object Function]';
 		},
 		getObj = function(obj, str) {
+			if (startsWith(str, 'window')) {
+				str = str.substr(7, str.length);
+				obj=window;
+			}
 			return str.split('.').reduce(function(o, n) {
 				return o && o[n];
 			}, obj);
+		},
+		startsWith = function(target, str, ignorecase) {
+			var start_str = target.substr(0, str.length);
+			return ignorecase ? start_str.toLowerCase() === str.toLowerCase() : start_str === str;
 		},
 		item;
 
@@ -59,7 +67,7 @@
 			if (!isFunc(func)) {
 				return;
 			}
-			if (selector.substr(0, 1) === '$') {
+			if (startsWith(selector, '$')) {
 				$(selector.substr(1)).on(type, func);
 				return;
 			}

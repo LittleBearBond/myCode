@@ -36,14 +36,15 @@
 	</style>
 </head>
 <body>
-	<ul class="list">
+	<ol class="list">
 		<li class="toggle">toggle</li>
 		<li class="view">view</li>
 		<li><a href="" class="destroy">a.destroy</a></li>
 		<li id="test4">test4</li>
-		<li>test5</li>
-	</ul>
-	<a href="mailto:joe@example.com?subject=feedback" "email me" id="test">email me</a>
+		<li class="edit">test5</li>
+		<li><a href="mailto:joe@example.com?subject=feedback" "email me" id="test">email me</a></li>
+	</ol>
+
 	<script type="text/javascript" src="../lib/zepto.js"></script>
 	<script type="text/javascript" src="viewBindEvent.js"></script>
 	<script>
@@ -54,7 +55,7 @@
   		"click .toggle": "toggleDone",
   		"dblclick .view": "edit",
   		"click a.destroy": "clear",
-  		"tap .edit": "edit",
+  		"click .edit": "window.testW",
   		'click $#test':'edit',
   		"click #test4": "clear",
   	},
@@ -78,8 +79,10 @@
   		console.log('clear');
   		return false;
   	}
-
   });
+  function testW(){
+  	console.log(+new Date())
+  }
   var sview=new TodoView();
   console.log(sview)
 </script>

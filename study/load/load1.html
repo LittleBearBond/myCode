@@ -1,77 +1,160 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" Content="text/html; charset=utf-8;">
-<title>CSS3实现加载的动画效果2</title>
-<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<!-- 忽略页面中的数字识别为电话号码  email识别 -->
-<meta content="telephone=no, email=no" name="format-detection" />
-<!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<!-- 当启动webapp功能时，显示手机信号、时间、电池的顶部导航栏的颜色。默认值为default（白色），可以定为black（黑色）和black-translucent（灰色半透明）。这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<!-- 不让 Android 手机识别邮箱 -->
-<meta content="email=no" name="format-detection" />
-<!-- 启用360浏览器的极速模式(webkit) -->
-<meta name="renderer" content="webkit">
-<!-- 避免IE使用兼容模式 -->
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
-<meta name="HandheldFriendly" content="true">
-<!-- Reset Css -->
-<style>
-*{margin:0;padding:0;}
-body{background:#e7e7e7;}
+    <meta http-equiv="Content-Type" Content="text/html; charset=utf-8;">
+    <title>CSS3实现加载的动画效果2</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- 忽略页面中的数字识别为电话号码  email识别 -->
+    <meta content="telephone=no, email=no" name="format-detection" />
+    <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 当启动webapp功能时，显示手机信号、时间、电池的顶部导航栏的颜色。默认值为default（白色），可以定为black（黑色）和black-translucent（灰色半透明）。这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- 不让 Android 手机识别邮箱 -->
+    <meta content="email=no" name="format-detection" />
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- Reset Css -->
+    <style>
+        *{margin:0;padding:0;}
+        body{background:#e7e7e7;}
 
-.m-load,.m-load2{width:32px;height:32px;margin:100px auto;}
-.m-load{background:url('load.gif') center center no-repeat;}
+        .m-load,.m-load2{width:32px;height:32px;margin:100px auto;}
+        .m-load{background:url('load.gif') center center no-repeat;}
 
-/** 加载动画的静态样式 **/
-.m-load2{position:relative;border-radius:32px;overflow:hidden;}
-.m-load2 .box,.m-load2 .item{position:absolute;left:50%;top:0;width:50%;height:100%;}
-.m-load2 .item{left:0;width:100%;-webkit-transform-origin:left center;}
-.m-load2 .item:before{content:'';position:absolute;left:-1px;top:0;width:100%;height:100%;background:#444;border-left:2px solid #e7e7e7;}
-.m-load2 .item:nth-child(2){-webkit-transform:rotate(45deg);}
-.m-load2 .item:nth-child(3){-webkit-transform:rotate(90deg);}
-.m-load2 .item:nth-child(4){-webkit-transform:rotate(135deg);}
-.m-load2 .item:nth-child(5){-webkit-transform:rotate(180deg);}
-.m-load2 .box:nth-child(2){-webkit-transform:rotate(180deg);-webkit-transform-origin:left center;clip:rect(0px,16px,32px,1px);}
-.m-load2 .circlebg{position:absolute;left:50%;top:50%;width:22px;height:22px;margin:-11px 0 0 -11px;background:#e7e7e7;border-radius:22px;}
+        /** 加载动画的静态样式 **/
+        .m-load2{position:relative;border-radius:32px;overflow:hidden;}
+        .m-load2 .box,.m-load2 .item{position:absolute;left:50%;top:0;width:50%;height:100%;}
+        .m-load2 .item{left:0;width:100%;-webkit-transform-origin:left center;}
+        .m-load2 .item:before{content:'';position:absolute;left:-1px;top:0;width:100%;height:100%;background:#444;border-left:2px solid #e7e7e7;}
+        .m-load2 .item:nth-child(2){-webkit-transform:rotate(45deg);}
+        .m-load2 .item:nth-child(3){-webkit-transform:rotate(90deg);}
+        .m-load2 .item:nth-child(4){-webkit-transform:rotate(135deg);}
+        .m-load2 .item:nth-child(5){-webkit-transform:rotate(180deg);}
+        .m-load2 .box:nth-child(2){-webkit-transform:rotate(180deg);-webkit-transform-origin:left center;clip:rect(0px,16px,32px,1px);}
+        .m-load2 .circlebg{position:absolute;left:50%;top:50%;width:22px;height:22px;margin:-11px 0 0 -11px;background:#e7e7e7;border-radius:22px;}
 
-/** 加载动画 **/
-@-webkit-keyframes load{
-    0%{background:#e7e7e7;}
-    100%{background:#444;}
-}
-.m-load2 .box:nth-child(1) .item:nth-child(1):before{-webkit-animation:load 0.8s linear 0s infinite;}
-.m-load2 .box:nth-child(1) .item:nth-child(2):before{-webkit-animation:load 0.8s linear 0.1s infinite;}
-.m-load2 .box:nth-child(1) .item:nth-child(3):before{-webkit-animation:load 0.8s linear 0.2s infinite;}
-.m-load2 .box:nth-child(1) .item:nth-child(4):before{-webkit-animation:load 0.8s linear 0.3s infinite;}
-.m-load2 .box:nth-child(2) .item:nth-child(1):before{-webkit-animation:load 0.8s linear 0.4s infinite;}
-.m-load2 .box:nth-child(2) .item:nth-child(2):before{-webkit-animation:load 0.8s linear 0.5s infinite;}
-.m-load2 .box:nth-child(2) .item:nth-child(3):before{-webkit-animation:load 0.8s linear 0.6s infinite;}
-.m-load2 .box:nth-child(2) .item:nth-child(4):before{-webkit-animation:load 0.8s linear 0.7s infinite;}
-</style>
-</head>
+        /** 加载动画 **/
+        @-webkit-keyframes load{
+            0%{background:#e7e7e7;}
+            100%{background:#444;}
+        }
+        .m-load2 .box:nth-child(1) .item:nth-child(1):before{-webkit-animation:load 0.8s linear 0s infinite;}
+        .m-load2 .box:nth-child(1) .item:nth-child(2):before{-webkit-animation:load 0.8s linear 0.1s infinite;}
+        .m-load2 .box:nth-child(1) .item:nth-child(3):before{-webkit-animation:load 0.8s linear 0.2s infinite;}
+        .m-load2 .box:nth-child(1) .item:nth-child(4):before{-webkit-animation:load 0.8s linear 0.3s infinite;}
+        .m-load2 .box:nth-child(2) .item:nth-child(1):before{-webkit-animation:load 0.8s linear 0.4s infinite;}
+        .m-load2 .box:nth-child(2) .item:nth-child(2):before{-webkit-animation:load 0.8s linear 0.5s infinite;}
+        .m-load2 .box:nth-child(2) .item:nth-child(3):before{-webkit-animation:load 0.8s linear 0.6s infinite;}
+        .m-load2 .box:nth-child(2) .item:nth-child(4):before{-webkit-animation:load 0.8s linear 0.7s infinite;}
+        #circle div {
+            border: solid 0;
+            position: absolute;
+            height: 50px;
+            width: 50px;
+            background-color: #5FB7FF;
+            -ms-border-radius: 25px;
+            border-radius: 25px;
+                /* -webkit-box-shadow: 5px 5px 5px #c0c0c0;
+                -ms-box-shadow: 5px 5px 5px #c0c0c0;
+                box-shadow: 5px 5px 5px #c0c0c0;*/
+                -webkit-animation-name: bounce_circular;
+                -webkit-animation-duration: 0.7s;
+                -webkit-animation-iteration-count: infinite;
+            }
 
-<body>
-<div class="m-load"></div>
+            .c1 {
+                top: -25px;
+                left: 75px;
+                -webkit-animation-delay: .3s;
+            }
 
-<div class="m-load2">
-    <div class="box">
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
-    </div>
-    <div class="box">
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
-    </div>
-    <div class="circlebg"></div>
-</div>
-</body>
-</html>
+            .c2 {
+                top: 5px;
+                left: 145px;
+                -webkit-animation-delay: .4s;
+            }
+
+            .c3 {
+                top: 75px;
+                left: 175px;
+                -webkit-animation-delay: .5s;
+            }
+
+            .c4 {
+                top: 145px;
+                left: 145px;
+                -webkit-animation-delay: .6s;
+            }
+
+            .c5 {
+                top: 175px;
+                left: 75px;
+                -webkit-animation-delay: .7s;
+            }
+
+            .c6 {
+                top: 145px;
+                left: 5px;
+                -webkit-animation-delay: .8s;
+            }
+
+            .c7 {
+                top: 75px;
+                left: -25px;
+                -webkit-animation-delay: .9s;
+            }
+
+            .c8 {
+                top: 5px;
+                left: 5px;
+                -webkit-animation-delay: 1s;
+            }
+            @-webkit-keyframes bounce_circular {
+                0% {
+                    -webkit-transform: scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    -webkit-transform: scale(.3);
+                    opacity: 0;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="m-load"></div>
+
+        <div class="m-load2">
+            <div class="box">
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+            </div>
+            <div class="box">
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+            </div>
+            <div class="circlebg"></div>
+        </div>
+        <div id="circle">
+            <div class="c1"></div>
+            <div class="c2"></div>
+            <div class="c3"></div>
+            <div class="c4"></div>
+            <div class="c5"></div>
+            <div class="c6"></div>
+            <div class="c7"></div>
+            <div class="c8"></div>
+        </div>
+    </body>
+    </html>
