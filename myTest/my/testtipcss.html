@@ -3,16 +3,16 @@
 <head>
 	<meta charset="UTF-8">
 	<title>event</title>
-    	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    	<!-- 忽略页面中的数字识别为电话号码  email识别 -->
-    	<meta content="telephone=no, email=no" name="format-detection" />
-    	<!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
-    	<meta name="apple-mobile-web-app-capable" content="yes" />
-    	<!-- 当启动webapp功能时，显示手机信号、时间、电池的顶部导航栏的颜色。默认值为default（白色），可以定为black（黑色）和black-translucent（灰色半透明）。这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<!-- 忽略页面中的数字识别为电话号码  email识别 -->
+	<meta content="telephone=no, email=no" name="format-detection" />
+	<!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<!-- 当启动webapp功能时，显示手机信号、时间、电池的顶部导航栏的颜色。默认值为default（白色），可以定为black（黑色）和black-translucent（灰色半透明）。这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 	<!-- 不让 Android 手机识别邮箱 -->
 	<meta content="email=no" name="format-detection" />
-            <link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/hackOrTipcss.css">
 	<style>
 		.o{
@@ -23,29 +23,37 @@
 			border:20px solid #f00;
 			padding: 20px;
 			position: relative;
-			background-clip: content-box; 
+			background-clip: content-box;
 		}
-
-		.i{
+		.i {
 			width: 100px;
 			height: 100px;
 			background-color: #ccc;
 			margin: 20px;
-			border:20px solid #ff0;
+			border: 20px solid #ff0;
 			padding: 20px;
 			position: absolute;
 			left: 0;
 			top: 20px;
 		}
-		.test{
-			font-size: 15px;	
-			line-height: 1;		
+		.test {
+			font-size: 15px;
+			line-height: 1;
 		}
-		.test>div{
-			 font-size: 30px;	
+		.test>div {
+			font-size: 30px;
 		}
-		.test>p{
-			 font-size: 30px;			 
+		.test>p {
+			font-size: 30px;
+		}
+		body {
+			counter-reset: icecream;
+		}
+		input:checked {
+			counter-increment: icecream;
+		}
+		.total::after {
+			content: counter(icecream);
 		}
 	</style>
 </head>
@@ -59,5 +67,20 @@
 		<p>121231321sdfdsaf交行积分红包交行积分红包交行积分红包交行积分红包交行积分红包交行积分红包交行积分红包</p>
 		<div>交行积分红包交行积分红包交行积分红包交行积分红包交行积分红包交行积分红包</div>
 	</div>
+	<!--http://www.zhangxinxu.com/wordpress/2014/12/css-counters-pseudo-class-checked-numbers/-->
+	<strong>下面中国十大冰淇淋你吃过几个？</strong>
+	<ol>
+		<li><input type="checkbox" id="icecream1"><label for="icecream1">哈根达斯</label></li>
+		<li><input type="checkbox" id="icecream2"><label for="icecream2">和路雪wall's</label></li>
+		<li><input type="checkbox" id="icecream3"><label for="icecream3">八喜冰淇淋</label></li>
+		<li><input type="checkbox" id="icecream4"><label for="icecream4">DQ冰淇淋</label></li>
+		<li><input type="checkbox" id="icecream5"><label for="icecream5">蒙牛冰淇淋</label></li>
+		<li><input type="checkbox" id="icecream6"><label for="icecream6">雀巢冰淇淋</label></li>
+		<li><input type="checkbox" id="icecream7"><label for="icecream7">伊利冰淇淋</label></li>
+		<li><input type="checkbox" id="icecream8"><label for="icecream8">乐可可冰淇淋</label></li>
+		<li><input type="checkbox" id="icecream9"><label for="icecream9">新城市冰淇淋</label></li>
+		<li><input type="checkbox" id="icecream10"><label for="icecream10">明治MEIJI</label></li>
+	</ol>
+	你总共选择了 <strong class="total"></strong> 款冰淇淋！
 </body>
 </html>
