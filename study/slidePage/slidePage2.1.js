@@ -2,6 +2,7 @@
  *20141022 操作外围的元素，而不是里面的每个元素，实现循环滚动的，自动播放加上拖动
  *20141107修复三星S4在微信当中不能滑动的bug 支持不了find('>div')  增加：第一个是否能下拉回弹的配置
  *支持局部滚动，指定touch元素，滑动翻页，暂时只是拷贝的业务组件，改组件没有完全和项目的业务进行分离
+ *20141209 修正不是循环滚动的时候，元素自动播放到最有一个的时候自动切换到第一个
  */
 ((function(root, factory) {
 	"use strict";
@@ -11,37 +12,24 @@
 		root.slidePage = factory(root.$);
 	}
 })(window, function($) {
-	var defaultOpts = {
-			touchTarget: '',
-			//默认每个3秒播放一次
-			time: 3000,
-			//单次划过的时间
-			sepTime: 500,
-			//滑动超过30像素就翻页
-			dis: 30,
-			//当前第第几个
-			current: 0,
-			//是否显示小圆点
-			isShowPoint: false,
-			transitionEnd: function() {},
-			//是否自动播放
-			isAutoPlay: false,
-			//是否循环滚动
-			round: true,
-			//横向滚动
-			horizontal: true,
-			//滑动到最后一个时候的回调函数
-			endCallBack: function() {},
-			//滑到第一个时候
-			startCallBack: function() {},
-			//开始初始化之前
-			beforeInit: function() {},
-			//当滑动到第一个的时候是否允许继续向下滑动
-			isStartRebound: false,
-			//当滑动到最后一个的时候是否允许继续向下滑动
-			isEndRebound: false,
-			lastPageCallBack: function() {},
-			totalPage: 100
+	var emptyFunc = function() {},
+		defaultOpts = {
+			touchTarget: '', //滑动事件绑定到哪个元素上
+			time: 3000, //默认每个3秒播放一次
+			sepTime: 500, //单次划过的时间
+			dis: 30, //滑动超过30像素就翻页
+			current: 0, //当前第第几个
+			transitionEnd: emptyFunc, //每次transform之后的回调,用于进入之后添加动画
+			isAutoPlay: false, //是否自动播放
+			round: true, //是否循环滚动
+			horizontal: true, //横向滚动
+			endCallBack: emptyFunc, //滑动到最后一个时候的回调函数
+			startCallBack: emptyFunc, //滑到第一个时候
+			beforeInit: emptyFunc, //开始初始化之前
+			isStartRebound: false, //当滑动到第一个的时候是否允许继续滑动回弹
+			isEndRebound: false, //当滑动到最后一个的时候是否允许继续滑动回弹
+			lastPageCallBack: emptyFunc, //最后一页的回调
+			totalPage: 100, //总共可以翻多少页
 		},
 		each = function(obj, callback, context) {
 			if (obj == null) {
@@ -109,7 +97,7 @@
 		};
 
 	function slidePage(el, opts) {
-		opts = $.extend(defaultOpts, opts || {});
+		opts = $.extend({}, defaultOpts, opts || {});
 		this.opts = opts;
 		this.wrapEl = el.get(0);
 		this.$el = $(getChilds(el.get(0))[0]); //el.find('>div');//$(getChilds(el.get(0)));
@@ -288,6 +276,8 @@
 			setTimeout(function() {
 				var currIndex = self.getCurrentIndex(),
 					pos = -(currIndex += 1) * self.wh;
+				//不是循环滚动，并且滚到最后一个的时候应该切换到第一个
+				pos = !self.opts.round && currIndex === self.elCount ? 0 : pos;
 				//更新距离
 				self.setData(pos);
 				self.setTransform(self.el, pos);
@@ -333,6 +323,7 @@
 			this.moving = false;
 			this.opts.transitionEnd.call(this);
 			this.initsetTimeout();
+			//元素位置重置
 			this.resetPos();
 		},
 		setTransform: function(el, dis, duration) {
@@ -379,7 +370,7 @@
 		resetPos: function() {
 			var num = this.getCurrentIndex(),
 				tdis;
-			//重置元素的位置，让其能够循环滚动，到底第一个最后一个的是都要进行位置的重置
+			//重置元素的位置，让其能够循环滚动，到第一个最后一个的是都要进行位置的重置
 			if (this.opts.round) {
 				//循环滚动
 				if (num == 0) {

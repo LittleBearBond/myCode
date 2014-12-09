@@ -15,6 +15,7 @@ min-height: 100%; */
     position: relative;
     height: 300px;
     width: 300px;
+    margin-bottom: 20px;
 }
 .c1,
 .c2,
