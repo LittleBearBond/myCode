@@ -281,7 +281,6 @@
 				//更新距离
 				self.setData(pos);
 				self.setTransform(self.el, pos);
-				//如果不是循环滚动这里还要做处理*****************************************************
 			}, 0);
 		},
 		move: function() {
