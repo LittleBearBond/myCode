@@ -1,0 +1,38 @@
+.trbl() {
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+}
+.mask(@opacity: 0.8, @zindex: 1001) when (isnumber(@zindex)) {
+	position: fixed;
+	.trbl();
+	overflow: hidden;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, @opacity);
+	z-index: @zindex;
+}
+.center-block() {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.poscenter() {
+	position: absolute;
+	.trbl();
+	margin: auto;
+}
+
+.c {
+	.trbl;
+}
+.c1 {
+	.mask(0.7, 10);
+}
+.c2 {
+	.center-block();
+}
+.ps {
+	.poscenter();
+}
