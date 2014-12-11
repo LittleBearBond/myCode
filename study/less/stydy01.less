@@ -1,19 +1,15 @@
 /* @base: #f938ab;
-.box-shadow(@style,
-@c) when (iscolor(@c)) {
+.box-shadow(@style, @c) when (iscolor(@c)) {
 	box-shadow: @style @c;
 	-webkit-box-shadow: @style @c;
 	-moz-box-shadow: @style @c;
 }
-.box-shadow(@style,
-@alpha:50%) when (isnumber(@alpha)) {
+.box-shadow(@style, @alpha:50%) when (isnumber(@alpha)) {
 	.box-shadow(@style, rgba(0, 0, 0, @alpha));
 }
 .box {
-	color: saturate(@base,
-	5%);
-	border-color: lighten(@base,
-	30%);
+	color: saturate(@base, 5%);
+	border-color: lighten(@base, 30%);
 	div {
 		.box-shadow(0 0 5px, 30%)
 	}
@@ -58,12 +54,6 @@ h2 {
 .left {
 	.animate-name(left);
 }
-/* .box-shadow-l (@x:0, @y:0, @blur:1px, @color:#000) {
-	box-shadow: @arguments;
-	-moz-box-shadow: @arguments;
-	-webkit-box-shadow: @arguments;
-}
-.box-shadow-l(2px, 5px); */
 
 /* 运算提供了加，减，乘，除操作；我们可以做属性值和颜色的运算 */
 @the-border: 1px;
@@ -73,79 +63,151 @@ h2 {
 	color: @base-color * 3;
 	border-left: @the-border;
 	border-right: @the-border * 2;
-	left:13em/12em;
-	@val:13/12;
-	top: ~"@{val}em";
+	left: 13em/12em;
+	@val: 13/12;
+	top:~"@{val } em";
 }
 #footer {
 	color: @base-color + #003300;
 	border-color: desaturate(@red, 10%);
 }
-
 @base: #f938ab;
 .box-shadow(@style, @c) when (iscolor(@c)) {
-  -webkit-box-shadow: @style @c;
-  box-shadow:         @style @c;
+	-webkit-box-shadow: @style @c;
+	box-shadow: @style @c;
 }
-.box-shadow(@style, @alpha: 50%) when (isnumber(@alpha)) {
-  .box-shadow(@style, rgba(0, 0, 0, @alpha));
+.box-shadow(@style, @alpha:50%) when (isnumber(@alpha)) {
+	.box-shadow(@style, rgba(0, 0, 0, @alpha));
 }
 .box {
-  color: saturate(@base, 5%);
-  border-color: lighten(@base, 30%);
-  div { .box-shadow(0 0 5px, 30%) }
-    a& {
-    &:hover,
-    &:focus {
-      color: @base;
-      text-decoration: none;
-      cursor: pointer;
-    }
-  }
-  &:empty {
-    display: none;
-
-  }
+	color: saturate(@base, 5%);
+	border-color: lighten(@base, 30%);
+	div {
+		.box-shadow(0 0 5px, 30%)
+	}
+	a& {
+		&:hover, &:focus {
+			color: @base;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	}
+	&:empty {
+		display: none;
+	}
 }
-
 .opacity(@opacity) {
-  opacity: @opacity;
-  // IE8 filter
-  @opacity-ie: (@opacity * 100);
-  filter: ~"alpha(opacity=@{opacity-ie})";
+	opacity: @opacity;
+	// IE8 filter
+	@opacity-ie: (@opacity * 100);
+	filter:~"alpha(opacity=@{opacity-ie})";
 }
-.testopacity{
+.testopacity {
 	.opacity(0.5);
 }
 .label-variant(@color) {
-  background-color: @color;
-  &[href] {
-    &:hover,
-    &:focus {
-      background-color: darken(@color, 10%);
-    }
-  }
-}
-.test-label-variant{
-	.label-variant(#fff);
-}
-.link(){
-	&,
-	&:hover,
-	&active,
-	&:visited{
-		background:#dddddd;
+	background-color: @color;
+	&[href] {
+		&:hover, &:focus {
+			background-color: darken(@color, 10%);
+		}
 	}
 }
-.test-link{
+.test-label-variant {
+	.label-variant(#fff);
+}
+.link() {
+	&, &:hover, &active, &:visited {
+		background: #dddddd;
+	}
+}
+.test-link {
 	.link();
 }
-
-@num:100;
-.test-num{
+@num: 100;
+.test-num {
 	z-index: (@num - 10);
 }
+
+.bordered {
+	border-top: dotted 1px black;
+	border-bottom: solid 2px black;
+}
+#menu a {
+	color: #111;
+	.bordered;
+}
+.clearfix {
+  display: block;
+  zoom: 1;
+
+  &:after {
+    content: " ";
+    display: block;
+    font-size: 0;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+}
+.clearfixx() {
+	&:before, &:after {
+		content: " ";
+		display: table;
+	}
+	&:after {
+		clear: both;
+	}
+}
+.test-clearfixx{
+	.clearfixx();
+}
 @basepath: "/up/dj-mobile/pushover/i/";
-.test{
-	color:~"@{basepath}";
+.test {
+	background: url(~"@{basepath}icon/xxx.png" );
+}
+@images: "../img";
+// 用法
+body {
+  color: #444;
+  background: url("@{images}/white-sand.png");
+}
+@property: color;
+.widget {
+  @{property}: #0ee;
+  background-@{property}: #999;
+}
+
+.lazy-eval {
+  width: @var;
+}
+@var: @a;
+@a: 9%;
+
+nav ul {
+  &:extend(.inline);
+  background: blue;
+}
+.inline {
+  color: red;
+}
+.mixin(@color: black; @margin: 10px; @padding: 20px) {
+  color: @color;
+  margin: @margin;
+  padding: @padding;
+}
+.class1 {
+  .mixin(@margin: 20px; @color: #33acfe);
+}
+.class2 {
+  .mixin(#efca44; @padding: 40px);
+}
+
+.box-shadoww(@x: 0; @y: 0; @blur: 1px; @color: #000) {
+	-webkit-box-shadow: @arguments;
+	-moz-box-shadow: @arguments;
+	box-shadow: @arguments;
+}
+.big-block {
+  .box-shadoww(2px; 5px);
 }

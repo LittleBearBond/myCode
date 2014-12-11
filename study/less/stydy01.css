@@ -1,19 +1,15 @@
 /* @base: #f938ab;
-.box-shadow(@style,
-@c) when (iscolor(@c)) {
+.box-shadow(@style, @c) when (iscolor(@c)) {
 	box-shadow: @style @c;
 	-webkit-box-shadow: @style @c;
 	-moz-box-shadow: @style @c;
 }
-.box-shadow(@style,
-@alpha:50%) when (isnumber(@alpha)) {
+.box-shadow(@style, @alpha:50%) when (isnumber(@alpha)) {
 	.box-shadow(@style, rgba(0, 0, 0, @alpha));
 }
 .box {
-	color: saturate(@base,
-	5%);
-	border-color: lighten(@base,
-	30%);
+	color: saturate(@base, 5%);
+	border-color: lighten(@base, 30%);
 	div {
 		.box-shadow(0 0 5px, 30%)
 	}
@@ -52,19 +48,13 @@ h2 {
   -o-animation-name: left;
   animation-name: left;
 }
-/* .box-shadow-l (@x:0, @y:0, @blur:1px, @color:#000) {
-	box-shadow: @arguments;
-	-moz-box-shadow: @arguments;
-	-webkit-box-shadow: @arguments;
-}
-.box-shadow-l(2px, 5px); */
 /* 运算提供了加，减，乘，除操作；我们可以做属性值和颜色的运算 */
 #header {
   color: #333333;
   border-left: 1px;
   border-right: 2px;
   left: 1.08333333em;
-  top: 1.0833333333333333em;
+  top: @{val } em;
 }
 #footer {
   color: #114411;
@@ -107,6 +97,68 @@ a.box:focus {
 .test-num {
   z-index: 90;
 }
+.bordered {
+  border-top: dotted 1px black;
+  border-bottom: solid 2px black;
+}
+#menu a {
+  color: #111;
+  border-top: dotted 1px black;
+  border-bottom: solid 2px black;
+}
+.clearfix {
+  display: block;
+  zoom: 1;
+}
+.clearfix:after {
+  content: " ";
+  display: block;
+  font-size: 0;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.test-clearfixx:before,
+.test-clearfixx:after {
+  content: " ";
+  display: table;
+}
+.test-clearfixx:after {
+  clear: both;
+}
 .test {
-  color: /up/dj-mobile/pushover/i/;
+  background: url(/up/dj-mobile/pushover/i/icon/xxx.png);
+}
+body {
+  color: #444;
+  background: url("../img/white-sand.png");
+}
+.widget {
+  color: #0ee;
+  background-color: #999;
+}
+.lazy-eval {
+  width: 9%;
+}
+nav ul {
+  background: blue;
+}
+.inline,
+nav ul {
+  color: red;
+}
+.class1 {
+  color: #33acfe;
+  margin: 20px;
+  padding: 20px;
+}
+.class2 {
+  color: #efca44;
+  margin: 10px;
+  padding: 40px;
+}
+.big-block {
+  -webkit-box-shadow: 2px 5px 1px #000000;
+  -moz-box-shadow: 2px 5px 1px #000000;
+  box-shadow: 2px 5px 1px #000000;
 }
