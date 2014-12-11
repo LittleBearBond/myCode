@@ -13,7 +13,7 @@
 // - Transformations
 // - Transitions
 // - User Select
-
+// -filter
 
 // Animations
 .animation(@animation) {
@@ -227,4 +227,11 @@
 .background-size(@sizex,@sizey:auto){
   -ms-background-size: @sizex @sizey;
   background-size: @sizex @sizey;
+}
+
+.filter(@val:10px){
+  -webkit-filter: blur(@val);
+  -moz-filter: blur(@val);
+  -ms-filter: blur(@val);
+  filter: blur(@val);
 }
