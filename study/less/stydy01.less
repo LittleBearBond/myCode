@@ -211,3 +211,58 @@ nav ul {
 .big-block {
   .box-shadoww(2px; 5px);
 }
+[title=identifier] {
+  color: blue;
+}
+[title='identifier'] {
+  color: blue;
+}
+[title="identifier"] {
+  color: blue;
+}
+
+.noQuote:extend([title=identifier]) {}
+/* .singleQuote:extend([title='identifier']) {}
+.doubleQuote:extend([title="identifier"]) {} */
+.a.b.test,
+.test.c {
+	color: orange;
+}
+.test {
+	&:hover {
+		color: green;
+	}
+}
+.replacement:extend(.test all){}
+
+.my-inline-block() {
+	display: inline-block;
+	font-size: 0;
+}
+.thing1 {
+	.my-inline-block;
+}
+.thing2 {
+	.my-inline-block;
+}
+.my-inline-block {
+  display: inline-block;
+  font-size: 0;
+}
+.thing1 {
+  &:extend(.my-inline-block);
+}
+.thing2 {
+  &:extend(.my-inline-block);
+}
+
+.my-mixin {
+  color: black;
+}
+.my-other-mixin() {
+  background: white;
+}
+.class {
+  .my-mixin;
+  .my-other-mixin;
+}

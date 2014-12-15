@@ -1,119 +1,125 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>tokenize</title>
-    <script src="../JQuery2-3/jquery-2.0.3.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>tokenize</title>
+	<script src="../JQuery2-3/jquery-2.0.3.js"></script>
 
 </head>
 <body>
 
-    <script type="text/javascript">
-        //$(function () {
-        //    var s = $('#test>div>ul li ');
-        //    var s1 = $('div > div.bond p span.red');
-        //});
+	<script type="text/javascript">
+//$(function () {
+//    var s = $('#test>div>ul li ');
+//    var s1 = $('div > div.bond p span.red');
+//});
 
-        function fn1(value) {
-            console.log(value);
-        }
+function fn1(value) {
+	console.log('fn1:'+value);
+}
 
-        function fn2(value) {
-            fn1("fn2 says: " + value);
-            return false;
-        }
+function fn2(value) {
+	console.log('fn2:'+value)
+	return false;
+}
 
 
-        //$.Callbacks
-        /*var callbacks = $.Callbacks();
-    callbacks.add(fn1);
-    // outputs: foo!
-    callbacks.fire("foo!");
-    callbacks.add(fn2);
-    // outputs: bar!, fn2 says: bar!
-    callbacks.fire("bar!");*/
+/*var callbacks = $.Callbacks();
+callbacks.add(fn1);
+callbacks.fire("foo!");
+callbacks.add(fn2);
+callbacks.fire("bar!");*/
 
-        ////$.Callbacks 的.remove()
-        //var callbacks = $.Callbacks();
-        //callbacks.add(fn1);
-        //// outputs: foo!
-        //callbacks.fire("foo!");
-        //callbacks.add(fn2);
-        //// outputs: bar!, fn2 says: bar!
-        //callbacks.fire("bar!");
-        //callbacks.remove(fn2);
-        //// only outputs foobar, as fn2 has been removed.
-        //callbacks.fire("foobar");
+//$.Callbacks 的.remove()
+/*var callbacks = $.Callbacks();
+callbacks.add(fn1);
+callbacks.fire("foo!");
+callbacks.add(fn2);
+callbacks.fire("bar!");
+callbacks.remove(fn2);
+callbacks.fire("foobar");*/
 
-        //Possible flags:（可用的 flags:）
-        //once: 确保这个回调列表只执行（ .fire() ）一次(像一个递延 Deferred).
-        //memory: 保持以前的值，将添加到这个列表的后面的最新的值立即执行调用任何回调 (像一个递延 Deferred).
-        //unique: 确保一次只能添加一个回调(所以在列表中没有重复的回调).
-        //    stopOnFalse: 当一个回调返回false 时中断调用
+//Possible flags:（可用的 flags:）
+//once: 确保这个回调列表只执行（ .fire() ）一次(像一个递延 Deferred).
+//memory: 保持以前的值，将添加到这个列表的后面的最新的值立即执行调用任何回调 (像一个递延 Deferred).
+//unique: 确保一次只能添加一个回调(所以在列表中没有重复的回调).
+//    stopOnFalse: 当一个回调返回false 时中断调用
 
-        //var callbacks = $.Callbacks("once");
-        //callbacks.add(fn1);
-        //callbacks.fire("foo");
-        //callbacks.add(fn2);
-        //callbacks.fire("bar");
-        //callbacks.remove(fn2);
-        //callbacks.fire("foobar");
-        /*
-        output:
-        foo
-        */
+/*var callbacks = $.Callbacks("once");
+callbacks.add(fn1);
+callbacks.fire("foo");
+callbacks.add(fn2);
+callbacks.fire("bar");
+callbacks.remove(fn2);
+callbacks.fire("foobar");*/
 
-        //var callbacks = $.Callbacks("memory");
-        //callbacks.add(fn1);
-        //callbacks.fire("foo");
-        //callbacks.add(fn2);
-        //callbacks.fire("bar");
-        //callbacks.remove(fn2);
-        //callbacks.fire("foobar");
-        /* output:
-    foo
-    fn2 says:foo
-    bar
-    fn2 says:bar
-    foobar
-    */
+/*memory*/
+/*var callbacks = $.Callbacks("memory");
+callbacks.add(fn1);
+callbacks.fire("foo");
+callbacks.add(fn2);
+callbacks.fire("bar");
+callbacks.remove(fn2);
+callbacks.fire("foobar");*/
+/*fn1:foo
+fn2:foo
+fn1:bar
+fn2:bar
+fn1:foobar */
 
-        //var callbacks = $.Callbacks("unique");
-        //callbacks.add(fn1);
-        //callbacks.fire("foo");
-        //callbacks.add(fn1); // repeat addition
-        //callbacks.add(fn2);
-        //callbacks.fire("bar");
-        //callbacks.remove(fn2);
-        //callbacks.fire("foobar");
-        /*
-        output:
-        foo
-        bar
-        fn2 says:bar
-        foobar
-        */
+//var callbacks = $.Callbacks("unique");
+/*callbacks.add(fn1);
+callbacks.fire("foo");
+callbacks.add(fn1); // repeat addition
+callbacks.add(fn2);
+callbacks.fire("bar");
+callbacks.remove(fn2);
+callbacks.fire("foobar");*/
 
-        var callbacks = $.Callbacks("stopOnFalse");
-        callbacks.add(fn1);
-        callbacks.fire("foo");
-        callbacks.add(fn2);
-        callbacks.fire("bar");
-        callbacks.remove(fn2);
-        callbacks.fire("foobar");
 
-        /*
-        output:
-        foo
-        bar
-        foobar
-        */
-    </script>
+/*var callbacks = $.Callbacks("stopOnFalse");
+callbacks.add(fn1);
+callbacks.fire("foo");
+callbacks.add(fn2);
+callbacks.fire("bar");
+callbacks.remove(fn2);
+callbacks.fire("foobar");
+*/
 
-    <script>
+ //unique memory
+/*var callbacks = $.Callbacks( "unique memory" );
+callbacks.add( fn1 );
+callbacks.fire( "foo" );
+callbacks.add( fn1 ); // repeat addition
+callbacks.add( fn2 );
+callbacks.fire( "bar" );
+callbacks.add( fn2 );
+callbacks.fire( "baz" );
+callbacks.remove( fn2 );
+callbacks.fire( "foobar" );*/
 
-    
-    </script>
+var callbacks = $.Callbacks( "once memory" );
+callbacks.add( fn1 );
+callbacks.add( fn2 );
+callbacks.fire( "foo" );
+callbacks.add( fn1 ); // repeat addition
+callbacks.add( fn2 );
+callbacks.fire( "bar" );
+callbacks.add( fn2 );
+callbacks.fire( "baz" );
+callbacks.remove( fn2 );
+callbacks.fire( "foobar" );
+/*fn1:foo
+fn2:foo
+fn1:foo
+fn2:foo
+fn2:foo */
+</script>
+
+<script>
+
+
+</script>
 
 
 </body>

@@ -126,7 +126,8 @@ a.box:focus {
 .test-clearfixx:after {
   clear: both;
 }
-.test {
+.test,
+.replacement {
   background: url(/up/dj-mobile/pushover/i/icon/xxx.png);
 }
 body {
@@ -161,4 +162,49 @@ nav ul {
   -webkit-box-shadow: 2px 5px 1px #000000;
   -moz-box-shadow: 2px 5px 1px #000000;
   box-shadow: 2px 5px 1px #000000;
+}
+[title=identifier],
+.noQuote {
+  color: blue;
+}
+[title='identifier'],
+.noQuote {
+  color: blue;
+}
+[title="identifier"],
+.noQuote {
+  color: blue;
+}
+/* .singleQuote:extend([title='identifier']) {}
+.doubleQuote:extend([title="identifier"]) {} */
+.a.b.test,
+.test.c,
+.a.b.replacement,
+.replacement.c {
+  color: orange;
+}
+.test:hover,
+.replacement:hover {
+  color: green;
+}
+.thing1 {
+  display: inline-block;
+  font-size: 0;
+}
+.thing2 {
+  display: inline-block;
+  font-size: 0;
+}
+.my-inline-block,
+.thing1,
+.thing2 {
+  display: inline-block;
+  font-size: 0;
+}
+.my-mixin {
+  color: black;
+}
+.class {
+  color: black;
+  background: white;
 }

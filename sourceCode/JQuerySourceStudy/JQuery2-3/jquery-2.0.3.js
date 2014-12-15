@@ -2284,7 +2284,7 @@
                 groups,
                 preFilters,
                 cached = tokenCache[selector + " "];
-            //groups表示目前已经匹配到的规则组，在这个例子里边，groups的长度最后是2，存放的是每个规则对应的Token序列   
+            //groups表示目前已经匹配到的规则组，在这个例子里边，groups的长度最后是2，存放的是每个规则对应的Token序列
             //如果cache里边有，直接拿出来即可
             if (cached) {
                 return parseOnly ? 0 : cached.slice(0);
@@ -2880,6 +2880,7 @@
 
 
     })(window);
+    //Options参数缓存
     // String to Object options format cache
     var optionsCache = {};
     // Convert String-formatted options into Object-formatted ones and store in cache
@@ -2913,12 +2914,24 @@
     *	stopOnFalse:	interrupt callings when a callback returns false
     *
     */
+   /*
+    callbacks.add()        ：回调列表中添加一个回调或回调的集合。
+    callbacks.disable()    ：禁用回调列表中的回调。
+    callbacks.disabled()   ：确定回调列表是否已被禁用。
+    callbacks.empty()      ：从列表中删除所有的回调。
+    callbacks.fire()       ：用给定的参数调用所有的回调。
+    callbacks.fired()      ：访问给定的上下文和参数列表中的所有回调。
+    callbacks.fireWith()   ：访问给定的上下文和参数列表中的所有回调。
+    callbacks.has()        ：确定列表中是否提供一个回调。
+    callbacks.lock()       ：锁定当前状态的回调列表。
+    callbacks.locked()     ：确定回调列表是否已被锁定。
+    callbacks.remove()     ：从回调列表中的删除一个回调或回调集合。
+    */
     jQuery.Callbacks = function (options) {
 
         // Convert options from String-formatted to Object-formatted if needed
         // (we check in cache first)
-        options = typeof options === "string" ?
-            (optionsCache[options] || createOptions(options)) :
+        options = typeof options === "string" ? (optionsCache[options] || createOptions(options)) :
             jQuery.extend({}, options);
 
         var // Last fire value (for non-forgettable lists)
@@ -3076,6 +3089,9 @@
 
         return self;
     };
+     /*-------------debug code---------------*/
+    var  deferredNums=1;
+     /*-------------debug code---------------*/
     jQuery.extend({
         Deferred: function (func) {
             //1、显而易见Deferred是个工厂类，返回的是内部构建的deferred对象
@@ -3098,8 +3114,9 @@
                         return this;
                     },
                     then: function ( /* fnDone, fnFail, fnProgress */) {
-                        var fns = arguments;
-                        return jQuery.Deferred(function (newDefer) {
+                        var fns = arguments,self=this;
+                        //console.log(this.deferredNums+'then')
+                        var  newd= jQuery.Deferred(function (newDefer) {
                             jQuery.each(tuples, function (i, tuple) {
                                 var action = tuple[0],
                                     fn = jQuery.isFunction(fns[i]) && fns[i];
@@ -3117,7 +3134,9 @@
                                 });
                             });
                             fns = null;
+                            console.log(self.deferredNums+'      then    '+newDefer.deferredNums);
                         }).promise();
+                        return newd;
                     },
                     // Get a promise for this deferred
                     // If obj is provided, the promise aspect is added to the object
@@ -3126,6 +3145,12 @@
                     }
                 },
                 deferred = {};
+                /*-------------debug code---------------*/
+                deferred.deferredNums=deferredNums;
+                console.log(deferredNums);
+                deferredNums++;
+               /*-------------debug code---------------*/
+
 
             // Keep pipe for back-compat
             promise.pipe = promise.then;
@@ -3151,6 +3176,7 @@
                 // deferred[ resolve | reject | notify ]
                 deferred[tuple[0]] = function () {
                     deferred[tuple[0] + "With"](this === deferred ? promise : this, arguments);
+                    //console.log(this.deferredNums+"fireWith")
                     return this;
                 };
                 deferred[tuple[0] + "With"] = list.fireWith;
@@ -3162,10 +3188,10 @@
             // Call given func if any
             if (func) {
                 func.call(deferred, deferred);
-            }   
+            }
             // All done!
             return deferred;
-        },           
+        },
         // Deferred helper
         when: function (subordinate /* , ..., subordinateN */) {
             var i = 0,
@@ -3347,8 +3373,8 @@
     */
     var data_user,
         data_priv,
-        rbrace = /(?:\{[\s\S]*\}|\[[\s\S]*\])$/,    
-        rmultiDash = /([A-Z])/g;     
+        rbrace = /(?:\{[\s\S]*\}|\[[\s\S]*\])$/,
+        rmultiDash = /([A-Z])/g;
     function Data() {
         // Support: Android < 4,
         // Old WebKit does not have Object.preventExtensions/freeze method,
@@ -3359,7 +3385,7 @@
             }
         });
         this.expando = jQuery.expando + Math.random();//扩展一个值为expando的属性,
-    }          
+    }
     Data.uid = 1;//设为一个自增的变量id，保持全局唯一性
 
     Data.accepts = function (owner) {
@@ -3534,24 +3560,24 @@
 
     // These may be used throughout the jQuery core codebase
     data_user = new Data();
-    data_priv = new Data();    
+    data_priv = new Data();
 
     jQuery.extend({
         acceptData: Data.accepts,
         hasData: function (elem) {
             return data_user.hasData(elem) || data_priv.hasData(elem);
-        },      
+        },
         data: function (elem, name, data) {
             return data_user.access(elem, name, data); //直接调用 data_user.access 数据类的接口，传入的是elem整个jQuery对象
-        },      
+        },
         removeData: function (elem, name) {
             data_user.remove(elem, name);
-        },    
+        },
         // TODO: Now that all calls to _data and _removeData have been replaced
         // with direct calls to data_priv methods, these can be deprecated.
         _data: function (elem, name, data) {
             return data_priv.access(elem, name, data);
-        },        
+        },
         _removeData: function (elem, name) {
             data_priv.remove(elem, name);
         }
@@ -3592,7 +3618,7 @@
                 return this.each(function () {  //处理多个元素
                     data_user.set(this, key);
                 });
-            } 
+            }
             return jQuery.access(this, function (value) {
                 var data,
                     camelKey = jQuery.camelCase(key);
@@ -3647,7 +3673,7 @@
                     }
                 });
             }, null, value, arguments.length > 1, null, true);
-        },      
+        },
         removeData: function (key) {
             return this.each(function () {  ////区别在each方法了，处理的是每一个元素dom节点
                 data_user.remove(this, key);
@@ -3996,7 +4022,7 @@
                 if (this[i].nodeType === 1 && (" " + this[i].className + " ").replace(rclass, " ").indexOf(className) >= 0) {
                     return true;
                 }
-            }  
+            }
             return false;
         },
 
@@ -4021,7 +4047,7 @@
                         ret.replace(rreturn, "") :
                         // handle cases where value is null/undef or number
                         ret == null ? "" : ret;
-                }       
+                }
                 return;
             }
 
