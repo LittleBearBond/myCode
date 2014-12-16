@@ -58,6 +58,7 @@
         core_trim = core_version.trim,
 
         // Define a local copy of jQuery
+        // 支持九个重载
         jQuery = function (selector, context) {
             // The jQuery object is actually just the init constructor 'enhanced'
             /*通过new jQuery.fn.init() 构建一个新的对象，拥有init构造器的prototype原型对象的方法
@@ -2895,8 +2896,7 @@
     /*
     * Create a callback list using the following parameters:
     *
-    *	options: an optional list of space-separated options that will change how
-    *			the callback list behaves or a more traditional option object
+    *options: an optional list of space-separated options that will change how the callback list behaves or a more traditional option object
     *
     * By default a callback list will act like an event callback list and can be
     * "fired" multiple times.
@@ -2928,7 +2928,7 @@
     callbacks.remove()     ：从回调列表中的删除一个回调或回调集合。
     */
     jQuery.Callbacks = function (options) {
-
+        　//当传入参数时，就是字符串，比如：once，那么就会先去optionsCache中取once属性，如果之前没有此值，就调用createOptions('once memory')方法
         // Convert options from String-formatted to Object-formatted if needed
         // (we check in cache first)
         options = typeof options === "string" ? (optionsCache[options] || createOptions(options)) :
@@ -2949,15 +2949,15 @@
             // Actual callback list
             list = [],
             // Stack of fire calls for repeatable lists
-            stack = !options.once && [],
+            stack = !options.once && [], //如果有once，那么stack就是false，如果没有，那么stack就是[]，if条件里面空数组为真，因此在fire()->fireWith()时，就可以再次执行list数组中的方法了。
             // Fire callbacks
             fire = function (data) {
-                memory = options.memory && data; //如果参数memory为true，则记录data
-                fired = true;//标记触发回调
-                firingIndex = firingStart || 0;
+                memory = options.memory && data; //如果参数memory为true，则记录data，否则memory为false
+                fired = true;//标记触发过回调
+                firingIndex = firingStart || 0;//list数组中开始元素
                 firingStart = 0;
                 firingLength = list.length;
-                firing = true;
+                firing = true; //正在执行list数组中的方法
                 for (; list && firingIndex < firingLength; firingIndex++) {
                     if (list[firingIndex].apply(data[0], data[1]) === false && options.stopOnFalse) {//函数返回false 并且设置有中断调用 那么返回false后面的就会中断调用
                         memory = false; // To prevent further calls using add// 阻止未来可能由于add所产生的回调
@@ -2965,15 +2965,15 @@
                     }
                 }
                 firing = false;  //标记回调结束
-                if (list) { //如果列表存在
-                    if (stack) {//如果堆栈存在
+                if (list) { //当list数组中的方法执行结束后，就会判断stack是否有值
+                    if (stack) {//如果堆栈存在 once为false的时候就存在
                         if (stack.length) {  //如果堆栈存在
                             fire(stack.shift());//从堆栈头部取出，递归fire。
                         }
-                    } else if (memory) {//否则，如果有记忆
-                        list = [];
+                    } else if (memory) {//如果有once，stack就是false，就会走这里
+                        list = [];//清空list数组
                     } else {
-                        self.disable(); //再否则阻止回调列表中的回调    直接清除掉后面的
+                        self.disable(); //再否则阻止回调列表中的回调，直接清除掉后面的
                     }
                 }
             },
@@ -2981,29 +2981,33 @@
             self = {
                 // Add a callback or a collection of callbacks to the list
                 add: function () {
-                    if (list) {
+                    if (list) {//[] 没有被置为 undefined
                         // First, we save the current length
                         var start = list.length;
                         (function add(args) {
                             jQuery.each(args, function (_, arg) {
                                 var type = jQuery.type(arg);
                                 if (type === "function") {
-                                    if (!options.unique || !self.has(arg)) {//unique        如果为true就需要检查是否已经添加这个函数，反之则不需要检查
+                                    if (!options.unique || !self.has(arg)) {//unique 如果为true就需要检查是否已经添加这个函数，反之则不需要检查
                                         list.push(arg);
                                     }
                                 } else if (arg && arg.length && type !== "string") {
                                     // Inspect recursively
+                                    //此时add([a,b，c]) 调用add
                                     add(arg);
                                 }
                             });
                         })(arguments);
                         // Do we need to add the callbacks to the
                         // current firing batch?
-                        if (firing) {
+                        if (firing) {//如果现在正处于回调触发中，这里改变firingLength 后面添加进去的就会执行
                             firingLength = list.length;
                             // With memory, if we're not firing then
                             // we should call right away
+                            //第一次调用add时，memory是undefined。当调用fire时，如果你传入了memory为true，则memory就会变成true，如果没有调用过fire memory一直为undefine
+                            //这时你再调用add，就会进入if语句，进行fire。所以你传入memory，fire后，再调用add(b)，b方法会执行。
                         } else if (memory) {
+                            //把firingStart 设置为之前的数组长度，这样就会执行新添加的这些回调
                             firingStart = start;
                             fire(memory);
                         }
@@ -3016,7 +3020,7 @@
                         jQuery.each(arguments, function (_, arg) {
                             var index;
                             while ((index = jQuery.inArray(arg, list, index)) > -1) {
-                                list.splice(index, 1);
+                                list.splice(index, 1);//截取掉
                                 // Handle firing indexes
                                 if (firing) {
                                     if (index <= firingLength) {
@@ -3047,11 +3051,12 @@
                     list = stack = memory = undefined;
                     return this;
                 },
-                // Is it disabled?
+                // Is it disabled? 后面所有的操作都失效
                 disabled: function () {
                     return !list;
                 },
                 // Lock the list in its current state
+                // 只会锁住后面的fire操作，让cb.fire方法失效。
                 lock: function () {
                     stack = undefined;
                     if (!memory) {
@@ -3064,11 +3069,12 @@
                     return !stack;
                 },
                 // Call all callbacks with the given context and arguments
-                fireWith: function (context, args) {
-                    if (list && (!fired || stack)) {
+                fireWith: function (context, args) {//执行list数组中的方法
+                    if (list && (!fired || stack)) {//list 不为undefined 没有被执行过disable操作。第一次调用时fired是undefined，第二次调用时，fired为true，就要看stack了。
+                        //如果执行过  disable 或者lock 这时stack为undefined 回调也不会执行
                         args = args || [];
                         args = [context, args.slice ? args.slice() : args];
-                        if (firing) {
+                        if (firing) {//现在正处于回调执行中
                             stack.push(args);
                         } else {
                             fire(args);
@@ -3083,7 +3089,7 @@
                 },
                 // To know if the callbacks have already been called at least once
                 fired: function () {
-                    return !!fired;
+                    return !!fired;//只要调用过一次fire就会返回true
                 }
             };
 
@@ -3113,29 +3119,36 @@
                         deferred.done(arguments).fail(arguments);
                         return this;
                     },
+                    //fns==>> fnDone, fnFail, fnProgress
                     then: function ( /* fnDone, fnFail, fnProgress */) {
                         var fns = arguments,self=this;
                         //console.log(this.deferredNums+'then')
-                        var  newd= jQuery.Deferred(function (newDefer) {
+                        var func=function (newDefer) {
                             jQuery.each(tuples, function (i, tuple) {
-                                var action = tuple[0],
-                                    fn = jQuery.isFunction(fns[i]) && fns[i];
+                                var fn = jQuery.isFunction(fns[i]) && fns[i];
                                 // deferred[ done | fail | progress ] for forwarding actions to newDefer
                                 deferred[tuple[1]](function () {
+                                    //jquery 这里支持多个参数arguments
                                     var returned = fn && fn.apply(this, arguments);
+                                    //如果函数返回的是 promise对象就继续把后边的任务添加到returned。 当这个执行完毕的时候就绪继续执行之前后面的任务队列
                                     if (returned && jQuery.isFunction(returned.promise)) {
                                         returned.promise()
                                             .done(newDefer.resolve)
                                             .fail(newDefer.reject)
                                             .progress(newDefer.notify);
                                     } else {
-                                        newDefer[action + "With"](this === promise ? newDefer.promise() : this, fn ? [returned] : arguments);
+                                        // 立即执行后面的newDefer 里面的任务
+                                        newDefer[tuple[0] + "With"](this === promise ? newDefer.promise() : this, fn ? [returned] : arguments);
                                     }
                                 });
                             });
                             fns = null;
+                             /*-------------debug code---------------*/
                             console.log(self.deferredNums+'      then    '+newDefer.deferredNums);
-                        }).promise();
+                             /*-------------debug code---------------*/
+                        };
+                        var  newd= jQuery.Deferred(func).promise();
+                        //返回新的promise
                         return newd;
                     },
                     // Get a promise for this deferred
@@ -3147,10 +3160,10 @@
                 deferred = {};
                 /*-------------debug code---------------*/
                 deferred.deferredNums=deferredNums;
+                promise.deferredNums=deferredNums;
                 console.log(deferredNums);
                 deferredNums++;
                /*-------------debug code---------------*/
-
 
             // Keep pipe for back-compat
             promise.pipe = promise.then;
@@ -3165,15 +3178,17 @@
 
                 // Handle state
                 if (stateString) {
+                    //这里一次性添加了三个回调函数
                     list.add(function () {
-                        // state = [ resolved | rejected ]
+                        // state = [ resolved | rejected ] 调用的时候改变当前promise的state，
                         state = stateString;
-
                         // [ reject_list | resolve_list ].disable; progress_list.lock
+                        // 当resolve的时候调用reject的disable； 当reject的时候调用resolve的disable
+                        // 执行resolve或者reject 就锁定当前回调队列
                     }, tuples[i ^ 1][2].disable, tuples[2][2].lock);
                 }
 
-                // deferred[ resolve | reject | notify ]
+                // deferred[ resolve | reject | notify ]===resolveWith | rejectWith | notifyWith=== list.fireWith==(context, args)
                 deferred[tuple[0]] = function () {
                     deferred[tuple[0] + "With"](this === deferred ? promise : this, arguments);
                     //console.log(this.deferredNums+"fireWith")
@@ -3203,7 +3218,7 @@
 
                 // the master Deferred. If resolveValues consist of only a single Deferred, just use that.
                 deferred = remaining === 1 ? subordinate : jQuery.Deferred(),
-
+                //监听方法，通过判断异步对象执行的次数来决定是不是已经完成了所有的处理或者是失败处理
                 // Update function for both resolve and progress values
                 updateFunc = function (i, contexts, values) {
                     return function (value) {
@@ -3242,7 +3257,7 @@
             if (!remaining) {
                 deferred.resolveWith(resolveContexts, resolveValues);
             }
-
+            //因为when也要形成异步操作，比如when().done()，所以内部必须新建一个jQuery.Deferred()对象，用来给后面链式调用
             return deferred.promise();
         }
     });
@@ -6888,6 +6903,11 @@
             return arguments.length === 1 ? this.off(selector, "**") : this.off(types, selector || "**", fn);
         }
     });
+    /*
+       1、 前置过滤器 jQuery. ajaxPrefilter
+        2、请求分发器 jQuery. ajaxTransport
+        3、类型转换器 ajaxConvert
+    */
     var
         // Document location
         ajaxLocParts,
@@ -6975,7 +6995,14 @@
             }
         };
     }
-
+    /*
+    *遍历structure[dataType]数组，并执行回调
+    prefilterOrFactory为函数数组元素
+    执行该函数如果返回的结果dataTypeOrTransport是字符串且时prefilters且没有被inspected过
+    就给options.dataTypes数组头部添加该字符串
+    继续递归dataTypeOrTransport(当我们使用json/jsonp的时候会返回“script”，于是会执行“script”相关的回调)
+    如果是transport就返回dataTypeOrTransport的假结果
+     */
     // Base inspection function for prefilters and transports
     function inspectPrefiltersOrTransports(structure, options, originalOptions, jqXHR) {
 
@@ -7230,10 +7257,14 @@
                     readyState: 0,
 
                     // Builds headers hashtable if needed
+                     // 如果需要，创建一个响应头参数的表
                     getResponseHeader: function (key) {
                         var match;
+                         // 如果状态为2，状态2表示ajax完成
                         if (state === 2) {
+                             // 如果没有相应头
                             if (!responseHeaders) {
+                                 // 相应头设空
                                 responseHeaders = {};
                                 while ((match = rheaders.exec(responseHeadersString))) {
                                     responseHeaders[match[1].toLowerCase()] = match[2];
@@ -7760,6 +7791,11 @@
 
     // Install script dataType
     jQuery.ajaxSetup({
+         /**
+         * 内容类型发送请求头（Content-Type），用于通知服务器该请求需要接收何种类型的返回结果。
+         * 如果accepts设置需要修改，推荐在$.ajaxSetup() 方法中设置一次。
+         * @type {Object}
+         */
         accepts: {
             script: "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript"
         },
@@ -7783,7 +7819,7 @@
             s.type = "GET";
         }
     });
-
+    //请求分发器
     // Bind script tag hack transport
     jQuery.ajaxTransport("script", function (s) {
         // This transport only deals with cross domain requests
@@ -7827,19 +7863,23 @@
             return callback;
         }
     });
-
+    //前置过滤器
     // Detect, normalize options and install callbacks for jsonp requests
+    // 向前置过滤器对象中添加特定类型的过滤器
+    // 添加的过滤器将格式化参数，并且为jsonp请求增加callbacks
     jQuery.ajaxPrefilter("json jsonp", function (s, originalSettings, jqXHR) {
 
         var callbackName,
             overwritten,
             responseContainer,
+             // 如果是表单提交，则需要检查数据
             jsonProp = s.jsonp !== false && (rjsonp.test(s.url) ?
                     "url" :
                     typeof s.data === "string" && !(s.contentType || "").indexOf("application/x-www-form-urlencoded") && rjsonp.test(s.data) && "data"
             );
 
         // Handle iff the expected data type is "jsonp" or we have a parameter to set
+        // 这个方法只处理jsonp，如果json的url或data有jsonp的特征，会被当成jsonp处理
         if (jsonProp || s.dataTypes[0] === "jsonp") {
 
             // Get callback name, remembering preexisting value associated with it
@@ -7848,6 +7888,7 @@
                 s.jsonpCallback;
 
             // Insert callback into url or form data
+            // 插入回调url或表单数据
             if (jsonProp) {
                 s[jsonProp] = s[jsonProp].replace(rjsonp, "$1" + callbackName);
             } else if (s.jsonp !== false) {
@@ -7872,6 +7913,7 @@
             };
 
             // Clean-up function (fires after converters)
+             // 在代码执行完毕后清理这个全部函数
             jqXHR.always(function () {
                 // Restore preexisting value
                 window[callbackName] = overwritten;

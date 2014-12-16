@@ -26,7 +26,7 @@
 		});*/
 
 		var defer = $.Deferred(),
-		filtered = defer.pipe( null, function( value ) {
+		filtered = defer.then( null, function( value ) {
 			return value * 3;
 		});
 
