@@ -6919,7 +6919,7 @@
         rhash = /#.*$/,
         rts = /([?&])_=[^&]*/,
         rheaders = /^(.*?):[ \t]*([^\r\n]*)$/mg,
-        // #7653, #8125, #8152: local protocol detection
+        // #7653, #8125, #8152: local protocol detection//根据协议确定当前url请求的是否为本地请求
         rlocalProtocol = /^(?:about|app|app-storage|.+-extension|file|res|widget):$/,
         rnoContent = /^(?:GET|HEAD)$/,
         rprotocol = /^\/\//,
