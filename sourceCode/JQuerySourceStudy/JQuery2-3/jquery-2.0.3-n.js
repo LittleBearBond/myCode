@@ -2907,9 +2907,8 @@
 		jQuery.text = Sizzle.getText;
 		jQuery.isXMLDoc = Sizzle.isXML;
 		jQuery.contains = Sizzle.contains;
-
-
 	})(window);
+
 	//Options参数缓存
 	// String to Object options format cache
 	var optionsCache = {};
@@ -3123,6 +3122,7 @@
 
 		return self;
 	};
+
 	/*-------------debug code---------------*/
 	var deferredNums = 1;
 	/*-------------debug code---------------*/
@@ -3761,6 +3761,7 @@
 		return data;
 	}
 
+
 	jQuery.extend({
 		queue: function(elem, type, data) {
 			var queue;
@@ -3906,6 +3907,7 @@
 			return defer.promise(obj);
 		}
 	});
+
 	var nodeHook,
 		boolHook,
 		rclass = /[\t\r\n\f]/g,
@@ -4185,7 +4187,6 @@
 
 					return values;
 				},
-
 				set: function(elem, value) {
 					var optionSet,
 						option,
