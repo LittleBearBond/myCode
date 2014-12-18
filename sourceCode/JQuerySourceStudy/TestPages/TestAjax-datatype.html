@@ -40,18 +40,22 @@
 		// 局部事件
 		function bindLocalEvent(e) {
 			    var textareaid ='txt_event';			 
-			    $.ajax({
+			            $.ajax({
 				url:'ajax.php',
 				            type: 'get',
-				            dataType: 'text',
+				            dataType: 'json',
+					data:
+					{
+						'a':132
+					},
 				            global: true,
 				            cache: false,
 				            beforeSend: function (jqXHR, s) {
 					                log(textareaid, '触发beforeSend回调函数');
 				            },
 				            dataFilter: function (data, dataType) {
-					            log(textareaid, '触发dataFilter回调函数');
-						return data;
+					                log(textareaid, '触发dataFilter回调函数');
+					return data;
 				            },
 				            success: function (data, statusText, jqXHR) {
 					                log(textareaid, '触发success回调函数');
@@ -61,9 +65,16 @@
 				            },
 				            complete: function (jqXHR, textStatus) {
 					                log(textareaid, '触发complete回调函数');
-				            }
+				            },
+					statusCode:{
+						200:function(){
+							console.log([].slice.call(arguments));
+						}
+					}
 			        }).done(function(){
 				console.log('ajax done',this,[].slice.call(arguments));
+			}).then(function(){
+				console.log([].slice.call(arguments));
 			});
 		}
 		function log(textareaid, txt) {

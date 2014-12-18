@@ -11,6 +11,14 @@
  *
  * Date: 2013-07-03T13:30Z
  */
+/*
+*组合		一组操作直接一个接口完成，addClass return this.each()这种都是
+*适配器 	中间做适配，做兼容性相关问题处理， css e对象 事件操作  动画这些，时间钩子，属性钩子
+*外观		get post getJSON getScript 底层都是调用ajax,  对外提供统一接口，隐藏内部细节，安全、封装、重用，可维护
+*观察者		事件的绑定和触发 关闭相互解耦 互不联系
+*迭代器	、延迟初始化，工厂、代理、生成器 builder(创建对象的时间)
+*代码质量、代码风格、代码兼容性、代码可靠性、代码的性能、文档、可维护性
+ */
 (function(window, undefined) {
 
 	// Can't do this because several apps including ASP.NET trace
@@ -3282,6 +3290,7 @@
 			return deferred.promise();
 		}
 	});
+
 	jQuery.support = (function(support) {
 		var input = document.createElement("input"),
 			fragment = document.createDocumentFragment(),
@@ -7614,7 +7623,7 @@
 
 			// aborting is no longer a cancellation
 			strAbort = "abort";
-			// 增加回调队列
+			// 增加回调队列 把s中的数据放到jqXHR上
 			// Install callbacks on deferreds
 			for (i in {
 					success: 1,
