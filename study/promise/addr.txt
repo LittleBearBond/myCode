@@ -1,0 +1,14 @@
+﻿http://www.cnblogs.com/tugenhua0707/p/4161716.html
+http://www.alloyteam.com/page/2/
+http://www.alloyteam.com/2014/05/javascript-promise-mode/#comments
+https://github.com/chemdemo/chemdemo.github.io/issues/6
+http://www.html5rocks.com/zh/tutorials/es6/promises/
+http://www.html-js.com/article/Learn-JavaScript-every-day-to-understand-what-JavaScript-Promises
+http://www.csdn.net/article/2013-08-12/2816527-JavaScript-Promise
+http://inching.org/2014/05/27/javascript-asynchronous/
+http://www.cnblogs.com/hustskyking/p/javascript-asynchronous-programming.html
+https://www.imququ.com/post/promises-when-js.html
+http://ourjs.com/detail/5483d2d10dad0fbb6d000014
+http://www.w3cfuns.com/blog-5440229-5402622.html
+http://www.cnblogs.com/hustskyking/p/promise.html
+https://github.com/barretlee/myPromise/blob/gh-pages/lib/promise-minus.js
