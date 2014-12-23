@@ -187,7 +187,6 @@
 				this.context = this[0] = selector;
 				this.length = 1;
 				return this;
-
 				// HANDLE: $(function)
 				// Shortcut for document ready
 			} else if (jQuery.isFunction(selector)) { //处理$(function(){})
