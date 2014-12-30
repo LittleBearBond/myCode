@@ -1,35 +1,34 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>event2</title>
-	<script src="../JQuery2-3/jquery-2.0.3.js"></script>
+	<title>event-delegateevent</title>
+	<script src="../JQuery2-3/jquery-2.0.3-n.js"></script>
 	<script type="text/javascript">
 		$(function () {
-			var p1 = $('#p1');
+			/*var p1 = $('#p1');
 
 			p1.on('click', function () {
 				alert('灰-p1-0');
 			});
 			p1.on('click', function () {
 				alert('灰-p1-1');
-			});
-			/*var p2 = $('#p2');
+			});*/
 
+			var p2 = $('#p2');
+			p2.on('click', function (e) {
+				alert('默认事件1-p2');
+			});
 			p2.on('click', 'a,p', function (e) {
 				alert(e.currentTarget.nodeName + '-p2');
 			});
 
-			p2.on('click', function (e) {
-				alert('默认事件1-p2');
-			});
-
-			var p3 = $('#p3');
+			/*var p3 = $('#p3');
 			p3.on('click', {d:'123'},function (e,d) {
 				alert('红-p3'+d);
 			});*/
 
-		});
+	});
 
 	</script>
 </head>
