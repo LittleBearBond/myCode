@@ -12,12 +12,12 @@
  * Date: 2013-07-03T13:30Z
  */
 /*
-*组合		一组操作直接一个接口完成，addClass return this.each()这种都是
-*适配器 	中间做适配，做兼容性相关问题处理， css e对象 事件操作  动画这些，时间钩子，属性钩子
-*外观		get post getJSON getScript 底层都是调用ajax,  对外提供统一接口，隐藏内部细节，安全、封装、重用，可维护
-*观察者		事件的绑定和触发 关闭相互解耦 互不联系
-*迭代器	、延迟初始化，工厂、代理、生成器 builder(创建对象的时间)
-*代码质量、代码风格、代码兼容性、代码可靠性、代码的性能、文档、可维护性
+ *组合		一组操作直接一个接口完成，addClass return this.each()这种都是
+ *适配器 	中间做适配，做兼容性相关问题处理， css e对象 事件操作  动画这些，时间钩子，属性钩子
+ *外观		get post getJSON getScript 底层都是调用ajax,  对外提供统一接口，隐藏内部细节，安全、封装、重用，可维护
+ *观察者		事件的绑定和触发 关闭相互解耦 互不联系
+ *迭代器	、延迟初始化，工厂、代理、生成器 builder(创建对象的时间)
+ *代码质量、代码风格、代码兼容性、代码可靠性、代码的性能、文档、可维护性
  */
 (function(window, undefined) {
 
@@ -4461,18 +4461,18 @@
 				type,
 				namespaces,
 				origType,
-				  //获取数据缓存
+				//获取数据缓存
 				elemData = data_priv.get(elem);
 
 			// Don't attach events to noData or text/comment nodes (but allow plain objects)
-			 //检测状态，若为空数据、text或comment节点时，阻止绑定事件
+			//检测状态，若为空数据、text或comment节点时，阻止绑定事件
 			if (!elemData) {
 				return;
 			}
 
 			// Caller can pass in an object of custom data in lieu of the handler
-			 // 一般在第一运行的时候，handler为事件处理函数,后面jQuery对handler做了一些包装
-            		// 检测handler是包含handler和selector的对象，包含说明handler是一个事件处理函数包
+			// 一般在第一运行的时候，handler为事件处理函数,后面jQuery对handler做了一些包装
+			// 检测handler是包含handler和selector的对象，包含说明handler是一个事件处理函数包
 			if (handler.handler) {
 				handleObjIn = handler;
 				handler = handleObjIn.handler;
@@ -4481,15 +4481,15 @@
 
 			// Make sure that the handler has a unique ID, used to find/remove it later
 			// 测handler是否存在ID （guid），如果没有那么传给他一个ID
-           			 //添加ID的目的是 用来寻找或者删除handler
+			//添加ID的目的是 用来寻找或者删除handler
 			if (!handler.guid) {
 				handler.guid = jQuery.guid++;
 			}
 
 			// Init the element's event structure and main handler, if this is the first
 			// elemData:缓存的元素数据
-		            // events:事件处理程序 列队{type:[事件处理对象,事件处理对象]}
-		            // 检测缓存数据中没有events数据
+			// events:事件处理程序 列队{type:[事件处理对象,事件处理对象]}
+			// 检测缓存数据中没有events数据
 			if (!(events = elemData.events)) {
 				events = elemData.events = {};
 			}
@@ -4499,7 +4499,7 @@
 					// Discard the second event of a jQuery.event.trigger() and
 					// when an event is called after a page has unloaded
 					// 取消jQuery.event.trigger第二次触发事件
-                   				 // jQuery.event.dispatch 执行处理函数
+					// jQuery.event.dispatch 执行处理函数
 					return typeof jQuery !== core_strundefined && (!e || jQuery.event.triggered !== e.type) ?
 						jQuery.event.dispatch.apply(eventHandle.elem, arguments) :
 						undefined;
@@ -4515,12 +4515,12 @@
 			//长度 其实就是绑定事件的个数
 			t = types.length;
 			while (t--) {
-				 // 尝试取出事件的命名空间
-				  // 如"click.a.b" → ["click.a.b", "click", "a.b"]
+				// 尝试取出事件的命名空间
+				// 如"click.a.b" → ["click.a.b", "click", "a.b"]
 				tmp = rtypenamespace.exec(types[t]) || [];
 				// 取出事件类型，如click
 				type = origType = tmp[1];
-			  	 // 取出事件命名空间，如a.b，并根据"."分隔成数组
+				// 取出事件命名空间，如a.b，并根据"."分隔成数组
 				namespaces = (tmp[2] || "").split(".").sort();
 
 				// There *must* be a type, no attaching namespace-only handlers
@@ -4537,7 +4537,7 @@
 				type = (selector ? special.delegateType : special.bindType) || type;
 
 				// Update special based on newly reset type
-				 // type状态发生改变，重新定义特殊事件
+				// type状态发生改变，重新定义特殊事件
 				special = jQuery.event.special[type] || {};
 
 				// handleObj is passed to all event handlers
@@ -4570,7 +4570,7 @@
 				//特殊事件使用add处理
 				if (special.add) {
 					special.add.call(elem, handleObj);
-					 // 设置事件处理函数的ID
+					// 设置事件处理函数的ID
 					if (!handleObj.handler.guid) {
 						handleObj.handler.guid = handler.guid;
 					}
@@ -4737,6 +4737,7 @@
 
 			// Determine event propagation path in advance, per W3C events spec (#9951)
 			// Bubble up to document, then to window; watch for a global ownerDocument var (#9724)
+			// 模拟事件冒泡
 			if (!onlyHandlers && !special.noBubble && !jQuery.isWindow(elem)) {
 
 				bubbleType = special.delegateType || type;
@@ -4839,7 +4840,7 @@
 
 			// Run delegates first; they may want to stop propagation beneath us
 			i = 0;
-			 // 遍历事件处理器队列{elem, handlerObjs}(取出来则对应一个包了)，且事件没有阻止冒泡
+			// 遍历事件处理器队列{elem, handlerObjs}(取出来则对应一个包了)，且事件没有阻止冒泡
 			while ((matched = handlerQueue[i++]) && !event.isPropagationStopped()) {
 				event.currentTarget = matched.elem;
 				j = 0;
@@ -4848,19 +4849,23 @@
 
 					// Triggered event must either 1) have no namespace, or
 					// 2) have namespace(s) a subset or equal to those in the bound event (both can have no namespace).
-					 // 2) have namespace(s) a subset or equal to those in the bound event (both can have no namespace).
-				             // 触发的事件必须满足其一：
-				             // 1) 没有命名空间
-				             // 2) 有命名空间，且被绑定的事件是命名空间的一个子集
+					// 2) have namespace(s) a subset or equal to those in the bound event (both can have no namespace).
+					// 触发的事件必须满足其一：
+					// 1) 没有命名空间
+					// 2) 有命名空间，且被绑定的事件是命名空间的一个子集
 					if (!event.namespace_re || event.namespace_re.test(handleObj.namespace)) {
 
 						event.handleObj = handleObj;
 						event.data = handleObj.data;
-
+						// 尝试通过特殊事件获取处理函数，否则使用handleObj中保存的handler(所以handleObj中还保存有handler(事件处理函数))
+						// handleObj.origType 定义的事件类型
+						// handleObj.handler 事件处理函数
+						//执行事件处理函数
 						ret = ((jQuery.event.special[handleObj.origType] || {}).handle || handleObj.handler)
 							.apply(matched.elem, args);
 
 						if (ret !== undefined) {
+							// 如果处理函数返回值是false，则阻止冒泡，阻止默认动作,所以比较暴力就是直接return false
 							if ((event.result = ret) === false) {
 								event.preventDefault();
 								event.stopPropagation();
@@ -4877,7 +4882,13 @@
 
 			return event.result;
 		},
-
+		/*
+	         处理 事件处理器 针对事件委托和原生事件（例如"click"）绑定 区分对待
+	         事件委托从队列头部推入，而普通事件绑定从尾部推入，通过记录delegateCount来划分，委托(delegate)绑定和普通绑定。
+	         * @param {Object} event:jQuery.Event事件对象
+	         * @param {Object} handlers ：事件处理程序
+	         * @return {Object} 返回事件处理器 队列
+	         */
 		handlers: function(event, handlers) {
 			var i,
 				matches,
@@ -4890,20 +4901,28 @@
 			// Find delegate handlers
 			// Black-hole SVG <use> instance trees (#13180)
 			// Avoid non-left-click bubbling in Firefox (#3861)
+			// 如果有delegateCount，代表该事件是delegate类型的绑定
+			// 找出所有delegate的处理函数列队
+			// 火狐浏览器右键或者中键点击时，会错误地冒泡到document的click事件，并且stopPropagation也无效
 			if (delegateCount && cur.nodeType && (!event.button || event.type !== "click")) {
-
+				// 遍历元素及元素父级节点
 				for (; cur !== this; cur = cur.parentNode || this) {
 
 					// Don't process clicks on disabled elements (#6911, #8165, #11382, #11764)
+					// 不处理元素为disabled的click事件
 					if (cur.disabled !== true || event.type !== "click") {
+						// 开始组装符合要求的事件处理对象
 						matches = [];
 						for (i = 0; i < delegateCount; i++) {
 							handleObj = handlers[i];
 
 							// Don't conflict with Object.prototype properties (#13203)
+							//  选择器，用于过滤
 							sel = handleObj.selector + " ";
 
 							if (matches[sel] === undefined) {
+								// 如果matches上没有绑定该选择器数量
+								// 得出选择器数量，并赋值
 								matches[sel] = handleObj.needsContext ?
 									jQuery(sel, this).index(cur) >= 0 :
 									jQuery.find(sel, this, null, [cur]).length;
@@ -4934,11 +4953,12 @@
 		},
 
 		// Includes some event props shared by KeyEvent and MouseEvent
+		// 存储了原生事件对象 event 的通用属性
 		props: "altKey bubbles cancelable ctrlKey currentTarget eventPhase metaKey relatedTarget shiftKey target timeStamp view which".split(" "),
 
 		fixHooks: {},
 
-		keyHooks: {
+		keyHooks: { //存储键盘事件的特有属性
 			props: "char charCode key keyCode".split(" "),
 			filter: function(event, original) {
 
@@ -4951,7 +4971,7 @@
 			}
 		},
 
-		mouseHooks: {
+		mouseHooks: { //存储鼠标事件的特有属性。
 			props: "button buttons clientX clientY offsetX offsetY pageX pageY screenX screenY toElement".split(" "),
 			filter: function(event, original) {
 				var eventDoc,
@@ -5077,6 +5097,7 @@
 			// Piggyback on a donor event to simulate a different one.
 			// Fake originalEvent to avoid donor's stopPropagation, but if the
 			// simulated event prevents default then we do the same on the donor.
+			// 重写事件
 			var e = jQuery.extend(
 				new jQuery.Event(),
 				event, {
@@ -5085,11 +5106,13 @@
 					originalEvent: {}
 				}
 			);
-			if (bubble) {
-				jQuery.event.trigger(e, null, elem);
+			if (bubble) { // 如果要冒泡
+				jQuery.event.trigger(e, null, elem); // 利用jQuery.event.trigger模拟触发事件
 			} else {
+				// 否则利用jQuery.event.dispatch来执行处理
 				jQuery.event.dispatch.call(elem, e);
 			}
+			// 如果需要阻止默认操作，则阻止
 			if (e.isDefaultPrevented()) {
 				event.preventDefault();
 			}
@@ -7054,8 +7077,8 @@
 		ajaxLocation = ajaxLocation.href;
 	}
 	/*
-	*  rurl.exec('http://192.168.11.198:8080/sourceCode/JQuerySourceStudy/TestPages/TestAjax.html')
-	*  得到 ["http://192.168.11.198:8080", "http:", "192.168.11.198", "8080"]
+	 *  rurl.exec('http://192.168.11.198:8080/sourceCode/JQuerySourceStudy/TestPages/TestAjax.html')
+	 *  得到 ["http://192.168.11.198:8080", "http:", "192.168.11.198", "8080"]
 	 */
 
 	// Segment location into parts
@@ -7070,34 +7093,34 @@
 	 */
 	// Base "constructor" for jQuery.ajaxPrefilter and jQuery.ajaxTransport
 	function addToPrefiltersOrTransports(structure) {
-			// dataTypeExpression is optional and defaults to "*"
-			return function(dataTypeExpression, func) {
+		// dataTypeExpression is optional and defaults to "*"
+		return function(dataTypeExpression, func) {
 
-				if (typeof dataTypeExpression !== "string") {
-					func = dataTypeExpression;
-					dataTypeExpression = "*";
-				}
+			if (typeof dataTypeExpression !== "string") {
+				func = dataTypeExpression;
+				dataTypeExpression = "*";
+			}
 
-				var dataType,
-					i = 0,
-					dataTypes = dataTypeExpression.toLowerCase().match(core_rnotwhite) || [];
+			var dataType,
+				i = 0,
+				dataTypes = dataTypeExpression.toLowerCase().match(core_rnotwhite) || [];
 
-				if (jQuery.isFunction(func)) {
-					// For each dataType in the dataTypeExpression
-					while ((dataType = dataTypes[i++])) {
-						// Prepend if requested
-						if (dataType[0] === "+") {
-							dataType = dataType.slice(1) || "*";
-							(structure[dataType] = structure[dataType] || []).unshift(func);
+			if (jQuery.isFunction(func)) {
+				// For each dataType in the dataTypeExpression
+				while ((dataType = dataTypes[i++])) {
+					// Prepend if requested
+					if (dataType[0] === "+") {
+						dataType = dataType.slice(1) || "*";
+						(structure[dataType] = structure[dataType] || []).unshift(func);
 
-							// Otherwise append
-						} else {
-							(structure[dataType] = structure[dataType] || []).push(func);
-						}
+						// Otherwise append
+					} else {
+						(structure[dataType] = structure[dataType] || []).push(func);
 					}
 				}
-			};
-		}
+			}
+		};
+	}
 
 	/*
 	*遍历structure[dataType]数组，并执行回调

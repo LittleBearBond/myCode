@@ -8,8 +8,9 @@
 		$(function () {
 			var p1 = $('#p1');
 
-			p1.on('click', function () {
+			p1.on('click', function (e) {
 				alert('灰-p1-0');
+				return false;
 			});
 			p1.on('click', function () {
 				alert('灰-p1-1');

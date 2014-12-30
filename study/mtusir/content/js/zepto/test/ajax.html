@@ -832,7 +832,7 @@
       overrideMimeType: function(type) {
         this.responseHeaders['content-type'] = type
       },
-      withCredentials: false, 
+      withCredentials: false,
       send: function(data) {
         this.data = data
       },
@@ -881,9 +881,63 @@
         t.assertEqual(window.location, MockXHR.last.url)
       },
 
-      testCrossDomain: function(t) {
+      testCrossDomainCrossOrigin: function(t) {
         $.ajax({
           url: 'http://example.com/foo',
+          beforeSend: function(xhr, settings) {
+            t.assertTrue(settings.crossDomain)
+          }
+        })
+      },
+
+      testCrossDomainSameOrigin: function(t) {
+        $.ajax({
+          url: window.location.href,
+          beforeSend: function(xhr, settings) {
+            t.assertFalse(settings.crossDomain)
+          }
+        })
+      },
+
+      testCrossDomainLeadingSpace: function(t) {
+        $.ajax({
+          url: ' http://example.com/foo',
+          beforeSend: function(xhr, settings) {
+            t.assertTrue(settings.crossDomain)
+          }
+        })
+      },
+
+      testCrossDomainTrippleSlash: function(t) {
+        $.ajax({
+          url: 'http:///example.com/foo',
+          beforeSend: function(xhr, settings) {
+            t.assertTrue(settings.crossDomain)
+          }
+        })
+      },
+
+      testCrossDomainWithQuery: function(t) {
+        $.ajax({
+          url: window.location.href + "?foo=bar",
+          beforeSend: function(xhr, settings) {
+            t.assertFalse(settings.crossDomain)
+          }
+        })
+      },
+
+      testCrossDomainDifferentScheme: function(t) {
+        $.ajax({
+          url: "foo://" + window.location.host,
+          beforeSend: function(xhr, settings) {
+            t.assertTrue(settings.crossDomain)
+          }
+        })
+      },
+
+      testCrossDomainPeriodInScheme: function(t) {
+        $.ajax({
+          url: "foo.bar://example.com/foo",
           beforeSend: function(xhr, settings) {
             t.assertTrue(settings.crossDomain)
           }
@@ -1387,6 +1441,20 @@
         })
         result = decodeURIComponent(result)
         t.assertEqual(result, "title=Some+Countries&list[]=Ecuador&list[]=Austria&list[]=England&capitals[ecuador]=Quito&capitals[austria]=Vienna&capitals[GB][england]=London&capitals[GB][scotland]=Edinburgh")
+      },
+
+      testParamNullValues: function(t) {
+        t.assertEqual("x=&a[b]=&a[c]=",
+          decodeURIComponent($.param({ x: null, a: { b: null, c: undefined }})))
+        t.assertEqual("x=",
+          decodeURIComponent($.param([{ name: "x", value: null }])))
+      },
+
+      testParamFunctionValues: function(t) {
+        t.assertEqual("x=&a[b]=B",
+          decodeURIComponent($.param({ x: function(){}, a: { b: function(){ return "B" }}})))
+        t.assertEqual("x=&a[b]=B",
+          decodeURIComponent($.param([{ name: "x", value: null }, { name: "a[b]", value: function(){ return "B" }}])))
       },
 
       testParamEscaping: function(t) {
