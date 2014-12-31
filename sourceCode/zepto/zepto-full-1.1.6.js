@@ -170,11 +170,11 @@ var Zepto = (function() {
 
 	function Z(dom, selector) {
 		var i, len = dom ? dom.length : 0
-		//把dom对象数组放到this上，所以我们外部可以XX[0]得到一个原生的dom对象，关键就在这里，this是一个伪数组
+			//把dom对象数组放到this上，所以我们外部可以XX[0]得到一个原生的dom对象，关键就在这里，this是一个伪数组
 		for (i = 0; i < len; i++) this[i] = dom[i]
-		//把长度赋给this.length
+			//把长度赋给this.length
 		this.length = len
-		//这个就不说了
+			//这个就不说了
 		this.selector = selector || ''
 	}
 
@@ -243,7 +243,7 @@ var Zepto = (function() {
 				// Note: In both Chrome 21 and Firefox 15, DOM error 12
 				// is thrown if the fragment doesn't begin with <
 				//  如果是一个HTML片段，创建节点注意，在chrome21和FF15版本，
-             			// DOM错误12不是以<被抛出
+				// DOM错误12不是以<被抛出
 			if (selector[0] == '<' && fragmentRE.test(selector))
 				dom = zepto.fragment(selector, RegExp.$1, context), selector = null
 				// If there's a context, create a collection on that context first, and select
@@ -251,11 +251,11 @@ var Zepto = (function() {
 				//如果存在一个上下文环境，在这个上下文对象中去选择节点
 			else if (context !== undefined) return $(context).find(selector)
 				// If it's a CSS selector, use it to select nodes.
-			// 如果是一个css选择器，用它来选择节点
+				// 如果是一个css选择器，用它来选择节点
 			else dom = zepto.qsa(document, selector)
 		}
 		// If a function is given, call it when the DOM is ready
-		 // 如果一个函数存在，在domready就绪后触发
+		// 如果一个函数存在，在domready就绪后触发
 		else if (isFunction(selector)) return $(document).ready(selector)
 			// If a Zepto collection is given, just return it
 			// 如果zepto已经收集给出，直接返回
@@ -265,11 +265,11 @@ var Zepto = (function() {
 			// 如果节点已经为数组，进行聚合
 			if (isArray(selector)) dom = compact(selector)
 				// Wrap DOM nodes.
-			// 包装DOM节点
+				// 包装DOM节点
 			else if (isObject(selector))
 				dom = [selector], selector = null
 				// If it's a html fragment, create nodes from it
-			// 如果是一个HTML片段，对该片段创建节点
+				// 如果是一个HTML片段，对该片段创建节点
 			else if (fragmentRE.test(selector))
 				dom = zepto.fragment(selector.trim(), RegExp.$1, context), selector = null
 				// If there's a context, create a collection on that context first, and select
@@ -279,7 +279,7 @@ var Zepto = (function() {
 			else dom = zepto.qsa(document, selector)
 		}
 		// create a new Zepto collection from the nodes found
-		 // 对发现的节点创建一个新的Zepto集合，这里把查询到dom 对象和selector 传递给了zepto.Z
+		// 对发现的节点创建一个新的Zepto集合，这里把查询到dom 对象和selector 传递给了zepto.Z
 		return zepto.Z(dom, selector)
 	}
 
@@ -289,26 +289,34 @@ var Zepto = (function() {
 	// patchable in plugins.
 	$ = function(selector, context) {
 		return zepto.init(selector, context)
-
 	}
 
 	function extend(target, source, deep) {
 		for (key in source)
+		//深拷贝 并且source[key]是Object或者数组；====source[key] source[key] 可以提前缓存，每次写着不累啊。zepto的代码始终看着不够爽，个人习惯吧
 			if (deep && (isPlainObject(source[key]) || isArray(source[key]))) {
-				if (isPlainObject(source[key]) && !isPlainObject(target[key]))
-					target[key] = {}
-				if (isArray(source[key]) && !isArray(target[key]))
-					target[key] = []
-				extend(target[key], source[key], deep)
-			} else if (source[key] !== undefined) target[key] = source[key]
+			//如果source[key]是纯对象 但是target[key]不是纯对象
+			if (isPlainObject(source[key]) && !isPlainObject(target[key]))
+				target[key] = {}
+				//source[key]是数组 但是target[key]不是数组
+			if (isArray(source[key]) && !isArray(target[key]))
+				target[key] = []
+				//递归
+			extend(target[key], source[key], deep)
+				//不是深拷贝直接赋值给target
+		} else if (source[key] !== undefined) target[key] = source[key]
 	}
 
 	// Copy all but undefined properties from one or more
 	// objects to the `target` object.
 	$.extend = function(target) {
-		var deep, args = slice.call(arguments, 1)
+		var deep,
+			//转为数组
+			args = slice.call(arguments, 1)
+			//第一个参数为boolean类型
 		if (typeof target == 'boolean') {
 			deep = target
+				//取到args第一个对象
 			target = args.shift()
 		}
 		args.forEach(function(arg) {
@@ -326,6 +334,7 @@ var Zepto = (function() {
 			maybeClass = !maybeID && selector[0] == '.',
 			nameOnly = maybeID || maybeClass ? selector.slice(1) : selector, // Ensure that a 1 char tag name still gets checked
 			isSimple = simpleSelectorRE.test(nameOnly)
+
 		return (element.getElementById && isSimple && maybeID) ? // Safari DocumentFragment doesn't have getElementById
 			((found = element.getElementById(nameOnly)) ? [found] : []) :
 			(element.nodeType !== 1 && element.nodeType !== 9 && element.nodeType !== 11) ? [] :
@@ -341,6 +350,7 @@ var Zepto = (function() {
 		return selector == null ? $(nodes) : $(nodes).filter(selector)
 	}
 
+	//父元素是否有某个子元素，原生有的支持contains就调用element.contains,不支持就循环判断子节点的父节点
 	$.contains = document.documentElement.contains ?
 		function(parent, node) {
 			return parent !== node && parent.contains(node)
@@ -425,23 +435,24 @@ var Zepto = (function() {
 				value = callback(elements[i], i)
 				if (value != null) values.push(value)
 			} else
-			for (key in elements) {
-				value = callback(elements[key], key)
-				if (value != null) values.push(value)
-			}
+				for (key in elements) {
+					value = callback(elements[key], key)
+					if (value != null) values.push(value)
+				}
 		return flatten(values)
 	}
 
 	$.each = function(elements, callback) {
 		var i, key
+			//判断是否是数组
 		if (likeArray(elements)) {
+			//为什么不 缓存length,这样每次都得去 elements.length
 			for (i = 0; i < elements.length; i++)
 				if (callback.call(elements[i], i, elements[i]) === false) return elements
 		} else {
 			for (key in elements)
 				if (callback.call(elements[key], key, elements[key]) === false) return elements
 		}
-
 		return elements
 	}
 
@@ -461,7 +472,6 @@ var Zepto = (function() {
 	$.fn = {
 		constructor: zepto.Z,
 		length: 0,
-
 		// Because a collection acts like an array
 		// copy over these useful array functions.
 		forEach: emptyArray.forEach,
@@ -1012,11 +1022,11 @@ var Zepto = (function() {
 
 	//把$.fn赋值给Z.prototype、zepto.Z.prototype $.fn下的所有方法都挂在了zepto.Z的prototype和Z.prototype下，也就是说$("#test")已经拥有了$.fn的所有方法
 	zepto.Z.prototype = Z.prototype = $.fn
-	// Export internal API functions in the `$.zepto` namespace
+		// Export internal API functions in the `$.zepto` namespace
 	zepto.uniq = uniq
 	zepto.deserializeValue = deserializeValue
 	$.zepto = zepto
-	//返回内部的$对象
+		//返回内部的$对象
 	return $
 })()
 
@@ -2589,8 +2599,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 				else if (childRe.test(sel))
 				// support "> *" child queries by tagging the parent node with a
 				// unique class and prepending that classname onto the selector
-					taggedParent = $(node).addClass(classTag), sel = '.' + classTag + ' ' + sel
-
+				taggedParent = $(node).addClass(classTag), sel = '.' + classTag + ' ' + sel
 				var nodes = oldQsa(node, sel)
 			} catch (e) {
 				console.error('error performing selector: %o', selector)
