@@ -32,7 +32,7 @@
 	</ul>
 	<div id='block'>blockblockblock</div>
 	<div id='block2'>
-		off test2
+		<button  id="test5">test5 bubbles</button>
 	</div>
 	<button id="test1">test1</button>
 	<button id="test2">test2</button>
@@ -44,15 +44,18 @@
 		t2=$('#test2'),
 		t3=$('#test3'),
 		t4=$('#test4'),
+		t5=$('#test5'),
 		$items=$('#items'),
+		$block2=$('#block2'),
 		logFunc=function(){
 			console.log([].slice.call(arguments))
+			return false;
 		};
 
-		t1.on('click',logFunc)
-		t1.on('click',logFunc)
+		/*t1.on('click',logFunc)
+		t1.on('click',logFunc)*/
 
-/*		t2.one('click',logFunc)
+		/*t2.one('click',logFunc)
 
 		t2.on('mylib:change',logFunc)
 
@@ -63,8 +66,10 @@
 			t2.off('test2.test2');
 			t1.off('click');
 		});
-
 		$items.on('click','li',logFunc);*/
-	</script>
+		$block2.on('click',logFunc);
+		t5.on('click',logFunc);
+
+</script>
 </body>
 </html>

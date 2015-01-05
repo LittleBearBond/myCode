@@ -1976,13 +1976,14 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 	}
 
 	function add(element, events, fn, data, selector, delegator, capture) {
+		//取到元素的zid
 		var id = zid(element),
-			set = (handlers[id] || (handlers[id] = [])) //元素上已经绑定的所有事件处理函数
+			set = (handlers[id] || (handlers[id] = [])) //元素上已经绑定的所有事件处理函数，如果没有赋值一个新数组
 
 		events.split(/\s/).forEach(function(event) {
 			//如果是绑定dom ready事件
 			if (event == 'ready') return $(document).ready(fn)
-
+				//解析事件类型，返回一个包含事件名称和事件命名空间的对象
 			var handler = parse(event)
 				// //保存fn,下面为了处理mouseenter, mouseleave时，对fn进行了修改
 			handler.fn = fn
@@ -2005,28 +2006,35 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 			var callback = delegator || fn
 			handler.proxy = function(e) {
 					e = compatible(e)
+						//这个event对象执行过组织冒泡方法stopImmediatePropagation，这里直接返回。
 					if (e.isImmediatePropagationStopped()) return
 					e.data = data
+						//调用之前传入的回调函数
 					var result = callback.apply(element, e._args == undefined ? [e] : [e].concat(e._args))
 						//当事件处理函数返回false时，阻止默认操作和冒泡
 					if (result === false) e.preventDefault(), e.stopPropagation()
 					return result
 				}
-				//设置处理函数的在函数集中的位置
+				//设置处理函数的在函数集中的位置,remove的时候要用到
 			handler.i = set.length
-				//将函数存入函数集中
+				//将函数存入函数集中，引用类型，你懂的，handlers里面也有了
 			set.push(handler)
 			if ('addEventListener' in element)
+			//realEvent(handler.e) 处理事件类型，eventCapture绑定事件类型，是捕获还是冒泡
 				element.addEventListener(realEvent(handler.e), handler.proxy, eventCapture(handler, capture))
 		})
 	}
 
 	//删除绑定在元素上的指定类型的事件监听函数，可同时删除多种事件类型指定的函数，用数组或者还空格的字符串即可，同add
 	function remove(element, events, fn, selector, capture) {
+		//取到元素的zid
 		var id = zid(element);
 		(events || '').split(/\s/).forEach(function(event) {
 			findHandlers(element, event, fn, selector).forEach(function(handler) {
+				//删除handlers 对应这个元素（通过zid关联的），对应的索引的callback。
+				//var a=[1,2,3,4,5]  delete a[0]，delete a[3]====>[2,3,5]
 				delete handlers[id][handler.i]
+					//移除元素上绑定的事件
 				if ('removeEventListener' in element)
 					element.removeEventListener(realEvent(handler.e), handler.proxy, eventCapture(handler, capture))
 			})
@@ -2034,10 +2042,10 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 	}
 
 	$.event = {
-		add: add,
-		remove: remove
-	}
-
+			add: add,
+			remove: remove
+		}
+		//看到他 就想起了bind
 	$.proxy = function(fn, context) {
 		var args = (2 in arguments) && slice.call(arguments, 2)
 		if (isFunction(fn)) {
@@ -2064,6 +2072,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 	$.fn.unbind = function(event, callback) {
 		return this.off(event, callback)
 	}
+
 	$.fn.one = function(event, selector, data, callback) {
 		return this.on(event, selector, data, callback, 1)
 	}
@@ -2076,28 +2085,36 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 		},
 		ignoreProperties = /^([A-Z]|returnValue$|layer[XY]$)/,
 		eventMethods = {
-			preventDefault: 'isDefaultPrevented',//是否调用过preventDefault方法
-			 //取消执行其他的事件处理函数并取消事件冒泡.如果同一个事件绑定了多个事件处理函数, 在其中一个事件处理函数中调用此方法后将不会继续调用其他的事件处理函数.
-			stopImmediatePropagation: 'isImmediatePropagationStopped',//是否调用过stopImmediatePropagation方法，
-			stopPropagation: 'isPropagationStopped'//是否调用过stopPropagation方法
+			//是否调用过preventDefault方法
+			preventDefault: 'isDefaultPrevented',
+			//取消执行其他的事件处理函数并取消事件冒泡.如果同一个事件绑定了多个事件处理函数, 在其中一个事件处理函数中调用此方法后将不会继续调用其他的事件处理函数.
+			stopImmediatePropagation: 'isImmediatePropagationStopped', //是否调用过stopImmediatePropagation方法，
+			stopPropagation: 'isPropagationStopped' //是否调用过stopPropagation方法
 		}
 
+		//主要是在event和source做相关的处理
 	function compatible(event, source) {
+		//存在source 或者 event的isDefaultPrevented不存在
 		if (source || !event.isDefaultPrevented) {
 			source || (source = event)
-
 			$.each(eventMethods, function(name, predicate) {
+				//source['preventDefault']、source['stopImmediatePropagation']、source['stopPropagation']
 				var sourceMethod = source[name]
+					//event['preventDefault']、event['stopImmediatePropagation']、event['stopPropagation']
 				event[name] = function() {
-					this[predicate] = returnTrue
-					return sourceMethod && sourceMethod.apply(source, arguments)
-				}
+						//this['isDefaultPrevented']this['isImmediatePropagationStopped']this['isPropagationStopped']
+						//一旦调用过，event对象相应的值就会发生变化, 之前是returnFalse，现在是returnTrue
+						this[predicate] = returnTrue
+						return sourceMethod && sourceMethod.apply(source, arguments)
+					}
+					//event['isDefaultPrevented']、event['isImmediatePropagationStopped']、event['isPropagationStopped']
 				event[predicate] = returnFalse
 			})
 
 			if (source.defaultPrevented !== undefined ? source.defaultPrevented :
 				'returnValue' in source ? source.returnValue === false :
 				source.getPreventDefault && source.getPreventDefault())
+
 				event.isDefaultPrevented = returnTrue
 		}
 		return event
@@ -2105,9 +2122,10 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 
 	function createProxy(event) {
 		var key, proxy = {
-			originalEvent: event//保存原始event
+			originalEvent: event //保存原始event
 		}
 		for (key in event)
+		//不是需要忽略的
 			if (!ignoreProperties.test(key) && event[key] !== undefined) proxy[key] = event[key] //复制event属性至proxy
 
 		return compatible(proxy, event)
@@ -2119,8 +2137,8 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 	$.fn.undelegate = function(selector, event, callback) {
 		return this.off(event, selector, callback)
 	}
-
 	$.fn.live = function(event, callback) {
+		//委托到body上
 		$(document.body).delegate(this.selector, event, callback)
 		return this
 	}
@@ -2128,9 +2146,10 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 		$(document.body).undelegate(this.selector, event, callback)
 		return this
 	}
-
 	$.fn.on = function(event, selector, data, callback, one) {
 		var autoRemove, delegator, $this = this
+			//如果是{'click':function(){},'touchmove':function(){}}
+			//此时event是Object
 		if (event && !isString(event)) {
 			$.each(event, function(type, fn) {
 				$this.on(type, selector, data, fn, one)
@@ -2140,28 +2159,36 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 
 		if (!isString(selector) && !isFunction(callback) && callback !== false)
 			callback = data, data = selector, selector = undefined
+
 		if (isFunction(data) || data === false)
 			callback = data, data = undefined
 
 		if (callback === false) callback = returnFalse
 
 		return $this.each(function(_, element) {
+			//如果是一次性事件
 			if (one) autoRemove = function(e) {
-				remove(element, e.type, callback)
-				return callback.apply(this, arguments)
-			}
-
+					//移除该事件
+					remove(element, e.type, callback)
+						//执行回调
+					return callback.apply(this, arguments)
+				}
+				//事件委托
 			if (selector) delegator = function(e) {
+				//事件触发元素的祖先级元素
 				var evt, match = $(e.target).closest(selector, element).get(0)
+					//找到了 并且不是element本身
 				if (match && match !== element) {
+					//创建一个event对象
 					evt = $.extend(createProxy(e), {
-						currentTarget: match,
-						liveFired: element
-					})
+							currentTarget: match,
+							liveFired: element
+						})
+						//(autoRemove || callback)不是一次性事件，就调用callback，
+						// [evt].concat(slice.call(arguments, 1))拼接参数数组。
 					return (autoRemove || callback).apply(match, [evt].concat(slice.call(arguments, 1)))
 				}
 			}
-
 			add(element, event, callback, data, selector, delegator || autoRemove)
 		})
 	}
@@ -2183,7 +2210,6 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 			remove(this, event, callback, selector)
 		})
 	}
-
 	$.fn.trigger = function(event, args) {
 		event = (isString(event) || $.isPlainObject(event)) ? $.Event(event) : compatible(event)
 		event._args = args
@@ -2205,11 +2231,17 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 			e = createProxy(isString(event) ? $.Event(event) : event)
 			e._args = args
 			e.target = element
-				//遍历元素上绑定的指定类型的事件处理函数集，按顺序执行，如果执行过stopImmediatePropagation，
+				//遍历元素上绑定的指定类型的事件处理函数集，按顺序执行，如果执行过stopImmediatePropagation方法，
 				//那么e.isImmediatePropagationStopped()就会返回true,再外层函数返回false
-				//注意each里的回调函数指定返回false时，会跳出循环，这样就达到的停止执行回面函数的目的
+				//each里的回调函数指定返回false时，会跳出循环，这样就达到的停止执行回面函数的目的
 			$.each(findHandlers(element, event.type || event), function(i, handler) {
+				//直接调用handler.proxy发方法，没有经过浏览器，所以很多浏览器的行为不会发生。
+				// $("input").triggerHandler('focus');
+				// 此时input上的focus事件触发，但是input不会获取焦点。因为这里直接取到绑定到该元素对应的focus事件，然后调用
+				//$("input").trigger('focus');
+				// 此时input上的focus事件触发，input获取焦点。这里最后会dispatchEvent，会触发浏览器相关行为
 				result = handler.proxy(e)
+					//如果这个对象调用了ImmediatePropagationStopped方法
 				if (e.isImmediatePropagationStopped()) return false
 			})
 		})
@@ -2223,7 +2255,9 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 		'change select keydown keypress keyup error').split(' ').forEach(function(event) {
 			$.fn[event] = function(callback) {
 				return (0 in arguments) ?
+					//多个参数
 					this.bind(event, callback) :
+					//没有参数 直接调用
 					this.trigger(event)
 			}
 		})
