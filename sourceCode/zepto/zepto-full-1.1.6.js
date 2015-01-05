@@ -6,11 +6,14 @@
 var Zepto = (function() {
 	var undefined, key, $, classList, emptyArray = [],
 		concat = emptyArray.concat,
+		//javascript 1.6的新数组方法，请查API
 		filter = emptyArray.filter,
 		slice = emptyArray.slice,
+		//创建一个window.document的引用
 		document = window.document,
 		elementDisplay = {},
 		classCache = {},
+		//枚举了不需要加px的属性，若不是以下几种，就需要+px
 		cssNumber = {
 			'column-count': 1,
 			'columns': 1,
@@ -20,18 +23,23 @@ var Zepto = (function() {
 			'z-index': 1,
 			'zoom': 1
 		},
+		//标签及html注释的正则
 		fragmentRE = /^\s*<(\w+|!)[^>]*>/,
+		//该正则匹配一个独立的标签，如<div>|<div/>|<div><div/>|<div    />
 		singleTagRE = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
+		//匹配非单独一个闭合标签的标签，类似将<div></div>写成了<div/>
 		tagExpanderRE = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/ig,
+		//根节点，body or html
 		rootNodeRE = /^(?:body|html)$/i,
 		capitalRE = /([A-Z])/g,
-
+		// 特殊方法要通过set/get调用，这些方法都需要经过一些处理，不可以直接调用
 		// special attributes that should be get/set via method calls
 		methodAttributes = ['val', 'css', 'html', 'text', 'data', 'width', 'height', 'offset'],
-
+		//节点的操作
 		adjacencyOperators = ['after', 'prepend', 'before', 'append'],
 		table = document.createElement('table'),
 		tableRow = document.createElement('tr'),
+		// 表格标签要使用特殊的表格 ，其他标签使用div作为容器
 		containers = {
 			'tr': document.createElement('tbody'),
 			'tbody': table,
@@ -41,13 +49,27 @@ var Zepto = (function() {
 			'th': tableRow,
 			'*': document.createElement('div')
 		},
+		//兼容IE下的DOMContentLoaded事件，IE8及以下不支持DOMContentLoaded
+		//document.readyState有5种状态
+		/*	0-UNINITIALIZED：XML 对象被产生，但没有任何文件被加载。
+		 *	1-LOADING：加载程序进行中，但文件尚未开始解析。
+		 *	2-LOADED：部分的文件已经加载且进行解析，但对象模型尚未生效。
+		 *	3-INTERACTIVE：仅对已加载的部分文件有效，在此情况下，对象模型是有效但只读的。
+		 *	4-COMPLETED：文件已完全加载，代表加载成功。
+		 */
 		readyRE = /complete|loaded|interactive/,
+		//简单选择器
 		simpleSelectorRE = /^[\w-]*$/,
+		//对javascript 各种类型的判断集合
 		class2type = {},
 		toString = class2type.toString,
 		zepto = {},
 		camelize, uniq,
+		//创建一个div
 		tempParent = document.createElement('div'),
+		//摘自官网v1.1.0 版本的修复Support simple DOM property names in .prop(name) such as for, class, readonly…
+		//以下属性在JS中的调用名，与html的属性值不同，所以做一个简单的支持，所以使用这些属性时，用prop要好些
+		//v1.0增加prop属性，v1.1.0对这些JS调用名与实际HTML属性名不一致的值做支持
 		propMap = {
 			'tabindex': 'tabIndex',
 			'readonly': 'readOnly',
@@ -66,18 +88,27 @@ var Zepto = (function() {
 		function(object) {
 			return object instanceof Array
 		}
-
+		//判断一个元素是否匹配给定的选择器
 	zepto.matches = function(element, selector) {
+		//
 		if (!selector || !element || element.nodeType !== 1) return false
+			//引用浏览器提供的MatchesSelector方法
 		var matchesSelector = element.webkitMatchesSelector || element.mozMatchesSelector ||
 			element.oMatchesSelector || element.matchesSelector
+
 		if (matchesSelector) return matchesSelector.call(element, selector)
+			//如果浏览器不支持MatchesSelector方法，则将节点放入一个临时div节点，
+			//再通过selector来查找这个div下的节点集，再判断给定的element是否在节点集中，如果在，则返回一个非零(即非false)的数字
 			// fall back to performing a selector:
 		var match, parent = element.parentNode,
 			temp = !parent
+			//当element没有父节点，那么将其插入到一个临时的div里面
 		if (temp)(parent = tempParent).appendChild(element)
+			//将parent作为上下文，来查找selector的匹配结果，并获取element在结果集的索引，不存在时为－1,再通过~-1转成0，存在时返回一个非零的值，一般我喜欢!!~xx.indexOf(XX)
 		match = ~zepto.qsa(parent, selector).indexOf(element)
+			//将插入的节点删掉
 		temp && tempParent.removeChild(element)
+			//返回匹配结果
 		return match
 	}
 
@@ -133,6 +164,7 @@ var Zepto = (function() {
 			.toLowerCase()
 	}
 	uniq = function(array) {
+		// emptyArray.filter
 		return filter.call(array, function(item, idx) {
 			return array.indexOf(item) == idx
 		})
@@ -187,28 +219,36 @@ var Zepto = (function() {
 		var dom, nodes, container
 
 		// A special case optimization for a single tag
+		// 如果只是单个标签
 		if (singleTagRE.test(html)) dom = $(document.createElement(RegExp.$1))
-
+			//dom没有被赋值，不是单个标签
 		if (!dom) {
+			////将类似<div class="test"/>替换成<div class="test"></div>  对标签进行修复
 			if (html.replace) html = html.replace(tagExpanderRE, "<$1></$2>")
+				//外面没有传name这里指定name
 			if (name === undefined) name = fragmentRE.test(html) && RegExp.$1
+				//设置容器标签名，如果不是tr,tbody,thead,tfoot,td,th，则容器标签名为div
 			if (!(name in containers)) name = '*'
-
+				//取到对应的容器
 			container = containers[name]
+				//将html代码片断放入容器
 			container.innerHTML = '' + html
+				//取容器的子节点，这样就直接把字符串转成DOM节点了。
+				//先取到容器的子节点，再转换为数组，然后在挨个从容器中移除，最后返回节点数组
 			dom = $.each(slice.call(container.childNodes), function() {
 				container.removeChild(this)
 			})
 		}
-
+		//后面有设置相关属性、 则将其当作属性来给添加进来的节点进行设置
 		if (isPlainObject(properties)) {
-			nodes = $(dom)
+			nodes = $(dom) //将dom转成zepto对象，为了方便下面调用zepto上的方法
+				//遍历对象，设置属性
 			$.each(properties, function(key, value) {
+				//如果设置的是'val', 'css', 'html', 'text', 'data', 'width', 'height', 'offset'，则调用zepto上相对应的方法
 				if (methodAttributes.indexOf(key) > -1) nodes[key](value)
 				else nodes.attr(key, value)
 			})
 		}
-
 		return dom
 	}
 
@@ -330,18 +370,29 @@ var Zepto = (function() {
 	// This method can be overriden in plugins.
 	zepto.qsa = function(element, selector) {
 		var found,
+			//是否是id选择器
 			maybeID = selector[0] == '#',
+			//是做是class选择器
 			maybeClass = !maybeID && selector[0] == '.',
+			//不是id选择器，然后怕段是不是class选择器，如果是class选择器就是"."去掉，否则不做处理
 			nameOnly = maybeID || maybeClass ? selector.slice(1) : selector, // Ensure that a 1 char tag name still gets checked
+			// /^[\w-]*$/.test(nameOnly) 判断是不是简单选择器,用于后面判断是需要调用querySelectorAll
 			isSimple = simpleSelectorRE.test(nameOnly)
 
 		return (element.getElementById && isSimple && maybeID) ? // Safari DocumentFragment doesn't have getElementById
+			//如果是id选择器，并且浏览器支持getElementById方法，就调用element.getElementById方法，并且判断是否找到元素，返回对应的值
 			((found = element.getElementById(nameOnly)) ? [found] : []) :
+			//nodeType===> 元素element 1、属性attr 2、文本text 3、注释comments 8、文档document 9、Document Fragment 11
+			//不是元素直接返回空数组
 			(element.nodeType !== 1 && element.nodeType !== 9 && element.nodeType !== 11) ? [] :
+			//
 			slice.call(
 				isSimple && !maybeID && element.getElementsByClassName ? // DocumentFragment doesn't have getElementsByClassName/TagName
+				//调用getElementsByClassName
 				maybeClass ? element.getElementsByClassName(nameOnly) : // If it's simple, it could be a class
+				//调用getElementsByTagName
 				element.getElementsByTagName(selector) : // Or a tag
+				//调用querySelectorAll方法
 				element.querySelectorAll(selector) // Or it's not simple, and we need to query all
 			)
 	}
@@ -579,13 +630,17 @@ var Zepto = (function() {
 			var result, $this = this
 			if (!selector) result = $()
 			else if (typeof selector == 'object')
+			//找到所有符合selector的元素，然后在过滤
 				result = $(selector).filter(function() {
 					var node = this
 					return emptyArray.some.call($this, function(parent) {
+						//是mode的子节点
 						return $.contains(parent, node)
 					})
 				})
+				//this只有一个元素
 			else if (this.length == 1) result = $(zepto.qsa(this[0], selector))
+				//this包含多个节点对象，挨个查找每个元素下面符合selector的元素
 			else result = this.map(function() {
 				return zepto.qsa(this, selector)
 			})
@@ -602,13 +657,16 @@ var Zepto = (function() {
 		parents: function(selector) {
 			var ancestors = [],
 				nodes = this
+				//nodes最后到达顶级节点退出循环
 			while (nodes.length > 0)
 				nodes = $.map(nodes, function(node) {
+					//不是document，并且ancestors没有这个元素
 					if ((node = node.parentNode) && !isDocument(node) && ancestors.indexOf(node) < 0) {
 						ancestors.push(node)
 						return node
 					}
 				})
+				//在把取到的所有节点进行过滤
 			return filtered(ancestors, selector)
 		},
 		parent: function(selector) {
@@ -797,6 +855,7 @@ var Zepto = (function() {
 			}
 		},
 		css: function(property, value) {
+			//只有一个参数 或者没有参数
 			if (arguments.length < 2) {
 				var computedStyle, element = this[0]
 				if (!element) return
@@ -982,13 +1041,14 @@ var Zepto = (function() {
 					return argType == "object" || argType == "array" || arg == null ?
 						arg : zepto.fragment(arg)
 				}),
+				//如果集合的长度大于集，则需要clone被插入的节点
 				parent, copyByClone = this.length > 1
 			if (nodes.length < 1) return this
 
 			return this.each(function(_, target) {
 				parent = inside ? target : target.parentNode
-
-				// convert all methods to a "before" operation
+					//通过改变target将after，prepend，append操作转成before操作，insertBefore的第二个参数为null时等于appendChild操作
+					// convert all methods to a "before" operation
 				target = operatorIndex == 0 ? target.nextSibling :
 					operatorIndex == 1 ? target.firstChild :
 					operatorIndex == 2 ? target :
@@ -1871,74 +1931,97 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 			mouseenter: 'mouseover',
 			mouseleave: 'mouseout'
 		}
-
+		//特殊事件
 	specialEvents.click = specialEvents.mousedown = specialEvents.mouseup = specialEvents.mousemove = 'MouseEvents'
 
+	//取element的唯一标示符，如果没有，则设置一个并返回 ,保证-zid的唯一性
 	function zid(element) {
-		return element._zid || (element._zid = _zid++)
-	}
-
-	function findHandlers(element, event, fn, selector) {
-		event = parse(event)
-		if (event.ns) var matcher = matcherFor(event.ns)
-		return (handlers[zid(element)] || []).filter(function(handler) {
-			return handler && (!event.e || handler.e == event.e) && (!event.ns || matcher.test(handler.ns)) && (!fn || zid(handler.fn) === zid(fn)) && (!selector || handler.sel == selector)
-		})
-	}
-
-	function parse(event) {
-		var parts = ('' + event).split('.')
-		return {
-			e: parts[0],
-			ns: parts.slice(1).sort().join(' ')
+			return element._zid || (element._zid = _zid++)
 		}
-	}
-
+		//查找绑定在元素上的指定类型的事件处理函数集合
+	function findHandlers(element, event, fn, selector) {
+			event = parse(event)
+			if (event.ns) var matcher = matcherFor(event.ns)
+			return (handlers[zid(element)] || []).filter(function(handler) {
+				//判断事件命名空间是否相同
+				//注意函数是引用类型的数据zid(handler.fn)的作用是返回handler.fn的标示符，如果没有，则给它添加一个，
+				//这样如果fn和handler.fn引用的是同一个函数，那么fn上应该也可相同的标示符，
+				//这里就是通过这一点来判断两个变量是否引用的同一个函数
+				return handler && (!event.e || handler.e == event.e) &&
+					(!event.ns || matcher.test(handler.ns)) && (!fn || zid(handler.fn) === zid(fn)) && (!selector || handler.sel == selector)
+			})
+		}
+		//解析事件类型，返回一个包含事件名称和事件命名空间的对象
+	function parse(event) {
+			var parts = ('' + event).split('.')
+			return {
+				e: parts[0],
+				//name space
+				ns: parts.slice(1).sort().join(' ')
+			}
+		}
+		//生成命名空间的正则
 	function matcherFor(ns) {
-		return new RegExp('(?:^| )' + ns.replace(' ', ' .* ?') + '(?: |$)')
-	}
-
+			return new RegExp('(?:^| )' + ns.replace(' ', ' .* ?') + '(?: |$)')
+		}
+		//通过给focus和blur事件设置为捕获来达到事件冒泡的目的
 	function eventCapture(handler, captureSetting) {
-		return handler.del &&
-			(!focusinSupported && (handler.e in focus)) ||
-			!!captureSetting
-	}
-
+			return handler.del &&
+				(!focusinSupported && (handler.e in focus)) ||
+				!!captureSetting
+		}
+		//修复不支持mouseenter和mouseleave的情况
 	function realEvent(type) {
 		return hover[type] || (focusinSupported && focus[type]) || type
 	}
 
 	function add(element, events, fn, data, selector, delegator, capture) {
 		var id = zid(element),
-			set = (handlers[id] || (handlers[id] = []))
+			set = (handlers[id] || (handlers[id] = [])) //元素上已经绑定的所有事件处理函数
+
 		events.split(/\s/).forEach(function(event) {
+			//如果是绑定dom ready事件
 			if (event == 'ready') return $(document).ready(fn)
+
 			var handler = parse(event)
+				// //保存fn,下面为了处理mouseenter, mouseleave时，对fn进行了修改
 			handler.fn = fn
 			handler.sel = selector
 				// emulate mouseenter, mouseleave
+				// 模仿 mouseenter, mouseleave
 			if (handler.e in hover) fn = function(e) {
+				/*
+			              relatedTarget为事件相关对象，只有在mouseover和mouseout事件时才有值
+			              mouseover时表示的是鼠标移出的那个对象，mouseout时表示的是鼠标移入的那个对象
+			              当related不存在，表示事件不是mouseover或者mouseout,mouseover时!$.contains(this, related)当相关对象不在事件对象内
+			              且related !== this相关对象不是事件对象时，表示鼠标已经从事件对象外部移入到了对象本身，这个时间是要执行处理函数的
+			              当鼠标从事件对象上移入到子节点的时候related就等于this了，且!$.contains(this, related)也不成立，这个时间是不需要执行处理函数的
+			          */
 				var related = e.relatedTarget
 				if (!related || (related !== this && !$.contains(this, related)))
 					return handler.fn.apply(this, arguments)
 			}
-			handler.del = delegator
+			handler.del = delegator //事件委托
 			var callback = delegator || fn
 			handler.proxy = function(e) {
-				e = compatible(e)
-				if (e.isImmediatePropagationStopped()) return
-				e.data = data
-				var result = callback.apply(element, e._args == undefined ? [e] : [e].concat(e._args))
-				if (result === false) e.preventDefault(), e.stopPropagation()
-				return result
-			}
+					e = compatible(e)
+					if (e.isImmediatePropagationStopped()) return
+					e.data = data
+					var result = callback.apply(element, e._args == undefined ? [e] : [e].concat(e._args))
+						//当事件处理函数返回false时，阻止默认操作和冒泡
+					if (result === false) e.preventDefault(), e.stopPropagation()
+					return result
+				}
+				//设置处理函数的在函数集中的位置
 			handler.i = set.length
+				//将函数存入函数集中
 			set.push(handler)
 			if ('addEventListener' in element)
 				element.addEventListener(realEvent(handler.e), handler.proxy, eventCapture(handler, capture))
 		})
 	}
 
+	//删除绑定在元素上的指定类型的事件监听函数，可同时删除多种事件类型指定的函数，用数组或者还空格的字符串即可，同add
 	function remove(element, events, fn, selector, capture) {
 		var id = zid(element);
 		(events || '').split(/\s/).forEach(function(event) {
@@ -1993,9 +2076,10 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 		},
 		ignoreProperties = /^([A-Z]|returnValue$|layer[XY]$)/,
 		eventMethods = {
-			preventDefault: 'isDefaultPrevented',
-			stopImmediatePropagation: 'isImmediatePropagationStopped',
-			stopPropagation: 'isPropagationStopped'
+			preventDefault: 'isDefaultPrevented',//是否调用过preventDefault方法
+			 //取消执行其他的事件处理函数并取消事件冒泡.如果同一个事件绑定了多个事件处理函数, 在其中一个事件处理函数中调用此方法后将不会继续调用其他的事件处理函数.
+			stopImmediatePropagation: 'isImmediatePropagationStopped',//是否调用过stopImmediatePropagation方法，
+			stopPropagation: 'isPropagationStopped'//是否调用过stopPropagation方法
 		}
 
 	function compatible(event, source) {
@@ -2021,10 +2105,10 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 
 	function createProxy(event) {
 		var key, proxy = {
-			originalEvent: event
+			originalEvent: event//保存原始event
 		}
 		for (key in event)
-			if (!ignoreProperties.test(key) && event[key] !== undefined) proxy[key] = event[key]
+			if (!ignoreProperties.test(key) && event[key] !== undefined) proxy[key] = event[key] //复制event属性至proxy
 
 		return compatible(proxy, event)
 	}
@@ -2114,12 +2198,16 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 
 	// triggers event handlers on current element just as if an event occurred,
 	// doesn't trigger an actual event, doesn't bubble
+	//触发元素上绑定的指定类型的事件，但是不冒泡
 	$.fn.triggerHandler = function(event, args) {
 		var e, result
 		this.each(function(i, element) {
 			e = createProxy(isString(event) ? $.Event(event) : event)
 			e._args = args
 			e.target = element
+				//遍历元素上绑定的指定类型的事件处理函数集，按顺序执行，如果执行过stopImmediatePropagation，
+				//那么e.isImmediatePropagationStopped()就会返回true,再外层函数返回false
+				//注意each里的回调函数指定返回false时，会跳出循环，这样就达到的停止执行回面函数的目的
 			$.each(findHandlers(element, event.type || event), function(i, handler) {
 				result = handler.proxy(e)
 				if (e.isImmediatePropagationStopped()) return false
@@ -2133,19 +2221,23 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 	('focusin focusout focus blur load resize scroll unload click dblclick ' +
 		'mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave ' +
 		'change select keydown keypress keyup error').split(' ').forEach(function(event) {
-		$.fn[event] = function(callback) {
-			return (0 in arguments) ?
-				this.bind(event, callback) :
-				this.trigger(event)
-		}
-	})
-
+			$.fn[event] = function(callback) {
+				return (0 in arguments) ?
+					this.bind(event, callback) :
+					this.trigger(event)
+			}
+		})
+		//根据参数创建一个event对象
 	$.Event = function(type, props) {
+		//当type是个对象时
 		if (!isString(type)) props = type, type = props.type
+			//创建一个event对象，如果是click,mouseover,mouseout时，创建的是MouseEvent,bubbles为是否冒泡
 		var event = document.createEvent(specialEvents[type] || 'Events'),
 			bubbles = true
+			//确保bubbles的值为true或false,并将props参数的属性扩展到新创建的event对象上
 		if (props)
 			for (var name in props)(name == 'bubbles') ? (bubbles = !!props[name]) : (event[name] = props[name])
+				//初始化event对象，type为事件类型，如click，bubbles为是否冒泡，第三个参数表示是否可以用preventDefault方法来取消默认操作
 		event.initEvent(type, bubbles, true)
 		return compatible(event)
 	}
@@ -2519,7 +2611,9 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 ;
 (function($) {
 	var zepto = $.zepto,
+		//存储以前的zepto.qsa
 		oldQsa = zepto.qsa,
+		//存储以前的 zepto.matches
 		oldMatches = zepto.matches
 
 	function visible(elem) {
@@ -2577,38 +2671,67 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 
 	function process(sel, fn) {
 		// quote the hash in `a[href^=#]` expression
+		// 把# 加上引号
 		sel = sel.replace(/=#\]/g, '="#"]')
+			//$('div:first')=====>["div:first", "div", "first", undefined]
+			//$('div:eq(0)')=====>["div:eq(0)", "div", "eq", "0"]
 		var filter, arg, match = filterRe.exec(sel)
+			//匹配到的伪类选择必须是filters中有的visible、hidden、selected、checked、parent、first、last、eq、contains、has
 		if (match && match[2] in filters) {
-			filter = filters[match[2]], arg = match[3]
+			//取出对应的处理函数
+			filter = filters[match[2]],
+				//数组的地四个元素，其实就是元素索引值，eq的时候会有
+				arg = match[3]
+				//第一个值
 			sel = match[1]
+				//取得eq(num) 里面的num
 			if (arg) {
 				var num = Number(arg)
 				if (isNaN(num)) arg = arg.replace(/^["']|["']$/g, '')
 				else arg = num
 			}
 		}
+		//调用fn 传入选择器、filter、和索引值
 		return fn(sel, filter, arg)
 	}
 
 	zepto.qsa = function(node, selector) {
+		//直接调用process 然后返回
 		return process(selector, function(sel, filter, arg) {
 			try {
 				var taggedParent
+					//如果没有传入selector 又有filter 此时设置sel=*
 				if (!sel && filter) sel = '*'
 				else if (childRe.test(sel))
 				// support "> *" child queries by tagging the parent node with a
 				// unique class and prepending that classname onto the selector
-				taggedParent = $(node).addClass(classTag), sel = '.' + classTag + ' ' + sel
+				//给node添加一个class， sel=随即字符串加上之前的slector，最后再当前node下面去寻找对应的元素
+					taggedParent = $(node).addClass(classTag), sel = '.' + classTag + ' ' + sel
+					//调用以前的zepto.qsa 查找对应元素，这里var，是因为js没有块级作用域
 				var nodes = oldQsa(node, sel)
 			} catch (e) {
 				console.error('error performing selector: %o', selector)
 				throw e
 			} finally {
+				//去掉taggedParent之前添加的class
 				if (taggedParent) taggedParent.removeClass(classTag)
 			}
+			//是否有filter，如果有就过滤查找到的nodes节点
+			/*
+			*
+			* 先调用$.map方法，过滤nodes
+			*
+			$.map([1,2,3,4,5],function(item,index){
+			        if(item>1) return item*item;
+			});	// =>[4, 9, 16, 25]
+			//得到经过filter函数过滤后的节点集合，再次调用zepto.uniq去掉重复的元素
+			zepto.uniq=return emptyArray.filter.call(array, function(item, idx) {
+				return array.indexOf(item) == idx
+			})
+			 */
 			return !filter ? nodes :
 				zepto.uniq($.map(nodes, function(n, i) {
+					//调用filter,传入item、index、nodes、索引值
 					return filter.call(n, i, nodes, arg)
 				}))
 		})

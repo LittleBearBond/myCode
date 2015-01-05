@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>title</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta content="telephone=no" name="format-detection">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<style type="text/css" media="screen">
+		*{
+			margin:0;
+			padding:0;
+			box-sizing: border-box;
+		}
+		button{
+			width:150px;
+			height:100px;
+			line-height:100px;
+			margin:5px;
+		}
+	</style>
+</head>
+<body>
+	<h1 id='test'>test</h1>
+	<ul id='items'>
+		<li>List item 1 <span class='delete'>DELETE</span></li>
+		<li>List item 2 <span class='delete'>DELETE</span></li>
+	</ul>
+	<div id='block'>blockblockblock</div>
+	<div id='block2'>
+		off test2
+	</div>
+	<button id="test1">test1</button>
+	<button id="test2">test2</button>
+	<button id="test3">test3 trigger test2</button>
+	<button id="test4">off test2、test1 </button>
+	<script type="text/javascript" src="../zepto-full-1.1.6.js"></script>
+	<script>
+		var t1=$('#test1'),
+		t2=$('#test2'),
+		t3=$('#test3'),
+		t4=$('#test4'),
+		$items=$('#items'),
+		logFunc=function(){
+			console.log([].slice.call(arguments))
+		};
+
+		t1.on('click',logFunc)
+		t1.on('click',logFunc)
+
+/*		t2.one('click',logFunc)
+
+		t2.on('mylib:change',logFunc)
+
+		t3.on('click',function(){
+			t2.trigger('mylib:change',['one', 'two']);
+		});
+		t4.on('click',function(){
+			t2.off('test2.test2');
+			t1.off('click');
+		});
+
+		$items.on('click','li',logFunc);*/
+	</script>
+</body>
+</html>

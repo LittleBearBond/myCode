@@ -18,27 +18,51 @@
 		<li>List item 2 <span class='delete'>DELETE</span></li>
 	</ul>
 	<div id='block'></div>
+	<div id='block2'>
+		<ul>
+			<li>0001</li>
+			<li>0002</li>
+		</ul>
+		<p>1</p>
+		<p>2</p>
+	</div>
 	<script type="text/javascript" src="../zepto-full-1.1.6.js"></script>
 	<script>
 		//1 传入选择器
-		var d1=$('div');  //=> 所有页面中得div元素
+		/*var d1=$('div');  //=> 所有页面中得div元素
 		var d2=$('#test'); //=> ID 为 "test" 的元素
+		var d3=$('div:first');  //=> 所有页面中第一个div元素
+		var d4=$('div:eq(0)');  //=> 所有页面中第一个div元素
+		var d5=$('#block2 >p')*/
+		var d6=$('#block2');
+		var d7=$('li',d6);
 
-		// 创建元素:
+		/*// 创建元素:
 		var p1=$("<p>Hello</p>"); //=> 新的p元素
+		var p2=$("<p/>"); //=> 新的p元素
 		// 创建带有属性的元素:
-		var p2=$("<p />", { text:"Hello", id:"greeting", css:{color:'darkblue'} });
+		var p3=$("<p />", { text:"Hello", id:"greeting", css:{color:'darkblue'} });
 		//=> <p id=greeting style="color:darkblue">Hello</p>
 
 		//传入原生dom对象 或者zepto对象
 		var items=document.getElementById('items');
+		// 传入原生dom对象
 		var $items=$(items);
-		var $items1=$($items);
+		//传入zepto实例对象
+		var $$items=$($items);
 
 		// 当页面ready的时候，执行回调:
-		Zepto(function($){
+		$(function($){
 			alert('Ready to Zepto!')
 		})
+		console.log(d1);
+		console.log(d2)
+		console.log(d3)
+		console.log(p1)
+		console.log(p2)
+		console.log(items)
+		console.log($items)
+		console.log($$items)*/
 	</script>
 </body>
 </html>

@@ -50,10 +50,7 @@
 		initEvent: function() {
 			var es = this.events;
 			for (item in es) {
-				if (!es.hasOwnProperty(item)) {
-					continue;
-				}
-				this.bindEvent(item, es[item]);
+				es.hasOwnProperty(item) && this.bindEvent(item, es[item]);
 			}
 		},
 		bindEvent: function(de, func) {
@@ -77,7 +74,6 @@
 	MyView.extend = function(o) {
 		var parent = this,
 			sl = [].slice;
-
 		function F() {
 			return parent.apply(this, [o].concat(sl.call(arguments)));
 		}
