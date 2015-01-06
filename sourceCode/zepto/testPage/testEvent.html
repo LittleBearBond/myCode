@@ -57,19 +57,28 @@
 
 		/*t2.one('click',logFunc)
 
+		t4.on('click',function(){
+			t2.off('test2.test2');
+			t1.off('click');
+		});
+		$block2.on('click',logFunc);
+		t5.on('click',logFunc);
+		$items.on('click','li',logFunc);*/
+
+
+		/*t1.on('click.btn.xj',logFunc)
+		t2.on('click',function(){
+			t1.click();
+		});
+		t3.on('click',function(){
+			t1.triggerHandler('click');
+		});*/
+
 		t2.on('mylib:change',logFunc)
 
 		t3.on('click',function(){
 			t2.trigger('mylib:change',['one', 'two']);
 		});
-		t4.on('click',function(){
-			t2.off('test2.test2');
-			t1.off('click');
-		});
-		$items.on('click','li',logFunc);*/
-		$block2.on('click',logFunc);
-		t5.on('click',logFunc);
-
 </script>
 </body>
 </html>

@@ -88,6 +88,7 @@ var Zepto = (function() {
 		function(object) {
 			return object instanceof Array
 		}
+
 		//判断一个元素是否匹配给定的选择器
 	zepto.matches = function(element, selector) {
 		//
@@ -650,6 +651,7 @@ var Zepto = (function() {
 			var node = this[0],
 				collection = false
 			if (typeof selector == 'object') collection = $(selector)
+				//node存在, collection里面不包含node,
 			while (node && !(collection ? collection.indexOf(node) >= 0 : zepto.matches(node, selector)))
 				node = node !== context && !isDocument(node) && node.parentNode
 			return $(node)
@@ -2006,7 +2008,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 			var callback = delegator || fn
 			handler.proxy = function(e) {
 					e = compatible(e)
-						//这个event对象执行过组织冒泡方法stopImmediatePropagation，这里直接返回。
+						//这个event对象执行过阻止冒泡方法stopImmediatePropagation，这里直接返回。
 					if (e.isImmediatePropagationStopped()) return
 					e.data = data
 						//调用之前传入的回调函数
@@ -2125,7 +2127,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 			originalEvent: event //保存原始event
 		}
 		for (key in event)
-		//不是需要忽略的
+			//不是需要忽略的
 			if (!ignoreProperties.test(key) && event[key] !== undefined) proxy[key] = event[key] //复制event属性至proxy
 
 		return compatible(proxy, event)
@@ -2173,16 +2175,16 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 						//执行回调
 					return callback.apply(this, arguments)
 				}
-				//事件委托
+				//事件委托，这里是事件冒泡到element元素上
 			if (selector) delegator = function(e) {
-				//事件触发元素的祖先级元素
+				//事件触发元素e.target的祖先级元素
 				var evt, match = $(e.target).closest(selector, element).get(0)
 					//找到了 并且不是element本身
 				if (match && match !== element) {
 					//创建一个event对象
 					evt = $.extend(createProxy(e), {
-							currentTarget: match,
-							liveFired: element
+							currentTarget: match,//匹配到的元素
+							liveFired: element//委托的元素
 						})
 						//(autoRemove || callback)不是一次性事件，就调用callback，
 						// [evt].concat(slice.call(arguments, 1))拼接参数数组。
@@ -2282,10 +2284,13 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 
 ;
 (function($) {
+	//这个实现相对简单，一般自己可以任意扩展，也需要自己去扩展
 	$.fn.serializeArray = function() {
 		var name, type, result = [],
 			add = function(value) {
+				//有点递归的赶脚^_^
 				if (value.forEach) return value.forEach(add)
+					//添加到result中
 				result.push({
 					name: name,
 					value: value
@@ -2293,8 +2298,11 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 			}
 		if (this[0]) $.each(this[0].elements, function(_, field) {
 			type = field.type, name = field.name
+			//一堆判断 最后调用add，不是这些东西，并且没有被禁用，或者说是被选中checked
+			//这个判断写得不行哎
 			if (name && field.nodeName.toLowerCase() != 'fieldset' &&
-				!field.disabled && type != 'submit' && type != 'reset' && type != 'button' && type != 'file' &&
+				!field.disabled && type != 'submit' && type != 'reset' &&
+				type != 'button' && type != 'file' &&
 				((type != 'radio' && type != 'checkbox') || field.checked))
 				add($(field).val())
 		})
@@ -2304,8 +2312,10 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 	$.fn.serialize = function() {
 		var result = []
 		this.serializeArray().forEach(function(elm) {
+			//编码之后放入result
 			result.push(encodeURIComponent(elm.name) + '=' + encodeURIComponent(elm.value))
 		})
+		//用&链接 最后返回
 		return result.join('&')
 	}
 

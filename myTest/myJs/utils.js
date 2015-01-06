@@ -592,13 +592,48 @@ function launchFullScreen(element) {
 }
 
 function cancelFullScreen() {
-	if (document.exitFullscreen) {
-		document.exitFullscreen();
-	} else if (document.msExitFullscreen) {
-		document.msExitFullscreen();
-	} else if (document.mozCancelFullScreen) {
-		document.mozCancelFullScreen();
-	} else if (document.webkitExitFullscreen) {
-		document.webkitExitFullscreen();
+		if (document.exitFullscreen) {
+			document.exitFullscreen();
+		} else if (document.msExitFullscreen) {
+			document.msExitFullscreen();
+		} else if (document.mozCancelFullScreen) {
+			document.mozCancelFullScreen();
+		} else if (document.webkitExitFullscreen) {
+			document.webkitExitFullscreen();
+		}
+	}
+	// 假设已定义好某些Service
+var services = {
+		abc: 123,
+		def: 456,
+		ghi: 789
+	},
+	// 获取func的参数列表(依赖列表)
+	getFuncParams = function(func) {
+		var matches = func.toString().match(/^function\s*[^\(]*\(\s*([^\)]*)\)/m);
+		if (matches && matches.length > 1)
+			return matches[1].replace(/\s+/, '').split(',');
+		return [];
+	},
+	// 根据参数列表(依赖列表)填充参数(依赖项)
+	setFuncParams = function(params) {
+		for (var i in params) {
+			params[i] = services[params[i]];
+		}
+		return params;
+	};
+// 激活器
+function Activitor(func) {
+	var obj = {};
+	func.apply(obj, setFuncParams(getFuncParams(func)));
+	return obj;
+}
+// 定义新Service
+function Service(abc, ghi) {
+	this.write = function() {
+		console.log(abc,ghi);
 	}
 }
+// 实例化Service并调用方法
+var service = Activitor(Service);
+service.write();
