@@ -11,70 +11,33 @@
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<style type="text/css" media="screen">
-		html{
-			font-size:62.5%;
-		}
-		*{
-			margin:0;
-			padding:0;
-			box-sizing: border-box;
-		}
 		button{
 			width:150px;
 			height:100px;
 			line-height:100px;
 			margin:5px;
 		}
-		.test{
-			width:320px;
-			height:2rem;
-			background:#d6d6d6;
-			margin:auto;
-			font-size:12px;
-		}
-		ul>li{
-			width: 4rem;
-			height: 3.4rem;
-			line-height: 3.4rem;
-			text-align:center;
-			background:#FF4d48;
-			float:left;
-			font-size:14px;
-		}
 	</style>
 </head>
 <body>
-<script>
-	setTimeout(function(){
-		location.reload();
-	},1800*1000)
-</script>
-	<textarea name="" id="txt_event"></textarea>
 	<button type="" id="btnTest">testajax</button>
 	<script type="text/javascript" src="../zepto-full-1.1.6.js"></script>
 	<script>
-		var $d=$(document);
 		// 全局事件
-		$d.on('ajaxStart',function (e) {
-			    log('txt_event', '触发ajaxStart回调函数');
-		});
-		$d.on('ajaxSend',function (e) {
-			    log('txt_event', '触发ajaxSend回调函数');
-		});
-		$d.on('ajaxBeforeSend',function (e) {
-			    log('txt_event', '触发ajaxBeforeSend回调函数');
-		});
-		$d.on('ajaxSuccess',function (e, jqXHR, s, data) {
-			    log('txt_event', '触发ajaxSuccess回调函数');
-		});
-		$d.on('ajaxError',function (e, jqXHR, s, errorData) {
-			    log('txt_event', '触发ajaxError回调函数');
-		});
-		$d.on('ajaxComplete',function (e, jqXHR, s) {
-			    log('txt_event', '触发ajaxComplete回调函数');
-		});
-		$d.on('ajaxStop',function (e) {
-			    log('txt_event', '触发ajaxStop回调函数');
+		$(document).on('ajaxStart',function (e) {
+			    log('触发ajaxStart回调函数');
+		}).on('ajaxSend',function (e) {
+			    log('触发ajaxSend回调函数');
+		}).on('ajaxBeforeSend',function (e) {
+			    log('触发ajaxBeforeSend回调函数');
+		}).on('ajaxSuccess',function (e, jqXHR, s, data) {
+			    log('触发ajaxSuccess回调函数');
+		}).on('ajaxError',function (e, jqXHR, s, errorData) {
+			    log('触发ajaxError回调函数');
+		}).on('ajaxComplete',function (e, jqXHR, s) {
+			    log('触发ajaxComplete回调函数');
+		}).on('ajaxStop',function (e) {
+			    log('触发ajaxStop回调函数');
 		});
 
 		$('#btnTest').on('click',bindLocalEvent);
@@ -82,45 +45,49 @@
 		function bindLocalEvent(e) {
 			    var textareaid ='txt_event';			 
 			    $.ajax({
-				url:'http://192.168.11.198:8080/myTest/test/ajax-page.php',//http://192.168.11.198/up/dj-mobile/pushover/json/ajax.php
+				//跨域地址http://192.168.11.198:8080/myTest/test/ajax-page.php
+				//ajax.php
+				url:'ajax.php',//ajax.php
 				            type: 'get',
-				            dataType: 'jsonp',//text、json、jsonp
-					data:{
-						msg:'testtest',
-						error:3
-					},
-				            global: true,
-				            cache: false,
-					jsonpCallback:log2,
-				            beforeSend: function (jqXHR, s) {
-					                log(textareaid, '触发beforeSend回调函数');
-				            },
-				            dataFilter: function (data, dataType) {
-					            log(textareaid, '触发dataFilter回调函数');
-						return data;
-				            },
-				            success: function (data, statusText, jqXHR) {
-					                log(textareaid, '触发success回调函数');
-				            },
-				            error: function (jqXHR, textStatus, errorThrown) {
-					                log(textareaid, '触发error回调函数');
-				            },
-				            complete: function (jqXHR, textStatus) {
-					                log(textareaid, '触发complete回调函数');
-				            }
-			        }).done(function(){
-				console.log('ajax done',this,[].slice.call(arguments));
-			});
+				            dataType: 'json',//text、json、jsonp
+				data:{
+					msg:'testtest',
+					error:3
+				},
+			            //global: true,
+			            //cache: false,
+				//jsonpCallback:log2,
+			            beforeSend: function (jqXHR, s) {
+				            log('触发beforeSend回调函数');
+			            },
+				//zepto 不支持
+			            dataFilter: function (data, dataType) {
+				            log('触发dataFilter回调函数');
+					return data;
+			            },
+			            success: function (data, statusText, jqXHR) {
+			                	log('触发success回调函数');
+			            },
+			            error: function (jqXHR, textStatus, errorThrown) {
+			                	log('触发error回调函数');
+			            },
+			            complete: function (jqXHR, textStatus) {
+			                	log('触发complete回调函数');
+			            }}).done(function(){
+					console.log('触发ajax done',this,[].slice.call(arguments));
+				});
 		}
 
-		function log(textareaid, txt) {
-			  /*  var textarea = $("#" + textareaid);
-			    textarea.val(textarea.val() + '\r\n' + txt);*/
+		function log(txt) {
 			console.log(txt);
 		}
-		function log2(textareaid, txt) {
-			console.log('------------------------------');
-			return 'log2'
+		function log2(txt) {
+			console.log('------------jsonpCallback------------------');
+			//return function name
+			return 'log3';
+		}
+		function log3(txt) {
+			console.log('------------jsonpCallback done------------------');
 		}
 	</script>
 </body>

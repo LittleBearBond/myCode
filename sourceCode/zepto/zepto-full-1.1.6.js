@@ -89,7 +89,7 @@ var Zepto = (function() {
 			return object instanceof Array
 		}
 
-		//判断一个元素是否匹配给定的选择器
+	//判断一个元素是否匹配给定的选择器
 	zepto.matches = function(element, selector) {
 		//
 		if (!selector || !element || element.nodeType !== 1) return false
@@ -1113,30 +1113,30 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 		originAnchor = document.createElement('a')
 
 	originAnchor.href = window.location.href
-	/*
-	触发ajaxStart回调函数 testAjax.html:109
-	触发beforeSend回调函数 testAjax.html:109
-	触发ajaxBeforeSend回调函数 testAjax.html:109
-	触发ajaxSend回调函数 testAjax.html:109
-	XHR finished loading: GET "http://192.168.11.198:8080/sourceCode/zepto/testPage/ajax.php?_=1420612854381". zepto-full-1.1.6.js:1403
-	触发success回调函数 testAjax.html:109
-	触发ajax done
-	触发ajaxSuccess回调函数 testAjax.html:109
-	触发complete回调函数 testAjax.html:109
-	触发ajaxComplete回调函数 testAjax.html:109
-	触发ajaxStop回调函数
-	 */
-	// trigger a custom event and return false if it was cancelled
+		/*
+		触发ajaxStart回调函数 testAjax.html:109
+		触发beforeSend回调函数 testAjax.html:109
+		触发ajaxBeforeSend回调函数 testAjax.html:109
+		触发ajaxSend回调函数 testAjax.html:109
+		XHR finished loading: GET "http://192.168.11.198:8080/sourceCode/zepto/testPage/ajax.php?_=1420612854381". zepto-full-1.1.6.js:1403
+		触发success回调函数 testAjax.html:109
+		触发ajax done
+		触发ajaxSuccess回调函数 testAjax.html:109
+		触发complete回调函数 testAjax.html:109
+		触发ajaxComplete回调函数 testAjax.html:109
+		触发ajaxStop回调函数
+		 */
+		// trigger a custom event and return false if it was cancelled
 	function triggerAndReturn(context, eventName, data) {
-		//初始化一个Event对象
-		var event = $.Event(eventName)
-		//触发context这个对象的该事件
-		$(context).trigger(event, data)
-		//返回是否调用过阻止默认行为，初始为false，掉用过就是true
-		return !event.isDefaultPrevented()
-	}
-	//触发 ajax的全局事件
-	// trigger an Ajax "global" event
+			//初始化一个Event对象
+			var event = $.Event(eventName)
+				//触发context这个对象的该事件
+			$(context).trigger(event, data)
+				//返回是否调用过阻止默认行为，初始为false，掉用过就是true
+			return !event.isDefaultPrevented()
+		}
+		//触发 ajax的全局事件
+		// trigger an Ajax "global" event
 	function triggerGlobal(settings, context, eventName, data) {
 		//默认context为document
 		if (settings.global) return triggerAndReturn(context || document, eventName, data)
@@ -1157,46 +1157,46 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 	// triggers an extra global event "ajaxBeforeSend" that's like "ajaxSend" but cancelable
 	function ajaxBeforeSend(xhr, settings) {
 		var context = settings.context
-		//先触发beforeSend 再触发ajaxBeforeSend ，其中一个返回false就停止往下执行
+			//先触发beforeSend 再触发ajaxBeforeSend ，其中一个返回false就停止往下执行
 		if (settings.beforeSend.call(context, xhr, settings) === false ||
 			triggerGlobal(settings, context, 'ajaxBeforeSend', [xhr, settings]) === false)
 			return false
-		//触发ajaxSend
+				//触发ajaxSend
 		triggerGlobal(settings, context, 'ajaxSend', [xhr, settings])
 	}
 
 	function ajaxSuccess(data, xhr, settings, deferred) {
 			var context = settings.context,
 				status = 'success'
-			//获取上下文，调用success
+				//获取上下文，调用success
 			settings.success.call(context, data, status, xhr)
-			//如果引用了Deferred模块，这里执行成功的通知，并传递相关参数
+				//如果引用了Deferred模块，这里执行成功的通知，并传递相关参数
 			if (deferred) deferred.resolveWith(context, [data, status, xhr])
 				//触发全局的成功
 			triggerGlobal(settings, context, 'ajaxSuccess', [xhr, settings, data])
-			//调用ajaxComplete
+				//调用ajaxComplete
 			ajaxComplete(status, xhr, settings)
 		}
 		// type: "timeout", "error", "abort", "parsererror"
 	function ajaxError(error, type, xhr, settings, deferred) {
 			var context = settings.context
-			//获取上下文，调用error
+				//获取上下文，调用error
 			settings.error.call(context, xhr, type, error)
-			//如果引用了Deferred模块，这里执行失败的通知，并传递相关参数
+				//如果引用了Deferred模块，这里执行失败的通知，并传递相关参数
 			if (deferred) deferred.rejectWith(context, [xhr, type, error])
 				//触发全局的失败
 			triggerGlobal(settings, context, 'ajaxError', [xhr, settings, error || type])
-			//调用ajaxComplete
+				//调用ajaxComplete
 			ajaxComplete(type, xhr, settings)
 		}
 		// status: "success", "notmodified", "error", "timeout", "abort", "parsererror"
 	function ajaxComplete(status, xhr, settings) {
 		var context = settings.context
-		//调用setting里面的complete
+			//调用setting里面的complete
 		settings.complete.call(context, xhr, status)
-		//触发ajaxComplete
+			//触发ajaxComplete
 		triggerGlobal(settings, context, 'ajaxComplete', [xhr, settings])
-		//调用ajaxStop
+			//调用ajaxStop
 		ajaxStop(settings)
 	}
 
@@ -1204,69 +1204,71 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 	function empty() {}
 
 	$.ajaxJSONP = function(options, deferred) {
-		if (!('type' in options)) return $.ajax(options)
+			//没有指定type
+			if (!('type' in options)) return $.ajax(options)
 
-		var _callbackName = options.jsonpCallback,
-			//调用options.jsonpCallback，得到返回的字符串，如果没有任何返回就生成一个callbackName=jsonpXXX.
-			callbackName = ($.isFunction(_callbackName) ?
-				_callbackName() : _callbackName) || ('jsonp' + (++jsonpID)),
-			//创建一个script标签，这里貌似没有jq的简洁啊
-			script = document.createElement('script'),
-			//保存最初指定的window[callbackName] callback
-			//如果调用options.jsonpCallback，但都没返回这里就是随机生成的jsonpXXX函数名，window[callbackName]应该是不存在的
-			originalCallback = window[callbackName],
-			responseData,
-			abort = function(errorType) {
-				$(script).triggerHandler('error', errorType || 'abort')
-			},
-			xhr = {
-				abort: abort
-			},
-			abortTimeout
+			var _callbackName = options.jsonpCallback,
+				//调用options.jsonpCallback，得到返回的字符串。
+				//如果没有任何返回就生成一个callbackName=jsonpXXX.
+				callbackName = ($.isFunction(_callbackName) ?
+					_callbackName() : _callbackName) || ('jsonp' + (++jsonpID)),
+				//创建一个script标签，这里貌似没有jq的简洁啊
+				script = document.createElement('script'),
+				//保存最初指定的window[callbackName] callback
+				//如果调用options.jsonpCallback，但都没返回这里就是随机生成的jsonpXXX函数名，window[callbackName]应该是不存在的
+				originalCallback = window[callbackName],
+				responseData,
+				abort = function(errorType) {
+					$(script).triggerHandler('error', errorType || 'abort')
+				},
+				xhr = {
+					abort: abort
+				},
+				abortTimeout
 
-		if (deferred) deferred.promise(xhr)
+			if (deferred) deferred.promise(xhr)
 
-		$(script).on('load error', function(e, errorType) {
-			clearTimeout(abortTimeout)
-			//销毁事件，移除元素
-			$(script).off().remove()
+			$(script).on('load error', function(e, errorType) {
+				clearTimeout(abortTimeout)
+					//销毁事件，移除元素
+				$(script).off().remove()
 
-			if (e.type == 'error' || !responseData) {
-				ajaxError(null, errorType || 'error', xhr, options, deferred)
-			} else {
-				ajaxSuccess(responseData[0], xhr, options, deferred)
-			}
-			//赋值回原来的callback
-			window[callbackName] = originalCallback
-			//最初保存的window[callbackName]
-			if (responseData && $.isFunction(originalCallback))
+				if (e.type == 'error' || !responseData) {
+					ajaxError(null, errorType || 'error', xhr, options, deferred)
+				} else {
+					ajaxSuccess(responseData[0], xhr, options, deferred)
+				}
+				//赋值回原来的callback
+				window[callbackName] = originalCallback
+					//最初保存的window[callbackName]
+				if (responseData && $.isFunction(originalCallback))
 				//调用
-				originalCallback(responseData[0])
-			//销毁
-			originalCallback = responseData = undefined
-		})
+					originalCallback(responseData[0])
+					//销毁
+				originalCallback = responseData = undefined
+			})
 
-		if (ajaxBeforeSend(xhr, options) === false) {
-			abort('abort')
+			if (ajaxBeforeSend(xhr, options) === false) {
+				abort('abort')
+				return xhr
+			}
+			//生成的jsonpXXX函数，指定callback=jsonpXXX。 请求成功返回，就会调用这个函数，给responseData赋值
+			//之前originalCallback = window[callbackName] 保存过了，这里重新指定
+			window[callbackName] = function() {
+				responseData = arguments
+			}
+			//处理简写 callback的情况
+			script.src = options.url.replace(/\?(.+)=\?/, '?$1=' + callbackName)
+				//append到页面上
+			document.head.appendChild(script)
+			//处理超时的情况
+			if (options.timeout > 0) abortTimeout = setTimeout(function() {
+				abort('timeout')
+			}, options.timeout)
+
 			return xhr
 		}
-		//生成的jsonpXXX函数，指定callback=jsonpXXX。 请求成功返回，就会调用这个函数，给responseData赋值
-		//之前originalCallback = window[callbackName] 保存过了，这里重新指定
-		window[callbackName] = function() {
-			responseData = arguments
-		}
-
-		script.src = options.url.replace(/\?(.+)=\?/, '?$1=' + callbackName)
-		//append到页面上
-		document.head.appendChild(script)
-
-		if (options.timeout > 0) abortTimeout = setTimeout(function() {
-			abort('timeout')
-		}, options.timeout)
-
-		return xhr
-	}
-	//默认的setting
+		//默认的setting
 	$.ajaxSettings = {
 		// Default type of request
 		type: 'GET',
@@ -1313,6 +1315,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 			xmlTypeRE.test(mime) && 'xml') || 'text'
 	}
 
+	//参数拼接
 	function appendQuery(url, query) {
 		if (query == '') return url
 		return (url + '&' + query).replace(/[&?]{1,2}/, '?')
@@ -1335,7 +1338,8 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 			//把settings中没有$.ajaxSettings中的设置 都给赋值到settings里面
 		for (key in $.ajaxSettings)
 			if (settings[key] === undefined) settings[key] = $.ajaxSettings[key]
-		//调用	ajaxStart
+
+			//调用ajaxStart
 		ajaxStart(settings)
 
 		//如果不是跨域
@@ -1343,15 +1347,17 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 			urlAnchor = document.createElement('a')
 			urlAnchor.href = settings.url
 			urlAnchor.href = urlAnchor.href
-			//内部判断当前的url是否跨域
+				//内部判断当前的url是否跨域
 			settings.crossDomain = (originAnchor.protocol + '//' + originAnchor.host) !== (urlAnchor.protocol + '//' + urlAnchor.host)
 		}
 		//没有设置url  默认为当前页面的地址
 		if (!settings.url) settings.url = window.location.toString()
+
 		//处理里面的data
 		serializeData(settings)
 
 		var dataType = settings.dataType,
+			//如果请求的是jsonp，则将地址栏里的=?替换为callback=?,相当于一个简写
 			hasPlaceholder = /\?.+=\?/.test(settings.url)
 		if (hasPlaceholder) dataType = 'jsonp'
 
@@ -1359,7 +1365,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 				(!options || options.cache !== true) &&
 				('script' == dataType || 'jsonp' == dataType)
 			))
-			//不缓存，在url后面添加时间戳
+		//不缓存，在url后面添加时间戳
 			settings.url = appendQuery(settings.url, '_=' + Date.now())
 
 		//针对jsonp进行处理
@@ -1378,9 +1384,9 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 			xhr = settings.xhr(),
 			nativeSetHeader = xhr.setRequestHeader,
 			abortTimeout
-
+			//引入了Deferred没款，这里xhr就附加了promise对象的相关行为，最后返回的是一个promise对象，后续就可以链式done
 		if (deferred) deferred.promise(xhr)
-		//设置header
+			//设置header
 		if (!settings.crossDomain) setHeader('X-Requested-With', 'XMLHttpRequest')
 		setHeader('Accept', mime || '*/*')
 
@@ -1388,24 +1394,30 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 			if (mime.indexOf(',') > -1) mime = mime.split(',', 2)[0]
 			xhr.overrideMimeType && xhr.overrideMimeType(mime)
 		}
+
 		//设置contentType
 		if (settings.contentType || (settings.contentType !== false && settings.data && settings.type.toUpperCase() != 'GET'))
 			setHeader('Content-Type', settings.contentType || 'application/x-www-form-urlencoded')
 
 		if (settings.headers)
 			for (name in settings.headers) setHeader(name, settings.headers[name])
+
 		xhr.setRequestHeader = setHeader
 
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState == 4) {
 				xhr.onreadystatechange = empty
-				//清楚setTimeout
+					//清楚setTimeout
 				clearTimeout(abortTimeout)
 				var result, error = false
+					//根据状态来判断请求是否成功
+					//状态>=200 && < 300 表示成功
+					//状态 == 304 表示文件未改动过，也可认为成功
+					//如果是取要本地文件那也可以认为是成功的，xhr.status == 0是在直接打开页面时发生请求时出现的状态，也就是不是用localhost的形式访问的页面的情况
 				if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304 || (xhr.status == 0 && protocol == 'file:')) {
 					//取到dataType
 					dataType = dataType || mimeToDataType(settings.mimeType || xhr.getResponseHeader('content-type'))
-					//取到返回的数据
+						//取到返回的数据
 					result = xhr.responseText
 
 					try {
@@ -1416,7 +1428,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 					} catch (e) {
 						error = e
 					}
-					//触犯error
+					//调用ajaxError
 					if (error) ajaxError(error, 'parsererror', xhr, settings, deferred)
 					else ajaxSuccess(result, xhr, settings, deferred)
 				} else {
@@ -1431,16 +1443,17 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 			ajaxError(null, 'abort', xhr, settings, deferred)
 			return xhr
 		}
-
+		//设置请求头信息
 		if (settings.xhrFields)
 			for (name in settings.xhrFields) xhr[name] = settings.xhrFields[name]
 
 		var async = 'async' in settings ? settings.async : true
-		//发起请求
+			//发起请求
 		xhr.open(settings.type, settings.url, async, settings.username, settings.password)
 
 		for (name in headers) nativeSetHeader.apply(xhr, headers[name])
 
+		//当设置了settings.timeout，则在超时后取消请求，并执行timeout事件处理函数，并处罚error
 		if (settings.timeout > 0) abortTimeout = setTimeout(function() {
 			xhr.onreadystatechange = empty
 			xhr.abort()
@@ -1449,6 +1462,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 
 		// avoid sending empty string (#319)
 		xhr.send(settings.data ? settings.data : null)
+			//如果引入了Deferred模块这里返回promise对象
 		return xhr
 	}
 
@@ -1492,7 +1506,8 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 		options.success = function(response) {
 			//创建一个div，把返回的字符串script替换掉，把放字符串入div中，通过选择器找到对应元素
 			self.html(selector ?
-				$('<div>').html(response.replace(rscript, "")).find(selector) : response)
+					$('<div>').html(response.replace(rscript, "")).find(selector) : response)
+				//调用传入的回调函数
 			callback && callback.apply(self, arguments)
 		}
 		$.ajax(options)
@@ -1506,11 +1521,17 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 			hash = $.isPlainObject(obj)
 		$.each(obj, function(key, value) {
 			type = $.type(value)
+				//scope用作处理value也是object或者array的情况
+				//traditional表示是否以传统的方式拼接数据，
+				//传统的意思就是比如现有一个数据{a:[1,2,3]},转成查询字符串后结果为'a=1&a=2&a=3'
+				//非传统的的结果则是a[]=1&a[]=2&a[]=3
 			if (scope) key = traditional ? scope :
 				scope + '[' + (hash || type == 'object' || type == 'array' ? key : '') + ']'
 				// handle data in serializeArray() format
+				//当处理的数据为[{},{},{}]这种情况的时候，一般指的是序列化表单后的结果
 			if (!scope && array) params.add(value.name, value.value)
 				// recurse into nested objects
+				// 当value值是数组或者是对象且不是按传统的方式序列化的时候，需要再次遍历value
 			else if (type == "array" || (!traditional && type == "object"))
 				serialize(params, value, traditional, key)
 			else params.add(key, value)
@@ -2148,7 +2169,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 			stopPropagation: 'isPropagationStopped' //是否调用过stopPropagation方法
 		}
 
-		//主要是在event和source做相关的处理
+	//主要是在event和source做相关的处理
 	function compatible(event, source) {
 		//存在source 或者 event的isDefaultPrevented不存在
 		if (source || !event.isDefaultPrevented) {
@@ -2181,7 +2202,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 			originalEvent: event //保存原始event
 		}
 		for (key in event)
-			//不是需要忽略的
+		//不是需要忽略的
 			if (!ignoreProperties.test(key) && event[key] !== undefined) proxy[key] = event[key] //复制event属性至proxy
 
 		return compatible(proxy, event)
@@ -2237,8 +2258,8 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 				if (match && match !== element) {
 					//创建一个event对象
 					evt = $.extend(createProxy(e), {
-							currentTarget: match,//匹配到的元素
-							liveFired: element//委托的元素
+							currentTarget: match, //匹配到的元素
+							liveFired: element //委托的元素
 						})
 						//(autoRemove || callback)不是一次性事件，就调用callback，
 						// [evt].concat(slice.call(arguments, 1))拼接参数数组。
@@ -2352,8 +2373,8 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 			}
 		if (this[0]) $.each(this[0].elements, function(_, field) {
 			type = field.type, name = field.name
-			//一堆判断 最后调用add，不是这些东西，并且没有被禁用，或者说是被选中checked
-			//这个判断写得不行哎
+				//一堆判断 最后调用add，不是这些东西，并且没有被禁用，或者说是被选中checked
+				//这个判断写得不行哎
 			if (name && field.nodeName.toLowerCase() != 'fieldset' &&
 				!field.disabled && type != 'submit' && type != 'reset' &&
 				type != 'button' && type != 'file' &&
@@ -2366,10 +2387,10 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 	$.fn.serialize = function() {
 		var result = []
 		this.serializeArray().forEach(function(elm) {
-			//编码之后放入result
-			result.push(encodeURIComponent(elm.name) + '=' + encodeURIComponent(elm.value))
-		})
-		//用&链接 最后返回
+				//编码之后放入result
+				result.push(encodeURIComponent(elm.name) + '=' + encodeURIComponent(elm.value))
+			})
+			//用&链接 最后返回
 		return result.join('&')
 	}
 
