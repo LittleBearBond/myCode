@@ -1255,13 +1255,13 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 			//生成的jsonpXXX函数，指定callback=jsonpXXX。 请求成功返回，就会调用这个函数，给responseData赋值
 			//之前originalCallback = window[callbackName] 保存过了，这里重新指定
 			window[callbackName] = function() {
-				responseData = arguments
-			}
-			//处理简写 callback的情况
+					responseData = arguments
+				}
+				//处理简写 callback的情况
 			script.src = options.url.replace(/\?(.+)=\?/, '?$1=' + callbackName)
 				//append到页面上
 			document.head.appendChild(script)
-			//处理超时的情况
+				//处理超时的情况
 			if (options.timeout > 0) abortTimeout = setTimeout(function() {
 				abort('timeout')
 			}, options.timeout)
@@ -2727,6 +2727,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 //     (c) 2010-2014 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
+/*selectors*/
 ;
 (function($) {
 	var zepto = $.zepto,
@@ -2866,6 +2867,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 //     (c) 2010-2014 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
+//stack
 ;
 (function($) {
 	$.fn.end = function() {
@@ -2888,45 +2890,59 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 //     (c) 2010-2014 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
+
+//touch
 ;
 (function($) {
+	//保存滑动过程中的一些数据
 	var touch = {},
+		//记录各种timeout
 		touchTimeout, tapTimeout, swipeTimeout, longTapTimeout,
+		//默认超过750毫秒就触发longTap
 		longTapDelay = 750,
 		gesture
 
+	//判断滑动的方向 上下左右。首先判断x和y哪个滑动距离大，然后在根据x确定是左右，根据一确定上下
 	function swipeDirection(x1, x2, y1, y2) {
 		return Math.abs(x1 - x2) >=
 			Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down')
 	}
 
 	function longTap() {
+		//置为null
 		longTapTimeout = null
 		if (touch.last) {
+			//触发touch.el的longTap
 			touch.el.trigger('longTap')
+				//重置touch对象
 			touch = {}
 		}
 	}
 
+	//取消longTapTimeout定时器，
 	function cancelLongTap() {
-		if (longTapTimeout) clearTimeout(longTapTimeout)
-		longTapTimeout = null
-	}
-
+			if (longTapTimeout) clearTimeout(longTapTimeout)
+			longTapTimeout = null
+		}
+		//全部取消 重置
 	function cancelAll() {
-		if (touchTimeout) clearTimeout(touchTimeout)
-		if (tapTimeout) clearTimeout(tapTimeout)
-		if (swipeTimeout) clearTimeout(swipeTimeout)
-		if (longTapTimeout) clearTimeout(longTapTimeout)
-		touchTimeout = tapTimeout = swipeTimeout = longTapTimeout = null
-		touch = {}
-	}
-
+			if (touchTimeout) clearTimeout(touchTimeout)
+			if (tapTimeout) clearTimeout(tapTimeout)
+			if (swipeTimeout) clearTimeout(swipeTimeout)
+			if (longTapTimeout) clearTimeout(longTapTimeout)
+			touchTimeout = tapTimeout = swipeTimeout = longTapTimeout = null
+			touch = {}
+		}
+		/*
+		 * 是否为移动webkit内核的事件
+		 */
 	function isPrimaryTouch(event) {
-		return (event.pointerType == 'touch' ||
-			event.pointerType == event.MSPOINTER_TYPE_TOUCH) && event.isPrimary
-	}
-
+			return (event.pointerType == 'touch' ||
+				event.pointerType == event.MSPOINTER_TYPE_TOUCH) && event.isPrimary
+		}
+		/*
+		 * IE 10 和11的事件
+		 */
 	function isPointerEventType(e, type) {
 		return (e.type == 'pointer' + type ||
 			e.type.toLowerCase() == 'mspointer' + type)
@@ -2947,82 +2963,122 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 				var swipeDirectionFromVelocity =
 					e.velocityX > 1 ? 'Right' : e.velocityX < -1 ? 'Left' : e.velocityY > 1 ? 'Down' : e.velocityY < -1 ? 'Up' : null;
 				if (swipeDirectionFromVelocity) {
+					//触发元素相关事件 MSGestureEnd，不清楚是神马东西，估计就是一些奇葩特有的，IE！！！！
 					touch.el.trigger('swipe')
 					touch.el.trigger('swipe' + swipeDirectionFromVelocity)
 				}
 			})
+			/**
+			 * MSPointerDown pointerdown IE10 11
+			 * touchstart 移动Webkit
+			 */
 			.on('touchstart MSPointerDown pointerdown', function(e) {
+				//踢出奇葩的，不是标准webkit或者IE10 11 直接返回
 				if ((_isPointerType = isPointerEventType(e, 'down')) &&
 					!isPrimaryTouch(e)) return
+					//我只知道正常情况都是 e.touches[0]
 				firstTouch = _isPointerType ? e : e.touches[0]
+					//一个手指在操作
 				if (e.touches && e.touches.length === 1 && touch.x2) {
+					//重置x2 和y2
 					// Clear out touch movement data if we have it sticking around
 					// This can occur if touchcancel doesn't fire due to preventDefault, etc.
 					touch.x2 = undefined
 					touch.y2 = undefined
 				}
+				//初始触发时间
 				now = Date.now()
+					//当前的now减去上次触发时间，取得差值
+					//如果上次时间没有就是这次的时间， 那么delta就是0
 				delta = now - (touch.last || now)
+					//取得touch el
 				touch.el = $('tagName' in firstTouch.target ?
-					firstTouch.target : firstTouch.target.parentNode)
+						firstTouch.target : firstTouch.target.parentNode)
+					//touchTimeout存在即清除 清除 延迟250毫秒执行的singleTap
 				touchTimeout && clearTimeout(touchTimeout)
+					//取到开始的 pageX 、pageY 赋值给x1、y1
 				touch.x1 = firstTouch.pageX
 				touch.y1 = firstTouch.pageY
+
+				//上次touchstart 和这次touchstart时间相隔在250毫秒以内，就是isDoubleTap
 				if (delta > 0 && delta <= 250) touch.isDoubleTap = true
+					//赋值touch.last，下次触发减去这个时间，来计算是否触发doubleTap
 				touch.last = now
+
+				//设置longtap事件
 				longTapTimeout = setTimeout(longTap, longTapDelay)
 					// adds the current touch contact for IE gesture recognition
+					//这个表示不懂，我们从不兼容IE
 				if (gesture && _isPointerType) gesture.addPointer(e.pointerId);
 			})
 			.on('touchmove MSPointerMove pointermove', function(e) {
+				//touchstart、touchmove、touchend 都用到这个判断，拷贝三次，我觉得改简单封装下，虽然代码不多，但是也有必要。^_^
 				if ((_isPointerType = isPointerEventType(e, 'move')) &&
 					!isPrimaryTouch(e)) return
+
 				firstTouch = _isPointerType ? e : e.touches[0]
+					//一旦发生touchmove 就取消cancelLongTap。 我觉得应该还是有个居来判断吧！！！！比如不超过5像素也没问题
 				cancelLongTap()
+					//取得此时的pageX、pageY
 				touch.x2 = firstTouch.pageX
 				touch.y2 = firstTouch.pageY
 
+				//计算出和touchstart的差值
 				deltaX += Math.abs(touch.x1 - touch.x2)
 				deltaY += Math.abs(touch.y1 - touch.y2)
+
+				/**
+				 * 修复 android 4.4 swipe 事件
+				 * https://github.com/madrobby/zepto/issues/315#issuecomment-8386027
+				 */
+				/*if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > 10) &&  (touch.y2 && Math.abs(touch.y1 - touch.y2) < 10))
+					e.preventDefault()*/
+				/*if (touch.x2 && Math.abs(touch.x1 - touch.x2) > 10)
+					e.preventDefault()*/
 			})
 			.on('touchend MSPointerUp pointerup', function(e) {
 				if ((_isPointerType = isPointerEventType(e, 'up')) &&
 					!isPrimaryTouch(e)) return
+					//这个就不说了，
 				cancelLongTap()
 
-				// swipe
-				if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > 30) ||
-					(touch.y2 && Math.abs(touch.y1 - touch.y2) > 30))
-
+				// swipe 默认超过就触发swipe相关事件
+				if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > 30) || (touch.y2 && Math.abs(touch.y1 - touch.y2) > 30))
 					swipeTimeout = setTimeout(function() {
-					touch.el.trigger('swipe')
-					touch.el.trigger('swipe' + (swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2)))
-					touch = {}
-				}, 0)
-
-				// normal tap
+						//触发swpie 和'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown'
+						touch.el.trigger('swipe')
+						touch.el.trigger('swipe' + (swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2)))
+							//重置touch
+						touch = {}
+					}, 0)
+					// normal tap
 				else if ('last' in touch)
 				// don't fire tap when delta position changed by more than 30 pixels,
 				// for instance when moving to a point and back to origin
+				// 滑动距离小于30像素
 					if (deltaX < 30 && deltaY < 30) {
 						// delay by one tick so we can cancel the 'tap' event if 'scroll' fires
 						// ('tap' fires before 'scroll')
+						// 为什么要搞个setTimeout呢，因为发生滚动的时候要取消这些事件的执行，直接执行了就取消不了了
 						tapTimeout = setTimeout(function() {
 
 							// trigger universal 'tap' with the option to cancelTouch()
 							// (cancelTouch cancels processing of single vs double taps for faster 'tap' response)
 							var event = $.Event('tap')
+								//可以cancelAll
 							event.cancelTouch = cancelAll
+								//触发tap
 							touch.el.trigger(event)
 
 							// trigger double tap immediately
+							// 之前touchstart 里面有判断和上次点击时间的时间差
 							if (touch.isDoubleTap) {
 								if (touch.el) touch.el.trigger('doubleTap')
 								touch = {}
 							}
-
 							// trigger single tap after 250ms of inactivity
 							else {
+								//延迟250毫秒
 								touchTimeout = setTimeout(function() {
 									touchTimeout = null
 									if (touch.el) touch.el.trigger('singleTap')
@@ -3033,6 +3089,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 					} else {
 						touch = {}
 					}
+					//重置这两个数据
 				deltaX = deltaY = 0
 
 			})

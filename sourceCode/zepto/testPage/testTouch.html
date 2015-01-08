@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Touch</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta content="telephone=no" name="format-detection">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<style type="text/css" media="screen">
+	html,body{
+		margin:0;
+		padding:0;
+	}
+	body{
+		overflow-x:hidden;
+		overflow-y: auto;
+	}
+		#btnTest,#test,.d{
+			width:300px;
+			height:300px;
+			line-height:300px;
+			position:relative;
+			background:#ccc;
+			margin:10px auto;
+		}
+		.d{
+			position:static;
+		}
+		#test{
+			display:block;
+			width:100%;
+			height:100%;
+			line-height:1.5;
+		}
+		#btnTest>span{
+			width:100px;
+			height:100px;
+			text-align:center;
+			line-height:100px;
+			background:#a2a2a2;
+			position:absolute;
+			left: 0;
+			right:0;
+			top: 0;
+			bottom:0;
+			margin:auto;
+		}
+		#btnTest #testInner1{
+			right:auto;
+			bottom:auto;
+		}
+	</style>
+</head>
+<body>
+	<button type="" id="btn1">reset div</button>
+	<!-- <div class="d"></div>
+	<div class="d"></div>-->
+	<div type="" id="btnTest" data-log="外部div：">testajax
+		<span id="testInner1" data-log="内部span：">Clean </span>
+		<span id="testInner" data-log="内部span：">Clean </span>
+	</div>
+	<div id="test"></div>
+	<!-- <div class="d"></div>
+	<div class="d"></div>-->
+	<script type="text/javascript" src="../zepto-full-1.1.6.js"></script>
+	<script type="text/javascript" src="/sourceCode/fastclick/lib/fastclick.js"></script>
+	<script>
+		var $d=$('#btnTest'),
+		$d1=$('#test'),
+		$d2=$('#testInner'),msg;
+		$('#btn1').on('click',function(){
+			$d1.empty();
+		});
+		['swipe', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown',
+		'doubleTap', 'tap', 'singleTap', 'longTap','click'].forEach(function(eventName) {
+			$d.on(eventName,function(e){
+				msg=$(this).data('log')+e.type+'-------|';
+				console.log(msg);
+				$d1[0].innerHTML+=msg;
+				return false;
+			});
+
+			$d2.on(eventName,function(e){
+				msg=$(this).data('log')+e.type+'-------|';
+				console.log(msg);
+				$d1[0].innerHTML+=msg;
+				return false;
+			});
+		});
+		$(function () {
+			typeof FastClick!='undefined' && FastClick.attach(document.body);
+		});
+	</script>
+</body>
+</html>
+
