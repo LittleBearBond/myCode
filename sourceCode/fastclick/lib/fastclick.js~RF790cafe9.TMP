@@ -126,7 +126,7 @@
 		}
 
 		/*
-		 *绑定着一大推的事件
+		*绑定着一大推的事件
 		 */
 		// Set up event handlers as required
 		if (deviceIsAndroid) {
@@ -596,7 +596,7 @@
 				//找到需要触发click的这个元素
 				targetElement = forElement;
 			}
-			//是否是触发focus的元素
+		//是否是触发focus的元素
 		} else if (this.needsFocus(targetElement)) {
 
 			// Case 1: If the touch started a while ago (best guess is 100ms based on tests for issue #36) then focus will be triggered anyway. Return early and unset the target element reference so that the subsequent click will be allowed through.
