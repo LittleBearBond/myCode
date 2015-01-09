@@ -11,14 +11,14 @@
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<style type="text/css" media="screen">
-	html,body{
-		margin:0;
-		padding:0;
-	}
-	body{
-		overflow-x:hidden;
-		overflow-y: auto;
-	}
+		html,body{
+			margin:0;
+			padding:0;
+		}
+		body{
+			overflow-x:hidden;
+			overflow-y: auto;
+		}
 		#btnTest,#test,.d{
 			width:300px;
 			height:300px;
@@ -59,9 +59,9 @@
 	<button type="" id="btn1">reset div</button>
 	<!-- <div class="d"></div>
 	<div class="d"></div>-->
-	<div type="" id="btnTest" data-log="外部div：">testajax
-		<span id="testInner1" data-log="内部span：">Clean </span>
-		<span id="testInner" data-log="内部span：">Clean </span>
+	<div type="" id="btnTest" data-log="div：">testajax
+		<span id="testInner1" data-log="span1：">Clean </span>
+		<span id="testInner" data-log="span2：">Clean </span>
 	</div>
 	<div id="test"></div>
 	<!-- <div class="d"></div>
@@ -71,24 +71,23 @@
 	<script>
 		var $d=$('#btnTest'),
 		$d1=$('#test'),
-		$d2=$('#testInner'),msg;
+		$d2=$('#testInner'),
+		$d3=$('#testInner1'),
+		msg,els=[$d,$d2,$d3],
+		num=0;
 		$('#btn1').on('click',function(){
 			$d1.empty();
 		});
 		['swipe', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown',
 		'doubleTap', 'tap', 'singleTap', 'longTap','click'].forEach(function(eventName) {
-			$d.on(eventName,function(e){
-				msg=$(this).data('log')+e.type+'-------|';
-				console.log(msg);
-				$d1[0].innerHTML+=msg;
-				return false;
-			});
-
-			$d2.on(eventName,function(e){
-				msg=$(this).data('log')+e.type+'-------|';
-				console.log(msg);
-				$d1[0].innerHTML+=msg;
-				return false;
+			els.forEach(function(el){
+				el.on(eventName,function(e){
+					num++;
+					msg=$(this).data('log')+e.type+(num % 2===0?'-------<br/>':'-------&nbsp;&nbsp;&nbsp;');
+					console.log(msg);
+					$d1[0].innerHTML+=msg;
+					return false;
+				});
 			});
 		});
 		$(function () {

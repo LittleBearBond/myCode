@@ -1576,6 +1576,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 //     (c) 2010-2014 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
+//Callbacks
 ;
 (function($) {
 	// Create a collection of callbacks to be fired in a sequence, with configurable behaviour
@@ -1699,6 +1700,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 
 // The following code is heavily inspired by jQuery's $.fn.data()
 
+//data
 ;
 (function($) {
 	var data = {},
@@ -1789,6 +1791,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 //
 //     Some code (c) 2005, 2013 jQuery Foundation, Inc. and other contributors
 
+//Deferred
 ;
 (function($) {
 	var slice = Array.prototype.slice
@@ -1913,6 +1916,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 //     (c) 2010-2014 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
+//os
 ;
 (function($) {
 	function detect(ua, platform) {
@@ -2408,6 +2412,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 //     (c) 2010-2014 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
+//fx
 ;
 (function($, undefined) {
 	var prefix = '',
@@ -2550,6 +2555,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 //     (c) 2010-2014 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
+//fx_methods
 ;
 (function($, undefined) {
 	var document = window.document,
@@ -2626,6 +2632,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 //     (c) 2010-2014 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
+//gesture
 ;
 (function($) {
 	if ($.os.ios) {
@@ -2666,6 +2673,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 //     (c) 2010-2014 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
+//ie
 ;
 (function() {
 	// getComputedStyle shouldn't freak out when called
@@ -2686,6 +2694,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 //     (c) 2010-2014 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
+//ios3
 ;
 (function(undefined) {
 	if (String.prototype.trim === undefined) // fix for iOS 3.2
@@ -2924,6 +2933,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 			if (longTapTimeout) clearTimeout(longTapTimeout)
 			longTapTimeout = null
 		}
+
 		//全部取消 重置
 	function cancelAll() {
 			if (touchTimeout) clearTimeout(touchTimeout)
@@ -2947,7 +2957,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 		return (e.type == 'pointer' + type ||
 			e.type.toLowerCase() == 'mspointer' + type)
 	}
-
+	//两次$(document) 难道开始就不能 var $d=$(document) 吗！！
 	$(document).ready(function() {
 		var now, delta, deltaX = 0,
 			deltaY = 0,
@@ -3031,6 +3041,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 				 * 修复 android 4.4 swipe 事件
 				 * https://github.com/madrobby/zepto/issues/315#issuecomment-8386027
 				 */
+				//当页面有滚动条的时候，这个修复就啃爹了。没有滚动条倒是可以随便修复。
 				/*if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > 10) &&  (touch.y2 && Math.abs(touch.y1 - touch.y2) < 10))
 					e.preventDefault()*/
 				/*if (touch.x2 && Math.abs(touch.x1 - touch.x2) > 10)
