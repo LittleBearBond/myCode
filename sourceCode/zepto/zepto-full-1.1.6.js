@@ -2114,6 +2114,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 			findHandlers(element, event, fn, selector).forEach(function(handler) {
 				//删除handlers 对应这个元素（通过zid关联的），对应的索引的callback。
 				//var a=[1,2,3,4,5]  delete a[0]，delete a[3]====>[2,3,5]
+				//如果对数组元素直接使用delete，其实并没有删除，只是将元素置为了undefined。数组元素删除应使用splice。
 				delete handlers[id][handler.i]
 					//移除元素上绑定的事件
 				if ('removeEventListener' in element)

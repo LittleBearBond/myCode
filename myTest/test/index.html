@@ -1,155 +1,171 @@
 
 <!DOCTYPE html>
-<html  >
+<html  hideMenuItems="menuItem:readMode,menuItem:share:timeline,menuItem:copyUrl">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-        <meta name="format-detection" content="telephone=no" />
-        <meta property="og:image" content="http://5.f1.dajieimg.com/n/small_push/T1xjdTBjbv1RXrhCrK_h.jpg">
-        <meta property="og:url" content="http://859.test.xtj.t.dajie.com/wx/xtj/8/candidate/share?key=ghapajBKC4H84ZP9F5Bacw6_MN-xlUj00NRi7Xkg&amp;jid=&amp;intern=oHrHTjh0mPI85pfTqA4jMMcI_m0E&amp;titletrace=2">
-        <meta property="og:description" content="靠谱的工作机会，赶紧来看下，或者推荐给靠谱小伙伴。">
-        <meta property="og:title" content="大街网内部招聘通道，感兴趣的我可以引荐！">
-        <link rel="shortcut icon" href="http://fa_pushover.assets.dajieimg.com.t/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="http://fa_pushover.assets.dajieimg.com.t/??/up/dj-mobile/pushover/css/reset.css,/up/dj-mobile/pushover/css/tool.css,/up/dj-mobile/pushover/css/item.css,/up/dj-mobile/pushover/css/notice-page.css"/>
-    <script type="text/javascript" src="http://fa_pushover.assets.dajieimg.com.t/??/up/dj-mobile/vcard/lib/zepto.js,/up/dj-mobile/js/zepto.cookie.js,/up/dj-mobile/pushover/js/base.js,/up/dj-mobile/pushover/js/notice-page.js,/js/pv.js"></script>
+  <meta charset="utf-8">
+  <title>微信JS-SDK Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-   <div class="dj-base-wrap">
-
-<div class="p-notice-wrap">
-    <!-- 头像区域 -->
-        <section class="t-flex-wrap p-usr-detail">
-         <span class="p-usr-header">
-             <img src="http://wx.qlogo.cn/mmopen/Awz8jcBInMHEU2efhwpdRtkgKDk7rmYiatDhS83XIlSzLrkr0Fwm8FXbu4kTkS5gVBPJPbOoB2okxFrhJvYf29BWiaqnaVeYUF/0"
-                  alt="">
-         </span>
-            <dl class="t-flex-item p-usr-info">
-                <dt>
-                招聘<em>测试公司一 hr</em>
-                </dt>
-                <dd>我可以推荐你或你的朋友入职大街网，有兴趣的话往下看</dd>
-            </dl>
-        </section>
-    <!-- 海报 -->
-    <section class="p-notice-ad">
-        <img src="http://5.f1.dajieimg.com/n/micro_blog/T1ArKTBydT1RXrhCrK_c.jpg" width="640" alt="">
-    </section>
-    <!-- 按钮  -->
-    <section>
-        <a href="/wx/xtj/8/candidate/join?key=ghapajBKC4H84ZP9F5Bacw6_MN-xlUj00NRi7Xkg&jid="
-           class="i-btn p-check-btn">加入大街网人才储备计划</a>
-            <a href="" id="morechance" class="lnk-inside-post" stat="140212"><em>更多名企内部机会</em></a>
-    </section>
-            <a href="/wx/xtj/8/candidate/forwardactivity?key=ghapajBKC4H84ZP9F5Bacw6_MN-xlUj00NRi7Xkg&jid=" id="btn-trans"
-               class="p-btn-trans" >转发得红包</a>
-    <p class="p-scroll-tip">向上滑动</p>
-</div>
-
-<script type="text/javascript">
-    dj['setPageData']({
-        'isfocus': {
-            url: '/wx/user/3/isfollow', // 请求是否已经关注的接口
-            ajaxType: 'get', // 请求方式
-            nextUrl: '/wx/xtj/8/candidate/join?key=ghapajBKC4H84ZP9F5Bacw6_MN-xlUj00NRi7Xkg&jid=' // 已关注跳转到的页面
-        },
-        'focusMark': {
-            url: '/wx/xtj/8/candidate/follow',
-            data: { key: "ghapajBKC4H84ZP9F5Bacw6_MN-xlUj00NRi7Xkg", type: "3", url: "http://test.xtj.t.dajie.com/wx/xtj/8/candidate/join?key=ghapajBKC4H84ZP9F5Bacw6_MN-xlUj00NRi7Xkg"},
-            ajaxType: 'post', // 请求方式
-            nextUrl: 'http://mp.weixin.qq.com/s?__biz=MzA4ODQ4NTYzNg==&mid=200723181&idx=1&sn=cdaaf21ec656f91c5c8c1232fe0c8a0d#rd' // 未关注跳转到的页面
-        },
-        'i-weixin-share-success-callback': function (shareType) {
-            if (shareType !== 'shareFriend' && shareType !== 'shareTimeline') {
-                return;
-            }
-            var flagT = 0;
-            if (flagT == 1) {
-                return;
-            }
-            $.ajax({
-                url: '/wx/user/3/isfollow',
-                type: 'get',
-                dataType: 'json',
-                success: function (data) {
-                    if (data && data.result == 0) {
-                        //已关注跳转
-                        location.href = "/wx/user/3/task/list?from=forward";
-                    } else {
-                        //未关注跳转
-                        location.href = "/wx/redirect/mp?scene=1";
-                    }
-                },
-                error: function () {
-                    alert('网络错误');
-                }
-            });
-        }
-    });
-
-    (function () {
-        var limit,
-                pageConfig = {
-                    eventBtn: '#morechance',
-                    'ajaxType': 'get',
-                    url: '/wx/user/3/isfollow',
-                    /*默认跳转页*/
-                    defaultUrl: '/wx/user/3/task/list?from=more',
-                    /*result返回1*/
-                    urlNext1: 'http://mp.weixin.qq.com/s?__biz=MzA4ODQ4NTYzNg==&mid=200723181&idx=1&sn=cdaaf21ec656f91c5c8c1232fe0c8a0d#rd',
-                    urlNext2: ''
-                };
-
-        function getIsFocus() {
-            //阻止冒泡和默认行为
-            if (limit) {
-                return false;
-            }
-            limit = true;
-            $.ajax({
-                url: pageConfig.url,
-                type: pageConfig.ajaxType,
-                dataType: 'json',
-                success: function (r) {
-                    if ((r.result | 0) == 0) {
-                        pageConfig.defaultUrl && (location.href = pageConfig.defaultUrl);
-                        return;
-                    }
-                    //返回0 就是defaultUrl，  返回1就是urlNext1
-                    var urlName = 'urlNext' + r.result;
-                    pageConfig[urlName] && (location.href = pageConfig[urlName]);
-                },
-                error: function () {
-                    alert('网络错误');
-                },
-                complete: function () {
-                    limit = false;
-                }
-            });
-            return false;
-        };
-        $(pageConfig.eventBtn).on('click', getIsFocus);
-    })()
-</script>
-<script>
-    dj['setPageData']({
-        'weixin-share-success': {
-            url: '/wx/xtj/8/referee/forwardrecord', // 请求的url
-            ajaxType: 'get', // 请求方式
-            data: {    // 需要带回去的参数
-                type: '4',
-                from: '',
-                key: 'ghapajBKC4H84ZP9F5Bacw6_MN-xlUj00NRi7Xkg'
-            }
-        }
-    });
-</script>
+<body ontouchstart="">
+<div class="wxapi_container">
+    <div class="wxapi_index_container">
+      <ul class="label_box lbox_close wxapi_index_list">
+        <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-basic">基础接口</a></li>
+        <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-share">分享接口</a></li>
+        <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-image">图像接口</a></li>
+        <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-voice">音频接口</a></li>
+        <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-smart">智能接口</a></li>
+        <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-device">设备信息接口</a></li>
+        <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-location">地理位置接口</a></li>
+        <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-webview">界面操作接口</a></li>
+        <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-scan">微信扫一扫接口</a></li>
+        <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-shopping">微信小店接口</a></li>
+        <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-card">微信卡券接口</a></li>
+        <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-pay">微信支付接口</a></li>
+      </ul>
     </div>
- <script type="text/javascript">
-     dj['setPageData']({
-         'appID' : 'wx05f1ae9ed172cc0f'
-     });
- </script>
-    <script type="text/javascript" src="http://fa_pushover.assets.dajieimg.com.t/js/pv.js"></script>
+    <div class="lbox_close wxapi_form">
+      <h3 id="menu-basic">基础接口</h3>
+      <span class="desc">判断当前客户端是否支持指定JS接口</span>
+      <button class="btn btn_primary" id="checkJsApi">checkJsApi</button>
 
+      <h3 id="menu-share">分享接口</h3>
+      <span class="desc">获取“分享到朋友圈”按钮点击状态及自定义分享内容接口</span>
+      <button class="btn btn_primary" id="onMenuShareTimeline">onMenuShareTimeline</button>
+      <span class="desc">获取“分享给朋友”按钮点击状态及自定义分享内容接口</span>
+      <button class="btn btn_primary" id="onMenuShareAppMessage">onMenuShareAppMessage</button>
+      <span class="desc">获取“分享到QQ”按钮点击状态及自定义分享内容接口</span>
+      <button class="btn btn_primary" id="onMenuShareQQ">onMenuShareQQ</button>
+      <span class="desc">获取“分享到腾讯微博”按钮点击状态及自定义分享内容接口</span>
+      <button class="btn btn_primary" id="onMenuShareWeibo">onMenuShareWeibo</button>
+
+      <h3 id="menu-image">图像接口</h3>
+      <span class="desc">拍照或从手机相册中选图接口</span>
+      <button class="btn btn_primary" id="chooseImage">chooseImage</button>
+      <span class="desc">预览图片接口</span>
+      <button class="btn btn_primary" id="previewImage">previewImage</button>
+      <span class="desc">上传图片接口</span>
+      <button class="btn btn_primary" id="uploadImage">uploadImage</button>
+      <span class="desc">下载图片接口</span>
+      <button class="btn btn_primary" id="downloadImage">downloadImage</button>
+
+      <h3 id="menu-voice">音频接口</h3>
+      <span class="desc">开始录音接口</span>
+      <button class="btn btn_primary" id="startRecord">startRecord</button>
+      <span class="desc">停止录音接口</span>
+      <button class="btn btn_primary" id="stopRecord">stopRecord</button>
+      <span class="desc">播放语音接口</span>
+      <button class="btn btn_primary" id="playVoice">playVoice</button>
+      <span class="desc">暂停播放接口</span>
+      <button class="btn btn_primary" id="pauseVoice">pauseVoice</button>
+      <span class="desc">停止播放接口</span>
+      <button class="btn btn_primary" id="stopVoice">stopVoice</button>
+      <span class="desc">上传语音接口</span>
+      <button class="btn btn_primary" id="uploadVoice">uploadVoice</button>
+      <span class="desc">下载语音接口</span>
+      <button class="btn btn_primary" id="downloadVoice">downloadVoice</button>
+
+      <h3 id="menu-smart">智能接口</h3>
+      <span class="desc">识别音频并返回识别结果接口</span>
+      <button class="btn btn_primary" id="translateVoice">translateVoice</button>
+
+      <h3 id="menu-device">设备信息接口</h3>
+      <span class="desc">获取网络状态接口</span>
+      <button class="btn btn_primary" id="getNetworkType">getNetworkType</button>
+
+      <h3 id="menu-location">地理位置接口</h3>
+      <span class="desc">使用微信内置地图查看位置接口</span>
+      <button class="btn btn_primary" id="openLocation">openLocation</button>
+      <span class="desc">获取地理位置接口</span>
+      <button class="btn btn_primary" id="getLocation">getLocation</button>
+
+      <h3 id="menu-webview">界面操作接口</h3>
+      <span class="desc">隐藏右上角菜单接口</span>
+      <button class="btn btn_primary" id="hideOptionMenu">hideOptionMenu</button>
+      <span class="desc">显示右上角菜单接口</span>
+      <button class="btn btn_primary" id="showOptionMenu">showOptionMenu</button>
+      <span class="desc">关闭当前网页窗口接口</span>
+      <button class="btn btn_primary" id="closeWindow">closeWindow</button>
+      <span class="desc">批量隐藏功能按钮接口</span>
+      <button class="btn btn_primary" id="hideMenuItems">hideMenuItems</button>
+      <span class="desc">批量显示功能按钮接口</span>
+      <button class="btn btn_primary" id="showMenuItems">showMenuItems</button>
+      <span class="desc">隐藏所有非基础按钮接口</span>
+      <button class="btn btn_primary" id="hideAllNonBaseMenuItem">hideAllNonBaseMenuItem</button>
+      <span class="desc">显示所有功能按钮接口</span>
+      <button class="btn btn_primary" id="showAllNonBaseMenuItem">showAllNonBaseMenuItem</button>
+
+      <h3 id="menu-scan">微信扫一扫</h3>
+      <span class="desc">调起微信扫一扫接口</span>
+      <button class="btn btn_primary" id="scanQRCode0">scanQRCode(微信处理结果)</button>
+      <button class="btn btn_primary" id="scanQRCode1">scanQRCode(直接返回结果)</button>
+
+      <h3 id="menu-shopping">微信小店接口</h3>
+      <span class="desc">跳转微信商品页接口</span>
+      <button class="btn btn_primary" id="openProductSpecificView">openProductSpecificView</button>
+
+      <h3 id="menu-card">微信卡券接口</h3>
+      <span class="desc">批量添加卡券接口</span>
+      <button class="btn btn_primary" id="addCard">addCard</button>
+      <span class="desc">调起适用于门店的卡券列表并获取用户选择列表</span>
+      <button class="btn btn_primary" id="chooseCard">chooseCard</button>
+      <span class="desc">查看微信卡包中的卡券接口</span>
+      <button class="btn btn_primary" id="openCard">openCard</button>
+
+      <h3 id="menu-pay">微信支付接口</h3>
+      <span class="desc">发起一个微信支付请求</span>
+      <button class="btn btn_primary" id="chooseWXPay">chooseWXPay</button>
+    </div>
+  </div>
 </body>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+  // 注意：所有的JS接口只能在公众号绑定的域名下调用，公众号开发者需要先登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。
+  // 如果发现在 Android 不能分享自定义内容，请到官网下载最新的包覆盖安装，Android 自定义分享接口需升级至 6.0.2.58 版本及以上。
+  wx.config({
+      debug: false,
+      appId: 'wxf8b4f85f3a794e77',
+      timestamp: 1420878970,
+      nonceStr: 'mBNuDXgguDp5HimJ',
+      signature: 'd25ac013d5fd1ff99eaab4deb8c023e0fad48224',
+      jsApiList: [
+        'checkJsApi',
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage',
+        'onMenuShareQQ',
+        'onMenuShareWeibo',
+        'hideMenuItems',
+        'showMenuItems',
+        'hideAllNonBaseMenuItem',
+        'showAllNonBaseMenuItem',
+        'translateVoice',
+        'startRecord',
+        'stopRecord',
+        'onRecordEnd',
+        'playVoice',
+        'pauseVoice',
+        'stopVoice',
+        'uploadVoice',
+        'downloadVoice',
+        'chooseImage',
+        'previewImage',
+        'uploadImage',
+        'downloadImage',
+        'getNetworkType',
+        'openLocation',
+        'getLocation',
+        'hideOptionMenu',
+        'showOptionMenu',
+        'closeWindow',
+        'scanQRCode',
+        'chooseWXPay',
+        'openProductSpecificView',
+        'addCard',
+        'chooseCard',
+        'openCard'
+      ]
+  });
+</script>
+<script src="js/demo.js"> </script>
 </html>
