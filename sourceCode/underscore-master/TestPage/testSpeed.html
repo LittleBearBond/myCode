@@ -15,7 +15,7 @@
 <body>
 	<script id="underscoreTemplate" type="text/tmpl">
 		<ul>
-			<% var list=list.list; for (var i = 0, l = list.length; i < l; i ++) { %>
+			<%  for (var i = 0, l = list.length; i < l; i ++) { %>
 				<li>用户: <%=list[i].user%>/ 网站：<%=list[i].site%></li>
 			<% } %>
 		</ul>
@@ -26,13 +26,10 @@
 		var length = 100;
 		// 渲染次数
 		var number = 10000;
-
-		var data = {
-			list: []
-		};
-
+		var list =[];
+		var data={'list':list};
 		for (var i = 0; i < length; i ++) {
-			data.list.push({
+			list.push({
 				index: i,
 				user: '<strong style="color:red">糖饼</strong>',
 				site: 'http://www.planeart.cn',
@@ -42,17 +39,24 @@
 		};
 
 		function test() {
-			console.time('1')
-			console.timeline('2')
 			var source = document.getElementById('underscoreTemplate').innerHTML;
 			var fn = _.template(source,{variable:'list'});
+			console.time('1')
+			console.timeline('2')
 			for (var i = 0; i < number; i ++) {
-				fn(data);
+				fn(list);
 			}
 			console.timeEnd('1')
 			console.timelineEnd('2');
 		}
-
+		 function test2 () {
+		            var source = document.getElementById('underscoreTemplate').innerHTML;
+		            var fn = _.template(source);
+		            for (var i = 0; i < number; i ++) {
+		                fn(data);
+		            }
+	        }
 </script>
+<button type="" onclick="test()">Test</button>
 </body>
 </html>

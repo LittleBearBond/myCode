@@ -1447,16 +1447,20 @@
 		// Compile the template source, escaping string literals appropriately.
 		var index = 0;
 		var source = "__p+='";
+		//没有设置settings.variable 默认使用对象+. 来取值
 		var settingObj = !!settings.variable ? '' : '_obj.';
+		//几个分组
 		text.replace(matcher, function(match, escape, interpolate, evaluate, offset) {
 			source += text.slice(index, offset).replace(escaper, escapeChar);
 			index = offset + match.length;
 
 			if (escape) {
 				//编码
+				//_obj.XXX
 				source += "'+\n((__t=(" + settingObj + escape.trim() + "))==null?'':_.escape(__t))+\n'";
 			} else if (interpolate) {
 				//取值
+				//_obj.XXX
 				source += "'+\n((__t=(" + settingObj + interpolate.trim() + "))==null?'':__t)+\n'";
 			} else if (evaluate) {
 				//任意的Javascript
@@ -1469,7 +1473,9 @@
 
 		// If a variable is not specified, place data values in local scope.
 		// 据说使用with 性能不咋地，可以使用变量
+		// with可能会影响性能，并造成难以发现的错误
 		//if (!settings.variable) source = 'with(obj||{}){\n' + source + '}\n';
+		//去掉使用with
 		if (!settings.variable) source = ' var _obj=obj||{};\n' + source + ' \n';
 		source = "var __t,__p='',__j=Array.prototype.join," +
 			"print=function(){__p+=__j.call(arguments,'');};\n" +
