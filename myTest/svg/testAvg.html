@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Test Svg js</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta content="telephone=no" name="format-detection">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<script src="lib/jquery2-1-1.js" type="text/javascript" charset="utf-8" ></script>
+	<script src="js/Svg.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<div id="drawing">
+
+	</div>
+	<script>
+		/*var draw = SVG('drawing').size(300, 300);
+		var rect = draw.rect(100, 100).attr({ fill: '#f06' });*/
+
+		var draw = SVG('drawing').fixSubPixelOffset()
+		//var polyline = draw.polyline('0,0 100,50 50,100').fill('none').stroke({ width: 1 })
+		var polyline = draw.polyline([[0,0], [100,50], [50,100]]).fill('none').stroke({ width: 1 })
+
+		polyline.animate(3000).plot([[0,0], [100,50], [50,100], [150,50], [200,50], [250,100], [300,50], [350,50]])
+	</script>
+
+</body>
+</html>
