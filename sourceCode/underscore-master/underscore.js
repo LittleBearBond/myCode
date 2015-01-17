@@ -19,6 +19,8 @@
 		ObjProto = Object.prototype,
 		FuncProto = Function.prototype;
 
+	// 这里定义了一些JavaScript 1.6提供的新方法
+	// 如果宿主环境中支持这些方法则优先调用, 如果宿主环境中没有提供, 则会由Underscore实现
 	// Create quick reference variables for speed access to core prototypes.
 	var
 		push = ArrayProto.push,
@@ -62,6 +64,7 @@
 	// Internal function that returns an efficient (for current engines) version
 	// of the passed-in callback, to be repeatedly applied in other Underscore
 	// functions.
+	// 这个函数干的事情就是把函数包装一遍，利用js闭包的特效，保存之前的一些值，下次调用返回函数的时候，上次出入的函数的值还保留着
 	var optimizeCb = function(func, context, argCount) {
 		if (context === void 0) return func;
 		switch (argCount == null ? 3 : argCount) {
@@ -138,11 +141,15 @@
 		if (obj == null) return obj;
 		iteratee = optimizeCb(iteratee, context);
 		var i, length = obj.length;
+		//数组
 		if (length === +length) {
 			for (i = 0; i < length; i++) {
 				iteratee(obj[i], i, obj);
 			}
+			//Object
 		} else {
+			//先取到所有的keys
+			//根据keys来遍历
 			var keys = _.keys(obj);
 			for (i = 0, length = keys.length; i < length; i++) {
 				iteratee(obj[keys[i]], keys[i], obj);
