@@ -2,7 +2,9 @@
  *20141022 操作外围的元素，而不是里面的每个元素，实现循环滚动的，自动播放加上拖动
  *20141107修复三星S4在微信当中不能滑动的bug 支持不了find('>div')  增加：第一个是否能下拉回弹的配置
  *支持局部滚动，指定touch元素，滑动翻页，暂时只是拷贝的业务组件，改组件没有完全和项目的业务进行分离
- *20141209 修正不是循环滚动的时候，元素自动播放到最有一个的时候自动切换到第一个
+ *20141209 修正不是循环滚动的时候，元素自动播放到最后一个的时候自动切换到第一个
+ *20150120 当元素进入页面的时候加上inClass这个class
+ *20150120 加上next pre两个方法，可以外部调用者两个方法实现翻页
  */
 ((function(root, factory) {
 	"use strict";
@@ -30,6 +32,7 @@
 			isEndRebound: false, //当滑动到最后一个的时候是否允许继续滑动回弹
 			lastPageCallBack: emptyFunc, //最后一页的回调
 			totalPage: 100, //总共可以翻多少页
+			inClass: 'in'//元素进入页面加上class
 		},
 		each = function(obj, callback, context) {
 			if (obj == null) {
@@ -166,12 +169,14 @@
 				curr = this.opts.current,
 				tdis = -this.wh * (curr | 0),
 				touchTarget = this.opts.touchTarget || self.el;
+
 			"resize orientationchange".split(" ").forEach(function(t) {
 				window.addEventListener(t, function() {
 					self.wh = self.getWidthOrHeight();
 					self.resize();
 				});
 			});
+
 			//循环滚动距离要多加一个宽度
 			this.opts.round && (tdis -= this.wh);
 			//初始显示的不是第一个
@@ -324,6 +329,7 @@
 			this.initsetTimeout();
 			//元素位置重置
 			this.resetPos();
+			this.handleClass();
 		},
 		setTransform: function(el, dis, duration) {
 			duration = typeof duration === 'undefined' ? this.opts.sepTime : 0;
@@ -396,6 +402,22 @@
 			this.initsetTimeout();
 			this.moving = false;
 			this.getCurrentIndex() === this.elCount - 1 && this.opts.endCallBack.call(this, 0, true);
+		},
+		handleClass: function() {
+			var cls = this.opts.inClass,
+				num = this.getCurrentIndex();
+			each(this.els, function(obj) {
+				obj.classList.remove(cls);
+			});
+			this.els[num] && this.els[num].classList.add(this.opts.inClass);
+		},
+		next:function(){
+			this.disX=-(this.opts.dis+10);
+			this.move();
+		},
+		pre:function(){
+			this.disX=this.opts.dis+10;
+			this.move();
 		},
 		translate: function(obj, dist, duration) {
 			var style = obj && obj.style;
