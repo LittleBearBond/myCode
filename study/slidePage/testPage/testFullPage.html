@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>slide slidePage1.3</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta content="telephone=no" name="format-detection">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<link rel="stylesheet" href="../../css/reset.css">
+	<style type="text/css" media="screen">
+		*, *:before, *:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			font: normal 100% Helvetica, Arial, sans-serif;
+		}
+		html,
+		body,
+		.dj-wrap {
+			height: 100%;
+			min-height: 100%;
+		}
+		.dj-wrap {
+			position: relative;
+		}
+		.c1,
+		.c2,
+		.c3,
+		.c4,
+		.swipe-wrap h1 {
+			width: 100%;
+			height: 100%;
+		}
+		.swipe-wrap h1 {
+			text-align: center;
+		}
+		.c1 {
+			background-color: #272822;
+		}
+		.c2 {
+			background-color: #80Ac50;
+		}
+		.c3 {
+			background-color: #A186C4;
+		}
+		.c4 {
+			background-color: #F1754C;
+		}
+		.dj-wrap .wrap {
+			width: 100%;
+			height: 100%;
+			display: none;
+		}
+		.moving {
+			-webkit-transition: none 0 step-start;
+			-o-transition: none 0 step-start;
+			-moz-transition: none 0 step-start;
+			-ms-transition: none 0 step-start;
+			transition: none 0 step-start;
+		}
+		.swipe {
+			overflow: hidden;
+			position: relative;
+			height: 100%;
+			width: 100%;
+		}
+		.swipe>.swipe-wrap {
+			overflow: hidden;
+			position: relative;
+		}
+		.swipe>.swipe-wrap>div,
+		.swipe>.swipe-wrap {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+		.operation{
+			height:60px;
+			width:100%;
+			position:fixed;
+			bottom: 50%;
+			/* background:#D6D6D6; */
+			z-index: 10;
+		}
+		.operation>b{
+			display:inline-block;
+			width:60px;
+			height:60px;
+			background:#42423c;
+			line-height: 60px;
+			text-align:center;
+		}
+		.operation>b:nth-of-type(2){
+			float:right;
+		}
+		/* .operation>em{
+			width:60px;
+			height:60px;
+			position:absolute;
+			left: 0;
+			right: 0;
+			margin:auto;
+			border-radius:50%;
+			background:#D6D6D6;
+		}
+		.operation>em:after{
+			position:absolute;
+			content:"";
+			width:60px;
+			height:3px;
+			top: 0;
+			bottom: 0;
+			margin:auto;
+			transform: rotate(-45deg);
+			background:#80Ac50;
+		} */
+
+	</style>
+</head>
+<body>
+	<section class="operation">
+		<!-- <em></em> -->
+		<b id="operatePre">pre</b>
+		<b id="operateNext">next</b>
+	</section>
+	<div class="dj-wrap">
+		<div class="swipe" id='slider'>
+			<div class="swipe-wrap">
+				<div>
+					<div class="c1"><h1>1<b>1</b></h1> </div>
+				</div>
+				<div>
+					<div class="c2"><h1>2<b>1</b></h1></div>
+				</div>
+				<div>
+					<div class="c3"><h1>3<b>1</b></h1></div>
+				</div>
+				<div>
+					<div class="c4"><h1>4<b>1</b></h1></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../../lib/zepto.js"></script>
+	<!-- <script src="slidePageItem1.3.js"  charset="utf-8" ></script> -->
+	<script src="../slidePage2.1.js"  charset="utf-8" ></script>
+	<script >
+		var s1;
+		$(function() {
+			s1 = new slidePage($('#slider'), {
+				isAutoPlay: false,
+				current: 1,
+				dis: 30,
+				round: false,
+				horizontal: true,
+				isStartRebound:true,
+				totalPage:4
+			});
+
+			$('#operatePre').on('click',s1.pre.bind(s1));
+
+			$('#operateNext').on('click',s1.next.bind(s1));
+			console.log(s1)
+		});
+	</script>
+</body>
+</html>
