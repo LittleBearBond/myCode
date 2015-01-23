@@ -601,17 +601,35 @@ function launchFullScreen(element) {
 }
 
 function cancelFullScreen() {
-		if (document.exitFullscreen) {
-			document.exitFullscreen();
-		} else if (document.msExitFullscreen) {
-			document.msExitFullscreen();
-		} else if (document.mozCancelFullScreen) {
-			document.mozCancelFullScreen();
-		} else if (document.webkitExitFullscreen) {
-			document.webkitExitFullscreen();
-		}
+	if (document.exitFullscreen) {
+		document.exitFullscreen();
+	} else if (document.msExitFullscreen) {
+		document.msExitFullscreen();
+	} else if (document.mozCancelFullScreen) {
+		document.mozCancelFullScreen();
+	} else if (document.webkitExitFullscreen) {
+		document.webkitExitFullscreen();
 	}
-	// 假设已定义好某些Service
+}
+
+// 高度无缝动画方法
+var funTransitionHeight = function(element, time) { // time, 数值，可缺省
+	if (typeof window.getComputedStyle == "undefined") return;
+	//原本高度
+	var height = window.getComputedStyle(element).height;
+	element.style.height = "auto";
+	//最后高度
+	var targetHeight = window.getComputedStyle(element).height;
+	//设置会当前高度
+	element.style.height = height;
+	setTimeout(function() {
+		if (time) element.style.transition = "height " + time + "ms";
+		//过度到最后高度
+		element.style.height = targetHeight;
+	}, 15);
+};
+
+// 假设已定义好某些Service
 var services = {
 		abc: 123,
 		def: 456,
@@ -633,16 +651,16 @@ var services = {
 	};
 // 激活器
 function Activitor(func) {
-	var obj = {};
-	func.apply(obj, setFuncParams(getFuncParams(func)));
-	return obj;
-}
-// 定义新Service
-function Service(abc, ghi) {
-	this.write = function() {
-		console.log(abc,ghi);
+		var obj = {};
+		func.apply(obj, setFuncParams(getFuncParams(func)));
+		return obj;
 	}
-}
-// 实例化Service并调用方法
+	// 定义新Service
+function Service(abc, ghi) {
+		this.write = function() {
+			console.log(abc, ghi);
+		}
+	}
+	// 实例化Service并调用方法
 var service = Activitor(Service);
 service.write();
