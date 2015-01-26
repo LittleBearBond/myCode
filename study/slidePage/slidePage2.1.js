@@ -5,6 +5,7 @@
  *20141209 修正不是循环滚动的时候，元素自动播放到最后一个的时候自动切换到第一个
  *20150120 当元素进入页面的时候加上inClass这个class
  *20150120 加上next pre两个方法，可以外部调用者两个方法实现翻页
+ *20150124 $(this.els).eq(opts.current).addClass(opts.inClass);进入的时候 当前页添加动画
  */
 ((function(root, factory) {
 	"use strict";
@@ -146,6 +147,7 @@
 			});
 			this.resize();
 			this.el.style.webkitTransform = "translate3d(0,0,0)";
+			$(this.els).eq(opts.current).addClass(opts.inClass);
 			return this;
 		},
 		resize: function() {
@@ -409,7 +411,7 @@
 			each(this.els, function(obj) {
 				obj.classList.remove(cls);
 			});
-			this.els[num] && this.els[num].classList.add(this.opts.inClass);
+			this.els[num] && this.els[num].classList.add(cls);
 		},
 		next:function(){
 			this.disX=-(this.opts.dis+10);

@@ -79,42 +79,46 @@ function setUrlParam(name, value, url) {
 	return endsWith(url, '&') ? (url + name + '=' + value) : (url + '&' + name + '=' + value);
 }
 
-function loadImage(node, after_single, after_all) {
+//图片加载
+function loadImage(container, afterSingle, afterAll) {
 	function noop() {}
 
-	function is_func(variable) {
+	function isFunc(variable) {
 		return typeof variable === 'function';
 	}
 
-	function load_check(loading) {
+	function loadCheck(loading) {
 		if (loading.complete) {
 			complete++;
-			after_single(loading.ele, loading.width, loading.height, loading.i);
-			if (complete == max) {
-				after_all(complete);
-			}
+			afterSingle(loading.ele, loading.width, loading.height, loading.i, loading.startTime);
+			(complete >= max) && afterAll(complete, loading.startTime);
 			loading.ele = null;
 			loading = null;
-		} else {
-			setTimeout(function() {
-				load_check(loading);
-			}, 100);
+			return;
 		}
+		//轮询
+		setTimeout(function() {
+			loadCheck(loading);
+		}, 100);
 	}
-	node = node || document;
-	!is_func(after_single) && (after_single = noop);
-	!is_func(after_all) && (after_all = noop);
-	var images = node.getElementsByTagName("img");
+
+	var images = $(container).find('img');
 	var max = images.length;
-	var complete = 0;
-	for (var i = 0; i < max; i++) {
-		var image = images[i];
-		var loading = new Image();
+	var complete = 0,
+		i = 0,
+		image, loading;
+	for (; i < max; i++) {
+		image = images[i];
+		loading = new Image();
 		loading.src = image.src;
 		loading.ele = image;
 		loading.i = i;
-		load_check(loading);
+		loading.startTime = (+new Date());
+		loadCheck(loading);
 	}
+
+	!isFunc(afterSingle) && (afterSingle = noop);
+	!isFunc(afterAll) && (afterAll = noop);
 }
 
 function parseURL(url) {
