@@ -79,47 +79,46 @@ function setUrlParam(name, value, url) {
 	return endsWith(url, '&') ? (url + name + '=' + value) : (url + '&' + name + '=' + value);
 }
 
-//图片加载
-function loadImage(container, afterSingle, afterAll) {
-	function noop() {}
-
-	function isFunc(variable) {
-		return typeof variable === 'function';
-	}
-
-	function loadCheck(loading) {
-		if (loading.complete) {
-			complete++;
-			afterSingle(loading.ele, loading.width, loading.height, loading.i, loading.startTime);
-			(complete >= max) && afterAll(complete, loading.startTime);
-			loading.ele = null;
-			loading = null;
-			return;
+	//图片加载
+	function loadImage(container, afterSingle, afterAll) {
+		var noop = function() {},
+			isFunc = function(variable) {
+				return typeof variable === 'function';
+			},
+			loadCheck = function(loadImg) {
+				if (!loadImg) {
+					return;
+				}
+				if (loadImg.complete) {
+					complete++;
+					afterSingle(loadImg.ele, loadImg.width, loadImg.height, loadImg.i, max, loadImg.startTime);
+					(complete >= max) && afterAll(complete, loadImg.startTime);
+					loadImg.ele = null;
+					loadImg = null;
+					return;
+				}
+				//轮询
+				setTimeout(function() {
+					loadCheck(loadImg);
+				}, 100);
+			},
+			images = typeof container === 'string' ? $(container).find('img') : container,
+			max = images.length,
+			complete = 0,
+			i = 0,
+			image, loadImg;
+		!isFunc(afterSingle) && (afterSingle = noop);
+		!isFunc(afterAll) && (afterAll = noop);
+		for (; i < max; i++) {
+			image = images[i];
+			loadImg = new Image();
+			loadImg.src = image.src;
+			loadImg.ele = image;
+			loadImg.i = i;
+			loadImg.startTime = (+new Date());
+			loadCheck(loadImg);
 		}
-		//轮询
-		setTimeout(function() {
-			loadCheck(loading);
-		}, 100);
 	}
-
-	var images = $(container).find('img');
-	var max = images.length;
-	var complete = 0,
-		i = 0,
-		image, loading;
-	for (; i < max; i++) {
-		image = images[i];
-		loading = new Image();
-		loading.src = image.src;
-		loading.ele = image;
-		loading.i = i;
-		loading.startTime = (+new Date());
-		loadCheck(loading);
-	}
-
-	!isFunc(afterSingle) && (afterSingle = noop);
-	!isFunc(afterAll) && (afterAll = noop);
-}
 
 function parseURL(url) {
 	var a = document.createElement('a');
