@@ -1,6 +1,6 @@
-/*! my-mtusi - v0.0.1 - 2014-12-30
+/*! my-mtusi - v0.0.1 - 2015-02-04
 author: xiongjian
-* Copyright (c) 2014 xiongjian; Licensed  */
+* Copyright (c) 2015 xiongjian; Licensed  */
 ((function(root, factory) {
 	"use strict";
 	if (typeof define === "function" && define.amd) {

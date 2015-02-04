@@ -41,7 +41,8 @@ module.exports = function(grunt) {
 					'<%= zeptodir %>ios3.js',
 					'<%= zeptodir %>selector.js',
 					'<%= zeptodir %>stack.js',
-					'<%= zeptodir %>touch.js'
+					'<%= zeptodir %>touch.js',
+					'<%= zeptodir %>cookie.js'
 				],
 				//返回的JS文件位置
 				dest: 'dist/zepto.js'
