@@ -127,7 +127,7 @@ $(function() {
 	$wrap.on('click', '.operateNext', $.proxy(slider.next, slider));
 
 	//网页版分享
-	(function webShare() {
+	(function () {
 		var url = encodeURIComponent(top.location.href);
 		var title = encodeURIComponent(top.document.title);
 
