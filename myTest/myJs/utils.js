@@ -79,46 +79,46 @@ function setUrlParam(name, value, url) {
 	return endsWith(url, '&') ? (url + name + '=' + value) : (url + '&' + name + '=' + value);
 }
 
-	//图片加载
-	function loadImage(container, afterSingle, afterAll) {
-		var noop = function() {},
-			isFunc = function(variable) {
-				return typeof variable === 'function';
-			},
-			loadCheck = function(loadImg) {
-				if (!loadImg) {
-					return;
-				}
-				if (loadImg.complete) {
-					complete++;
-					afterSingle(loadImg.ele, loadImg.width, loadImg.height, loadImg.i, max, loadImg.startTime);
-					(complete >= max) && afterAll(complete, loadImg.startTime);
-					loadImg.ele = null;
-					loadImg = null;
-					return;
-				}
-				//轮询
-				setTimeout(function() {
-					loadCheck(loadImg);
-				}, 100);
-			},
-			images = typeof container === 'string' ? $(container).find('img') : container,
-			max = images.length,
-			complete = 0,
-			i = 0,
-			image, loadImg;
-		!isFunc(afterSingle) && (afterSingle = noop);
-		!isFunc(afterAll) && (afterAll = noop);
-		for (; i < max; i++) {
-			image = images[i];
-			loadImg = new Image();
-			loadImg.src = image.src;
-			loadImg.ele = image;
-			loadImg.i = i;
-			loadImg.startTime = (+new Date());
-			loadCheck(loadImg);
-		}
+//图片加载
+function loadImage(container, afterSingle, afterAll) {
+	var noop = function() {},
+		isFunc = function(variable) {
+			return typeof variable === 'function';
+		},
+		loadCheck = function(loadImg) {
+			if (!loadImg) {
+				return;
+			}
+			if (loadImg.complete) {
+				complete++;
+				afterSingle(loadImg.ele, loadImg.width, loadImg.height, loadImg.i, max, loadImg.startTime);
+				(complete >= max) && afterAll(complete, loadImg.startTime);
+				loadImg.ele = null;
+				loadImg = null;
+				return;
+			}
+			//轮询
+			setTimeout(function() {
+				loadCheck(loadImg);
+			}, 100);
+		},
+		images = typeof container === 'string' ? $(container).find('img') : container,
+		max = images.length,
+		complete = 0,
+		i = 0,
+		image, loadImg;
+	!isFunc(afterSingle) && (afterSingle = noop);
+	!isFunc(afterAll) && (afterAll = noop);
+	for (; i < max; i++) {
+		image = images[i];
+		loadImg = new Image();
+		loadImg.src = image.src;
+		loadImg.ele = image;
+		loadImg.i = i;
+		loadImg.startTime = (+new Date());
+		loadCheck(loadImg);
 	}
+}
 
 function parseURL(url) {
 	var a = document.createElement('a');
@@ -419,6 +419,75 @@ window.requestAnimFrame = (function() {
 			window.setTimeout(c, 1000 / 60);
 		};
 })();
+
+window.requestNextAnimationFrame = (function() {
+	var originalWebkitRequestAnimationFrame = undefined,
+		wrapper = undefined,
+		callback = undefined,
+		geckoVersion = 0,
+		userAgent = navigator.userAgent,
+		index = 0,
+		self = this;
+	// Workaround for Chrome 10 bug where Chrome
+	// does not pass the time to the animation function
+
+	if (window.webkitRequestAnimationFrame) {
+		// Define the wrapper
+		wrapper = function(time) {
+			if (time === undefined) {
+				time = +new Date();
+			}
+			self.callback(time);
+		};
+		// Make the switch
+		originalWebkitRequestAnimationFrame = window.webkitRequestAnimationFrame;
+		window.webkitRequestAnimationFrame = function(callback, element) {
+			self.callback = callback;
+			// Browser calls the wrapper and wrapper calls the callback
+			originalWebkitRequestAnimationFrame(wrapper, element);
+		}
+	}
+	// Workaround for Gecko 2.0, which has a bug in
+	// mozRequestAnimationFrame() that restricts animations
+	// to 30-40 fps.
+	if (window.mozRequestAnimationFrame) {
+		// Check the Gecko version. Gecko is used by browsers
+		// other than Firefox. Gecko 2.0 corresponds to
+		// Firefox 4.0.
+		index = userAgent.indexOf('rv:');
+		if (userAgent.indexOf('Gecko') != -1) {
+			geckoVersion = userAgent.substr(index + 3, 3);
+			if (geckoVersion === '2.0') {
+				// Forces the return statement to fall through
+				// to the setTimeout() function.
+				window.mozRequestAnimationFrame = undefined;
+			}
+		}
+	}
+
+	return window.requestAnimationFrame ||
+		window.webkitRequestAnimationFrame ||
+		window.mozRequestAnimationFrame ||
+		window.oRequestAnimationFrame ||
+		window.msRequestAnimationFrame ||
+
+		function(callback, element) {
+			var start,
+				finish;
+
+			window.setTimeout(function() {
+				start = +new Date();
+				callback(start);
+				finish = +new Date();
+
+				self.timeout = 1000 / 60 - (finish - start);
+
+			}, self.timeout);
+		};
+}());
+
+window.cancelNextRequestAnimationFrame = window.cancelRequestAnimationFrame || window.webkitCancelAnimationFrame || window.webkitCancelRequestAnimationFrame || window.mozCancelRequestAnimationFrame || window.oCancelRequestAnimationFrame || window.msCancelRequestAnimationFrame || clearTimeout;
+
 /*requestAnimationFrame*/
 (function() {
 	var lastTime = 0;
