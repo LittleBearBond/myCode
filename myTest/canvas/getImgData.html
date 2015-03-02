@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>title</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta content="telephone=no" name="format-detection">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+
+</head>
+<body>
+	<img src="img/loading_ico.png" alt="" id="img1">
+	<canvas id="canvas" width="300" height="300">
+	</canvas>
+	<script>
+		/*function getImgData(){
+			var canvas = document.getElementById('canvas');
+			var ctx = canvas.getContext('2d');
+			var img =  document.getElementById('img1');
+			ctx.drawImage(img, 0, 0);
+			var data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+			var length = data.length;
+			var textPoint = [],curr;
+			for (var i = 0, wl = canvas.width * 4; i < length; i += 4) {
+				curr=data[i + 3];
+				if (curr) { // 根据透明度判断
+					var x = (i % wl) / 4;
+					var y = parseInt(i / wl)
+					textPoint.push([x, y]);
+				}
+			}
+			console.log(textPoint)
+		}*/
+
+		function getImgData1(){
+			var canvas = document.getElementById('canvas');
+			var ctx = canvas.getContext('2d');
+			var img =  document.getElementById('img1');
+			ctx.drawImage(img, 0, 0);
+			var textPoint = [];
+			var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+			for(var i = 0; i < imgData.width; i++){
+				  for(var j = 0; j < imgData.height; j++) {
+					    var index = (i + j * imgData.width) * 4 + 3;
+					    if(imgData.data[index]) {
+						      textPoint.push([i, j]);
+					    }
+				  } 
+			}
+			console.log(textPoint);
+		}
+
+		window.addEventListener('load',getImgData1,false);
+	</script>
+</body>
+</html>
