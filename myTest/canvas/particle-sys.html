@@ -10,25 +10,25 @@
 		}
 	</style>
 	<script>
-		//http://sandbox.runjs.cn/show/tlszsacj
-		window.requestAnimFrame = (function() {
-			return window.requestAnimationFrame ||
-			window.webkitRequestAnimationFrame ||
-			window.mozRequestAnimationFrame ||
-			window.msRequestAnimationFrame ||
-			function(c) {
-				window.setTimeout(c, 1000 / 60);
-			};
-		})();
-		var $=function(id){
-			return document.getElementById(id);
+	//http://sandbox.runjs.cn/show/tlszsacj
+	window.requestAnimFrame = (function() {
+		return window.requestAnimationFrame ||
+		window.webkitRequestAnimationFrame ||
+		window.mozRequestAnimationFrame ||
+		window.msRequestAnimationFrame ||
+		function(c) {
+			window.setTimeout(c, 1000 / 60);
 		};
-		var canvas,context,focallength = 250;
-		window.onload = function(){
-			canvas = document.getElementById("cas");
-			context = canvas.getContext('2d');
+	})();
+	var $=function(id){
+		return document.getElementById(id);
+	};
+	var canvas,context,focallength = 250;
+	window.onload = function(){
+		canvas = document.getElementById("cas");
+		context = canvas.getContext('2d');
 
-			var dots = getImgData($('name').value);
+		var dots = getImgData($('name').value);
 
 			//是否暂停
 			var pause = false;
@@ -98,8 +98,8 @@
 					dot.paint();
 				});
 
-!pause && requestAnimFrame(animate);
-}
+				!pause && requestAnimFrame(animate);
+				}
 
 $('startBtn').onclick = function(){
 	if(!pause) return;
@@ -175,7 +175,7 @@ Dot.prototype = {
 		context.fill();
 		context.restore();
 	}
-}
+};
 </script>
 <title>操控字体的数据</title>
 </head>
