@@ -1,0 +1,31 @@
+#eclipse files
+.project
+.settings
+
+#webstorm
+.idea/
+.iml
+*.iml
+*.tmp
+
+# temp files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+#log files
+.log
+logs/*
+
+#svn
+.svn/*
+
+# Vim swap files
+*.swp
+
+node_modules/
+!study/*/node_modules/
+!myTest/*/node_modules/
+.sass-cache/
+tmp-cmd/
+#IntellijIdea
