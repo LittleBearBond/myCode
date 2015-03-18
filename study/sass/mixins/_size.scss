@@ -1,0 +1,20 @@
+// Sizing shortcuts
+
+@mixin size($width, $height) {
+  $size: if(length($size) > 0, $size, auto);
+  $width: nth($size, 1);
+  $height: nth($size, length($size));
+
+  @if $width != auto {
+    $width: if(unitless($width), $width + px, $width);
+  }
+  @if $height != auto {
+    $height: if(unitless($height), $height + px, $height);
+  }
+  width: $width;
+  height: $height;
+}
+
+@mixin square($size) {
+  @include size($size, $size);
+}

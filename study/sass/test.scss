@@ -1,0 +1,304 @@
+//http://www.w3cplus.com/sassguide/syntax.html
+@import "mixins";
+$fontSize: 12px;
+$baseLineHeight: 1.5 !default;
+$baseFontSize:          12px !default;
+$baseLineHeight:        1.5 !default;
+body {
+    font:#{$baseFontSize}/#{$baseLineHeight};
+    font-size: $fontSize;
+    line-height: $baseLineHeight;
+}
+$borderDirection: top !default;
+
+//应用于class和属性
+.border-#{$borderDirection}{
+    border-#{$borderDirection}:1px solid #ccc;
+}
+
+$linkColor:         #08c #333 !default;//第一个值为默认值，第二个鼠标滑过值
+a{
+    color:nth($linkColor,1);
+
+    &:hover{
+        color:nth($linkColor,2);
+    }
+}
+
+//map
+$headings: (h1: 2em, h2: 1.5em, h3: 1.2em);
+@each $header, $size in $headings {
+  #{$header} {
+    font-size: $size;
+  }
+}
+
+//选择器嵌套
+#top_nav{
+  line-height: 40px;
+  text-transform: capitalize;
+  background-color:#333;
+  li{
+    float:left;
+  }
+  a{
+    display: block;
+    padding: 0 10px;
+    color: #fff;
+    &:hover{
+      color:#ddd;
+    }
+  }
+}
+//属性嵌套
+.fakeshadow {
+  border: {
+    style: solid;
+    left: {
+      width: 4px;
+      color: #888;
+    }
+    right: {
+      width: 2px;
+      color: #ccc;
+    }
+  }
+}
+//@at-root
+.parent-1 {
+  color:#f00;
+  .child {
+    width:100px;
+  }
+}
+
+//单个选择器跳出
+.parent-2 {
+  color:#f00;
+  @at-root .child {
+    width:200px;
+  }
+}
+
+//多个选择器跳出
+.parent-3 {
+  background:#f00;
+  @at-root {
+    .child1 {
+      width:300px;
+    }
+    .child2 {
+      width:400px;
+    }
+  }
+}
+//@at-root与&配合使用
+.child{
+    @at-root .parent &{
+        color:#f00;
+    }
+}
+
+//混合(mixin)
+@mixin opacity($opacity:50) {
+  opacity: $opacity / 100;
+  filter: alpha(opacity=$opacity);
+}
+
+//css style
+//-------------------------------
+.opacity{
+  @include opacity; //参数使用默认值
+}
+.opacity-80{
+  @include opacity(80); //传递参数
+}
+//多个参数mixin
+@mixin horizontal-line($border:1px dashed #ccc, $padding:10px){
+    border-bottom:$border;
+    padding-top:$padding;
+    padding-bottom:$padding;
+}
+.imgtext-h li{
+    @include horizontal-line(1px solid #ccc);
+}
+.imgtext-h--product li{
+    @include horizontal-line($padding:15px);
+}
+
+//多组值参数mixin 那么参数则需要在变量后加三个点表示
+@mixin box-shadow($shadow...) {
+  -webkit-box-shadow:$shadow;
+  box-shadow:$shadow;
+}
+.box{
+  border:1px solid #ccc;
+  @include box-shadow(0 2px 2px rgba(0,0,0,.3),0 3px 3px rgba(0,0,0,.3),0 4px 4px rgba(0,0,0,.3),0 4px 4px rgba(0,0,0,.5));
+}
+
+//@content
+//@content在sass3.2.0中引入，可以用来解决css3的@media等带来的问题。它可以使@mixin接受一整块样式，接受的样式从@content开始。
+@mixin max-screen($res){
+  @media only screen and ( max-width: $res )
+  {
+    @content;
+  }
+}
+
+@include max-screen(480px) {
+  body { color: red }
+  h1{font-size: 1.5em;}
+}
+
+.test-textend{
+  border: 4px solid #ff9aa9;
+}
+.speaker{
+  @extend .test-textend;
+  border-width: 2px;
+}
+//占位选择器%
+%ir{
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+$lte7: true;
+$type: monster;
+%clearfix{
+  @if $lte7 {
+    *zoom: 1;
+  }
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+    font: 0/0 a;
+  }
+  &:after {
+    clear: both;
+  }
+}
+#header{
+  h1{
+    @extend %ir;
+    width:300px;
+  }
+}
+//其中%clearfix这个没有调用，所以解析出来的css样式也就没有clearfix部分
+/* .ir{
+  @extend %ir;
+} */
+//函数
+$baseFontSize:      10px !default;
+@function pxToRem($px) {
+  @return $px / $baseFontSize * 1rem;
+}
+.test-func{
+  font-size:pxToRem(16px);
+}
+//@if
+$lte7: true;
+$type: monster;
+.ib{
+    display:inline-block;
+    @if $lte7 {
+        *display:inline;
+        *zoom:1;
+    }
+}
+
+p {
+  @if $type == ocean {
+    color: blue;
+  } @else if $type == matador {
+    color: red;
+  } @else if $type == monster {
+    color: green;
+  } @else {
+    color: black;
+  }
+}
+$a:   false !default;
+$b:   true !default;
+@if not($a){
+    p{
+        color:red;
+    }
+}
+div{
+    font-size:14px;
+    @if $a or $b{
+        width:300px;
+    }
+}
+li{
+    line-height:24px;
+    @if $a and $b{
+        float:left;
+    }
+}
+//三目判断
+/* if(true, 1px, 2px) => 1px
+if(false, 1px, 2px) => 2px */
+//@for $var from <start> through <end>和@for $var from <start> to <end>。$i表示变量，start表示起始值，end表示结束值，这两个的区别是关键字through表示包括end这个数，而to则不包括end这个数
+
+@for $i from 1 through 3 {
+  .item-#{$i} { width: 2em * $i; }
+}
+//@each循环
+//语法为：@each $var in <list or map>。其中$var表示变量，而list和map表示list类型数据和map类型数据。sass 3.3.0新加入了多字段循环和map数据循环。
+$animal-list: puma, sea-slug, egret, salamander;
+@each $animal in $animal-list {
+  .#{$animal}-icon {
+    background-image: url('/images/#{$animal}.png');
+  }
+}
+@each $val in a,b,c {
+  .#{$val}-icon {
+    background-image: url('/images/#{$val}.png');
+  }
+}
+
+$animal-data: (puma, black, default),(sea-slug, blue, pointer),(egret, white, move);
+@each $animal, $color, $cursor in $animal-data {
+  .#{$animal}-icon {
+    background-image: url('/images/#{$animal}.png');
+    border: 2px solid $color;
+    cursor: $cursor;
+  }
+}
+
+//prefixer
+//webki和标准
+@mixin box-shadow($shadow...) {
+    @include prefixer(box-shadow, $shadow, webkit spec);
+}
+
+//webkit moz 和标准
+@mixin box-sizing($type:border-box) {
+  // border-box | padding-box | content-box
+  @include prefixer(box-sizing, $type, webkit moz spec);
+}
+
+//webkit moz o 和标准
+@mixin transform($property...) {
+  @include prefixer(transform, $property, webkit moz o spec);
+}
+
+$headings: (h1: 2em, h2: 1.5em, h3: 1.2em);
+@each $h, $size in $headings {
+  #{$h} {
+    font-size: $size;
+    @include inline-block;
+    @include  float(right);
+    //@include box-sizing;
+    @include prefixerval(box-sizing,border-box,s);
+  }
+}
+$default-pre:webkit,o,ms,moz,spec;
+.test-border{
+    @include triangle(top,50,#fff);
+    z-index: if(index($default-pre,ms)>0,10,6);
+}

@@ -1,0 +1,6 @@
+@mixin float($float:left) {
+  float: $float;
+  @if $lte7 {
+    _display:inline;
+  }
+}

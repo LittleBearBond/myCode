@@ -1,0 +1,6 @@
+@mixin inline-block {
+  display: inline-block;
+  @if $lte7 {
+    *display: inline;*zoom:1;*vertical-align: auto;
+  }
+}
