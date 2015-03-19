@@ -1,0 +1,8 @@
+//最小高度
+@mixin min-height($height){
+  min-height: $height;
+  height: auto !important;
+  @if $lte7{
+    _height: $height;
+  }
+}

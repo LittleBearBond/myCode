@@ -1,0 +1,16 @@
+@mixin clearfix() {
+    @if $lte7 {
+        *zoom: 1;
+    }
+    &:before, &:after {
+        content: " "; // 1
+        display: table; // 2
+        font-size: 0;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+    &:after {
+        clear: both;
+    }
+}
