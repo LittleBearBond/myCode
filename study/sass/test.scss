@@ -288,17 +288,20 @@ $animal-data: (puma, black, default),(sea-slug, blue, pointer),(egret, white, mo
 }
 
 $headings: (h1: 2em, h2: 1.5em, h3: 1.2em);
-@each $h, $size in $headings {
+@each $h, $sizee in $headings {
   #{$h} {
-    font-size: $size;
+    font-size: $sizee;
     @include inline-block;
     @include  float(right);
     //@include box-sizing;
     @include prefixerval(box-sizing,border-box,s);
   }
 }
+
 $default-pre:webkit,o,ms,moz,spec;
 .test-border{
     @include triangle(top,50,#fff);
     z-index: if(index($default-pre,ms)>0,10,6);
+    //width: maybeAddPx(10);
+    @include size(10px 20);
 }

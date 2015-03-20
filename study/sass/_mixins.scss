@@ -1,3 +1,8 @@
+@charset "UTF-8";
+
+// functon
+@import "function";
+
 // Mixins
 // --------------------------------------------------
 @import "variables";
@@ -17,3 +22,4 @@
 @import "mixins/display";
 @import "mixins/float";
 @import "mixins/min-height";
+

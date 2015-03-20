@@ -1,3 +1,28 @@
+/* @mixin size($size) {
+  $height: nth($size, 1);
+  $width: $height;
+
+  @if length($size) > 1 {
+    $height: nth($size, 2);
+  }
+
+  @if $height == auto or type-of($height) == number {
+    @if unitless($height){
+      height: ($height) + px;
+    } @else {
+      height: $height;
+    }
+  }
+
+  @if $width == auto or type-of($width) == number  {
+    @if unitless($width){
+      height: ($width) + px;
+    } @else {
+      height: $width;
+    }
+  }
+}
+ */
 body {
   font: 12px/1.5;
   font-size: 12px;
@@ -181,24 +206,27 @@ h1 {
   display: inline-block;
   *display: inline;
   *zoom: 1;
+  *vertical-align: auto;
   float: right;
-  display: inline; }
+  _display: inline; }
 
 h2 {
   font-size: 1.5em;
   display: inline-block;
   *display: inline;
   *zoom: 1;
+  *vertical-align: auto;
   float: right;
-  display: inline; }
+  _display: inline; }
 
 h3 {
   font-size: 1.2em;
   display: inline-block;
   *display: inline;
   *zoom: 1;
+  *vertical-align: auto;
   float: right;
-  display: inline; }
+  _display: inline; }
 
 .test-border {
   content: "";
@@ -207,6 +235,8 @@ h3 {
   border-bottom: 50 solid #fff;
   border-left: 50 dashed transparent;
   border-right: 50 dashed transparent;
-  z-index: 10; }
+  z-index: 10;
+  width: 10px;
+  height: 20px; }
 
 /*# sourceMappingURL=test.css.map */

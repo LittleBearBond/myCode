@@ -1,0 +1,11 @@
+@function maybeAddPx($num) {
+    @if $num==auto {
+        @return auto;
+    }
+    @if unitless($num) {
+        @return $num + px;
+    }
+    @else {
+        @return $num;
+    }
+}
