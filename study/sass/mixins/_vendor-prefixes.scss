@@ -236,7 +236,6 @@
   text-stroke: $val $color;
   -webkit-text-stroke: $val $color;
 }
-
 $default-pre:webkit,o,ms,moz,spec;
 // prefixer
 //----------------------------
@@ -273,4 +272,69 @@ $default-pre:webkit,o,ms,moz,spec;
       }
     }
   }
+}
+
+@mixin disable-prefix-for-all() {
+  $prefix-for-webkit:      false !global;
+  $prefix-for-mozilla:     false !global;
+  $prefix-for-microsoft:   false !global;
+  $prefix-for-opera:       false !global;
+  $prefix-for-spec:        false !global;
+}
+
+// 在各自的@if判断里面，先禁用所有的前缀，然后开启对应的前缀
+// 最后输出标准的时候，直接禁用所有的前缀，开启标准
+@mixin keyframes($name, $prefixes: ($default-pre)) {
+  $original-prefix-for-webkit: $prefix-for-webkit;
+  $original-prefix-for-mozilla: $prefix-for-mozilla;
+  $original-prefix-for-microsoft: $prefix-for-microsoft;
+  $original-prefix-for-opera: $prefix-for-opera;
+  $original-prefix-for-spec: $prefix-for-spec;
+  @each $prefix in $prefixes {
+    @if $prefix == webkit and $original-prefix-for-webkit == true {
+      @include disable-prefix-for-all();
+      $prefix-for-webkit: true !global;
+      @-webkit-keyframes #{$name} {
+        @content;
+      }
+    }
+
+    @if $prefix == moz and $original-prefix-for-mozilla == true {
+      @include disable-prefix-for-all();
+      $prefix-for-mozilla: true !global;
+      @-moz-keyframes #{$name} {
+        @content;
+      }
+    }
+
+    @if $prefix == ms and $original-prefix-for-microsoft == true {
+      @include disable-prefix-for-all();
+      $prefix-for-microsoft: true !global;
+      @-ms-keyframes #{$name} {
+        @content;
+      }
+    }
+
+    @if $prefix == o and $original-prefix-for-opera == true {
+      @include disable-prefix-for-all();
+      $prefix-for-opera: true !global;
+      @-o-keyframes #{$name} {
+        @content;
+      }
+    }
+
+  }
+
+  @include disable-prefix-for-all();
+  $prefix-for-spec: true !global;
+
+  @keyframes #{$name} {
+    @content;
+  }
+
+  $prefix-for-webkit:       $original-prefix-for-webkit !global;
+  $prefix-for-mozilla:      $original-prefix-for-mozilla !global;
+  $prefix-for-microsoft:    $original-prefix-for-microsoft !global;
+  $prefix-for-opera:        $original-prefix-for-opera !global;
+  $prefix-for-spec:         $original-prefix-for-spec !global;
 }

@@ -305,3 +305,21 @@ $default-pre:webkit,o,ms,moz,spec;
     //width: maybeAddPx(10);
     @include size(10px 20);
 }
+
+@include keyframes(fadeIn) {
+  from {
+    @include scale(0);
+  }
+  to {
+    @include scale(100);
+  }
+}
+
+/*  @include keyframes(fadeIns) {
+  from {
+    @include prefixer(scale,0);
+  }
+  to {
+     @include prefixer(scale,100);
+  }
+} */

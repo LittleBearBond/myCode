@@ -700,7 +700,19 @@ var funTransitionHeight = function(element, time) { // time, 数值，可缺省
 		element.style.height = targetHeight;
 	}, 15);
 };
+//我的改版
+function funTransitionHeight(element, time, newHeight) { // time, 数值，可缺省
+	if (typeof window.getComputedStyle == "undefined") return;
 
+	var height = window.getComputedStyle(element).height;
+	element.style.height = "auto";
+	var targetHeight = typeof newHeight != 'undefined' ? newHeight : window.getComputedStyle(element).height;
+	element.style.height = height;
+	setTimeout(function() {
+		if (time) element.style.transition = "height " + time + "ms";
+		element.style.height = targetHeight;
+	}, 15);
+};
 // 假设已定义好某些Service
 var services = {
 		abc: 123,

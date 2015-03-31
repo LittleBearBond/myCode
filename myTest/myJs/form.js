@@ -75,7 +75,6 @@ $.fn.getFormData = function() {
 					}
 				}
 			}
-
 		}
 		for (item in checkBoxs) {
 			//如果checkbox只有一个，就不用数组保存了
