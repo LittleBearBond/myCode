@@ -10,9 +10,10 @@ $.fn.getFormData = function() {
 		var items = $(element).find('*'),
 			checkBoxs = {},
 			arrayInput = {},
-			l = items.length,
-			i;
-		for (i = 0; i < l; i++) {
+			len = items.length,
+			i = 0,
+			oneValue;
+		for (; i < len; i++) {
 			var item = items[i],
 				itemName = item.name,
 				itemValue = item.value,
@@ -22,70 +23,82 @@ $.fn.getFormData = function() {
 			//模拟的控件
 			var inputType = item.getAttribute('input');
 
-			//标签列表
+			//模拟 标签列表
 			if ('tag_list' === inputType) {
 				itemName = item.getAttribute('name');
-				itemValue = [];
+				itemValue = [], currVal;
 
 				$(item).children().each(function(index, element) {
-					itemValue.push($(element).attr('value'));
+					currVal = $(element).attr('value');
+					currVal && itemValue.push(currVal);
 				});
 				itemValue = itemValue.join(',');
-				//checkbox
-			} else if ('checkbox' === inputType) {
-				if ($item.hasClass('checked') || $item.hasClass('up') /* 加星的控件，有1-3个状态，每个状态的value不一样 */ ) {
+				// 模拟 checkbox
+			} else if ('checkbox' === inputType || 'radio' === inputType) {
+				if ($item.hasClass('checked') || $item.hasClass('selected')) {
 					itemName = item.getAttribute('name');
 					itemValue = item.getAttribute('value');
 				}
 			}
-			if (itemName) {
-				if ('SELECT' === itemNodeName) {
-					var opt, index = item.selectedIndex;
-					if (index >= 0) {
-						opt = item.options[index];
-						result[itemName] = opt.value;
-					}
-				} else if ('RADIO' === itemType || 'CHECKBOX' === itemType) {
-					if (!item.checked) {
-						itemValue = item.getAttribute('default') + '';
-						if (itemValue === '') {
-							contiune;
-						}
-					}
 
-					if ('CHECKBOX' === itemType) {
-						if (checkBoxs[itemName]) {
-							checkBoxs[itemName].push(itemValue);
-						} else {
-							checkBoxs[itemName] = [itemValue];
-						}
-					} else {
-						result[itemName] = itemValue;
-					}
+			//没有name 跳出本次循环
+			if (!itemName) {
+				continue;
+			}
 
-				} else {
-					if (/\[\]$/i.test(itemName)) {
-						if (arrayInput[itemName]) {
-							arrayInput[itemName].push(itemValue);
-						} else {
-							arrayInput[itemName] = [itemValue];
-						}
-					} else {
-						result[itemName] = itemValue;
+			//1、select
+			if ('SELECT' === itemNodeName) {
+				var opt, index = item.selectedIndex;
+				if (index >= 0) {
+					opt = item.options[index];
+					result[itemName] = opt.value;
+				}
+				//2、RADIO or CHECKBOX
+			} else if ('RADIO' === itemType || 'CHECKBOX' === itemType) {
+				if (!item.checked) {
+					itemValue = item.getAttribute('default') + '';
+					if (itemValue === '') {
+						continue;
 					}
 				}
+				//CHECKBOX 多选 单选
+				if ('CHECKBOX' === itemType) {
+					if (checkBoxs[itemName]) {
+						checkBoxs[itemName].push(itemValue);
+					} else {
+						checkBoxs[itemName] = [itemValue];
+					}
+					//RADIO 只能单选
+				} else {
+					result[itemName] = itemValue;
+				}
+				// 3、普通元素
+			} else {
+				if (/\[\]$/i.test(itemName)) {
+					if (arrayInput[itemName]) {
+						arrayInput[itemName].push(itemValue);
+					} else {
+						arrayInput[itemName] = [itemValue];
+					}
+				} else {
+					result[itemName] = itemValue;
+				}
 			}
+
 		}
 		for (item in checkBoxs) {
-			//如果checkbox只有一个，就不用数组保存了
-			var _value = checkBoxs[item];
-			if (1 === _value.length) {
-				_value = _value[0];
+			if (!checkBoxs.hasOwnProperty(item)) {
+				contiune;
 			}
-			result[item] = _value;
+			//如果checkbox只有一个，就不用数组保存了
+			oneValue = checkBoxs[item];
+			if (1 === oneValue.length) {
+				oneValue = oneValue[0];
+			}
+			result[item] = oneValue;
 		}
 		for (item in arrayInput) {
-			result[item] = arrayInput[item];
+			arrayInput.hasOwnProperty(item) && (result[item] = arrayInput[item]);
 		}
 	});
 	return result;
