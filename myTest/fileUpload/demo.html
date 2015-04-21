@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="uploadify/uploadify.css" rel="stylesheet" />
+    <script src="../lib/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="uploadify/jquery.uploadify.js" type="text/javascript" charset="utf-8"></script>
+    <script src="upload.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row" style="max-width: 800px">
+            <div class=" col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+            <div class=" col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                <!--panel S-->
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        文件上传测试
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" role="form" id="EditInfoForm" style="margin-bottom: 50px;">
+                           <!--  <div class="alert alert-danger none">
+                               <a href="javascript:void(0)" class="alert-link "></a>
+                           </div> -->
+
+                           <div class="form-group">
+                            <label class="col-sm-3 control-label">选择文件:</label>
+                            <div class="col-sm-9">
+                                <div id="fileQueue"></div>
+                                <input id="uploadify" name="file_upload" type="file" multiple="multiple" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <input id="startUpload" type="button" class="btn btn-default" value="开始上传" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <div id="progress" class="easyui-progressbar" style="width: 400px;"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--panel E-->
+        </div>
+        <div class=" col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+    </div>
+</div>
+<script>
+   var cfg = {
+    'uploader': '/myTest/fileUpload/uploadify/uploadify.php',
+    'formData': {
+        'ASPSESSID': '@Session.SessionID',
+        'AUTHID': "xxx",
+        'type': 'ImportTeacher'
+    },
+    'fileTypeDesc': 'All Type',
+    'fileTypeExts': '*.*;',
+    'fileObjName': 'Filedata',
+    'fileSizeLimit': '100000KB',
+    'simUploadLimit': 3,
+    'uploadLimit': 20,
+    'onUploadSuccess': function (file, data, response) {
+      //$('#fileQueue > div').length &&　$('#uploadify').uploadify('upload');
+      console.log(arguments)
+      console.log('上传文件成功，准备开始导入数据')
+  }
+};
+uploadFile(cfg, "uploadify");
+$("#startUpload").click(function () {
+    var len = $('#fileQueue > div').length;
+    if (!len) {
+        console.log('请选择文件');
+        return;
+    }
+    var uploadfy = $('#uploadify');
+    uploadfy.uploadify('settings', 'formData', { 'schoolId': 'schoolId', 'subjectid': 'subjectId' });
+    uploadfy.uploadify('upload','*');
+});
+</script>
+</body>
+</html>
