@@ -1,6 +1,6 @@
 //Uploadify 的整体配置
 var uploadFile = (function(wj) {
-    var fileId = "uploadify",
+    var fileId = "#uploadify",
         fileQueueId = 'fileQueue',
         defCfgs = {
             'swf': '/myTest/fileUpload/uploadify/uploadify.swf',
@@ -74,10 +74,6 @@ var uploadFile = (function(wj) {
             'onUploadProgress': function(file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {}
         };
     return function(uploadifyCfg, id) {
-        id = id || fileId;
-        if (!id.startsWith("#")) {
-            id = '#' + id;
-        }
         var cfgs = $.extend(defCfgs, uploadifyCfg || {});
         $(id).uploadify(cfgs, "*");
     };

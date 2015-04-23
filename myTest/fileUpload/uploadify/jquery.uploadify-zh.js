@@ -1462,6 +1462,11 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
                         'id': settings.id + '-button',
                         'class': 'uploadify-button ' + settings.buttonClass
                     });
+                    //20150423 xj add S
+                    typeof settings.buttonCss==='string'&& $button.attr('style',settings.buttonCss);
+                    typeof settings.buttonCss==='object'&& $button.css(settings.buttonCss);
+                    //20150423 xj add E
+
                     if (settings.buttonImage) {
                         $button.css({
                             'background-image': "url('" + settings.buttonImage + "')",

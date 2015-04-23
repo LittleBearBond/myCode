@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>文件上传</title>
+    <title>文件上传--自动上传</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
     <meta content="telephone=no" name="format-detection">
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -15,6 +15,22 @@
     <script src="../lib/jquery.js" type="text/javascript" charset="utf-8"></script>
     <script src="uploadify/jquery.uploadify-zh.js" type="text/javascript" charset="utf-8"></script>
     <script src="upload.js" type="text/javascript" charset="utf-8"></script>
+    <style type="text/css" media="screen">
+        .button-upload{
+            position:relative;
+            overflow:hidden;
+        }
+        .button-upload .button-upload-inner, .button-upload .uploadify{
+            position:absolute;
+            cursor: pointer;
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 200px;
+            opacity: 0;
+            -ms-filter: 'alpha(opacity=0)';
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -31,16 +47,12 @@
                            <!--  <div class="alert alert-danger none">
                                <a href="javascript:void(0)" class="alert-link "></a>
                            </div> -->
+
                            <div class="form-group">
                             <label class="col-sm-3 control-label">选择文件:</label>
                             <div class="col-sm-9">
                                 <div id="fileQueue"></div>
-                                <input id="uploadify" name="file_upload" type="file" multiple="multiple" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-3 col-sm-9">
-                                <input id="startUpload" type="button" class="btn btn-default" value="开始上传" />
+                                <button class="btn btn-default button-upload" >开始上传<input id="uploadify" name="file_upload" type="file" multiple="multiple" /></button>
                             </div>
                         </div>
                         <div class="form-group">
@@ -64,6 +76,10 @@
         'AUTHID': "xxx",
         'type': 'ImportTeacher'
     },
+    'width':200,
+    'height':100,
+    'auto': true,
+    'buttonClass':'button-upload-inner',
     'fileTypeDesc': 'All Type',
     'fileTypeExts': '*.*;',
     'fileObjName': 'Filedata',
@@ -76,16 +92,9 @@
   }
 };
 uploadFile(cfg, "#uploadify");
-$("#startUpload").click(function () {
-    var len = $('#fileQueue > div').length;
-    if (!len) {
-        console.log('请选择文件');
-        return;
-    }
-    var uploadfy = $('#uploadify');
-    uploadfy.uploadify('settings', 'formData', { 'schoolId': 'schoolId', 'subjectid': 'subjectId' });
-    uploadfy.uploadify('upload','*');
-});
+$('.button-upload').on('click',function(){
+    return false;
+})
 </script>
 </body>
 </html>
