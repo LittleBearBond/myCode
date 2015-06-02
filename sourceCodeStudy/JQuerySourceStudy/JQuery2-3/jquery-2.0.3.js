@@ -7478,7 +7478,7 @@
 
             // Watch for a new set of requests
             // 如果需要，而且全局事件没有被触发过
-         // 触发监听的ajaxStart监听
+            // 触发监听的ajaxStart监听
             if (fireGlobals && jQuery.active++ === 0) {
                 jQuery.event.trigger("ajaxStart");
             }

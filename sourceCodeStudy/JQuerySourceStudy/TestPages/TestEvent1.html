@@ -9,12 +9,19 @@
 			var p1 = $('#p1');
 
 			p1.on('click', function (e) {
-				alert('灰-p1-0');
+				e.stopPropagation();
+				console.log('灰-p1-0');
 				return false;
 			});
+
 			p1.on('click', function () {
-				alert('灰-p1-1');
+				console.log('灰-p1-1');
 			});
+
+			p1.on('click', function () {
+				console.log('灰-p1-2');
+			});
+
 			/*var p2 = $('#p2');
 
 			p2.on('click', 'a,p', function (e) {

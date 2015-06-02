@@ -1,0 +1,93 @@
+要为本地分支设定不同于远程分支的名字，只需在第一个版本的命令里换个名字：
+$ git checkout --track origin/serverfix
+把远程serverfix分支切到本地并取名sf
+$ git checkout -b sf origin/serverfix
+
+--文件目录操作命令
+1 mkdir **： 创建一个空目录 **指目录名
+2 pwd：      显示当前目录的路径。
+3 cat **     查看**文件内容
+4 git rm **  删除**文件
+--git初始化操作
+
+1 git init   把当前的目录变成可以管理的git仓库，生成隐藏.git文件。
+2 git remote add origin https://github.com/git/librarysystem.git  把本地仓库的内容推送到GitHub仓库。
+3 git clone git@github.com:michaelliao/gitskills.git   从远程库克隆
+4 git add **          把xx文件添加到暂存区去。
+git add -A 添加所有文件
+5 git commit –m "**"  提交文件 –m 后面的是注释。
+--查看命令
+
+1 git status        查看仓库状态
+2 git diff  **      查看XX文件修改了那些内容
+3 git log          查看历史记录
+4 git reflog       查看历史记录的版本号id（记录你的每一次命令,不论是否提交）
+5 git log --pretty=oneline 如果信息量太多可以进行比较好的列表显示
+--版本回退
+
+1 git reset  –hard HEAD^ 或者 git reset  --hard HEAD~ 回退到上一个版本
+2  (如果想回退到80个版本，使用git reset –hard HEAD~80  git reset --hard 版本号)
+--分支管理
+
+复制代码
+1 git push –u(第一次要用-u 以后不需要) origin master 把当前master分支推送到远程库
+  git push  origin test:test 把当前test分支推送到远程test库,并建立关联
+  git push  origin :test   把当前空分支推送到远程test库,其实就是删除远程test库
+2 git branch           查看当前所有的分支
+3 git branch name      创建分支
+4 git checkout — **    把XX文件在工作区的修改全部撤销。
+5 git checkout –b dev  创建dev分支 并切换到dev分支上
+6 git checkout master  切换回master分支
+7 git branch –d dev    删除dev分支
+8 git merge dev        在当前的分支上合并dev分支
+9 git push --set-upstream origin dev 提交修改并创建远程分支dev
+复制代码
+--隐藏的文件
+
+1 git stash       把当前的工作隐藏起来 等以后恢复现场后继续工作
+2 git stash list  查看所有被隐藏的文件列表
+3 git stash apply 恢复被隐藏的文件，但是内容不删除
+4 git stash drop  删除文件
+5 git stash pop   恢复文件的同时 也删除文件
+--查看远程库信息
+
+1 git remote      查看远程库的信息
+2 git remote –v   查看远程库的详细信息
+
+三、常出错误：
+1：There is no tracking information for the current branch...
+    则说明本地分?支和远程分?支的链接关系没有创建，用命令：
+    git branch --set-upstream branch-name origin/branch-name。
+
+2: ![rejected] dev -> dev (non-fast-forward)  ... Updates were rejected because the tip of your current branch
+    推送失败，因为远程代码的最新提交和你试图推送的提交有冲突，解决办法也很简单，先用git pull把最新的提交从origin/dev抓下来，然后，在本地合并，解决冲突，再推送
+
+3：CONFLICT (content): Merge conflict in . . .
+    这回git pull成功，但是合并有冲突，需要手动解决，解决的方法和分支管理中的解决冲突一样。解决后，提交，再push：
+
+4: You are not currently on a branch, so I cannot use any
+   解决办法：git checkout master
+
+5：Your branch is behind 'origin/master' by 1 commit, and can be fast-forwarded.
+   上面的显示的意思是，有一个更新还没有反应到本地来，可能是别人往server上提交了一点东西。
+   可以使用git pull命令拿这些更新到本地来。
+
+:.gitignore
+    .gitignore配置文件用于配置不需要加入版本管理的文件。
+    配置语法：
+        "/"  开头表示目录；
+        "*"  通配多个字符；
+        "?"  通配单个字符
+        "[]" 包含单个字符的匹配列表；
+        "!"  表示不忽略(跟踪)匹配到的文件或目录；
+         git 对于 .ignore 配置文件是按行从上到下进行规则匹配的，意味着如果前面的规则匹配的范围更大，则后面的规则将不会生效；
+    示例：
+    　　（1）foder/* 忽略目录foder下的全部内容,不管是根目录下的 /foder/ 目录，还是某个子目录 /list/foder/ 目录，都会被忽略。
+    　　（2）/foder/* 说明：忽略根目录下的 /foder/ 目录的全部内容；
+    　　（3）/*
+            !.gitignore
+            !/fw/bin/
+            !/fw/sf/
+            说明：忽略全部内容，但是不忽略 .gitignore 文件、根目录下的 /fw/bin/ 和 /fw/sf/ 目录
+    注意问题：
+        .gitignore文件只对还没有加入版本管理的文件起作用，如果之前已经用git把要忽略的文件纳入了版本库，就不起作用了。

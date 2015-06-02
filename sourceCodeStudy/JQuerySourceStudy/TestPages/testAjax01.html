@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+        <meta content="telephone=no" name="format-detection">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <script src="../JQuery2-3/jquery-2.0.3-n.js"></script>
+    </head>
+
+    <body>
+        <textarea name="" id="txt_event"></textarea>
+        <button type="" id="btnTest">testajax</button>
+        <script>
+            var $d=$(document);
+                // 全局事件
+                $d.ajaxStart(function (e) {
+                        log('txt_event', '触发ajaxStart回调函数');
+                }).ajaxSend(function (e) {
+                        log('txt_event', '触发ajaxSend回调函数');
+                }).ajaxSuccess(function (e, jqXHR, s, data) {
+                        log('txt_event', '触发ajaxSuccess回调函数');
+                }).ajaxError(function (e, jqXHR, s, errorData) {
+                        log('txt_event', '触发ajaxError回调函数');
+                }).ajaxComplete(function (e, jqXHR, s) {
+                        log('txt_event', '触发ajaxComplete回调函数');
+                }).ajaxStop(function (e) {
+                        log('txt_event', '触发ajaxStop回调函数');
+                });
+                $('#btnTest').on('click',bindLocalEvent);
+                // 局部事件
+                function bindLocalEvent(e) {
+                        /*var textareaid ='txt_event';             
+                        $.ajax({
+                        url:'ajax.php',
+                        type: 'get',
+                        dataType: 'text',
+                        global: true,
+                        cache: false,
+                        beforeSend: function (jqXHR, s) {
+                                log(textareaid, '触发beforeSend回调函数');
+                        },
+                        dataFilter: function (data, dataType) {
+                            log(textareaid, '触发dataFilter回调函数');
+                            return data;
+                        },
+                        success: function (data, statusText, jqXHR) {
+                                log(textareaid, '触发success回调函数');
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                                log(textareaid, '触发error回调函数');
+                        },
+                        complete: function (jqXHR, textStatus) {
+                                log(textareaid, '触发complete回调函数');
+                        }
+                    }).done(function(){
+                        console.log('ajax done',this,[].slice.call(arguments));
+                    });*/
+                    $.get('ajax.php',log,'json');
+                }
+
+                function log(textareaid, txt) {
+                    console.log(txt);
+                }
+        </script>
+    </body>
+
+</html>
