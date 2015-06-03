@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <script src="../build/react.js"></script>
+    <script src="../build/JSXTransformer.js"></script>
+    <script src="../lib/jquery1-11-2.js"></script>
+    <script src="../lib/showdown.min.js"></script>
+</head>
+<body>
+
+    <script type="text/jsx">
+    var PRODUCTS = [{
+        category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football'}, {
+        category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball'}, {
+        category: 'Sporting Goods', price: '$29.99', stocked: false, name: 'Basketball'}, {
+        category: 'Electronics', price: '$99.99', stocked: true, name: 'iPod Touch'}, {
+        category: 'Electronics', price: '$399.99', stocked: false, name: 'iPhone 5'}, {
+        category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7'}];
+
+    var converter = new Showdown.converter();
+    var Search = React.createClass({
+        searchData:function(e) {
+            this.props.onsearch(this.refs.input.getDOMNode().value.trim());
+        },
+        render: function() {
+             //var rawMarkup = converter.makeHtml(this.props.children.toString());
+             /*<span dangerouslySetInnerHTML={{__html: rawMarkup}} />*/
+            return (
+                    <input type="text" placeholder="Search" ref='input' onKeyUp={this.searchData}/>
+                );
+            }
+        });
+
+    var Item=React.createClass({
+        render: function() {
+            var name=this.props.data.name;
+            name = this.props.data.stocked===true ?
+            name :
+            <span style={{color: 'red'}}>
+                {name}
+            </span>;
+
+            return (
+                    <li data-stocked="{this.props.data.stocked}">
+                   {name}-----{this.props.data.category}-----{this.props.data.price}
+                    </li>
+                );
+            }
+        });
+    var ItemList=React.createClass({
+        render: function() {
+            var items=this.props.data.map(function(item) {
+                return (
+                    <Item data={item}></Item>
+                    );
+            });
+            return (
+                <div className="products">{items}</div>
+            );
+        }
+    });
+    var CommentBox = React.createClass({
+        searchData: function(text) {
+            if (!text) {
+                this.setState({
+                    data: PRODUCTS
+                });
+                return;
+            }
+            var data = PRODUCTS.filter(function(item) {
+                return item.category.toLocaleUpperCase().includes(text.toLocaleUpperCase()) ||
+                    item.name.toLocaleUpperCase().includes(text.toLocaleUpperCase());
+            });
+            this.setState({
+                data: data
+            });
+        },
+        getInitialState: function() {
+            return {
+                data: []
+            };
+        },
+        componentDidMount: function() {
+            this.setState({
+                data: PRODUCTS
+            });
+        },
+        render:function() {
+            return (
+                <div >
+                    <div className="search-input">
+                        <Search onsearch={this.searchData}></Search>
+                    </div>
+                    <div className="productList">
+                        <ItemList data={this.state.data}/>
+                    </div>
+                </div>
+            );
+        }
+    });
+        React.render(
+            <CommentBox/>,
+            document.body
+            )
+    </script>
+</body>
+</html>
