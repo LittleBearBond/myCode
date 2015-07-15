@@ -1,3 +1,6 @@
+
+
+
 要为本地分支设定不同于远程分支的名字，只需在第一个版本的命令里换个名字：
 $ git checkout --track origin/serverfix
 把远程serverfix分支切到本地并取名sf
