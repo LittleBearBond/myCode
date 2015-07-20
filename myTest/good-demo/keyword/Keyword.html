@@ -118,34 +118,36 @@
         </div>
     <script>
     var tblRoot;
-
+//foo;fo;foo1;foo1;f;
+//foo;fo;foo1;foo1;f;foo;fo;foo1;foo1;f;foo;fo;foo1;foo1;f;
   /*
    * 函数: makeTree
    * 注释: 将关键字生成一颗树
    */
   function makeTree() {
-      var strKeys = objKeys.value;
-      var arrKeys = strKeys.split("");
+      var strKeys = objKeys.value;//foo;fo;foo1;foo1;f;
+      var arrKeys = strKeys.split("");//["f", "o", "o", ";", "f", "o", ";", "f", "o", "o", "1", ";", "f", "o", "o", "1", ";", "f", ";"]
       var tblCur = tblRoot = {};
       var key;
 
       for (var i = 0, n = arrKeys.length; i < n; i++) {
           key = arrKeys[i];
 
-          if (key == ';') //完成当前关键字
-          {
-              tblCur.end = true;
-              tblCur = tblRoot;
-              continue;
+          if (key == ';'){ //完成当前关键字
+            tblCur.end = true;
+            tblCur = tblRoot;
+            continue;
           }
 
-          if (key in tblCur) //生成子节点
-              tblCur = tblCur[key];
-          else
-              tblCur = tblCur[key] = {};
+          if (key in tblCur){ //生成子节点
+            tblCur = tblCur[key];
+          }
+          else {
+            tblCur = tblCur[key] = {};
+          }
       }
-
       tblCur.end = true; //最后一个关键字没有分割符
+      //"{"f":{"o":{"o":{"1":{"end":true},"end":true},"end":true},"end":true},"end":true}"
   }
 
   /*
