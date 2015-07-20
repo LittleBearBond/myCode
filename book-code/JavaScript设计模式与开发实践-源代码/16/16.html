@@ -39,10 +39,7 @@
 			this.state = 'off';
 		}
 	};
-
 </script>
-
-
 <script type="text/javascript">
 	var OffLightState = function( light ){
 		this.light = light;
@@ -87,7 +84,7 @@ WeakLightState.prototype.buttonWasPressed = function(){
 		this.currState = this.offLightState; // 设置当前状态
 		this.button.onclick = function(){
 			self.currState.buttonWasPressed();
-		}	
+		}
 	};
 
 	Light.prototype.setState = function( newState ){
@@ -97,8 +94,6 @@ WeakLightState.prototype.buttonWasPressed = function(){
 	var light = new Light();
 	light.init();
 </script>
-
-
 <script type="text/javascript">
 	var Light = function(){
 		this.offLightState = new OffLightState( this ); // 持有状态对象的引用
@@ -128,8 +123,6 @@ WeakLightState.prototype.buttonWasPressed = function(){
 		this.light.setState( this.light.weakLightState );
 	};
 </script>
-
-
 <script type="text/javascript">
 	var State = function(){};
 	State.prototype.buttonWasPressed = function(){
@@ -145,8 +138,6 @@ WeakLightState.prototype.buttonWasPressed = function(){
 		this.light.setState( this.light.offLightState );
 	};
 </script>
-
-
 <script type="text/javascript">
 	window.external.upload = function( state ){
 		console.log( state ); // 可能为sign、uploading、done、error
@@ -260,60 +251,58 @@ uploadObj.init();
 	window.external.upload = function( state ){ // 插件调用JavaScript 的方法
 		uploadObj.changeState( state );
 	};
-	
+
 	window.external.upload( 'sign' ); // 文件开始扫描
-	
+
 	setTimeout(function(){
 		window.external.upload( 'uploading' ); // 1 秒后开始上传
 	}, 1000 );
-	
+
 	setTimeout(function(){
 		window.external.upload( 'done' ); // 5 秒后上传完成
 	}, 5000 );
-
 </script>
-
 
 <script type="text/javascript">
 	window.external.upload = function( state ){
-console.log( state ); // 可能为sign、uploading、done、error
-};
-var plugin = (function(){
-	var plugin = document.createElement( 'embed' );
-	plugin.style.display = 'none';
-	plugin.type = 'application/txftn-webkit';
-	plugin.sign = function(){
-		console.log( '开始文件扫描' );
-	}
-	plugin.pause = function(){
-		console.log( '暂停文件上传' );
+		console.log( state ); // 可能为sign、uploading、done、error
 	};
-	plugin.uploading = function(){
-		console.log( '开始文件上传' );
+	var plugin = (function(){
+		var plugin = document.createElement( 'embed' );
+		plugin.style.display = 'none';
+		plugin.type = 'application/txftn-webkit';
+		plugin.sign = function(){
+			console.log( '开始文件扫描' );
+		}
+		plugin.pause = function(){
+			console.log( '暂停文件上传' );
+		};
+		plugin.uploading = function(){
+			console.log( '开始文件上传' );
+		};
+		plugin.del = function(){
+			console.log( '删除文件上传' );
+		}
+		plugin.done = function(){
+			console.log( '文件上传完成' );
+		}
+		document.body.appendChild( plugin );
+		return plugin;
+	})();
+
+	var Upload = function( fileName ){
+		this.plugin = plugin;
+		this.fileName = fileName;
+		this.button1 = null;
+		this.button2 = null;
+		this.signState = new SignState( this ); // 设置初始状态为waiting
+		this.uploadingState = new UploadingState( this );
+
+		this.pauseState = new PauseState( this );
+		this.doneState = new DoneState( this );
+		this.errorState = new ErrorState( this );
+		this.currState = this.signState; // 设置当前状态
 	};
-	plugin.del = function(){
-		console.log( '删除文件上传' );
-	}
-	plugin.done = function(){
-		console.log( '文件上传完成' );
-	}
-	document.body.appendChild( plugin );
-	return plugin;
-})();
-
-var Upload = function( fileName ){
-	this.plugin = plugin;
-	this.fileName = fileName;
-	this.button1 = null;
-	this.button2 = null;
-this.signState = new SignState( this ); // 设置初始状态为waiting
-this.uploadingState = new UploadingState( this );
-
-this.pauseState = new PauseState( this );
-this.doneState = new DoneState( this );
-this.errorState = new ErrorState( this );
-this.currState = this.signState; // 设置当前状态
-};
 
 
 Upload.prototype.init = function(){
@@ -442,12 +431,7 @@ setTimeout(function(){
 setTimeout(function(){
 		window.external.upload( 'done' ); // 5 秒后上传完成
 	}, 5000 );
-
-
-
 </script>
-
-
 <script type="text/javascript">
 	var Light = function(){
 		this.currState = FSM.off; // 设置当前状态
@@ -481,9 +465,7 @@ setTimeout(function(){
 	};
 	var light = new Light();
 	light.init();
-
 </script>
-
 <script type="text/javascript">
 	var delegate = function( client, delegation ){
 		return {
@@ -529,8 +511,6 @@ setTimeout(function(){
 	var light = new Light();
 	light.init();
 </script>
-
-
 <script type="text/javascript">
 	var fsm = StateMachine.create({
 		initial: 'off',
@@ -551,10 +531,7 @@ setTimeout(function(){
 	button.onclick = function(){
 		fsm.buttonWasPressed();
 	}
-
 </script>
-
-
 <script type="text/javascript">
 	var FSM = {
 		walk: {
