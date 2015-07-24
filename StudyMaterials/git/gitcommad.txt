@@ -33,6 +33,8 @@ git add -A 添加所有文件
 --分支管理
 
 复制代码
+git push <远程主机名> <本地分支名>:<远程分支名>
+
 1 git push –u(第一次要用-u 以后不需要) origin master 把当前master分支推送到远程库
   git push  origin test:test 把当前test分支推送到远程test库,并建立关联
   git push  origin :test   把当前空分支推送到远程test库,其实就是删除远程test库
