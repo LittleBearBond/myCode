@@ -59,6 +59,14 @@ git push <远程主机名> <本地分支名>:<远程分支名>
 1 git remote      查看远程库的信息
 2 git remote –v   查看远程库的详细信息
 
+1 git pull <远程主机名> <远程分支名>:<本地分支名>
+2 git pull origin next:master     取回origin主机的next分支，与本地的master分支合并
+3 git pull origin next    远程分支是与当前分支合并
+4 如果当前分支只有一个追踪分支，连远程主机名都可以省略 git pull
+
+1 git branch
+2 git branch -r
+
 三、常出错误：
 1：There is no tracking information for the current branch...
     则说明本地分?支和远程分?支的链接关系没有创建，用命令：
