@@ -15,7 +15,7 @@ Desktop.ini
 
 #log files
 .log
-logs/*
+#logs/*
 
 #svn
 .svn/*
