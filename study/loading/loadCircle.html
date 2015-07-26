@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8;">
+    <title>CSS3实现环形进度条</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- 忽略页面中的数字识别为电话号码  email识别 -->
+    <meta content="telephone=no, email=no" name="format-detection" />
+    <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 当启动webapp功能时，显示手机信号、时间、电池的顶部导航栏的颜色。默认值为default（白色），可以定为black（黑色）和black-translucent（灰色半透明）。这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- 不让 Android 手机识别邮箱 -->
+    <meta content="email=no" name="format-detection" />
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- Reset Css -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #ffffff;
+            font-family: "微软雅黑";
+        }
+
+        .circle {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            -ms-border-radius: 50%;
+            border-radius: 50%;
+            background-color: #0ac;
+            left: 50%;
+            top: 50%;
+            -moz-transform: translate3d(-50%, -50%, 0);
+            -ms-transform: translate3d(-50%, -50%, 0);
+            -o-transform: translate3d(-50%, -50%, 0);
+            transform: translate3d(-50%, -50%, 0);
+            -webkit-transform: translate3d(-50%, -50%, 0);
+        }
+
+        .left,
+        .right,
+        .pie_left,
+        .pie_right {
+            width: 100px;
+            height: 200px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: none;
+            overflow: hidden;
+            padding: 0;
+        }
+
+        .pie_left,
+        .left,
+        .right {
+            left: 0;
+        }
+
+        .pie_right {
+            left: 100px;
+        }
+
+        .left {
+            -webkit-transform-origin: right center;
+            -moz-transform-origin: right center;
+            -ms-transform-origin: right center;
+            -o-transform-origin: right center;
+            transform-origin: right center;
+            -ms-border-radius: 100px 0 0 100px;
+            border-radius: 100px 0 0 100px;
+            -webkit-transform: rotate(-180deg);
+            -moz-transform: rotate(-180deg);
+            -ms-transform: rotate(-180deg);
+            -o-transform: rotate(-180deg);
+            transform: rotate(-180deg);
+            background: #0cc;
+            -moz-animation: animatecircle-left 2s linear 2s forwards;
+            -ms-animation: animatecircle-left 2s linear 2s forwards;
+            -o-animation: animatecircle-left 2s linear 2s forwards;
+            animation: animatecircle-left 2s linear 2s forwards;
+            -webkit-animation: animatecircle-left 2s linear 2s forwards; /* Safari 和 Chrome */
+        }
+
+        .right {
+            -moz-animation: animatecircleright 2s linear;
+            -ms-animation: animatecircleright 2s linear;
+            -o-animation: animatecircleright 2s linear;
+            animation: animatecircleright 2s linear;
+            -webkit-animation: animatecircleright 2s linear; /* Safari 和 Chrome */
+            -webkit-transform-origin: left center;
+            -moz-transform-origin: left center;
+            -ms-transform-origin: left center;
+            -o-transform-origin: left center;
+            transform-origin: left center;
+            background: #0cc;
+            -ms-border-radius: 0 100px 100px 0;
+            border-radius: 0 100px 100px 0;
+            -webkit-transform: rotate(0);
+            -moz-transform: rotate(0);
+            -ms-transform: rotate(0);
+            -o-transform: rotate(0);
+            transform: rotate(0);
+        }
+
+        .mask {
+            width: 150px;
+            height: 150px;
+            -ms-border-radius: 50%;
+            border-radius: 50%;
+            left: 25px;
+            top: 25px;
+            background: #FFF;
+            position: absolute;
+            text-align: center;
+            line-height: 150px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #00aacc;
+        }
+
+        @keyframes animatecircleright {
+            0% {
+                transform: rotate(-180deg);
+                -webkit-transform: rotate(-180deg);
+            }
+
+            100% {
+                transform: rotate(0);
+                -webkit-transform: rotate(0);
+            }
+        }
+
+        @-webkit-keyframes animatecircleright {
+            0% {
+                -webkit-transform: rotate(-180deg);
+                transform: rotate(-180deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(0);
+                transform: rotate(0);
+            }
+        }
+
+        @keyframes animatecircle-left {
+            0% {
+                -webkit-transform: rotate(-180deg);
+                transform: rotate(-180deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(0);
+                transform: rotate(0);
+            }
+        }
+
+        @-webkit-keyframes animatecircle-left {
+            0% {
+                -webkit-transform: rotate(-180deg);
+                transform: rotate(-180deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(0);
+                transform: rotate(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="circle">
+        <div class="pie_left"><div class="left"></div></div>
+        <div class="pie_right"><div class="right"></div></div>
+        <div class="mask"><span id="percent">0</span>%</div>
+    </div>
+    <script>
+        /*requestAnimationFrame*/
+        (function () {
+            var lastTime = 0;
+            var vendors = ['webkit', 'moz'];
+            for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+                window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+                window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || // Webkit中此取消方法的名字变了
+                    window[vendors[x] + 'CancelRequestAnimationFrame'];
+            }
+
+            if (!window.requestAnimationFrame) {
+                window.requestAnimationFrame = function (callback, element) {
+                    var currTime = new Date().getTime();
+                    var timeToCall = Math.max(0, 16.7 - (currTime - lastTime));
+                    var id = window.setTimeout(function () {
+                        callback(currTime + timeToCall);
+                    }, timeToCall);
+                    lastTime = currTime + timeToCall;
+                    return id;
+                };
+            }
+            if (!window.cancelAnimationFrame) {
+                window.cancelAnimationFrame = function (id) {
+                    clearTimeout(id);
+                };
+            }
+        }());
+        var p = document.getElementById('percent'),
+            num = 0,
+            handle,
+            update = function () {
+                var now = (p.innerHTML - 0).toFixed(2) - 0,
+                    rnum = 0.4,
+                    end = (now + rnum).toFixed(2) - 0;
+                console.count();
+                if (end >= 100) {
+                    p.innerHTML = 100;
+                    cancelAnimationFrame(handle);
+                    return;
+                }
+                p.innerHTML = end;
+                requestAnimationFrame(update);
+            };
+        handle = requestAnimationFrame(update);
+    </script>
+</body>
+</html>

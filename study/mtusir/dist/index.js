@@ -1,4 +1,4 @@
-/*! my-mtusi - v0.0.1 - 2015-02-04
+/*! my-mtusi - v0.0.1 - 2015-07-26
 author: xiongjian
 * Copyright (c) 2015 xiongjian; Licensed  */
 ((function(root, factory) {
