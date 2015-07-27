@@ -1,0 +1,20 @@
+[core]
+    editor = notepad
+[user]
+    name = xiongjian
+    email = xj_bond@live.com
+[push]
+    default = simple
+[alias]
+    addd = add -A
+    ci = commit
+    cim = commit -m
+    adm = commit -a -m
+    co = checkout
+    br = branch
+    st = status
+    sst = status -sb
+    dom = diff origin/master --name-only
+    pom = pull origin master
+    lg = log --oneline --graph --decorate --color=always
+    lgg = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)—     %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
