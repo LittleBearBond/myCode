@@ -1,8 +1,10 @@
 [core]
     editor = notepad
 [user]
-    name = xiongjian
+    name = little_bear
     email = xj_bond@live.com
+[gui]
+    encoding = utf-8
 [push]
     default = simple
 [alias]
