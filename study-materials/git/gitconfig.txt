@@ -9,12 +9,17 @@
     addd = add -A
     ci = commit
     cim = commit -m
-    adm = commit -a -m
     co = checkout
+    adm = commit -a -m
     br = branch
     st = status
-    sst = status -sb
     dom = diff origin/master --name-only
     pom = pull origin master
+    sst = status -sb
     lg = log --oneline --graph --decorate --color=always
     lgg = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)—     %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
+[color]
+    status = auto
+    diff = auto
+    branch = auto
+    interactive = auto
