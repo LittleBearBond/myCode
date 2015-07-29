@@ -68,6 +68,9 @@ module.exports = function(grunt) {
 		}
 	});
 
+	//---------------------一句话加载所有task---------------------
+	//require('load-grunt-config')(grunt);
+	//------------------------------------------
 	// These plugins provide necessary tasks.
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-concat');
