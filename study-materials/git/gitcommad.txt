@@ -67,6 +67,10 @@ git push <远程主机名> <本地分支名>:<远程分支名>
 1 git branch
 2 git branch -r
 
+//回滚
+1 git checkout -f
+2 git reset --hard XXX?
+
 三、常出错误：
 1：There is no tracking information for the current branch...
     则说明本地分?支和远程分?支的链接关系没有创建，用命令：
