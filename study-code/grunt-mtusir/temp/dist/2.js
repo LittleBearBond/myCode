@@ -1,0 +1,2 @@
+/*!!! mtusir 30-07-2015 */
+"use strict";module.exports=function(a){a.registerTask("xj-task",function(){}),a.registerTask("1",function(){console.log("翯翯")}),a.registerTask("2",function(){console.log("么么")}),a.registerTask("3",function(){console.log("然并卵")}),a.registerTask("default",["1","2","3"]),a.registerTask("12",["1","2"])};

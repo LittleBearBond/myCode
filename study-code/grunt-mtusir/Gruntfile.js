@@ -19,6 +19,42 @@ module.exports = function(grunt) {
 		clean: {
 			src: ['dist']
 		},
+		copy: {
+			main: {
+				files: [
+					// includes files within path
+					{
+						expand: true,
+						flatten: true,
+						src: ['js/*'],
+						dest: 'temp/',
+						filter: 'isFile'
+					}
+					/*,
+					// includes files within path and its sub-directories
+					{
+						expand: true,
+						src: ['path/**'],
+						dest: 'dest/'
+					},
+					// makes all src relative to cwd
+					{
+						expand: true,
+						cwd: 'path/',
+						src: ['**'],
+						dest: 'dest/'
+					},
+					// flattens results to a single level
+					{
+						expand: true,
+						flatten: true,
+						src: ['path/**'],
+						dest: 'dest/',
+						filter: 'isFile'
+					},*/
+				],
+			},
+		},
 		concat: {
 			options: {
 				banner: '<%= banner %>',
@@ -68,9 +104,21 @@ module.exports = function(grunt) {
 					'dist/zepto.min.js': ['<%= concat.dist.dest %>'],
 					'dist/index.min.js': ['<%= concat.dist1.dest %>']
 				}
+			},
+			testnewer: {
+				files: [{
+					expand: true,
+					flatten: true,
+					src: ['js/*'],
+					dest: 'temp/dist',
+					filter: 'isFile'
+				}]
 			}
 		}
 	});
 
-	grunt.registerTask('default', ['clean', 'concat', 'uglify']);
+	grunt.registerMultiTask('default', ['clean', 'concat', 'newer:uglify']);
+	grunt.registerTask('newcopy', ['newer:copy']);
+	grunt.registerTask('newuglify', ['newer:uglify:testnewer']);
+
 };
