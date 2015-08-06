@@ -124,16 +124,17 @@
                 $currImg = $(obj);
             var src = $currImg.attr(this.opts.imgAttr);
             if (src) {
+                $currImg.attr('src', src).removeAttr(self.opts.imgAttr);
                 //当独去加载这张图片，加载完成再显示到页面上，并且移除自定义的属性
                 //可以不用加载完成再去操作
-                ((function(s, $img) {
+                /*((function(s, $img) {
                     var newImg = new Image;
                     newImg.onload = function() {
                         $img[0].src = this.src;
                         $img.removeAttr(self.opts.imgAttr);
                     };
                     newImg.src = s;
-                })(src, $currImg));
+                })(src, $currImg));*/
             }
         }
     });
