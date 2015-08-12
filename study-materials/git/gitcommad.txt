@@ -26,13 +26,12 @@ git add -A 添加所有文件
 3 git log          查看历史记录
 4 git reflog       查看历史记录的版本号id（记录你的每一次命令,不论是否提交）
 5 git log --pretty=oneline 如果信息量太多可以进行比较好的列表显示
---版本回退
 
+--版本回退
 1 git reset  –hard HEAD^ 或者 git reset  --hard HEAD~ 回退到上一个版本
 2  (如果想回退到80个版本，使用git reset –hard HEAD~80  git reset --hard 版本号)
---分支管理
 
-复制代码
+--分支管理
 git push <远程主机名> <本地分支名>:<远程分支名>
 
 1 git push –u(第一次要用-u 以后不需要) origin master 把当前master分支推送到远程库
@@ -46,16 +45,18 @@ git push <远程主机名> <本地分支名>:<远程分支名>
 7 git branch –d dev    删除dev分支
 8 git merge dev        在当前的分支上合并dev分支
 9 git push --set-upstream origin dev 提交修改并创建远程分支dev
-复制代码
---隐藏的文件
 
+--分支合并
+git merge --no-ff project-test1_dialog
+
+--隐藏的文件
 1 git stash       把当前的工作隐藏起来 等以后恢复现场后继续工作
 2 git stash list  查看所有被隐藏的文件列表
 3 git stash apply 恢复被隐藏的文件，但是内容不删除
 4 git stash drop  删除文件
 5 git stash pop   恢复文件的同时 也删除文件
---查看远程库信息
 
+--查看远程库信息
 1 git remote      查看远程库的信息
 2 git remote –v   查看远程库的详细信息
 
@@ -70,6 +71,8 @@ git push <远程主机名> <本地分支名>:<远程分支名>
 //回滚
 1 git checkout -f
 2 git reset --hard XXX?
+
+
 
 三、常出错误：
 1：There is no tracking information for the current branch...
