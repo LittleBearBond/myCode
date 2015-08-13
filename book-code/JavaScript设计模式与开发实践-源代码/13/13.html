@@ -1,5 +1,5 @@
 ﻿<script type="text/javascript">
-	
+
 	var order = function( orderType, pay, stock ){
 		if ( orderType === 1 ){ // 500 元定金购买模式
 			if ( pay === true ){ // 已支付定金
@@ -137,9 +137,12 @@
 			return ret;
 		}
 	};
-	
+
 	var order = order500yuan.after( order200yuan ).after( orderNormal );
 	order( 1, true, 500 ); // 输出：500 元定金预购，得到100 优惠券
 	order( 2, true, 500 ); // 输出：200 元定金预购，得到50 优惠券
 	order( 1, false, 500 ); // 输出：普通购买，无优惠券
+
+	//巧用循环来优化重复的代码， 没什么高级的，不过后端的java和C#的责任链模式就比这个复杂多了
+	//java struts2 框架
 </script>

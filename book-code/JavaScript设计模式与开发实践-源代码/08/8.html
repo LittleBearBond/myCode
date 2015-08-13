@@ -9,9 +9,10 @@
 		alert(2);
 	}, false );
 	document.body.addEventListener( 'click', function(){
-		112 第8 章 发布订阅模式
+		//112 第8 章 发布订阅模式
 		alert(3);
 	}, false );
+
 	document.body.addEventListener( 'click', function(){
 		alert(4);
 	}, false );
@@ -43,11 +44,6 @@
 
 	salesOffices.trigger( 2000000, 88 ); // 输出：200 万，88 平方米
 	salesOffices.trigger( 3000000, 110 ); // 输出：300 万，110 平方米
-
-
-
-
-
 
 
 
@@ -240,10 +236,10 @@ var event = {
 				return false;
 			}
 			if ( !fn ){
+				//重置所有
 				fns && ( fns.length = 0 );
 			}else{
-				for ( var l = fns.length - 1; l >=0; l-- ){
-					var _fn = fns[ l ];
+				for ( var l = fns.length - 1 , _fn; _fn = fns[ l-- ];){
 					if ( _fn === fn ){
 						fns.splice( l, 1 );
 					}
@@ -304,9 +300,9 @@ var event = {
 			_create,
 			find,
 			each = function( ary, fn ){
-				var ret;
+				var ret,n;
 				for ( var i = 0, l = ary.length; i < l; i++ ){
-					var n = ary[i];
+					n = ary[i];
 					ret = fn.call( n, i, n);
 				}
 				return ret;

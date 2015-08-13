@@ -1,5 +1,5 @@
 ﻿<script type="text/javascript">
-	
+
 	//当函数作为对象的方法被调用时，this 指向该对象：
 
 	var obj = {
@@ -32,6 +32,7 @@
 	};
 
 	var getName = myObject.getName;
+	//赋值之后作为普通函数调用，直接指向window
 	console.log( getName() ); // globalName
 
 </script>
@@ -49,6 +50,7 @@
 		var callback = function(){
 			alert ( this.id ); // 输出：'window'
 		}
+		//普通函数直接调用this 直接指向window
 		callback();
 	};
 
@@ -115,7 +117,7 @@
 	var obj2 = {
 		name: 'anne'
 	};
-	
+
 	console.log( obj1.getName() ); // 输出: sven
 	console.log( obj1.getName.call( obj2 ) ); // 输出：anne
 

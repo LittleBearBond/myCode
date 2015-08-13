@@ -140,6 +140,7 @@
 	//cost( 700 ); // 第30 天开销
 	alert ( monthlyCost ); // 输出：600
 
+	//根据参数判断 什么时候真正求职
 	var cost = (function(){
 		var args = [];
 		return function(){
@@ -147,7 +148,7 @@
 				var money = 0;
 				for ( var i = 0, l = args.length; i < l; i++ ){
 					money += args[ i ];
-					50 第3 章 闭包和高阶函数
+					//50 第3 章 闭包和高阶函数
 				}
 				return money;
 			}else{

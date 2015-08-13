@@ -1,5 +1,5 @@
 ﻿<script type="text/javascript">
-	
+
 	//call 和apply 最常见的用途是改变函数内部的this 指向，我们来看个例子：
 	var obj1 = {
 		name: 'sven'
@@ -46,14 +46,14 @@
 			return self.apply( context, [].concat.call( args, [].slice.call( arguments ) ) );
 				// 执行新的函数的时候，会把之前传入的context 当作新函数体内的this
 				// 并且组合两次分别传入的参数，作为新函数的参数
-		}
-	};
+			}
+		};
 
 
 
-	var obj = {
-		name: 'sven'
-	};
+		var obj = {
+			name: 'sven'
+		};
 
 	var func = function( a, b, c, d ){
 		alert ( this.name ); // 输出：sven
@@ -74,7 +74,7 @@
 	B.prototype.getName = function(){
 		return this.name;
 	};
-	
+
 	var b = new B( 'sven' );
 	console.log( b.getName() ); // 输出： 'sven'
 
@@ -95,6 +95,4 @@
 		this.length = n + m; // 修正length 属性的值 (2)
 		return this.length;
 	};
-
-
 </script>

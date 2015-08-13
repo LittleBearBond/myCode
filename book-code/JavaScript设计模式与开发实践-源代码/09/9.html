@@ -33,13 +33,15 @@
 				console.log( '删除子菜单' );
 			}
 		};
-		在让button 变得有用起来之前，我们要先把这些行为都封装在命令类中：
+		//在让button 变得有用起来之前，我们要先把这些行为都封装在命令类中：
 		var RefreshMenuBarCommand = function( receiver ){
 			this.receiver = receiver;
 		};
+
 		RefreshMenuBarCommand.prototype.execute = function(){
 			this.receiver.refresh();
 		};
+
 		var AddSubMenuCommand = function( receiver ){
 			this.receiver = receiver;
 		};

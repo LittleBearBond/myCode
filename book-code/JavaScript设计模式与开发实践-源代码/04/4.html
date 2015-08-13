@@ -6,6 +6,7 @@
 	Singleton.prototype.getName = function(){
 		alert ( this.name );
 	};
+
 	Singleton.getInstance = function( name ){
 		if ( !this.instance ){
 			this.instance = new Singleton( name );

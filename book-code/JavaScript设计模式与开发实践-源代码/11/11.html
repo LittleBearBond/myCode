@@ -62,19 +62,26 @@
 
 
 <script type="text/javascript">
-	var Coffee = function(){};
+	var Coffee = function(){
+		Beverage.apply( this , arguments );
+	};
+
 	Coffee.prototype = new Beverage();
+
+	Coffee.prototype.constructor = Coffee;
 
 	Coffee.prototype.brew = function(){
 		console.log( '用沸水冲泡咖啡' );
 	};
+
 	Coffee.prototype.pourInCup = function(){
 		console.log( '把咖啡倒进杯子' );
-
 	};
+
 	Coffee.prototype.addCondiments = function(){
 		console.log( '加糖和牛奶' );
 	};
+
 	var Coffee = new Coffee();
 	Coffee.init();
 
@@ -118,6 +125,7 @@
 	Beverage.prototype.customerWantsCondiments = function(){
 		return true; // 默认需要调料
 	};
+
 	Beverage.prototype.init = function(){
 		this.boilWater();
 		this.brew();
@@ -194,5 +202,5 @@ var coffeeWithHook = new CoffeeWithHook();
 	coffee.init();
 	var tea = new Tea();
 	tea.init();
-
+	//抽出相同的部分
 </script>

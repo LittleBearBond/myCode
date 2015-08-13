@@ -1,5 +1,5 @@
 ﻿<script type="text/javascript">
-	
+
 	var Model = function( sex, underwear){
 		this.sex = sex;
 		this.underwear= underwear;
@@ -11,8 +11,8 @@
 		var maleModel = new Model( 'male', 'underwear' + i );
 		maleModel.takePhoto();
 	};
-	for ( var j = 1; j <= 50; j++ ){
 
+	for ( var j = 1; j <= 50; j++ ){
 		var femaleModel= new Model( 'female', 'underwear' + j );
 		femaleModel.takePhoto();
 	};
@@ -212,7 +212,7 @@
 
 
 <script type="text/javascript">
-	
+
 	var toolTipFactory = (function(){
 		var toolTipPool = []; // toolTip 对象池
 		return {
@@ -251,7 +251,7 @@
 
 
 <script type="text/javascript">
-	
+
 	var objectPoolFactory = function( createObjFn ){
 		var objectPool = [];
 		return {
@@ -276,7 +276,7 @@
 		}
 		return iframe;
 	});
-	
+
 	var iframe1 = iframeFactory.create();
 	iframe1.src = 'http:// baidu.com';
 	var iframe2 = iframeFactory.create();
@@ -285,5 +285,5 @@
 		var iframe3 = iframeFactory.create();
 		iframe3.src = 'http:// 163.com';
 	}, 3000 );
-
+//也是抽出共性，为了不创建那么多的对象，减少内存消耗，把那些对象共有的相同的东西抽出来，让他们共享，把变化的进行单独处理。
 </script>

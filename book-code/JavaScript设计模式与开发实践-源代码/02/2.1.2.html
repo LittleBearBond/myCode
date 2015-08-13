@@ -18,14 +18,13 @@
 	var getId = function( id ){
 		return document.getElementById( id );
 	};
-	
+
 	getId( 'div1' );
-	
+
 	//我们也许思考过为什么不能用下面这种更简单的方式：
-	
 	var getId = document.getElementById;
 	getId( 'div1' );
-	
+
 
 
 	//我们可以尝试利用apply 把document 当作this 传入getId 函数，帮助“修正”this：
@@ -34,7 +33,8 @@
 			return func.apply( document, arguments );
 		}
 	})( document.getElementById );
-	
+
+	document.getElementById=(function(fn){return fn.apply(document,arguments)}(document.getElementById))
 	var getId = document.getElementById;
 	var div = getId( 'div1' );
 	alert (div.id); // 输出： div1
