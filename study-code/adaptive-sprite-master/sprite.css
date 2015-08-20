@@ -1,0 +1,91 @@
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    
+    #contentWrapper1 {
+        position: absolute;
+        -webkit-animation-name: sprite_1;
+        -webkit-animation-duration: 0.8s;
+        -webkit-animation-timing-function: step-start;
+        -webkit-animation-iteration-count: infinite;
+        background-image: url(sprite.png);
+        background-size: 300% 300%;
+        /*-webkit-background-origin: 0 0;*/
+    }
+    
+    @-webkit-keyframes sprite_1 {
+        0% {
+            background-position: 0% 0%
+        }
+        12.5% {
+            background-position: 0% 0%
+        }
+        25% {
+            background-position: -100% 0%
+        }
+        37.5% {
+            background-position: -200% 0%
+        }
+        50% {
+            background-position: 0% -100%
+        }
+        62.5% {
+            background-position: -100% -100%
+        }
+        75% {
+            background-position: -200% -100%
+        }
+        87.5% {
+            background-position: 0% -200%
+        }
+        100% {
+            background-position: -100% -200%
+        }
+    }
+    
+    #contentWrapper2 {
+        position: absolute;
+        left:  15%;
+        -webkit-animation-name: sprite_2;
+        -webkit-animation-duration: 0.8s;
+        -webkit-animation-timing-function: step-start;
+        -webkit-animation-iteration-count: infinite;
+        background-image: url(sprite.png);
+        background-size: 300% 300%;
+        -webkit-background-origin: 0 0;
+    }
+    
+    @-webkit-keyframes sprite_2 {
+        0% {
+            background-position: 0% 0%
+        }
+        12.5% {
+            background-position: 0% 0%
+        }
+        25% {
+            background-position: -100% 0%
+        }
+        37.5% {
+            background-position: -200% 0%
+        }
+        50% {
+            background-position: 0% -100%
+        }
+        62.5% {
+            background-position: -100% -100%
+        }
+        75% {
+            background-position: -200% -100%
+        }
+        87.5% {
+            background-position: 0% -200%
+        }
+        100% {
+            background-position: -100% -200%
+        }
+    }
+
+
+
+

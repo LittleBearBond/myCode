@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>hello world</title>
+    <link rel="stylesheet" type="text/css" href="sprite.css">
+    <script type="text/javascript">
+      /**
+       *  css3关键帧算法
+       * @param {[type]} row   [description]
+       * @param {[type]} col   [description]
+       * @param {[type]} count [description]
+       */
+      function calculationKeyframes(row, col, count) {
+          //矩阵生成step的处理
+          //  0 1 2
+          //  3 4 5
+          //  6 7 8
+          var keyframes = [];
+          var base = 100 / count;
+          //首次
+          keyframes.push(0 + '% { background-position:0% 0%}')
+          for (var i = 0; i < count; i++) {
+              var currRow = Math.floor(i / row); //当前行数
+              var currCol = Math.floor(i / col); //当前列数   
+              var period = currRow * col; //每段数量    
+              var x = 100 * (i - period)
+              var y = 100 * currCol;
+              x = x == 0 ? x : "-" + x;
+              y = y == 0 ? y : "-" + y;
+              keyframes.push(((i + 1) * base) + '% { background-position: ' + x + '% ' + y + '%}')
+          }
+          return  keyframes.join("")
+      }
+
+      //三行，三列，但是总数只有8个
+     console.log(
+         calculationKeyframes(3,3,8)
+      )
+
+    </script>
+</head>
+
+<body>
+    <div id="contentWrapper1" style="width:125px;height:96px;">
+        <div class="sprite" style="height: 96px;"></div>
+    </div>
+    <div id="contentWrapper2" style="width:225px;height:196px;">
+        <div class="sprite" style="height: 196px;"></div>
+    </div>
+</body>
+
+</html>
