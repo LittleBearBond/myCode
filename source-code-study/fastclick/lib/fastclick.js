@@ -274,6 +274,7 @@
 			case 'textarea':
 				return true;
 			case 'select':
+				//ios 设备是focus事件
 				return !deviceIsAndroid;
 			case 'input':
 				switch (target.type) {
