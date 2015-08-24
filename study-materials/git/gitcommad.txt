@@ -1,5 +1,6 @@
-
-
+cd ~/.ssh #没有先创建一下这个目录
+ssh-keygen -t rsa -C "这里填写你的邮箱地址"
+#生成的公钥保存在 `~/.ssh/id_rsa.pub`
 
 要为本地分支设定不同于远程分支的名字，只需在第一个版本的命令里换个名字：
 $ git checkout --track origin/serverfix
@@ -48,6 +49,9 @@ git push <远程主机名> <本地分支名>:<远程分支名>
 
 --分支合并
 git merge --no-ff project-test1_dialog
+确认git分支为当前开发的项目分支（projectname）
+git merge --squash projectname_aa # squash 参数为静默合并，合并时仅合并代码，不会将子分支中的提交log合并过来
+
 
 --隐藏的文件
 1 git stash       把当前的工作隐藏起来 等以后恢复现场后继续工作
