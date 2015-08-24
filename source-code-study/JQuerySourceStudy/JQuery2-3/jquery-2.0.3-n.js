@@ -3465,6 +3465,7 @@
 				unlock = Data.uid++;
 
 				// Secure it in a non-enumerable, non-writable property
+				// 不可枚举 只读
 				try {
 					descriptor[this.expando] = {
 						value: unlock
@@ -3610,6 +3611,7 @@
 
 	// These may be used throughout the jQuery core codebase
 	data_user = new Data();
+	//内部使用 事件、动画
 	data_priv = new Data();
 
 	jQuery.extend({
@@ -3766,6 +3768,7 @@
 			var queue;
 
 			if (elem) {
+				//fxqueue
 				type = (type || "fx") + "queue";
 				queue = data_priv.get(elem, type);
 
@@ -3786,9 +3789,11 @@
 
 			var queue = jQuery.queue(elem, type),
 				startLength = queue.length,
+				//把先放进去的拿出来
 				fn = queue.shift(),
 				hooks = jQuery._queueHooks(elem, type),
 				next = function() {
+					//调用后面滴
 					jQuery.dequeue(elem, type);
 				};
 
@@ -3808,9 +3813,12 @@
 
 				// clear up the last queue stop function
 				delete hooks.stop;
+				//$.queue($body, 'bond', 123);
+				//如果外部传入的fn不是函数这里会报错
+				//把next传入，内部调用$.dequeue
 				fn.call(elem, next, hooks);
 			}
-
+			//木有了，把无用数据清除
 			if (!startLength && hooks) {
 				hooks.empty.fire();
 			}
@@ -3836,19 +3844,25 @@
 				type = "fx";
 				setter--;
 			}
-
+			//xx.slideDown('fast')
+			//xx.slideUp(1000)
+			//xx.animate({left:'+=200'})
+			//xx.queue('fx')
 			if (arguments.length < setter) {
 				return jQuery.queue(this[0], type);
 			}
-
+			//
 			return data === undefined ?
 				this :
 				this.each(function() {
+					//调用基础动画
+					//动画缓存
+					//
 					var queue = jQuery.queue(this, type, data);
 
 					// ensure a hooks for this queue
 					jQuery._queueHooks(this, type);
-
+					//inprogress 锁住队列
 					if (type === "fx" && queue[0] !== "inprogress") {
 						jQuery.dequeue(this, type);
 					}
@@ -8971,7 +8985,7 @@
 		// if we don't include width, step value is 2 to skip over Left and Right
 		includeWidth = includeWidth ? 1 : 0;
 		for (; i < 4; i += 2 - includeWidth) {
-			which = cssExpand[i];
+			which = cssExpand[i];//cssExpand = ["Top", "Right", "Bottom", "Left"]
 			attrs["margin" + which] = attrs["padding" + which] = type;
 		}
 
