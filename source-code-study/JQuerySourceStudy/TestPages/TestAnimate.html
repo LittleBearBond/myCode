@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>animate</title>
+    <script src="../JQuery2-3/jquery-2.0.3.js"></script>
+    <style type="text/css">
+        .bond{
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: #f00;
+        }
+        div {
+            margin:3px; width:40px; height:40px;
+            position:absolute; left:0px; top:60px;
+            background:green; display:none;
+        }
+        div.newcolor { background:blue; }
+    </style>
+</head>
+<body>
+    <div class="bond"> </div>
+    <p>The queue length is: <span></span></p>
+    <div></div>
+    <script type="text/javascript">
+        $(function () {
+                /*var $bond=$('.bond');
+
+                $bond.fadeIn();
+                $bond.hide(3000);
+                $bond.show('fast');
+                $bond.animate({left:'+=200'},3000);
+                */
+
+                /*var div = $(".bond"),$span=$("p span");
+                function runIt() {
+                  div.show("slow");
+                  div.animate({left:'+=200'},2000);
+                  div.slideToggle(1000);
+                  div.slideToggle("fast");
+                  div.animate({left:'-=200'},1500);
+                  div.hide("slow");
+                  div.show(1200);
+                  div.slideUp("normal", runIt);
+              }
+              function showIt() {
+                  var n = div.queue("fx");
+                  $span.text( n.length );
+                  setTimeout(showIt, 100);
+              }
+              runIt();
+              showIt();*/
+          });
+
+        /*$(document).on('click',function () {
+            var $div = $(".bond")
+            $div.show("slow");
+            $div.animate({left:'+=200'},2000);
+            $div.queue(function () {
+                $(this).addClass("newcolor");
+                $(this).dequeue();
+            });
+            $div.animate({left:'-=200'},500);
+            $div.queue(function () {
+                $(this).removeClass("newcolor");
+                $(this).dequeue();
+            });
+            $div.slideUp();
+        });*/
+
+        var $body = $(document.body);
+        var fn1 = function(next, hooks) {
+            console.log('(*^__^*)', 1);
+            console.log(arguments)
+            arguments[0]();
+        };
+        var fn2 = function() {
+            console.log('(*^__^*)', 2);
+            console.log(arguments)
+            //arguments[0]();
+        };
+
+        $.queue($body, 'bond', fn1);
+        $.queue($body, 'bond', fn2);
+
+        console.log($.queue($body, 'bond')); //[123, 12345]
+        console.log($.queue($body, 'bond')); //[123, 12345]
+
+        console.log($.dequeue($body, 'bond'));
+        console.log($.dequeue($body, 'bond'));//undefined
+        console.log($.dequeue($body, 'bond'));//undefined
+    </script>
+</body>
+</html>
