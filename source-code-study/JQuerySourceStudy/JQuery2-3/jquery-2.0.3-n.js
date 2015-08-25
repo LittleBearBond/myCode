@@ -3839,6 +3839,7 @@
 		queue: function(type, data) {
 			var setter = 2;
 
+			//直接传入数据 type就是fx
 			if (typeof type !== "string") {
 				data = type;
 				type = "fx";
@@ -3848,27 +3849,33 @@
 			//xx.slideUp(1000)
 			//xx.animate({left:'+=200'})
 			//xx.queue('fx')
+
+			//从队列中取出一条数据
 			if (arguments.length < setter) {
 				return jQuery.queue(this[0], type);
 			}
-			//
+
 			return data === undefined ?
 				this :
+				//循环this
 				this.each(function() {
 					//调用基础动画
 					//动画缓存
-					//
+					//得到queue数组
 					var queue = jQuery.queue(this, type, data);
 
 					// ensure a hooks for this queue
 					jQuery._queueHooks(this, type);
+
 					//inprogress 锁住队列
+					//没有锁住就执行后面滴，移除第一个，并且执行它
 					if (type === "fx" && queue[0] !== "inprogress") {
 						jQuery.dequeue(this, type);
 					}
 				});
 		},
 		dequeue: function(type) {
+			//不判断队列开始是否被锁住，直接取出执行
 			return this.each(function() {
 				jQuery.dequeue(this, type);
 			});

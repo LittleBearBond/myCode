@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>animate</title>
+    <script src="../JQuery2-3/jquery-2.0.3.js"></script>
+    <style type="text/css">
+        .bond{
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: #f00;
+        }
+    </style>
+</head>
+<body>
+    <div class="bond" id="bond"> </div>
+    <script type="text/javascript">
+
+    window.requestAnimFrame = (function() {
+        return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function(c) {
+                window.setTimeout(c, 1000 / 60);
+            };
+    })();
+
+    function getStyles(elem) {
+        return elem.ownerDocument.defaultView.getComputedStyle(elem, null);
+    };
+
+    function animate(elem, options) {
+        //动画初始值
+        var start = getStyles(elem).left | 0;
+        //动画结束值
+        var end = options.left
+            //动画id
+        var timerId;
+
+        var createTime = function() {
+            return (+new Date)
+        }
+
+        var startTime = createTime();
+
+        //需要执行动画的长度
+        var anminLength = end - start;
+
+        //每13毫秒要跑的位置
+        var pos = anminLength / options.time * 13
+
+        function tick() {
+            var currTime = createTime();
+            if (currTime - startTime < options.time) {
+                //setInterval 的时间差值
+                var remaining = Math.max(0, startTime + options.time - currTime);
+                //已经耗时的百分比
+                var percent = 1 - (remaining / options.time || 0);
+
+                //console.log(remaining, percent);
+
+                //最终每次移动的left距离
+                var leftPos = (end - start) * percent + start;
+
+                //1、-------------------------------------------
+                /*start += pos;
+                //动画执行
+                //按执行次数来计算距离
+                elem.style['left'] = start + 'px';*/
+
+                //2、-------------------------------------------
+                //通过按耗总时间的时间比例来计算出元素的位置
+                elem.style['left'] = leftPos + 'px';
+                requestAnimFrame(tick)
+            } else {
+                //停止动画
+                clearInterval(timerId);
+                timerId = null;
+                console.log(start)
+            }
+        }
+
+        //开始执行动画
+        requestAnimFrame(tick)
+        //var timerId = setInterval(tick, 13);
+    }
+
+    animate(document.getElementById('bond'), {
+        left: 500,
+        time: 2000
+    })
+</script>
+</body>
+</html>
+
+
