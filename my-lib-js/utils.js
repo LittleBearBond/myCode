@@ -293,23 +293,23 @@ function funcBind() {
 }
 
 function animate(el, css, time, fn) {
-		if (!el) {
-			return;
-		}
-		var tn = transitionEnd(),
-			cb = function() {
-				fn(arguments);
-				el.removeListener(tn, fn);
-			};
-		el.addEventListener(tn, cb);
-		for (var k in css) {
-			if (css.hasOwnProperty(k)) {
-				el.style['-webkit-transition'] = k + ' ' + time + 's';
-				el.style[k] = css[k];
-			}
+	if (!el) {
+		return;
+	}
+	var tn = transitionEnd(),
+		cb = function() {
+			fn(arguments);
+			el.removeListener(tn, fn);
+		};
+	el.addEventListener(tn, cb);
+	for (var k in css) {
+		if (css.hasOwnProperty(k)) {
+			el.style['-webkit-transition'] = k + ' ' + time + 's';
+			el.style[k] = css[k];
 		}
 	}
-	// 公共方法
+}
+// 公共方法
 var common = {
 	// 添加class
 	addClass: function(obj, className) {
@@ -631,9 +631,9 @@ if (/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|S
 
 // 判断完毕后加载样式
 function setActiveStyleSheet(filename) {
-		document.write("＜link href=" + filename + " rel=stylesheet＞");
-	}
-	//全屏
+	document.write("＜link href=" + filename + " rel=stylesheet＞");
+}
+//全屏
 
 function toggleFullScreen() {
 	if (!document.fullscreenElement && // alternative standard method
@@ -735,16 +735,16 @@ var services = {
 	};
 // 激活器
 function Activitor(func) {
-		var obj = {};
-		func.apply(obj, setFuncParams(getFuncParams(func)));
-		return obj;
-	}
-	// 定义新Service
+	var obj = {};
+	func.apply(obj, setFuncParams(getFuncParams(func)));
+	return obj;
+}
+// 定义新Service
 function Service(abc, ghi) {
-		this.write = function() {
-			console.log(abc, ghi);
-		}
+	this.write = function() {
+		console.log(abc, ghi);
 	}
-	// 实例化Service并调用方法
+}
+// 实例化Service并调用方法
 var service = Activitor(Service);
 service.write();
