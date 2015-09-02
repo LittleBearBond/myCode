@@ -24,8 +24,9 @@ logs/*
 *.swp
 
 node_modules/
-study/*/node_modules/
-myTest/*/node_modules/
+study-code/**/node_modules/
+my-test/**/node_modules/
 .sass-cache/
 tmp-cmd/
+
 #IntellijIdea

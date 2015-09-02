@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>animate</title>
+    <script src="../JQuery2-3/jquery-2.0.3.js"></script>
+    <style type="text/css">
+        .bond{
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: #f00;
+        }
+       /* div {
+            margin:3px; width:40px; height:40px;
+            position:absolute; left:0px; top:60px;
+           background:green; display:none;
+        }*/
+        div.newcolor { background:blue; }
+    </style>
+</head>
+<body>
+    <div class="bond">
+      <div class="test newcolor"></div>
+    </div>
+    <script type="text/javascript">
+    $(function () {
+        'use strict'
+        let $test=$('.test');
+        $test.height('100%');
+    })
+    </script>
+</body>
+</html>
