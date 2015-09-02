@@ -28,5 +28,7 @@ study-code/**/node_modules/
 my-test/**/node_modules/
 .sass-cache/
 tmp-cmd/
+**/obj
+**/bin
 
 #IntellijIdea
