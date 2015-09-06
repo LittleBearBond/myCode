@@ -1,0 +1,32 @@
+.vjs-switchteacher-button {
+  color: #ccc;
+  font-family: VideoJS;
+}
+
+.vjs-switchteacher-button .vjs-switchteacher-button-staticlabel:before {
+  content: '\f110';
+  font-size: 1.8em;
+  line-height: 1.67;
+}
+
+.vjs-switchteacher-button .vjs-switchteacher-button-label {
+    font-size: 1.2em;
+    line-height: 2.50em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    box-sizing: inherit;
+}
+
+
+.vjs-switchteacher-button .vjs-menu {
+  left: 0;
+}
+
+/*与拿来的video.css 有点小问题，这里打打补丁*/
+.vjs-poster{
+  background-color: #000;
+}
