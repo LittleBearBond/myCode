@@ -37,7 +37,9 @@
     <div class="info">
         <p> test page</p>
     </div>
+    <div id="info">
 
+    </div>
     <video id='video' class="video-js vjs-default-skin vjs-big-play-centered" webkit-playsinline></video>
 
     <script src="http://10.155.114.55:8081/my-down-code/video.js-master/dist/video.js"></script>
@@ -50,6 +52,7 @@
     var player = videojs('video', {
         controls: true,
         width: 600,
+        //autoplay: true,
         //视频缩略图，传说中的片头
         "poster": "http://video-js.zencoder.com/oceans-clip.png",
         plugins: {
@@ -57,21 +60,22 @@
 
             }
         },
-        controlBar:{
-            currentTimeDisplay:true
-        }/*,
-        children : {
-            textTrackDisplay : false,
-            posterImage: false,
-            errorDisplay : false,
-            controlBar : {
-                captionsButton : false,
-                chaptersButton: false,
-                subtitlesButton:false,
-                liveDisplay:false,
-                playbackRateMenuButton:false
-            }
-        }*/
+        controlBar: {
+            currentTimeDisplay: true
+        }
+        /*,
+                children : {
+                    textTrackDisplay : false,
+                    posterImage: false,
+                    errorDisplay : false,
+                    controlBar : {
+                        captionsButton : false,
+                        chaptersButton: false,
+                        subtitlesButton:false,
+                        liveDisplay:false,
+                        playbackRateMenuButton:false
+                    }
+                }*/
     }, function() {
         var player = this;
         window.player = player
@@ -88,16 +92,16 @@
         });
 
         player.on('play', function() {
-            setTimeout(function() {
+            /*setTimeout(function() {
                 player.pause();
-            }, 5000);
+            }, 5000);*/
         })
     });
-
+    var info=document.getElementById('info');
     ('durationchange ended error firstplay fullscreenchange loadedalldata loadeddata loadedmetadata' + ' loadstart pause play progress seeked seeking timeupdate volumechange waiting resize').split(' ').forEach(function(val, index) {
         player.on(val, (function(name) {
             return function() {
-                name === 'timeupdate' || name === 'progress' || 'loadedalldata' === name || console.log(name)
+                name === 'timeupdate' || name === 'progress' || 'loadedalldata' === name || (info.innerHTML+=(name+","));//console.log(name)
             }
         }(val)));
     });

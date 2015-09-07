@@ -1,0 +1,34 @@
+@charset "UTF-8";
+/*
+    @名称: base
+    @功能: 重设浏览器默认样式
+*/
+/* 防止用户自定义背景颜色对网页的影响，添加让用户可以自定义字体 */
+html {
+  color: #000;
+  background: #fff;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
+}
+
+/* 内外边距通常让各个浏览器样式的表现位置不同 */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  margin: 0;
+  padding: 0;
+}
+
+.test {
+  padding-top: 20px;
+  background-color: #ccc;
+}
+.test .inner {
+  margin-top: 20px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBUUEsSUFBSztFQUNELEtBQUssRUFBRSxJQUFJO0VBQ1gsVUFBVSxFQUFFLElBQUk7RUFDaEIsd0JBQXdCLEVBQUUsSUFBSTtFQUM5QixvQkFBb0IsRUFBRSxJQUFJO0VBQzFCLFdBQVcsRUFBRSwrQ0FBK0M7Ozs7QUFJaEUseU9BQTBPO0VBQ3RPLE1BQU0sRUFBRSxDQUFDO0VBQ1QsT0FBTyxFQUFFLENBQUM7OztBQUdkLEtBQU07RUFDRixXQUFXLEVBQUUsSUFBSTtFQUNqQixnQkFBZ0IsRUFBRSxJQUFJOztBQUV0QixZQUFPO0VBQ0gsVUFBVSxFQUFFLElBQUk7RUFDaEIsU0FBUyxFQUFFLElBQUk7RUFDZixXQUFXLEVBQUUsSUFBSSIsInNvdXJjZXMiOlsiaW5kZXguc2NzcyJdLCJuYW1lcyI6W10sImZpbGUiOiJpbmRleC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAY2hhcnNldCBcInV0Zi04XCI7XG5cbi8qXG4gICAgQOWQjeensDogYmFzZVxuICAgIEDlip/og706IOmHjeiuvua1j+iniOWZqOm7mOiupOagt+W8j1xuKi9cblxuLyog6Ziy5q2i55So5oi36Ieq5a6a5LmJ6IOM5pmv6aKc6Imy5a+5572R6aG155qE5b2x5ZON77yM5re75Yqg6K6p55So5oi35Y+v5Lul6Ieq5a6a5LmJ5a2X5L2TICovXG5odG1sIHtcbiAgICBjb2xvcjogIzAwMDtcbiAgICBiYWNrZ3JvdW5kOiAjZmZmO1xuICAgIC13ZWJraXQtdGV4dC1zaXplLWFkanVzdDogMTAwJTtcbiAgICAtbXMtdGV4dC1zaXplLWFkanVzdDogMTAwJTtcbiAgICBmb250LWZhbWlseTogXCJNaWNyb3NvZnQgWWFIZWlcIiwgQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJpZjtcbn1cblxuLyog5YaF5aSW6L656Led6YCa5bi46K6p5ZCE5Liq5rWP6KeI5Zmo5qC35byP55qE6KGo546w5L2N572u5LiN5ZCMICovXG5ib2R5LCBkaXYsIGRsLCBkdCwgZGQsIHVsLCBvbCwgbGksIGgxLCBoMiwgaDMsIGg0LCBoNSwgaDYsIHByZSwgY29kZSwgZm9ybSwgZmllbGRzZXQsIGxlZ2VuZCwgaW5wdXQsIHRleHRhcmVhLCBwLCBibG9ja3F1b3RlLCB0aCwgdGQsIGhyLCBidXR0b24sIGFydGljbGUsIGFzaWRlLCBkZXRhaWxzLCBmaWdjYXB0aW9uLCBmaWd1cmUsIGZvb3RlciwgaGVhZGVyLCBoZ3JvdXAsIG1lbnUsIG5hdiwgc2VjdGlvbiB7XG4gICAgbWFyZ2luOiAwO1xuICAgIHBhZGRpbmc6IDA7XG59XG5cbi50ZXN0IHtcbiAgICBwYWRkaW5nLXRvcDogMjBweDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjY2NjO1xuXG4gICAgLmlubmVyIHtcbiAgICAgICAgbWFyZ2luLXRvcDogMjBweDtcbiAgICAgICAgZm9udC1zaXplOiAxNXB4O1xuICAgICAgICBmb250LXdlaWdodDogYm9sZDtcbiAgICB9XG59XG4iXSwic291cmNlUm9vdCI6Ii9zb3VyY2UvIn0= */
+/*# sourceMappingURL=maps/index.css.map */
