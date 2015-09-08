@@ -107,7 +107,7 @@ gulp.task('js', function() {
 // 清空图片、样式、js
 gulp.task('clean', function() {
     gulp.src(['./dist/css', './dist/js', './dist/images'], {
-            read: false
+            read: false//file.contents 会返回空值（null），并不会去读取文件
         })
         .pipe(clean());
 });
