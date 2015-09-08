@@ -9,6 +9,14 @@
 - Audits：提供网页优化的建议。
 - Console：用来运行JavaScript命令。
 
+##基本设置
+- Disable cache (while DevTools is open)
+- Enable JavaScript source maps
+- Enable CSS source maps
+- Log XMLHttpRequests
+- Show timestamps
+- 是否需要 Preserve log 看自己的需求
+
 ##Elements
 
 ### Inspecting the DOM and styles 检查DOM和样式
@@ -21,6 +29,8 @@
   拖拽节点, 调整顺序
   拖拽节点到编辑器
   ctrl + z 撤销修改
+  crtl + f 在元素里面查找
+
 ####修改样式
   添加、修改属性 同样可以通过 ctrl + z 取消
   在一个class中添加样式，所有使用改clas的元素都立即生效
@@ -34,7 +44,43 @@
 css3动画调试
 
 
+
+### Improving network performance 提高网络性能
+### Audits 审计
+### Improving rendering performance 提高渲染性能
+### JavaScript & CSS performance# JavaScript和CSS的性能
+### Inspecting storage 检查存储
+
+## Network
+- Name：请求文件名称
+- Method：方法（常见的是get post）
+- Status：请求完成的状态
+- Type：请求的类型
+- Initiator：请求源也就是说该链接通过什么发送（常见的是Parser、Script）
+- Size：下载文件或者请求占的资源大小
+- Time：请求或下载的时间
+- Timeline：该链接在发送过程中的时间状态轴（我们可以把鼠标移动到这些红红绿绿的时间轴上， 对应的会有它的详细信息：开始下载时间，等待加载时间，自身下载耗时）
+
+1. Network是一个监控当前网页所有的http请求的面版，它主体部分展示的是每个http请求，每个字段表示着该请求的不同属性和状态
+
+2. 单击面板中的任意一条http信息，会在底部弹出一个新的面板，其中记录了该条http请求的详细参数header
+  （表头信息、返回信息、请求基本状态---请参看http1.1协议内容对号入座）、Preview（返回的格式化转移后文本信息）
+  、response（转移之前的原始信息）、Cookies（该请求带的cookies）、Timing（请求时间变化）
+
+3. 在主面板的顶部，有一些按钮从左到右它们的功能分别是：是否启用继续http监控（默认高亮选中过）、
+  清空主面板中的http信息、是否启用过滤信息选项（启用后可以对http信息进行筛选）、列出多种属性、
+  只列出name和time属性、preserve log（目前不清楚啥用）、Dishable cahe（禁用缓存，
+  所有的304返回会和fromm cahe都回变成正常的请求忽视cache conctrol 设定）；
+
+4.  最后在主面板的底部有记录了整体网络请求状态的一些基本信息
+
+##Resources
+Resources部分较简单，他主要向我们展示了本界面所加载的资源列表。还有cookie和local storage 、SESSION 等本地存储信息，在这里，我们可以自由地修改、增加、删除本地存储。
+webSql 浏览器上的数据库，可以用sql语句操作
+
+##Sources
 ### Debugging JavaScript 调试JavaScript
+F8 F10 F11
 
 1. Beautify Javascript
 
@@ -64,9 +110,13 @@ css3动画调试
 10. 控制台直接输入函数，设置debugger 直接进入我们的代码
 11. js条件断点、选中表达式在控制台查看计算值
 12. 调用栈分析
+13. 当执行听到某个断点的时候，这个时候在控制可以查看当前断点作用域里面的任意变了，以及执行任意表达式。这个很有用，在调试的时候，我们让程序停在断点出，这个时候函数正常流程不执行的语句，你也可以选中人后右键Evalute in Console，执行并且在控制台查看返回值。此时自己也可以在控制台手动编写相关代码。
 
-### Improving network performance 提高网络性能
-### Audits 审计
-### Improving rendering performance 提高渲染性能
-### JavaScript & CSS performance# JavaScript和CSS的性能
-### Inspecting storage 检查存储
+##Timeline
+http://www.cnblogs.com/constantince/p/4585983.html
+##Profiles
+http://www.cnblogs.com/constantince/p/4607497.html
+
+
+
+

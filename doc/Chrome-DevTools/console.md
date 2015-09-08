@@ -67,7 +67,6 @@ console.error("Error: %s (%i)", "Server is  not responding",500);
 </table>
 ###console.clear()
 
-
 ###console.assert(expression, object)
 ```js
 var isDebug=false;
@@ -156,13 +155,14 @@ profile("init")
 profileEnd("init")
 
 ```
-### $ inspect
+### $
 Chrome 控制台中原生支持选择器
 |$()  |  document.querySelector()|
 |$$() |  返回一个选中的DOM对象，等同于document.querySelectorAll|
 |$x() |  R$x(path)方法返回一个数组，包含匹配特定XPath表达式的所有DOM元素|
 |$_   |   属性返回上一个表达式的值|
 
+###inspect
 ```js
 inspect($('p'))//方法打开相关面板，并选中相应的元素：DOM元素在Elements面板中显示，JavaScript对象在Profiles中显示
 ```
