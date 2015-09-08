@@ -5,7 +5,6 @@
 - console.info：提示类信息
 - console.error：错误信息
 - console.warn：警示信息
-
 ```js
 console.log(id);//元素的id 直接能找到对应元素,`id`不要加引号
 console.log('翯翯翯翯~');
@@ -36,14 +35,36 @@ console.error("Error: %s (%i)", "Server is  not responding",500);
     );
 });
 ```
-|Format     |Specifier  Description|
-| --  | --------  |
-|%s         |Formats the value as a string.|
-|%d or %i   |Formats the value as an integer.|
-|%f         |Formats the value as a floating point value.|
-|%o         |Formats the value as an expandable DOM element (as in the Elements panel).|
-|%O         |Formats the value as an expandable JavaScript object.|
-|%c         |Formats the output string according to CSS styles you provide.|
+<table>
+  <tr>
+    <th>Format</th>
+    <th>pecifier  Description</th>
+  </tr>
+  <tr>
+    <td>%s</td>
+    <td>Formats the value as a string.</td>
+  </tr>
+  <tr>
+    <td>%d or %i</td>
+    <td>Formats the value as an integer.</td>
+  </tr>
+  <tr>
+    <td>%f</td>
+    <td>Formats the value as a floating point value.</td>
+  </tr>
+  <tr>
+    <td>%o </td>
+    <td>Formats the value as an expandable DOM element (as in the Elements panel).</td>
+  </tr>
+  <tr>
+    <td>%O</td>
+    <td>Formats the value as an expandable JavaScript object.</td>
+  </tr>
+  <tr>
+    <td>%c </td>
+    <td>Formats the output string according to CSS styles you provide.</td>
+  </tr>
+</table>
 ###console.clear()
 
 
