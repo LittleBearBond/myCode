@@ -796,16 +796,20 @@
             var ret,
                 name,
                 old = {};
-
+                
+             //对隐藏的元素进行处理
+             //设置display:block; position:absolute;visiable visibility: hidden
             // Remember the old values, and insert the new ones
             for (name in options) {
+                //记住以前的
                 old[name] = elem.style[name];
                 elem.style[name] = options[name];
             }
-
+            //取值
             ret = callback.apply(elem, args || []);
 
             // Revert the old values
+            //恢复原有属性值
             for (name in options) {
                 elem.style[name] = old[name];
             }
@@ -6674,7 +6678,7 @@
                         jQuery.swap(elem, cssShow, function () {
                             return getWidthOrHeight(elem, name, extra);
                         }) :
-                        getWidthOrHeight(elem, name, extra);
+                        getWidthOrHeight(elem, name, extra);//处理box-sizing:border-box;
                 }
             },
 
