@@ -13,8 +13,10 @@
     <meta name="360-fullscreen" content="true">
     <meta name="description" content="">
     <meta name="keywords" content="">
-    <link href="http://10.155.114.55:8081/my-down-code/video.js-master/dist/video-js.css" rel="stylesheet">
+    <!--<link href="http://10.155.114.55:8081/my-down-code/video.js-master/dist/video-js.css" rel="stylesheet">-->
+    <link href="http://vjs.zencdn.net/4.12/video-js.css" rel="stylesheet">
     <link href="../video-switch-teacher.css" rel="stylesheet">
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -40,63 +42,32 @@
     <div id="info">
 
     </div>
-    <video id='video' class="video-js vjs-default-skin vjs-big-play-centered" webkit-playsinline></video>
+    <video id='video' class="video-js vjs-default-skin vjs-big-play-centered" webkit-playsinline>
+        <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
+        <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm' />
+        <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg' />
+        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+        </video>
 
-    <script src="http://10.155.114.55:8081/my-down-code/video.js-master/dist/video.js"></script>
+    <!--<script src="http://10.155.114.55:8081/my-down-code/video.js-master/dist/video.js"></script>-->
+    <script src="http://vjs.zencdn.net/4.12/video.js"></script>
+
     <script>
         videojs.options.flash.swf = "http://10.155.114.55:8081/my-down-code/video.js-master/dist/video-js.swf"
     </script>
-    <script src="../video-switch-teacher.js"></script>
     <script>
     // fire up the plugin
     var player = videojs('video', {
         controls: true,
         width: 600,
+        height:400,
         //autoplay: true,
         //视频缩略图，传说中的片头
-        "poster": "http://video-js.zencoder.com/oceans-clip.png",
-        plugins: {
-            videoJsSwitchTeacher: {
-
-            }
-        },
-        controlBar: {
-            currentTimeDisplay: true
-        }
-        /*,
-                children : {
-                    textTrackDisplay : false,
-                    posterImage: false,
-                    errorDisplay : false,
-                    controlBar : {
-                        captionsButton : false,
-                        chaptersButton: false,
-                        subtitlesButton:false,
-                        liveDisplay:false,
-                        playbackRateMenuButton:false
-                    }
-                }*/
+        "poster": "http://video-js.zencoder.com/oceans-clip.png"
     }, function() {
         var player = this;
         window.player = player
-
-        player.updateSrc([{
-            //src: 'http://192.168.102.23/vod/media/ceshi/ww.mp4',
-            src: 'http://video-js.zencoder.com/oceans-clip.mp4',
-            type: 'video/mp4',
-            label: 'SD',
-            res: 360
-        }]);
-
-        player.on('resolutionchange', function() {
-            console.info('Source changed to %s', player.src())
-        });
-
-        player.on('play', function() {
-            /*setTimeout(function() {
-                player.pause();
-            }, 5000);*/
-        })
+        //xxxx
     });
 
     var info=document.getElementById('info');
