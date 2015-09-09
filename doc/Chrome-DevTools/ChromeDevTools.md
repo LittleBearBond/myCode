@@ -22,52 +22,52 @@
 ### Inspecting the DOM and styles 检查DOM和样式
 >  选中元素右键审查元素
 
-    **DOM Search by CSS Selector**
+>  **DOM Search by CSS Selector**
 
-    **Media Query Inspector**
+>  **Media Query Inspector**
 
-    **alt+click** 展开所有节点
+>  **alt+click** 展开所有节点
 
-    **Quick-edit element tags**
+>  **Quick-edit element tags**
 
 ####修改 html & 属性
 
 >  添加属性(enter)
 
-    修改 html(F2)
+>  修改 html(F2)
 
-    删除元素(delete)
+>  删除元素(delete)
 
-    隐藏元素(H)
+>  隐藏元素(H)
 
-    拖拽节点, 调整顺序
+>  拖拽节点, 调整顺序
 
-    拖拽节点到编辑器
+>  拖拽节点到编辑器
 
-    ctrl + z 撤销修改
+>  ctrl + z 撤销修改
 
-    crtl + f 在元素里面查找
+>  crtl + f 在元素里面查找
 
 ####修改样式
 >  添加、修改属性 同样可以通过 ctrl + z 取消
 
-    在一个class中添加样式，所有使用改clas的元素都立即生效
+>  在一个class中添加样式，所有使用改clas的元素都立即生效
 
-    给元素添加style
+>  给元素添加style
 
-    修改属性值的是数值的时候可以 ctrl+⬆️、shift+⬆️、option+⬆️ 每次改变是以1、 10 、0.1
+>  修改属性值的是数值的时候可以 ctrl+⬆️、shift+⬆️、option+⬆️ 每次改变是以1、 10 、0.1
 
-    **Force element state**可以强制元素处于hover、active、focus、visited
+>  **Force element state**可以强制元素处于hover、active、focus、visited
 
-    **Visualize the shadow DOM**
+>  **Visualize the shadow DOM**
 
-    computed可以查看元素计算后的样式，定位到生效的样式，调试的时候用得较多
+>  computed可以查看元素计算后的样式，定位到生效的样式，调试的时候用得较多
 
-    **Change color format **修改颜色，可以直接吸取颜色，在颜色预览功能使用快捷键Shift + Click，可以在rgba、hsl和hexadecimal来回切换颜色的格式
+>  **Change color format **修改颜色，可以直接吸取颜色，在颜色预览功能使用快捷键Shift + Click，可以在rgba、hsl和hexadecimal来回切换颜色的格式
 
-    查看元素properties
+>  查看元素properties
 
-    css3动画调试
+>  css3动画调试
 
 
 ### Improving network performance 提高网络性能
@@ -111,12 +111,12 @@ F8 F10 F11
 
 1. Beautify Javascript
 2. 查看元素绑定了哪些事件
->   默认会列出 All Nodes, 这些包括代理绑定在该节点的父/祖父节点上的事件, 因为在在冒泡或捕获阶段会经过该节点
-  Selected Node Only 只会列出当前节点上绑定的事件
-  每个事件会有对应的几个属性 handler, isAtribute, lineNumber, listenerBody, sourceName, type, useCapture
-  handler是处理函数, 右键可以看到这个函数定义的位置, 一般 js 库绑定事件会包一层, 所以这里很难找到对应handler
-  isAtribute 表明事件是否通过 html 属性(类似onClick)形式绑定的
-  useCapture 是 addEventListener 的第三个参数, 说明事件是以 冒泡 还是 捕获 顺序执行
+>  默认会列出 All Nodes, 这些包括代理绑定在该节点的父/祖父节点上的事件, 因为在在冒泡或捕获阶段会经过该节点
+>  Selected Node Only 只会列出当前节点上绑定的事件
+>  每个事件会有对应的几个属性 handler, isAtribute, lineNumber, listenerBody, sourceName, type, useCapture
+>  handler是处理函数, 右键可以看到这个函数定义的位置, 一般 js 库绑定事件会包一层, 所以这里很难找到对应handler
+>  isAtribute 表明事件是否通过 html 属性(类似onClick)形式绑定的
+>  useCapture 是 addEventListener 的第三个参数, 说明事件是以 冒泡 还是 捕获 顺序执行
 
 3. Ajax 时中断
 4. 页面事件中断
@@ -125,10 +125,10 @@ F8 F10 F11
 >  在 Elements 面板, 选中一个元素右键, 有两个选项：Break on subtree modifications, Break on attributes modifications, 这两个对应 DOM Level 3 Event 中的DOMSubtreeModified , DOMSubtreeModified 事件 在 Scripts 面板 DOM Breakpoints 处会列出所有 level3 的 event 中断
 7. 所有 js 文件中搜索&查找 js 函数定义,以及函数跳转
 >   ctrl + shift + F, 在通过 js 钩子查找代码位置时很有用, 查找支持正则表达式
-    查找函数定义: ctrl + shift + 0 (在 Scripts panel 下)
-    **Quick file switching** 查找文件: ctrl + o  (在 Scripts panel 下)
-    **goto  cmd + p**
-    **Go to line ** `cmd+L、ctrl+g ` go to function`cmd+shift+o`
+>   查找函数定义: ctrl + shift + 0 (在 Scripts panel 下)
+>   **Quick file switching** 查找文件: ctrl + o  (在 Scripts panel 下)
+>   **goto  cmd + p**
+>   **Go to line ** `cmd+L、ctrl+g ` go to function`cmd+shift+o`
 
 8. 实时修改 js 代码生效
 >   编辑js cmd+D 不断选中相同的和Sublime text 有许多相似之处
