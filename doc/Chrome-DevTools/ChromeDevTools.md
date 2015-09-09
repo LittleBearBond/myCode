@@ -22,52 +22,52 @@
 ### Inspecting the DOM and styles 检查DOM和样式
 >  选中元素右键审查元素
 
-  **DOM Search by CSS Selector**
+    **DOM Search by CSS Selector**
 
-  **Media Query Inspector**
+    **Media Query Inspector**
 
-  **alt+click** 展开所有节点
+    **alt+click** 展开所有节点
 
-  **Quick-edit element tags**
+    **Quick-edit element tags**
 
 ####修改 html & 属性
 
 >  添加属性(enter)
 
-  修改 html(F2)
+    修改 html(F2)
 
-  删除元素(delete)
+    删除元素(delete)
 
-  隐藏元素(H)
+    隐藏元素(H)
 
-  拖拽节点, 调整顺序
+    拖拽节点, 调整顺序
 
-  拖拽节点到编辑器
+    拖拽节点到编辑器
 
-  ctrl + z 撤销修改
+    ctrl + z 撤销修改
 
-  crtl + f 在元素里面查找
+    crtl + f 在元素里面查找
 
 ####修改样式
 >  添加、修改属性 同样可以通过 ctrl + z 取消
 
-  在一个class中添加样式，所有使用改clas的元素都立即生效
+    在一个class中添加样式，所有使用改clas的元素都立即生效
 
-  给元素添加style
+    给元素添加style
 
-  修改属性值的是数值的时候可以 ctrl+⬆️、shift+⬆️、option+⬆️ 每次改变是以1、 10 、0.1
+    修改属性值的是数值的时候可以 ctrl+⬆️、shift+⬆️、option+⬆️ 每次改变是以1、 10 、0.1
 
-  **Force element state**可以强制元素处于hover、active、focus、visited
+    **Force element state**可以强制元素处于hover、active、focus、visited
 
-  **Visualize the shadow DOM**
+    **Visualize the shadow DOM**
 
-  computed可以查看元素计算后的样式，定位到生效的样式，调试的时候用得较多
+    computed可以查看元素计算后的样式，定位到生效的样式，调试的时候用得较多
 
-  **Change color format **修改颜色，可以直接吸取颜色，在颜色预览功能使用快捷键Shift + Click，可以在rgba、hsl和hexadecimal来回切换颜色的格式
+    **Change color format **修改颜色，可以直接吸取颜色，在颜色预览功能使用快捷键Shift + Click，可以在rgba、hsl和hexadecimal来回切换颜色的格式
 
-  查看元素properties
+    查看元素properties
 
-  css3动画调试
+    css3动画调试
 
 
 ### Improving network performance 提高网络性能
