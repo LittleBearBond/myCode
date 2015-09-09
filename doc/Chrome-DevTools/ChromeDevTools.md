@@ -21,6 +21,11 @@
 
 ### Inspecting the DOM and styles 检查DOM和样式
   选中元素右键审查元素
+  **DOM Search by CSS Selector**
+  **Media Query Inspector**
+  **alt+click** 展开所有节点
+  **Quick-edit element tags**
+
 ####修改 html & 属性
   添加属性(enter)
   修改 html(F2)
@@ -36,9 +41,10 @@
   在一个class中添加样式，所有使用改clas的元素都立即生效
   给元素添加style
   修改属性值的是数值的时候可以 ctrl+⬆️、shift+⬆️、option+⬆️ 每次改变是以1、 10 、0.1
-  可以强制元素处于hover、active、focus、visited
+  **Force element state**可以强制元素处于hover、active、focus、visited
+  **Visualize the shadow DOM**
   computed可以查看元素计算后的样式，定位到生效的样式，调试的时候用得较多
-  修改颜色，可以直接吸取颜色，在颜色预览功能使用快捷键Shift + Click，可以在rgba、hsl和hexadecimal来回切换颜色的格式
+  **Change color format **修改颜色，可以直接吸取颜色，在颜色预览功能使用快捷键Shift + Click，可以在rgba、hsl和hexadecimal来回切换颜色的格式
   查看元素properties
 
 css3动画调试
@@ -60,6 +66,8 @@ css3动画调试
 - Size：下载文件或者请求占的资源大小
 - Time：请求或下载的时间
 - Timeline：该链接在发送过程中的时间状态轴（我们可以把鼠标移动到这些红红绿绿的时间轴上， 对应的会有它的详细信息：开始下载时间，等待加载时间，自身下载耗时）
+- `Copy a Response`、`Copy Request Headers`、`Copy Response Headers`、`Copy as cURL`、`Copy all as HAR`、`XXXX`
+
 
 1. Network是一个监控当前网页所有的http请求的面版，它主体部分展示的是每个http请求，每个字段表示着该请求的不同属性和状态
 
@@ -100,9 +108,9 @@ F8 F10 F11
 7. 所有 js 文件中搜索&查找 js 函数定义,以及函数跳转
 >   ctrl + shift + F, 在通过 js 钩子查找代码位置时很有用, 查找支持正则表达式
     查找函数定义: ctrl + shift + 0 (在 Scripts panel 下)
-    查找文件: ctrl + o  (在 Scripts panel 下)
+    **Quick file switching** 查找文件: ctrl + o  (在 Scripts panel 下)
     **goto  cmd + p**
-    goto line cmd+L、go to function cmd+shift+o
+    **Go to line ** `cmd+L、ctrl+g ` go to function`cmd+shift+o`
 8. 实时修改 js 代码生效
 >   编辑js cmd+D 不断选中相同的和Sublime text 有许多相似之处
 
@@ -111,12 +119,13 @@ F8 F10 F11
 11. js条件断点、选中表达式在控制台查看计算值
 12. 调用栈分析
 13. 当执行听到某个断点的时候，这个时候在控制可以查看当前断点作用域里面的任意变了，以及执行任意表达式。这个很有用，在调试的时候，我们让程序停在断点出，这个时候函数正常流程不执行的语句，你也可以选中人后右键Evalute in Console，执行并且在控制台查看返回值。此时自己也可以在控制台手动编写相关代码。
+14。 `alt+鼠标拖动` 块编辑
 
 ##Timeline
 http://www.cnblogs.com/constantince/p/4585983.html
 ##Profiles
 http://www.cnblogs.com/constantince/p/4607497.html
-
-
+https://css-tricks.com/six-tips-for-chrome-devtools/
+https://developers.google.com/web/updates/chrome-devtools/
 
 
