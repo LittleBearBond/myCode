@@ -45,7 +45,8 @@ Performance API用于精确度量、控制、增强浏览器的性能表现。�
 
 >    **loadEventStart：**返回当前网页load事件的回调函数开始时的Unix毫秒时间戳。如果该事件还没有发生，返回0。
 
-    **loadEventEnd：**返回当前网页load事件的回调函数运行结束时的Unix毫秒时间戳。如果该事件还没有发生，返回0。
+>    **loadEventEnd：**返回当前网页load事件的回调函数运行结束时的Unix毫秒时间戳。如果该事件还没有发生，返回0。
+    
 ###组合值的意义
 >   DNS查询耗时 ：domainLookupEnd - domainLookupStart
     TCP链接耗时 ：connectEnd - connectStart
@@ -231,6 +232,7 @@ function getPerformanceTiming() {
     return times;
 }
 ```
+
 ##使用performance.getEntries() 获取所有资源请求的时间数据
 浏览器获取网页时，会对网页中每一个对象（脚本文件、样式表、图片文件等等）发出一个HTTP请求。performance.getEntries方法以数组形式，返回这些请求的时间统计信息，有多少个请求，返回数组就会有多少个成员。
 由于该方法与浏览器处理网页的过程相关，所以只能在浏览器中使用。
@@ -289,13 +291,18 @@ function getEntryTiming(entry) {
 }
 
 ```
+
 ##使用 performance.now() 精确计算程序执行时间
 
 performance.now() 与 Date.now() 不同的是，返回了以微秒（百万分之一秒）为单位的时间，更加精准。
+
 并且与 Date.now() 会受系统程序执行阻塞的影响不同，performance.now() 的时间是以恒定速率递增的，不受系统时间的影响（系统时间可被人为或软件调整）。
+
 注意 Date.now() 输出的是 UNIX 时间，即距离 1970 的时间，而 performance.now() 输出的是相对于 performance.timing.navigationStart(页面初始化) 的时间。
+
 使用 Date.now() 的差值并非绝对精确，因为计算时间时受系统限制（可能阻塞）。但使用 performance.now() 的差值，并不影响我们计算程序执行的精确时间。
 ```js
+
 // 计算程序执行的精确时间
 function getFunctionTimeWithDate (func) {
     var timeStart = Data.now();
@@ -320,17 +327,18 @@ function getFunctionTimeWithPerformance (func) {
     return (timeEnd - timeStart);
 }
 ```
+
 ##performance.navigation对象
 除了时间信息，performance还可以提供一些用户行为信息，主要都存放在performance.navigation对象上面
 ###performance.navigation.type
 该属性返回一个整数值，表示网页的加载来源，可能有以下4种情况：
->   0：网页通过点击链接、地址栏输入、表单提交、脚本操作等方式加载，相当于常数performance.navigation.TYPE_NAVIGATENEXT。
+>    0：网页通过点击链接、地址栏输入、表单提交、脚本操作等方式加载，相当于常数performance.navigation.TYPE_NAVIGATENEXT。
 
-    1：网页通过“重新加载”按钮或者location.reload()方法加载，相当于常数performance.navigation.TYPE_RELOAD。
+>    1：网页通过“重新加载”按钮或者location.reload()方法加载，相当于常数performance.navigation.TYPE_RELOAD。
 
-    2：网页通过“前进”或“后退”按钮加载，相当于常数performance.navigation.TYPE_BACK_FORWARD。
+>    2：网页通过“前进”或“后退”按钮加载，相当于常数performance.navigation.TYPE_BACK_FORWARD。
 
-    255：任何其他来源的加载，相当于常数performance.navigation.TYPE_UNDEFINED。
+>    3：任何其他来源的加载，相当于常数performance.navigation.TYPE_UNDEFINED。
 ###performance.navigation.redirectCount
 该属性表示当前网页经过了多少次重定向跳转。
 
