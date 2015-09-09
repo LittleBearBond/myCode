@@ -20,7 +20,7 @@
 ##Elements
 
 ### Inspecting the DOM and styles 检查DOM和样式
-  选中元素右键审查元素
+>  选中元素右键审查元素
 
   **DOM Search by CSS Selector**
 
@@ -32,7 +32,7 @@
 
 ####修改 html & 属性
 
-  添加属性(enter)
+>  添加属性(enter)
 
   修改 html(F2)
 
@@ -49,7 +49,7 @@
   crtl + f 在元素里面查找
 
 ####修改样式
-  添加、修改属性 同样可以通过 ctrl + z 取消
+>  添加、修改属性 同样可以通过 ctrl + z 取消
 
   在一个class中添加样式，所有使用改clas的元素都立即生效
 
@@ -67,8 +67,7 @@
 
   查看元素properties
 
-css3动画调试
-
+  css3动画调试
 
 
 ### Improving network performance 提高网络性能
@@ -111,7 +110,6 @@ webSql 浏览器上的数据库，可以用sql语句操作
 F8 F10 F11
 
 1. Beautify Javascript
-
 2. 查看元素绑定了哪些事件
 >   默认会列出 All Nodes, 这些包括代理绑定在该节点的父/祖父节点上的事件, 因为在在冒泡或捕获阶段会经过该节点
   Selected Node Only 只会列出当前节点上绑定的事件
@@ -131,6 +129,7 @@ F8 F10 F11
     **Quick file switching** 查找文件: ctrl + o  (在 Scripts panel 下)
     **goto  cmd + p**
     **Go to line ** `cmd+L、ctrl+g ` go to function`cmd+shift+o`
+
 8. 实时修改 js 代码生效
 >   编辑js cmd+D 不断选中相同的和Sublime text 有许多相似之处
 
