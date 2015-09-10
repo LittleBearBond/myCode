@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>视频播放测试页面01</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="full-screen" content="true">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <style type="text/css">
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <!--<link href="http://vjs.zencdn.net/4.12/video-js.css" rel="stylesheet">-->
+    <link href="http://10.155.114.55:8081/my-code/video.js/dist/video-js.css" rel="stylesheet">
+    <!--<script src="http://vjs.zencdn.net/4.12/video.js"></script>-->
+    <script src="http://10.155.114.55:8081/my-code/video.js/dist/video.js"></script>
+</head>
+<body>
+    <video id="example_video_1" class="video-js vjs-default-skin  vjs-big-play-centered"
+    controls preload="auto"
+    poster="http://video-js.zencoder.com/oceans-clip.png"
+    data-setup='{"example_option":true}'>
+    <!--http://192.168.102.23/vod/media/ceshi/ww.mp4-->
+    <!--<source src="http://192.168.102.23/vod/media/ceshi/ww.mp4" type='video/mp4' />-->
+    <source src="http://10.155.114.55:8081/echo-hereweare.mp4" type='video/mp4' />
+    <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm' />
+    <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg' />
+    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+</video>
+<script>
+    //swf的路径，当哈他们5不支持的时候就需要用Flash播放
+    videojs.options.flash.swf = "http://example.com/path/to/video-js.swf"
+
+    var player = videojs('#example_video_1', {
+        "techOrder": ["html5"],
+        "controls": true,
+        //是否自动播放
+        "autoplay": false,
+        //是否自动预加载资源
+        "preload": 'auto', //"meta" 则只加载视频元数据。
+        //视频缩略图，传说中的片头
+        "poster": "http://video-js.zencoder.com/oceans-clip.png",
+        //宽度高度
+        /*"width":'100%',
+        "height":'100%',*/
+        //循环播放
+        "loop": false,
+        "width": 640,
+        //"bigPlayButton": false,
+        //"textTrackDisplay": false,
+        //"posterImage": false,
+        //"errorDisplay": false,
+        "controlBar": {
+            PlayToggle:true,
+            TimeDivider:true
+            /*captionsButton: false,
+            chaptersButton: false,
+            liveDisplay: false,
+            playbackRateMenuButton: false,
+            subtitlesButton: false*/
+        }
+    }, function() {
+        //console.log(this)
+
+        this.on('loadeddata', function() {
+            console.log(this)
+        })
+
+        this.on('ended', function() {
+            //this.pause();
+            console.log('ended')
+            //this.hide()
+        });
+    });
+
+    // 检测播放时间
+    player.on('timeupdate', function() {
+        //console.log('当前播放时间：',player.currentTime());
+    });
+
+    //上一节中添加的 'ended' 事件响应在一些移动设备上并没有正确触发，需要通过 'timeupdate' 事件判断视频是否已播放完毕
+    player.on('timeupdate', function() {
+        var durationTime = player.duration();
+        var currentTime = player.currentTime();
+        // 如果 currentTime() === duration()，则视频已播放完毕
+        if (durationTime != 0 && currentTime >= durationTime) {
+            // 播放结束
+            console.log('播放结束')
+        }
+        if (currentTime > 10) {
+            //player.requestFullscreen();
+        }
+    });
+
+    // 开始或恢复播放
+    player.on('play', function() {
+        console.log('开始/恢复播放');
+    });
+
+    // 暂停播放
+    player.on('pause', function() {
+        console.log('暂停播放');
+    });
+
+    ('durationchange ended error firstplay fullscreenchange loadedalldata loadeddata loadedmetadata' + ' loadstart pause play progress seeked seeking timeupdate volumechange waiting resize').split(' ').forEach(function(val, index) {
+        player.on(val, (function(name) {
+            return function() {
+                name==='timeupdate' || name==='progress' || console.log(name)
+            }
+        }(val)));
+    });
+
+    window.onerror = function(msg, url, line, col, error) {
+        alert(msg);
+        return true;
+    };
+
+    var eventsArr = ['onabort', //script  在退出时运行的脚本。
+        'oncanplay', //script  当文件就绪可以开始播放时运行的脚本（缓冲已足够开始时）。
+        'oncanplaythrough', //script  当媒介能够无需因缓冲而停止即可播放至结尾时运行的脚本。
+        'ondurationchange', //script  当媒介长度改变时运行的脚本。
+        'onemptied', //script  当发生故障并且文件突然不可用时运行的脚本（比如连接意外断开时）。
+        'onended', //script  当媒介已到达结尾时运行的脚本（可发送类似“感谢观看”之类的消息）。
+        'onerror', //script  当在文件加载期间发生错误时运行的脚本。
+        'onloadeddata', //script  当媒介数据已加载时运行的脚本。
+        'onloadedmetadata', //script  当元数据（比如分辨率和时长）被加载时运行的脚本。
+        'onloadstart', //script  在文件开始加载且未实际加载任何数据前运行的脚本。
+        'onpause', //script  当媒介被用户或程序暂停时运行的脚本。
+        'onplay', //script  当媒介已就绪可以开始播放时运行的脚本。
+        'onplaying', //script  当媒介已开始播放时运行的脚本。
+        'onprogress', //script  当浏览器正在获取媒介数据时运行的脚本。
+        'onratechange', //script  每当回放速率改变时运行的脚本（比如当用户切换到慢动作或快进模式）。
+        'onreadystatechange', //script  每当就绪状态改变时运行的脚本（就绪状态监测媒介数据的状态）。
+        'onseeked', //script  当 seeking 属性设置为 false（指示定位已结束）时运行的脚本。
+        'onseeking', //script  当 seeking 属性设置为 true（指示定位是活动的）时运行的脚本。
+        'onstalled', //script  在浏览器不论何种原因未能取回媒介数据时运行的脚本。
+        'onsuspend', //script  在媒介数据完全加载之前不论何种原因终止取回媒介数据时运行的脚本。
+        'ontimeupdate', //script  当播放位置改变时（比如当用户快进到媒介中一个不同的位置时）运行的脚本。
+        'onvolumechange', //script  每当音量改变时（包括将音量设置为静音）时运行的脚本。
+        'onwaiting' //script  当媒介已停止播放但打算继续播放时（比如当媒介暂停已缓冲更多数据）运行脚本
+    ];
+
+    var propsArr = ['audioTracks', //返回表示可用音频轨道的 AudioTrackList 对象。
+        'autoplay', //   设置或返回是否在就绪（加载完成）后随即播放视频。
+        'buffered', //   返回表示视频已缓冲部分的 TimeRanges 对象。
+        'controller', // 返回表示视频当前媒体控制器的 MediaController 对象。
+        'controls', //   设置或返回视频是否应该显示控件（比如播放/暂停等）。
+        'crossOrigin', //设置或返回视频的 CORS 设置。
+        'currentSrc', // 返回当前视频的 URL。
+        'currentTime', //设置或返回视频中的当前播放位置（以秒计）。
+        'defaultMuted', //   设置或返回视频默认是否静音。
+        'defaultPlaybackRate', //设置或返回视频的默认播放速度。
+        'duration', //   返回视频的长度（以秒计）。
+        'ended', //  返回视频的播放是否已结束。
+        'error', //  返回表示视频错误状态的 MediaError 对象。
+        'height', // 设置或返回视频的 height 属性的值。
+        'loop', //   设置或返回视频是否应在结束时再次播放。
+        'mediaGroup', // 设置或返回视频所属媒介组合的名称。
+        'muted', //  设置或返回是否关闭声音。
+        'networkState', //   返回视频的当前网络状态。
+        'paused', // 设置或返回视频是否暂停。
+        'playbackRate', //   设置或返回视频播放的速度。
+        'played', // 返回表示视频已播放部分的 TimeRanges 对象。
+        'poster', // 设置或返回视频的 poster 属性的值。
+        'preload', //设置或返回视频的 preload 属性的值。
+        'readyState', // 返回视频当前的就绪状态。
+        'seekable', //   返回表示视频可寻址部分的 TimeRanges 对象。
+        'seeking', //返回用户当前是否正在视频中进行查找。
+        'src', //设置或返回视频的 src 属性的值。
+        'startDate', //  返回表示当前时间偏移的 Date 对象。
+        'textTracks', // 返回表示可用文本轨道的 TextTrackList 对象。
+        'videoTracks', //返回表示可用视频轨道的 VideoTrackList 对象。
+        'volume', // 设置或返回视频的音量。
+        'width' //  设置或返回视频的 width 属性的值。
+    ];
+
+</script>
+</body>
+</html>
