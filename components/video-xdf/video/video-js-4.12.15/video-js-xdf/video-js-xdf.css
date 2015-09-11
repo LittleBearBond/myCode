@@ -40,8 +40,7 @@
 .my-skin.vjs-default-skin .vjs-control-bar {
     background-color: #1b2023;
 }
-.my-skin.vjs-default-skin .vjs-volume-level,
-.my-skin.vjs-default-skin .vjs-play-progress {
+.my-skin.vjs-default-skin .vjs-volume-level, .my-skin.vjs-default-skin .vjs-play-progress {
     background-color: #68ad40;
 }
 .my-skin.vjs-default-skin .vjs-seek-handle {
@@ -72,29 +71,7 @@
 .my-skin.vjs-fullscreen .vjs-fullscreen-control:before:hover {
     background-position: -90px -108px;
 }
-
-.my-skin.vjs-default-skin .vjs-volume-bar .vjs-volume-handle:before{
+.my-skin.vjs-default-skin .vjs-volume-bar .vjs-volume-handle:before {
     content: "";
     background: url("../i/barBtn.png") -71px 1px no-repeat;
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//-72px 0
-
-
-
-
-
