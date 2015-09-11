@@ -102,14 +102,21 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
             return end
         };
 
+    //相关默认数据 外部不可以修改
     var defaults = {
         //统计多少秒的加载时间
         time: 5,
-        //预计视频缓冲time 这么长需要耗时
+        //预计视频缓冲time 这么长需要耗时,超过这个预计时间就应该是网上过慢
         bufferTime: 10 * 1000,
+        //播放器是否在ios 中内联播放
+        isInline: true
     };
 
     extend(app, {
+        //默认设置，外部可以修改
+        defaults: {
+            playInlineAttr: 'webkit-playsinline'
+        },
         init: function(id, opts) {
             if (!id) {
                 console.warn('id is null');
@@ -117,7 +124,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
             }
             this.opts = extend(defaults, opts || {});
 
-            this.video = videojs(id);
+            this.player = videojs(id);
 
             /*('loadeddata loadedmetadata loadstart progress')
             .split(' ').forEach(function(val, index) {
@@ -134,11 +141,13 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
         },
         initEvent: function() {
             //第一次播放的时候才开始准备进行统计
-            this.video.on('firstplay', this.initGetSpeed.bind(this));
+            this.player.on('firstplay', this.initGetSpeed.bind(this));
+
+            this.opts.isInline && this.player.el().querySelector('video').setAttribute(this.defaults.playInlineAttr,'');
         },
         initGetSpeed: function(video) {
             var self = this;
-            var video = this.video;
+            var video = this.player;
 
             'loadeddata loadedmetadata loadstart progress'.split(/\s+/).forEach(function(val, index) {
                 video.on(val, function() {
@@ -184,7 +193,11 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
 
                 clearInterval(timer)
             }, 1000)*/
-        },
+        }
+    });
+
+    //数据统计相关
+    extend(app, {
         //收集数据
         collData: function(actionName) {
             var self = this;
@@ -195,7 +208,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
                 nowPlayTime: self.currentTime() //当前视频播放时间
             });
         }
-    });
+    })
 
     videojs.videoXdf = function(id, option) {
         app.init(id, option);
