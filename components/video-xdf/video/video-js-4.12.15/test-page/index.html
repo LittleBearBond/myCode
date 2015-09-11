@@ -2,10 +2,13 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Video.js Sandbox</title>
+  <title>Video.js player</title>
 
   <link href="../video-js.css" rel="stylesheet" type="text/css">
+  <link href="../video-js-xdf/video-js-xdf.css" rel="stylesheet" type="text/css">
+
   <script src="../video.js"></script>
+  <script src="../video-js-xdf/video-js-xdf.js"></script>
 
   <!-- Set the location of the flash SWF -->
   <script>
@@ -43,29 +46,44 @@
 <body>
   <p style="background-color:#eee; border: 1px solid #777; padding: 10px; font-size: .8em; line-height: 1.5em; font-family: Verdana, sans-serif;">You can use /sandbox/ for writing and testing your own code. Nothing in /sandbox/ will get checked into the repo, except files that end in .example, so please don't edit or add those files. To get started make a copy of index.html.example and rename it to index.html.</p>
   <div class="info"></div>
-  <video id="vid1" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="100%" height="400"
+  <video id="vid1" class="video-js vjs-default-skin vjs-big-play-centered my-skin" controls preload="auto" width="100%" height="400"
   poster="http://video-js.zencoder.com/oceans-clip.png"
   data-setup='{}'>
-  <source src="http://10.155.114.55:8081/echo-hereweare.mp4" type='video/mp4' />
-  <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4'>
+    <source src="http://10.155.114.55:8081/echo-hereweare.mp4" type='video/mp4' />
+    <!-- <source src="http://vjs.zencdn.net/v/oceans.mp4" type='video/mp4' /> -->
+    <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4'>
     <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm'>
-      <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg'>
-        <!--<track kind="captions" src="../build/demo-files/demo.captions.vtt" srclang="en" label="English"></track> Tracks need an ending tag thanks to IE9 -->
-        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-      </video>
-
+    <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg'>
+    <!--<track kind="captions" src="../build/demo-files/demo.captions.vtt" srclang="en" label="English"></track> Tracks need an ending tag thanks to IE9 -->
+    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+  </video>
       <script>
-        var vid = document.getElementById("vid1");
-        var player = videojs('#vid1');
-        var info = document.getElementById('info');
-
-        ('durationchange ended error firstplay fullscreenchange loadedalldata loadeddata loadedmetadata' + ' loadstart pause play progress seeked seeking timeupdate volumechange waiting resize').split(' ').forEach(function(val, index) {
-          player.on(val, (function(name) {
-            return function() {
-              name === 'timeupdate' || name === 'progress' || 'loadedalldata' === name || console.log(name, arguments) //(info.innerHTML += (name + ","));;
-            }
-          }(val)));
+      // register the plugin
+      videojs.plugin('progressed', function(options) {
+        this.on('progress', function(e) {
+          console.log(this.bufferedPercent());
         });
+      });
+
+      var vid = document.getElementById("vid1");
+      var player = videojs('#vid1');
+      var info = document.getElementById('info');
+
+      ('durationchange ended error firstplay fullscreenchange loadedalldata loadeddata loadedmetadata' + ' loadstart pause play progress seeked seeking timeupdate volumechange waiting resize')
+      .split(' ').forEach(function(val, index) {
+        player.on(val, (function(name) {
+          return function() {
+            //name === 'timeupdate' || name === 'progress' || 'loadedalldata' === name || console.log(name, arguments) //(info.innerHTML += (name + ","));;
+            //name === 'progress' && console.log(this.buffered().length, this.buffered().start(0), this.buffered().end(0), this.bufferedPercent())
+            console.log(name, parseInt((this.buffered().end(0) || 0) * 1000 + 1) / 1000)
+          }
+        }(val)));
+      });
+
+      videojs.videoXdf('#vid1', {
+        time: 5
+      });
+
       </script>
 
     </body>

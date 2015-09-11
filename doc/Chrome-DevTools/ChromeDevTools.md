@@ -123,6 +123,7 @@ F8 F10 F11
 5. Javascript 异常时中断
 6. DOM Level 3 Event 事件中断
 >  在 Elements 面板, 选中一个元素右键, 有两个选项：Break on subtree modifications, Break on attributes modifications, 这两个对应 DOM Level 3 Event 中的DOMSubtreeModified , DOMSubtreeModified 事件 在 Scripts 面板 DOM Breakpoints 处会列出所有 level3 的 event 中断
+
 7. 所有 js 文件中搜索&查找 js 函数定义,以及函数跳转
 >   ctrl + shift + F, 在通过 js 钩子查找代码位置时很有用, 查找支持正则表达式
 >   查找函数定义: ctrl + shift + 0 (在 Scripts panel 下)

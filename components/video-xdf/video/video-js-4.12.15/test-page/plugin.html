@@ -30,6 +30,7 @@
       progressed = function(options) {
         this.on('progress', function(e) {
           console.log(this.bufferedPercent());
+          //console.dir(this)
         });
       };
 
