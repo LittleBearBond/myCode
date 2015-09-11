@@ -122,7 +122,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
                 console.warn('id is null');
                 return;
             }
-            this.opts = extend(defaults, opts || {});
+            this.opts = extend({}, defaults, opts || {});
 
             this.player = videojs(id);
 
@@ -206,7 +206,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
 
     //数据统计相关
     extend(app, {
-        initGetData:function () {
+        initGetData: function() {
 
         },
         //收集数据
