@@ -143,7 +143,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
             //第一次播放的时候才开始准备进行统计
             this.player.on('firstplay', this.initGetSpeed.bind(this));
 
-            this.opts.isInline && this.player.el().querySelector('video').setAttribute(this.defaults.playInlineAttr,'');
+            this.opts.isInline && this.player.el().querySelector('video').setAttribute(this.defaults.playInlineAttr, '');
         },
         initGetSpeed: function(video) {
             var self = this;
@@ -196,8 +196,19 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
         }
     });
 
+    var getDataHooks = {
+        'firstplay': function(player) {
+            return {
+
+            };
+        }
+    };
+
     //数据统计相关
     extend(app, {
+        initGetData:function () {
+
+        },
         //收集数据
         collData: function(actionName) {
             var self = this;
