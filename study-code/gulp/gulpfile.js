@@ -26,8 +26,10 @@ var gulp = require('gulp'), //基础库
     jpegtran = require('imagemin-jpegtran'),
     pngquant = require('imagemin-pngquant'),
     cache = require('gulp-cache'),
+    notify = require('gulp-notify'),
     autoprefixer = require('gulp-autoprefixer');
 
+//Gulp 仅有 5 个方法就能组合出你需要的任务流程：task, run, watch, src, dest
 var src = './src/';
 var destSrc = './dist/';
 // HTML处理
@@ -67,23 +69,26 @@ gulp.task('css', function() {
         // For inline sourcemaps
         .pipe(sourcemaps.write())
         // For file sourcemaps
+        .pipe(autoprefixer())
         .pipe(sourcemaps.write('maps', {
             includeContent: false,
             sourceRoot: 'source'
         }))
-        .pipe(autoprefixer())
         .pipe(gulp.dest(cssDst))
-    /*.pipe(rename({
-        suffix: '.min'
-    }))
-    .pipe(minifycss())*/
-        .pipe(gulp.dest(cssDst));;
+        /*.pipe(rename({
+            suffix: '.min'
+        }))
+        .pipe(minifycss())*/
+        .pipe(gulp.dest(cssDst))
+        .pipe(notify({
+            message: 'sass ok !'
+        }));
 });
 
 // 图片处理
 gulp.task('images', function() {
     var imgSrc = src + 'images/**/*.*', //*.+(jpeg|jpg|png)'
-        imgDst = destSrc + 'images';
+        imgDst = destSrc + 'images/';
     // 1. 找到图片
     gulp.src(imgSrc)
         // 2. 压缩图片
@@ -93,9 +98,36 @@ gulp.task('images', function() {
             quality: '65-80',
             interlaced: true
         })))
+        .on('error', function(e) {
+            console.log(e);
+        })
         // 3. 另存图片
-        .pipe(gulp.dest(imgDst));
-})
+        .pipe(gulp.dest(imgDst))
+        .pipe(notify({
+            message: 'compress ok !'
+        }));
+});
+
+// 任务：压缩jpg
+//gulp.task('jpgmin',function(){
+//    return gulp.src('images/**/*.jpg')
+//           .pipe(imagemin({
+//                progressive: true,
+//                use:[jpegtran()]
+//           }))
+//           .pipe(gulp.dest(destSrc + 'images/'));
+//});
+
+// 任务：压缩png
+//gulp.task('pngmin',function(){
+//    return gulp.src('images/**/*.png')
+//           .pipe(imagemin({
+//                quality: '65-80',
+//                speed: 4,
+//                use:[pngquant()]
+//           }))
+//           .pipe(gulp.dest(destSrc + 'images/'));
+//});
 
 // js处理
 gulp.task('js', function() {
@@ -104,6 +136,9 @@ gulp.task('js', function() {
 
     return gulp.src(jsSrc)
         .pipe(jshint('.jshintrc'))
+        .on('error', function(e) {
+            console.log(e);
+        })
         .pipe(jshint.reporter('default'))
         .pipe(concat('main.js'))
         .pipe(gulp.dest(jsDst))
