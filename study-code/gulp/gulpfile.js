@@ -19,13 +19,14 @@ var gulp = require('gulp'), //基础库
     rename = require('gulp-rename'), //重命名
     concat = require('gulp-concat'), //合并文件
     clean = require('gulp-clean'), //清空文件夹
-    //tinylr = require('tiny-lr'), //livereload
-    //server = tinylr(),
-    //port = 35729,
     livereload = require('gulp-livereload'), //livereload
     sourcemaps = require('gulp-sourcemaps'),
-    http = require('http'),
-    st = require('st');
+    browserSync = require('browser-sync').create(),
+    reload = browserSync.reload,
+    jpegtran = require('imagemin-jpegtran'),
+    pngquant = require('imagemin-pngquant'),
+    cache = require('gulp-cache'),
+    autoprefixer = require('gulp-autoprefixer');
 
 var src = './src/';
 var destSrc = './dist/';
@@ -35,7 +36,6 @@ gulp.task('html', function() {
         htmlDst = destSrc;
 
     return gulp.src(htmlSrc)
-        .pipe(livereload())
         .pipe(gulp.dest(htmlDst));
 });
 
@@ -71,22 +71,29 @@ gulp.task('css', function() {
             includeContent: false,
             sourceRoot: 'source'
         }))
+        .pipe(autoprefixer())
         .pipe(gulp.dest(cssDst))
-        .pipe(rename({
-            suffix: '.min'
-        }))
-        .pipe(minifycss())
-        .pipe(gulp.dest(cssDst))
-        .pipe(livereload());
+    /*.pipe(rename({
+        suffix: '.min'
+    }))
+    .pipe(minifycss())*/
+        .pipe(gulp.dest(cssDst));;
 });
 
 // 图片处理
 gulp.task('images', function() {
-    var imgSrc = src + 'images/**/*',
+    var imgSrc = src + 'images/**/*.*', //*.+(jpeg|jpg|png)'
         imgDst = destSrc + 'images';
+    // 1. 找到图片
     gulp.src(imgSrc)
-        .pipe(imagemin())
-        .pipe(livereload())
+        // 2. 压缩图片
+        // 只有新的或更动的图片会被压缩
+        .pipe(cache(imagemin({
+            progressive: true,
+            quality: '65-80',
+            interlaced: true
+        })))
+        // 3. 另存图片
         .pipe(gulp.dest(imgDst));
 })
 
@@ -104,7 +111,6 @@ gulp.task('js', function() {
             suffix: '.min'
         }))
         .pipe(uglify())
-        .pipe(livereload())
         .pipe(gulp.dest(jsDst));
 });
 
@@ -119,26 +125,27 @@ gulp.task('clean', function() {
 // 默认任务 清空图片、样式、js并重建 运行语句 gulp
 gulp.task('default', ['clean', 'html', 'css', 'images', 'js'] /*, function() {gulp.start(); }*/ );
 
-gulp.task('server', function(done) {
-    http.createServer(
-        st({
-            path: __dirname + '/dist',
-            index: 'index.html',
-            cache: false
-        })
-    ).listen(8080, done);
+
+// web服务 Server + watching scss/js files
+gulp.task('web-server', function() {
+    browserSync.init({
+        server: './dist',
+        index: 'index.html',
+        port: 3000,
+        /*ui: {
+            port: 8080
+        },*/
+        logLevel: 'debug',
+        logPrefix: 'bear',
+        open: true,
+        logConnections: true,
+        //监听文件
+        files: [destSrc + '**/*.js', destSrc + '**/*.css', destSrc + '**/*.html'] //监控变化
+    });
 });
 
 // 监听任务 运行语句 gulp watch
-gulp.task('watch', ['server'], function() {
-
-    /*livereload.listen({
-        port: 8080
-    });*/
-
-    livereload.listen({
-        basePath: 'dist'
-    });
+gulp.task('watch', ['web-server'], function() {
 
     // 监听html
     gulp.watch(src + '*.html', function(event) {

@@ -18,12 +18,14 @@ html {
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
     margin: 0;
     padding: 0;
+    background:url(../iamges/buy-vip.png) 0 0 no-repeat;
 }
 
 .test {
     padding-top: 20px;
     background-color: #ccc;
     padding-bottom: 20px;
+    border-bottom: 20px solid #fcc;
     .inner {
         margin-top: 20px;
         font-size: 15px;
