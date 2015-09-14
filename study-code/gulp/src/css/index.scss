@@ -23,10 +23,11 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
 .test {
     padding-top: 20px;
     background-color: #ccc;
-
+    padding-bottom: 20px;
     .inner {
         margin-top: 20px;
         font-size: 15px;
         font-weight: bold;
+        color: #f00;
     }
 }

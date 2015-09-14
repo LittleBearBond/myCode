@@ -26,20 +26,23 @@ var gulp = require('gulp'), //基础库
     sourcemaps = require('gulp-sourcemaps'),
     http = require('http'),
     st = require('st');
+
+var src = './src/';
+var destSrc = './dist/';
 // HTML处理
 gulp.task('html', function() {
-    var htmlSrc = './src/*.html',
-        htmlDst = './dist/';
+    var htmlSrc = src + '*.html',
+        htmlDst = destSrc;
 
-    gulp.src(htmlSrc)
-        .pipe(gulp.dest(htmlDst))
-        .pipe(livereload());
+    return gulp.src(htmlSrc)
+        .pipe(livereload())
+        .pipe(gulp.dest(htmlDst));
 });
 
 // 样式处理
 gulp.task('css', function() {
-    var cssSrc = './src/css/',
-        cssDst = './dist/css';
+    var cssSrc = src + 'css/',
+        cssDst = destSrc + 'css';
     /*// gulp-ruby-sass: 0.7.1
     gulp.task('sass', function() {
         return gulp.src('path/to/scss')
@@ -51,6 +54,7 @@ gulp.task('css', function() {
         return sass('path/to/scss', { style: 'expanded' })
             .pipe(gulp.dest('path/to/css'));
     });*/
+
     return sass(cssSrc, {
             style: 'expanded',
             sourcemap: true
@@ -78,20 +82,20 @@ gulp.task('css', function() {
 
 // 图片处理
 gulp.task('images', function() {
-    var imgSrc = './src/images/**/*',
-        imgDst = './dist/images';
+    var imgSrc = src + 'images/**/*',
+        imgDst = destSrc + 'images';
     gulp.src(imgSrc)
         .pipe(imagemin())
-        .pipe(gulp.dest(imgDst))
-        .pipe(livereload());
+        .pipe(livereload())
+        .pipe(gulp.dest(imgDst));
 })
 
 // js处理
 gulp.task('js', function() {
-    var jsSrc = './src/js/*.js',
-        jsDst = './dist/js';
+    var jsSrc = src + 'js/*.js',
+        jsDst = destSrc + 'js';
 
-    gulp.src(jsSrc)
+    return gulp.src(jsSrc)
         .pipe(jshint('.jshintrc'))
         .pipe(jshint.reporter('default'))
         .pipe(concat('main.js'))
@@ -100,22 +104,20 @@ gulp.task('js', function() {
             suffix: '.min'
         }))
         .pipe(uglify())
-        .pipe(gulp.dest(jsDst))
-        .pipe(livereload());
+        .pipe(livereload())
+        .pipe(gulp.dest(jsDst));
 });
 
 // 清空图片、样式、js
 gulp.task('clean', function() {
-    gulp.src(['./dist/css', './dist/js', './dist/images'], {
-            read: false//file.contents 会返回空值（null），并不会去读取文件
+    return gulp.src([destSrc + 'css', destSrc + 'js', destSrc + 'images'], {
+            read: false //file.contents 会返回空值（null），并不会去读取文件
         })
         .pipe(clean());
 });
 
 // 默认任务 清空图片、样式、js并重建 运行语句 gulp
-gulp.task('default', ['clean'], function() {
-    gulp.start('html', 'css', 'images', 'js');
-});
+gulp.task('default', ['clean', 'html', 'css', 'images', 'js'] /*, function() {gulp.start(); }*/ );
 
 gulp.task('server', function(done) {
     http.createServer(
@@ -139,22 +141,22 @@ gulp.task('watch', ['server'], function() {
     });
 
     // 监听html
-    gulp.watch('./src/*.html', function(event) {
+    gulp.watch(src + '*.html', function(event) {
         gulp.run('html');
     })
 
     // 监听css
-    gulp.watch('./src/css/*.scss', function() {
+    gulp.watch(src + 'css/*.scss', function() {
         gulp.run('css');
     });
 
     // 监听images
-    gulp.watch('./src/images/**/*', function() {
+    gulp.watch(src + 'images/**/*', function() {
         gulp.run('images');
     });
 
     // 监听js
-    gulp.watch('./src/js/*.js', function() {
+    gulp.watch(src + 'js/*.js', function() {
         gulp.run('js');
     });
 
