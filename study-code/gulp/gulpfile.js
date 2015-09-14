@@ -204,3 +204,13 @@ gulp.task('watch', ['web-server'], function() {
 
     //});
 });
+
+/*
+ *gulp test-args  --type dev --dist distSrc
+ *{ _: [ 'test-args' ], type: 'dev', dist: 'distSrc' }
+ *{ '0': [Function] }
+ */
+gulp.task('test-args', function() {
+    console.dir(gulp.env);
+    console.log(arguments)
+})
