@@ -77,6 +77,18 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
     factory(root.videojs);
     /*}*/
 })(window, function($) {
+    //简单修复Object.keys
+    Object.keys || Object.keys = function(o) {
+        if (o !== Object(o)) {
+            throw new TypeError('Object.keys called on a non-object')
+        }
+        var k = [],
+            p;
+        for (p in o) {
+            Object.prototype.hasOwnProperty.call(o, p) && k.push(p);
+        }
+        return k;
+    }
     var app = {},
         extend = function() {
             var args = arguments,
@@ -197,27 +209,111 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
     });
 
     var getDataHooks = {
-        'firstplay': function(player) {
+        /*firstplay: function(player) {
             return {
 
             };
+        },*/
+        //播放
+        play: function(player) {
+            return {
+                method: 'click', //点击事件
+                actionName: 'play' //动作名称
+            }
+        },
+        //暂停
+        pause: function(player) {
+            return {
+                method: 'click', //点击事件
+                actionName: 'pause' //动作名称
+            }
+        },
+        //结束
+        ended: function(player) {
+            return {
+                method: 'setInterval,ended', //点击事件
+                actionName: 'stop' //动作名称
+            }
+        },
+        //拖拽
+        /*
+         *   触发一次seeking然后就触发seeked 这个时候就是点击播放
+         *   多次触发seeking然后触发seeked就是拖动进度条快进
+         */
+        seeking: function(player) {
+
+        },
+        seeked: function(player) {
+
+        },
+        fullscreenchange: function(player) {
+            return {
+                method: 'click', //点击事件
+                actionName: player.isFullscreen() ? 'fullScreen' : 'cancelFullScreen' //动作名称
+            }
+        },
+        error: function(player) {
+            //得到错误信息
+            var errorMedia = player.error() || {};
+            return {
+                method: 'error', //点击事件
+                actionName: 'error', //动作名称
+                currErrorCode: errorMedia.code, //动作名称 1.用户终止 2.网络错误 3.解码错误 4.URL无效
+                currErrorMsg: errorMedia.message
+            }
+        },
+        canplay: function(player) {
+
+        },
+        loadstart: function(player) {
+            return {
+                method: 'loadstart', //点击事件
+                actionName: 'loadstart', //动作名称
+                totalTime: player.duration()
+            }
+        },
+        abort: function(player) {
+            return {
+                method: 'abort', //点击事件
+                actionName: 'abort', //动作名称
+                totalTime: player.duration()
+            }
+        },
+        loadedmetadata: function(player) {
+            return {
+                method: 'loadedmetadata', //点击事件
+                actionName: 'loadedmetadata', //动作名称
+                totalTime: player.duration()
+            }
         }
     };
 
     //数据统计相关
     extend(app, {
         initGetData: function() {
-
+            var self = this;
+            Object.keys(getDataHooks).forEach(function(val, index) {
+                self.player.on(val, self.proxyCollData.bind(self));
+            });
+        },
+        proxyCollData: function(e) {
+            //事件名称
+            var name = e.type;
+            if (!name) {
+                console.warn('参数错误');
+                return;
+            }
+            //getDataHooks[name].apply(this)  把this对象传入，你懂的。
+            //本想直接传统this.player,但是考虑到以后的说不需要this对象，想想算了，把player当初一个参数传入吧
+            this.collData((name in getDataHooks) && getDataHooks[name].apply(this, Array.prototype.slice.call(arguments).unshift(this.player)) || {})
         },
         //收集数据
-        collData: function(actionName) {
+        collData: function(data) {
             var self = this;
-            window.videoSetCollectionsData && window.videoSetCollectionsData({
-                method: 'click', //点击事件
+            window.videoSetCollectionsData && window.videoSetCollectionsData(extend({}, {
                 videoaddress: self.currentSrc(), //当前视频地址
-                actionName: actionName, //动作名称 播放
-                nowPlayTime: self.currentTime() //当前视频播放时间
-            });
+                nowPlayTime: player.currentTime() //当前视频播放时间
+            }, data));
         }
     })
 

@@ -71,14 +71,13 @@
         }
     }, function() {
         //console.log(this)
-
         this.on('loadeddata', function() {
-            console.log(this)
+            //console.log(this)
         })
 
         this.on('ended', function() {
             //this.pause();
-            console.log('ended')
+            //console.log('ended')
             //this.hide()
         });
     });
@@ -102,7 +101,7 @@
         }
     });
 
-    // 开始或恢复播放
+    /*// 开始或恢复播放
     player.on('play', function() {
         console.log('开始/恢复播放');
     });
@@ -110,12 +109,11 @@
     // 暂停播放
     player.on('pause', function() {
         console.log('暂停播放');
-    });
-
-    ('durationchange ended error firstplay fullscreenchange loadedalldata loadeddata loadedmetadata' + ' loadstart pause play progress seeked seeking timeupdate volumechange waiting resize').split(' ').forEach(function(val, index) {
+    });*/
+    ;('durationchange ended error firstplay fullscreenchange loadedalldata loadeddata loadedmetadata' + ' loadstart pause play progress seeked seeking timeupdate volumechange waiting resize').split(' ').forEach(function(val, index) {
         player.on(val, (function(name) {
             return function() {
-                name==='timeupdate' || name==='progress' || console.log(name)
+                name === 'timeupdate' || name === 'progress' || console.log(name, arguments)
             }
         }(val)));
     });
