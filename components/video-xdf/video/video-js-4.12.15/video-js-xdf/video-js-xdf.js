@@ -78,7 +78,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
     /*}*/
 })(window, function($) {
     //简单修复Object.keys
-    Object.keys || Object.keys = function(o) {
+    Object.keys || (Object.keys = function(o) {
         if (o !== Object(o)) {
             throw new TypeError('Object.keys called on a non-object')
         }
@@ -88,7 +88,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
             Object.prototype.hasOwnProperty.call(o, p) && k.push(p);
         }
         return k;
-    }
+    })
     var app = {},
         extend = function() {
             var args = arguments,
@@ -119,7 +119,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
         //统计多少秒的加载时间
         time: 5,
         //预计视频缓冲time 这么长需要耗时,超过这个预计时间就应该是网上过慢
-        bufferTime: 10 * 1000,
+        bufferTime: 5 * 2 * 1000,
         //播放器是否在ios 中内联播放
         isInline: true
     };
@@ -127,6 +127,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
     extend(app, {
         //默认设置，外部可以修改
         defaults: {
+            // ios 微信内嵌播放
             playInlineAttr: 'webkit-playsinline'
         },
         init: function(id, opts) {
@@ -136,6 +137,8 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
             }
             this.opts = extend({}, defaults, opts || {});
 
+            //设定缓冲time这么长的时间 超过time*2*1000 这么久久认为很慢
+            this.opts.bufferTime = this.opts.time * 2 * 1000;
             this.player = videojs(id);
 
             /*('loadeddata loadedmetadata loadstart progress')
@@ -149,7 +152,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
 
             this.initEvent();
             self.hasRecord = false;
-
+            this.initGetData();
         },
         initEvent: function() {
             //第一次播放的时候才开始准备进行统计
@@ -166,45 +169,45 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
                     var currentTime = +new Date(),
                         //第一次这里self.startTime 是么有滴
                         loadTime = currentTime - self.startTime || 0,
+                        //当前缓冲到多少秒
                         currBufferedTime = getEnd(video);;
 
+                    //已经统计过了，不在统计
+                    if (self.hasRecord) {
+                        return;
+                    }
                     //首次初始话,第一次给定开始时间
                     if (!self.startTime) {
+                        //初始话开始记录时间
                         self.startTime = +new Date();
+                        //初始话开始缓冲时间
                         self.bufferedStart = getEnd(video);
                         return;
                     }
 
-                    //加载时长已经超过我们的语气，证明很慢
+                    //加载时长已经超过我们的预期，证明很慢
                     if (loadTime > self.opts.bufferTime) {
                         console.warn('low low low');
                         return;
                     }
 
-                    //加载时长还不到指定的秒数
-                    //或者是已经记录过数据了，这里就返回
-                    if (currBufferedTime - self.bufferedStart < self.opts.time || self.hasRecord) {
+                    /*加载时长还不到指定的秒数
+                     *或者是已经记录过数据了，这里就返回
+                     *加载currBufferedTime - self.bufferedStart 这么长的时间耗时 loadTime
+                     *把loadTime传回服务端做数据统计
+                     */
+                    if (currBufferedTime - self.bufferedStart < self.opts.time) {
                         return;
                     }
 
                     //给个标记，表示数据已经记录过了
                     self.hasRecord = true;
                     //记录数据
-                    console.log('加载' + self.opts.time + ' 秒，耗时：', loadTime);
+                    console.log('加载' + self.opts.time + ' 秒，耗时：', loadTime / 1000);
 
                 });
             });
 
-
-            /*var timer = setInterval(function() {
-
-                if (getEnd(video) < 10) {
-                    return
-                }
-                console.log(+new Date() - self.currentTime);
-
-                clearInterval(timer)
-            }, 1000)*/
         }
     });
 
@@ -263,7 +266,11 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
             }
         },
         canplay: function(player) {
-
+            return {
+                method: 'canplay', //点击事件
+                actionName: 'canplay', //动作名称
+                totalTime: player.duration()
+            }
         },
         loadstart: function(player) {
             return {
@@ -303,15 +310,23 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
                 console.warn('参数错误');
                 return;
             }
+            var args = Array.prototype.slice.call(arguments);
+            args.unshift(this.player);
             //getDataHooks[name].apply(this)  把this对象传入，你懂的。
             //本想直接传统this.player,但是考虑到以后的说不需要this对象，想想算了，把player当初一个参数传入吧
-            this.collData((name in getDataHooks) && getDataHooks[name].apply(this, Array.prototype.slice.call(arguments).unshift(this.player)) || {})
+            this.collData((name in getDataHooks) && getDataHooks[name].apply(this, args) || {})
         },
         //收集数据
         collData: function(data) {
-            var self = this;
+            var player = this.player;
+
+            console.log(extend({}, {
+                videoaddress: player.currentSrc(), //当前视频地址
+                nowPlayTime: player.currentTime() //当前视频播放时间
+            }, data));
+
             window.videoSetCollectionsData && window.videoSetCollectionsData(extend({}, {
-                videoaddress: self.currentSrc(), //当前视频地址
+                videoaddress: player.currentSrc(), //当前视频地址
                 nowPlayTime: player.currentTime() //当前视频播放时间
             }, data));
         }

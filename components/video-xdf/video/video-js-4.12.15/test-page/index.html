@@ -81,10 +81,11 @@
         }(val)));
       });*/
 
+      //check firstplay is support
       ('firstplay')//pause play
       .split(' ').forEach(function(val, index) {
         val && player.on(val, function() {
-          alert(val)
+          //alert(val)
           info.innerHTML+=val;
         });
       });

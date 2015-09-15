@@ -78,8 +78,8 @@
      });
  }
 
- //7.  判断是否可以播放的事件 ：canplay
 
+ //7.  判断是否可以播放的事件 ：canplay\
  //canplay 可以播放，但中途可能因为加载而暂停
  this.addEvent(_this.oVid, 'canplay', function() {
      if (window.videoSetCollectionsData) {
