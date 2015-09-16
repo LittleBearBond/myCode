@@ -236,12 +236,12 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
          *   触发一次seeking然后就触发seeked 这个时候就是点击播放
          *   多次触发seeking然后触发seeked就是拖动进度条快进
          */
-        seeking: function(player) {
+        /*seeking: function(player) {
 
         },
         seeked: function(player) {
 
-        },
+        },*/
         fullscreenchange: function(player) {
             return {
                 method: 'click', //点击事件
@@ -259,13 +259,13 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
             }
         },
         //会多次触发，每次快进必然会触发
-        canplay: function(player) {
+        /*canplay: function(player) {
             return {
                 method: 'canplay', //点击事件
                 actionName: 'canplay', //动作名称
                 totalTime: player.duration()
             }
-        },
+        },*/
         loadstart: function(player) {
             return {
                 method: 'loadstart', //点击事件
@@ -292,7 +292,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
     var seekHooks = {
         seeking: function() {
             //第一次触发seeking，初始话开始触发时间，记录触发次数
-            if (statsData.seekStartTime) {
+            if (!statsData.seekStartTime) {
                 statsData.seekStartTime = statsData.player.currentTime();
                 statsData.seekTimes = 1;
             } else {
@@ -322,7 +322,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
         initGetData: function() {
             var self = this;
             //把要数据统计的相关事件都给绑上去
-            Object.keys(getDataHooks).forEach(function(val, index) {
+            Object.keys(getDataHooks).concat(Object.keys(seekHooks)).forEach(function(val, index) {
                 self.player.on(val, self.proxyCollData.bind(self));
             });
         },
@@ -343,6 +343,10 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
             } else if (name in seekHooks) {
                 data = seekHooks[name].apply(this, args) || {};
             }
+            //seeking 不做统计，这个在拖动的时候会连续触发
+            if (name === 'seeking') {
+                return;
+            }
             //getDataHooks[name].apply(this)  把this对象传入，你懂的。
             //本想直接传统this.player,但是考虑到以后的说不需要this对象，想想算了，把player当初一个参数传入吧
             this.collData(data);
@@ -355,6 +359,10 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
                 videoaddress: player.currentSrc(), //当前视频地址
                 nowPlayTime: player.currentTime() //当前视频播放时间
             }, data));
+
+            if (data.actionName === 'seeked') {
+                document.getElementById('info').innerHTML = JSON.stringify(data);
+            }
 
             window.videoSetCollectionsData && window.videoSetCollectionsData(extend({}, {
                 videoaddress: player.currentSrc(), //当前视频地址

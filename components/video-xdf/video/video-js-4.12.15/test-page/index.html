@@ -1,99 +1,107 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <title>Video.js player</title>
+    <meta charset="utf-8" />
+    <title>Video.js player</title>
 
-  <link href="../video-js.css" rel="stylesheet" type="text/css">
-  <link href="../video-js-xdf/video-js-xdf.css" rel="stylesheet" type="text/css">
+    <link href="../video-js.css" rel="stylesheet" type="text/css">
+    <link href="../video-js-xdf/video-js-xdf.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        html, body {
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            color: #ffffe0;
+            font-family: Arial, sans-serif;
+        }
+        .con{
+            margin-bottom: 15px;
+        }
+        .con>div{
+            width: 175px;
+            float: left;
+            margin-right: 3px;
+            line-height: 1.5;
+            background-color: #360;
+            color: #ffffe0;
+            margin-bottom: 3px;
+        }
+        .con>div>span{
+            float: left;
+            width: 140px;
+            text-align: right;
+            background-color: #603;
+        }
+        .con>div>em{
+            float: right;
+            width: 35px;
+            font-style: normal;
+            text-align: center;
+        }
+        .con{
+            clear: both;
+        }
+        .con:after{
+            content: "";
+            visibility: hidden;
+            clear: both;
+            display: table;
+        }
 
-  <script src="../video.js"></script>
-  <script src="../video-js-xdf/video-js-xdf.js"></script>
+    </style>
+    <script src="../video.js"></script>
+    <script src="../video-js-xdf/video-js-xdf.js"></script>
 
-  <!-- Set the location of the flash SWF -->
-  <script>
-    videojs.options.flash.swf = '../video-js.swf';
-    videojs.addLanguage("zh-CN", {
-      "Play": "播放",
-      "Pause": "暂停",
-      "Current Time": "当前时间",
-      "Duration Time": "时长",
-      "Remaining Time": "剩余时间",
-      "Stream Type": "媒体流类型",
-      "LIVE": "直播",
-      "Loaded": "加载完毕",
-      "Progress": "进度",
-      "Fullscreen": "全屏",
-      "Non-Fullscreen": "退出全屏",
-      "Mute": "静音",
-      "Unmuted": "取消静音",
-      "Playback Rate": "播放码率",
-      "Subtitles": "字幕",
-      "subtitles off": "字幕关闭",
-      "Captions": "内嵌字幕",
-      "captions off": "内嵌字幕关闭",
-      "Chapters": "节目段落",
-      "You aborted the video playback": "视频播放被终止",
-      "A network error caused the video download to fail part-way.": "网络错误导致视频下载中途失败。",
-      "The video could not be loaded, either because the server or network failed or because the format is not supported.": "视频因格式不支持或者服务器或网络的问题无法加载。",
-      "The video playback was aborted due to a corruption problem or because the video used features your browser did not support.": "由于视频文件损坏或是该视频使用了你的浏览器不支持的功能，播放终止。",
-      "No compatible source was found for this video.": "无法找到此视频兼容的源。",
-      "The video is encrypted and we do not have the keys to decrypt it.": "视频已加密，无法解密。"
-    });
+    <!-- Set the location of the flash SWF -->
+    <script>
+        videojs.options.flash.swf = '../video-js.swf';
+        videojs.addLanguage("zh-CN", {
+            "Play": "播放",
+            "Pause": "暂停",
+            "Current Time": "当前时间",
+            "Duration Time": "时长",
+            "Remaining Time": "剩余时间",
+            "Stream Type": "媒体流类型",
+            "LIVE": "直播",
+            "Loaded": "加载完毕",
+            "Progress": "进度",
+            "Fullscreen": "全屏",
+            "Non-Fullscreen": "退出全屏",
+            "Mute": "静音",
+            "Unmuted": "取消静音",
+            "Playback Rate": "播放码率",
+            "Subtitles": "字幕",
+            "subtitles off": "字幕关闭",
+            "Captions": "内嵌字幕",
+            "captions off": "内嵌字幕关闭",
+            "Chapters": "节目段落",
+            "You aborted the video playback": "视频播放被终止",
+            "A network error caused the video download to fail part-way.": "网络错误导致视频下载中途失败。",
+            "The video could not be loaded, either because the server or network failed or because the format is not supported.": "视频因格式不支持或者服务器或网络的问题无法加载。",
+            "The video playback was aborted due to a corruption problem or because the video used features your browser did not support.": "由于视频文件损坏或是该视频使用了你的浏览器不支持的功能，播放终止。",
+            "No compatible source was found for this video.": "无法找到此视频兼容的源。",
+            "The video is encrypted and we do not have the keys to decrypt it.": "视频已加密，无法解密。"
+        });
 </script>
 
 </head>
 <body>
-  <p style="background-color:#eee; border: 1px solid #777; padding: 10px; font-size: .8em; line-height: 1.5em; font-family: Verdana, sans-serif;">You can use /sandbox/ for writing and testing your own code. Nothing in /sandbox/ will get checked into the repo, except files that end in .example, so please don't edit or add those files. To get started make a copy of index.html.example and rename it to index.html.</p>
-  <div id="info"></div>
-  <video id="vid1" class="video-js vjs-default-skin vjs-big-play-centered my-skin" controls
-  preload="auto" width="100%" height="400"
-  poster="http://video-js.zencoder.com/oceans-clip.png"
-  data-setup='{}'>
-    <source src="http://10.155.114.55:8081/echo-hereweare.mp4" type='video/mp4' />
-    <!-- <source src="http://vjs.zencdn.net/v/oceans.mp4" type='video/mp4' /> -->
-    <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4'>
-    <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm'>
-    <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg'>
-    <!--<track kind="captions" src="../build/demo-files/demo.captions.vtt" srclang="en" label="English"></track> Tracks need an ending tag thanks to IE9 -->
-    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-  </video>
-      <script>
-      // register the plugin
-      videojs.plugin('progressed', function(options) {
-        this.on('progress', function(e) {
-          console.log(this.bufferedPercent());
-        });
-      });
+    <video id="vid1" class="video-js vjs-default-skin vjs-big-play-centered my-skin" controls
+    preload="auto" width="100%" height="400"
+    poster="http://video-js.zencoder.com/oceans-clip.png"
+    data-setup='{}'>
+        <source src="http://10.155.114.55:8081/echo-hereweare.mp4" type='video/mp4' />
+        <!-- <source src="http://vjs.zencdn.net/v/oceans.mp4" type='video/mp4' /> -->
+        <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4'>
+        <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm'>
+        <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg'>
+        <!--<track kind="captions" src="../build/demo-files/demo.captions.vtt" srclang="en" label="English"></track> Tracks need an ending tag thanks to IE9 -->
+        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+    </video>
+    <div class="con con1"></div>
+    <div class="con con2"></div>
+    <div id="info"></div>
+   <script type="text/javascript" src='./js/index.js'></script>
 
-      var vid = document.getElementById("vid1");
-      var player = videojs('#vid1');
-      var info = document.getElementById('info');
-
-      /*('durationchange ended error firstplay fullscreenchange loadedalldata loadeddata loadedmetadata' + ' loadstart pause play progress seeked seeking timeupdate volumechange waiting resize')
-      .split(' ').forEach(function(val, index) {
-        player.on(val, (function(name) {
-          return function() {
-            //name === 'timeupdate' || name === 'progress' || 'loadedalldata' === name || console.log(name, arguments) //(info.innerHTML += (name + ","));;
-            //name === 'progress' && console.log(this.buffered().length, this.buffered().start(0), this.buffered().end(0), this.bufferedPercent())
-            console.log(name, parseInt((this.buffered().end(0) || 0) * 1000 + 1) / 1000)
-          }
-        }(val)));
-      });*/
-
-      //check firstplay is support
-      ('firstplay')//pause play
-      .split(' ').forEach(function(val, index) {
-        val && player.on(val, function() {
-          //alert(val)
-          info.innerHTML+=val;
-        });
-      });
-
-      videojs.videoXdf('#vid1', {
-        time: 5
-      });
-      </script>
-
-    </body>
-    </html>
+</body>
+</html>
