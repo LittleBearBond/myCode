@@ -81,7 +81,7 @@
 
  //7.  判断是否可以播放的事件 ：canplay\
  //canplay 可以播放，但中途可能因为加载而暂停
- this.addEvent(_this.oVid, 'canplay', function() {
+/* this.addEvent(_this.oVid, 'canplay', function() {
      if (window.videoSetCollectionsData) {
          //埋点：加载成功
          window.videoSetCollectionsData({
@@ -92,7 +92,7 @@
              totalTime: _this.oVid.duration //视频时长
          });
      }
- });
+ });*/
 
 
  //8. 客户端开始请求数据的事件 ：loadstart
@@ -155,7 +155,8 @@
      }
  });
 
- 12. seeking事件
+ //12. seeking事件
+
  //seeking 寻找中
  this.addEvent(_this.oVid, 'seeking', function() {
      if (window.videoSetCollectionsData) {

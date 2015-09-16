@@ -88,8 +88,10 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
             Object.prototype.hasOwnProperty.call(o, p) && k.push(p);
         }
         return k;
-    })
-    var app = {},
+    });
+
+    //statisticsData
+    var statsData = {},
         extend = function() {
             var args = arguments,
                 o = args[0],
@@ -124,7 +126,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
         isInline: true
     };
 
-    extend(app, {
+    extend(statsData, {
         //默认设置，外部可以修改
         defaults: {
             // ios 微信内嵌播放
@@ -139,26 +141,21 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
 
             //设定缓冲time这么长的时间 超过time*2*1000 这么久久认为很慢
             this.opts.bufferTime = this.opts.time * 2 * 1000;
+            self.hasRecord = false;
+
+            //get player
             this.player = videojs(id);
 
-            /*('loadeddata loadedmetadata loadstart progress')
-            .split(' ').forEach(function(val, index) {
-                player.on(val, (function(name) {
-                    return function() {
-
-                    }
-                }(val)));
-            });*/
-
-            this.initEvent();
-            self.hasRecord = false;
-            this.initGetData();
+            //init
+            this.initEvent().initGetData();
         },
         initEvent: function() {
             //第一次播放的时候才开始准备进行统计
             this.player.on('firstplay', this.initGetSpeed.bind(this));
-
+            //set ios weixin webkit-playsinline
             this.opts.isInline && this.player.el().querySelector('video').setAttribute(this.defaults.playInlineAttr, '');
+
+            return this;
         },
         initGetSpeed: function(video) {
             var self = this;
@@ -167,7 +164,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
             'loadeddata loadedmetadata loadstart progress'.split(/\s+/).forEach(function(val, index) {
                 video.on(val, function() {
                     var currentTime = +new Date(),
-                        //第一次这里self.startTime 是么有滴
+                        //第一次这里self.startTime 是没有滴
                         loadTime = currentTime - self.startTime || 0,
                         //当前缓冲到多少秒
                         currBufferedTime = getEnd(video);;
@@ -211,12 +208,8 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
         }
     });
 
+    //获取数据的相关处理，没有特殊情况的抽出到这里做处理
     var getDataHooks = {
-        /*firstplay: function(player) {
-            return {
-
-            };
-        },*/
         //播放
         play: function(player) {
             return {
@@ -265,6 +258,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
                 currErrorMsg: errorMedia.message
             }
         },
+        //会多次触发，每次快进必然会触发
         canplay: function(player) {
             return {
                 method: 'canplay', //点击事件
@@ -295,26 +289,63 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
         }
     };
 
+    var seekHooks = {
+        seeking: function() {
+            //第一次触发seeking，初始话开始触发时间，记录触发次数
+            if (statsData.seekStartTime) {
+                statsData.seekStartTime = statsData.player.currentTime();
+                statsData.seekTimes = 1;
+            } else {
+                //多次触发，增加触发次数
+                statsData.seekTimes && (statsData.seekTimes++);
+            }
+        },
+        seeked: function() {
+            statsData.seekEndTime = statsData.player.currentTime();
+            var startTime = statsData.seekStartTime || statsData.seekEndTime;
+            //清除seeking 开始的时候记录的时间
+            statsData.seekStartTime = null;
+            return {
+                startPlayTime: startTime,
+                nowPlayTime: statsData.seekEndTime,
+                /*
+                 * statsData.seekTimes 大于1 就是拖拽快进
+                 * statsData.seekTimes小于1 就是直接点击快进
+                 */
+                method: statsData.seekTimes > 1 ? 'dragVideoBar' : 'click', //点击事件
+                actionName: 'seeked', //动作名称
+            }
+        }
+    };
     //数据统计相关
-    extend(app, {
+    extend(statsData, {
         initGetData: function() {
             var self = this;
+            //把要数据统计的相关事件都给绑上去
             Object.keys(getDataHooks).forEach(function(val, index) {
                 self.player.on(val, self.proxyCollData.bind(self));
             });
         },
         proxyCollData: function(e) {
             //事件名称
-            var name = e.type;
+            var name = e.type,
+                data = {};
             if (!name) {
                 console.warn('参数错误');
                 return;
             }
             var args = Array.prototype.slice.call(arguments);
             args.unshift(this.player);
+
+            //对seeking 和seeked 做了特殊处理
+            if (name in getDataHooks) {
+                data = getDataHooks[name].apply(this, args) || {};
+            } else if (name in seekHooks) {
+                data = seekHooks[name].apply(this, args) || {};
+            }
             //getDataHooks[name].apply(this)  把this对象传入，你懂的。
             //本想直接传统this.player,但是考虑到以后的说不需要this对象，想想算了，把player当初一个参数传入吧
-            this.collData((name in getDataHooks) && getDataHooks[name].apply(this, args) || {})
+            this.collData(data);
         },
         //收集数据
         collData: function(data) {
@@ -330,10 +361,10 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
                 nowPlayTime: player.currentTime() //当前视频播放时间
             }, data));
         }
-    })
+    });
 
     videojs.videoXdf = function(id, option) {
-        app.init(id, option);
+        statsData.init(id, option);
     };
 
 }));
