@@ -18,6 +18,7 @@
 
     var vid = document.getElementById("vid1");
     var player = videojs('#vid1');
+    window.player = player;
     var videoEl = player.el().querySelector('video');
     var videoCon = document.querySelector('.con1');
     var originVideoCon = document.querySelector('.con2');

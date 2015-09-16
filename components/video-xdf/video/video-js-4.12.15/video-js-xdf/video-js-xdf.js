@@ -74,9 +74,9 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
     /*if (typeof define === "function" && define.amd) {
         define(['videojs'], factory);
     } else {*/
-    factory(root.videojs);
+    factory();
     /*}*/
-})(window, function($) {
+})(window, function() {
     //简单修复Object.keys
     Object.keys || (Object.keys = function(o) {
         if (o !== Object(o)) {
@@ -89,7 +89,12 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
         }
         return k;
     });
-
+    Function.prototype.bind || (Function.prototype.bind = function(context) {
+        var fn = this;
+        return function() {
+            fn.apply(context, Array.prototype.slice.call(arguments));
+        }
+    });
     //statisticsData
     var statsData = {},
         extend = function() {
@@ -130,7 +135,9 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
         //默认设置，外部可以修改
         defaults: {
             // ios 微信内嵌播放
-            playInlineAttr: 'webkit-playsinline'
+            playInlineAttr: 'webkit-playsinline',
+            //每隔30秒统计一次播放时间
+            statsTime: 60 * 1000
         },
         init: function(id, opts) {
             if (!id) {
@@ -160,14 +167,16 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
         initGetSpeed: function(video) {
             var self = this;
             var video = this.player;
-
+            this.startPlayTime = +new Date();
+            //速度统计request
             'loadeddata loadedmetadata loadstart progress'.split(/\s+/).forEach(function(val, index) {
                 video.on(val, function() {
                     var currentTime = +new Date(),
                         //第一次这里self.startTime 是没有滴
                         loadTime = currentTime - self.startTime || 0,
                         //当前缓冲到多少秒
-                        currBufferedTime = getEnd(video);;
+                        currBufferedTime = getEnd(video);
+
 
                     //已经统计过了，不在统计
                     if (self.hasRecord) {
@@ -193,18 +202,37 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
                      *加载currBufferedTime - self.bufferedStart 这么长的时间耗时 loadTime
                      *把loadTime传回服务端做数据统计
                      */
-                    if (currBufferedTime - self.bufferedStart < self.opts.time) {
+                    var hasBurfferTime = currBufferedTime - self.bufferedStart;
+                    if (hasBurfferTime < self.opts.time) {
                         return;
                     }
 
                     //给个标记，表示数据已经记录过了
                     self.hasRecord = true;
                     //记录数据
-                    console.log('加载' + self.opts.time + ' 秒，耗时：', loadTime / 1000);
+                    //console.log('加载' + self.opts.time + ' 秒，耗时：', loadTime / 1000);
+
+                    self.collData({
+                        method: 'request',
+                        actionName: 'request',
+                        totalTime: video.duration(),
+                        contentLength: self.opts.time,
+                        loadingTime: loadTime / 1000
+                    });
 
                 });
             });
 
+            //统计基本信息videoInfo
+            this.collData({
+                method: 'videoInfo',
+                actionName: 'videoInfo',
+                userDate: (+new Date()),
+                userInfo: navigator.userAgent
+            });
+
+            //不断统计视频播放时间初始话
+            this.stayTime();
         }
     });
 
@@ -237,10 +265,8 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
          *   多次触发seeking然后触发seeked就是拖动进度条快进
          */
         /*seeking: function(player) {
-
         },
         seeked: function(player) {
-
         },*/
         fullscreenchange: function(player) {
             return {
@@ -317,8 +343,19 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
             }
         }
     };
+
     //数据统计相关
     extend(statsData, {
+        //不断统计用户停留在页面上的时间
+        stayTime: function() {
+            this.collData({
+                method: 'stay',
+                actionName: 'stay',
+                stay: (+new Date) - this.startPlayTime,
+                totalTime: this.player.duration()
+            });
+            setTimeout(this.stayTime.bind(this), this.defaults.statsTime || 60 * 1000);
+        },
         initGetData: function() {
             var self = this;
             //把要数据统计的相关事件都给绑上去
