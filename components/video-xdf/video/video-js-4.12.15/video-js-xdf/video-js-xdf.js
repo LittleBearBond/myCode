@@ -136,8 +136,8 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
         defaults: {
             // ios 微信内嵌播放
             playInlineAttr: 'webkit-playsinline',
-            //每隔30秒统计一次播放时间
-            statsTime: 60 * 1000
+            //每隔60秒统计一次播放时间
+            statsDisTime: 60 * 1000
         },
         init: function(id, opts) {
             if (!id) {
@@ -158,13 +158,14 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
         },
         initEvent: function() {
             //第一次播放的时候才开始准备进行统计
-            this.player.on('firstplay', this.initGetSpeed.bind(this));
+            this.player.on('firstplay', this.firstPlayDo.bind(this));
             //set ios weixin webkit-playsinline
             this.opts.isInline && this.player.el().querySelector('video').setAttribute(this.defaults.playInlineAttr, '');
 
             return this;
         },
-        initGetSpeed: function(video) {
+        //第一次播放的时候需要做些事情
+        firstPlayDo: function(video) {
             var self = this;
             var video = this.player;
             this.startPlayTime = +new Date();
@@ -232,7 +233,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
             });
 
             //不断统计视频播放时间初始话
-            this.stayTime();
+            this.statsPlayTime().stayTime();
         }
     });
 
@@ -259,15 +260,6 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
                 actionName: 'stop' //动作名称
             }
         },
-        //拖拽
-        /*
-         *   触发一次seeking然后就触发seeked 这个时候就是点击播放
-         *   多次触发seeking然后触发seeked就是拖动进度条快进
-         */
-        /*seeking: function(player) {
-        },
-        seeked: function(player) {
-        },*/
         fullscreenchange: function(player) {
             return {
                 method: 'click', //点击事件
@@ -316,6 +308,10 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
     };
 
     var seekHooks = {
+        /*
+         *   触发一次seeking然后就触发seeked 这个时候就是点击播放
+         *   多次触发seeking然后触发seeked就是拖动进度条快进
+         */
         seeking: function() {
             //第一次触发seeking，初始话开始触发时间，记录触发次数
             if (!statsData.seekStartTime) {
@@ -346,15 +342,35 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
 
     //数据统计相关
     extend(statsData, {
+        statsPlayTime: function() {
+            var self = this;
+            //播放视频总时间
+            this.playTotalTime = 0;
+            // 累加播放时间
+            //
+            player.on('timeupdate', function(event) {
+                //暂停的时候不做统计
+                if (player.paused()) {
+                    return;
+                }
+                // 播放时间
+                self.playTotalTime = +new Date() - self.startPlayTime
+            });
+            return this;
+        },
         //不断统计用户停留在页面上的时间
         stayTime: function() {
+
             this.collData({
                 method: 'stay',
                 actionName: 'stay',
-                stay: (+new Date) - this.startPlayTime,
+                //用户播放视频，播放了多久
+                stay: this.playTotalTime, //(+new Date) - this.startPlayTime,
                 totalTime: this.player.duration()
             });
-            setTimeout(this.stayTime.bind(this), this.defaults.statsTime || 60 * 1000);
+
+            //定时统计
+            setTimeout(this.stayTime.bind(this), this.defaults.statsDisTime || 60 * 1000);
         },
         initGetData: function() {
             var self = this;
@@ -397,9 +413,9 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
                 nowPlayTime: player.currentTime() //当前视频播放时间
             }, data));
 
-            if (data.actionName === 'seeked') {
+            /*if (data.actionName === 'seeked') {
                 document.getElementById('info').innerHTML = JSON.stringify(data);
-            }
+            }*/
 
             window.videoSetCollectionsData && window.videoSetCollectionsData(extend({}, {
                 videoaddress: player.currentSrc(), //当前视频地址
