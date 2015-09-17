@@ -77,6 +77,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
     factory();
     /*}*/
 })(window, function() {
+
     //简单修复Object.keys
     Object.keys || (Object.keys = function(o) {
         if (o !== Object(o)) {
@@ -89,12 +90,14 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
         }
         return k;
     });
+
     Function.prototype.bind || (Function.prototype.bind = function(context) {
         var fn = this;
         return function() {
             fn.apply(context, Array.prototype.slice.call(arguments));
         }
     });
+
     //statisticsData
     var statsData = {},
         extend = function() {
@@ -119,6 +122,23 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
                 end = parseInt(end * 1000 + 1) / 1000
             } catch (e) {}
             return end
+        },
+        playerOpts = {
+            children: {
+                // bigPlayButton: false,
+                // textTrackDisplay: false,
+                // posterImage: false,
+                // errorDisplay: false,
+                controlBar: {
+                    captionsButton: false,
+                    chaptersButton: false,
+                    subtitlesButton: false,
+                    liveDisplay: false,
+                    playbackRateMenuButton: false,
+                    muteToggle: false,
+                    volumeControl: false
+                }
+            }
         };
 
     //相关默认数据 外部不可以修改
@@ -151,16 +171,19 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
             self.hasRecord = false;
 
             //get player
-            this.player = videojs(id);
+            this.player = videojs(id, playerOpts);
 
             //init
             this.initEvent().initGetData();
+
+            return this.player;
         },
         initEvent: function() {
             //第一次播放的时候才开始准备进行统计
             this.player.on('firstplay', this.firstPlayDo.bind(this));
+
             //set ios weixin webkit-playsinline
-            this.opts.isInline && this.player.el().querySelector('video').setAttribute(this.defaults.playInlineAttr, '');
+            //this.opts.isInline && this.player.el().querySelector('video').setAttribute(this.defaults.playInlineAttr, '');
 
             return this;
         },
@@ -347,16 +370,16 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
         statsPlayTime: function() {
             var self = this;
             /*
-            * 为了精确统计用户播放视频的时长，这里也蛮拼的，用了三个变量来记录相关的状态
-            * playTotalTime 视频播放的总共时长
-            *
-            * playToPauseTime 记录视频这次播放到暂停之间的时长，因为用户可能多次暂停多次播放，而我们只记录用户真正播放视频的时间
-            *
-            * lastPlayTime 视频播放进度变化发生变化会触发timeupdate时间，在这里我们记录用户播放的时长。但是问题来了，timeupdate回不断地触发，
-            * 而playTotalTime只是保存用户播放视频的时长，不可能每次都playTotalTime更新，所以需要一个值来保存之前的时长然后加上这次视频从开始播放到现在的时间差值
-            * 就得出了视频总的播放时长。 所以lastPlayTime就是用来记录上次视频播放时长的，playTotalTime时时更新值，lastPlayTime只在视频暂停的时候更新为playTotalTime的值
-            * 这样就记住这次暂停之前用户播放视频的时间。
-            *
+             * 为了精确统计用户播放视频的时长，这里也蛮拼的，用了三个变量来记录相关的状态
+             * playTotalTime 视频播放的总共时长
+             *
+             * playToPauseTime 记录视频这次播放到暂停之间的时长，因为用户可能多次暂停多次播放，而我们只记录用户真正播放视频的时间
+             *
+             * lastPlayTime 视频播放进度变化发生变化会触发timeupdate时间，在这里我们记录用户播放的时长。但是问题来了，timeupdate回不断地触发，
+             * 而playTotalTime只是保存用户播放视频的时长，不可能每次都playTotalTime更新，所以需要一个值来保存之前的时长然后加上这次视频从开始播放到现在的时间差值
+             * 就得出了视频总的播放时长。 所以lastPlayTime就是用来记录上次视频播放时长的，playTotalTime时时更新值，lastPlayTime只在视频暂停的时候更新为playTotalTime的值
+             * 这样就记住这次暂停之前用户播放视频的时间。
+             *
              */
             //播放视频总时间
             this.playTotalTime = 0;
@@ -401,7 +424,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
                 method: 'stay',
                 actionName: 'stay',
                 //用户播放视频，播放了多久
-                stay: this.playTotalTime, //(+new Date) - this.startPlayTime,
+                stay: this.playTotalTime.toFixed(2), //(+new Date) - this.startPlayTime,
                 totalTime: this.player.duration()
             });
 
@@ -461,7 +484,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
     });
 
     videojs.videoXdf = function(id, option) {
-        statsData.init(id, option);
+        return statsData.init(id, option);
     };
 
 }));

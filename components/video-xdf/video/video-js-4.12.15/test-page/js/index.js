@@ -17,7 +17,11 @@
     });
 
     var vid = document.getElementById("vid1");
-    var player = videojs('#vid1');
+
+    var player = videojs.videoXdf('#vid1', {
+        time: 5
+    });
+
     window.player = player;
     var videoEl = player.el().querySelector('video');
     var videoCon = document.querySelector('.con1');
@@ -75,7 +79,5 @@
         }, false);
     })
 
-    videojs.videoXdf('#vid1', {
-        time: 5
-    });
+
 }());
