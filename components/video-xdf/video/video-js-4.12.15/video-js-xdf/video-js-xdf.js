@@ -267,15 +267,13 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
         //播放
         play: function(player) {
             return {
-                method: 'click', //点击事件
-                actionName: 'play' //动作名称
+                method: 'click' //点击事件
             }
         },
         //暂停
         pause: function(player) {
             return {
-                method: 'click', //点击事件
-                actionName: 'pause' //动作名称
+                method: 'click' //点击事件
             }
         },
         //结束
@@ -295,8 +293,6 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
             //得到错误信息
             var errorMedia = player.error() || {};
             return {
-                method: 'error', //点击事件
-                actionName: 'error', //动作名称
                 currErrorCode: errorMedia.code, //动作名称 1.用户终止 2.网络错误 3.解码错误 4.URL无效
                 currErrorMsg: errorMedia.message
             }
@@ -311,22 +307,16 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
         },*/
         loadstart: function(player) {
             return {
-                method: 'loadstart', //点击事件
-                actionName: 'loadstart', //动作名称
                 totalTime: player.duration()
             }
         },
         abort: function(player) {
             return {
-                method: 'abort', //点击事件
-                actionName: 'abort', //动作名称
                 totalTime: player.duration()
             }
         },
         loadedmetadata: function(player) {
             return {
-                method: 'loadedmetadata', //点击事件
-                actionName: 'loadedmetadata', //动作名称
                 totalTime: player.duration()
             }
         }
@@ -369,6 +359,11 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
     extend(statsData, {
         statsPlayTime: function() {
             var self = this;
+            var updateTime = function() {
+                self.playToPauseTime = (+new Date()) - self.startPlayTime;
+                //更新指针位置，之前的播放时长
+                self.lastPlayTime = self.playTotalTime;
+            };
             /*
              * 为了精确统计用户播放视频的时长，这里也蛮拼的，用了三个变量来记录相关的状态
              * playTotalTime 视频播放的总共时长
@@ -396,10 +391,8 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
                 self.startPlayTime = (+new Date());
             });
 
-            this.player.on('pause', function() {
-                self.playToPauseTime = (+new Date()) - self.startPlayTime;
-                //更新指针位置，之前的播放时长
-                self.lastPlayTime = self.playTotalTime;
+            ['pause', 'ended'].forEach(function(val) {
+                self.player.on(val, updateTime);
             });
 
             // 累加播放时间
@@ -413,7 +406,6 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
                 // 播放时间
                 self.playTotalTime = self.lastPlayTime + (+new Date() - self.startPlayTime) / 1000;
 
-                console.log(self.startPlayTime, self.playTotalTime)
             });
             return this;
         },
@@ -441,7 +433,10 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
         proxyCollData: function(e) {
             //事件名称
             var name = e.type,
-                data = {};
+                data = {
+                    method: name, //点击事件
+                    actionName: name //动作名称
+                };
             if (!name) {
                 console.warn('参数错误');
                 return;
@@ -451,9 +446,9 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
 
             //对seeking 和seeked 做了特殊处理
             if (name in getDataHooks) {
-                data = getDataHooks[name].apply(this, args) || {};
+                data = extend({}, getDataHooks[name].apply(this, args) || {});
             } else if (name in seekHooks) {
-                data = seekHooks[name].apply(this, args) || {};
+                data = extend({}, seekHooks[name].apply(this, args) || {});
             }
             //seeking 不做统计，这个在拖动的时候会连续触发
             if (name === 'seeking') {
