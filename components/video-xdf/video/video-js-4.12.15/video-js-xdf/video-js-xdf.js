@@ -446,9 +446,9 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
 
             //对seeking 和seeked 做了特殊处理
             if (name in getDataHooks) {
-                data = extend({}, getDataHooks[name].apply(this, args) || {});
+                data = extend({}, data, getDataHooks[name].apply(this, args) || {});
             } else if (name in seekHooks) {
-                data = extend({}, seekHooks[name].apply(this, args) || {});
+                data = extend({}, data, seekHooks[name].apply(this, args) || {});
             }
             //seeking 不做统计，这个在拖动的时候会连续触发
             if (name === 'seeking') {
