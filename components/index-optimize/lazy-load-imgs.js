@@ -49,7 +49,7 @@
             return this;
         },
         initEvent: function() {
-            this.$cr.on('mouseover', '.conbx1 .tabtit1>span', $.proxy(this.processTabImg, this));
+            this.$cr.on('mouseenter', '.conbx1 .tabtit1>span', $.proxy(this.processTabImg, this));
             this.initLoadImgs();
             this.$win.trigger('scroll.navEffect');
             return this;
