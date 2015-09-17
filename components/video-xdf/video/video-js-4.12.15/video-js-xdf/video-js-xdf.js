@@ -148,7 +148,9 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
         //预计视频缓冲time 这么长需要耗时,超过这个预计时间就应该是网上过慢
         bufferTime: 5 * 2 * 1000,
         //播放器是否在ios 中内联播放
-        isInline: true
+        isInline: true,
+        //是否是调试状态
+        isDebug: false
     };
 
     extend(statsData, {
@@ -193,8 +195,8 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
             var video = this.player;
             //记住视频开始播放时间
             this.startPlayTime = +new Date();
-            console.log(this.startPlayTime)
-                //速度统计request
+            this.log('this.startPlayTime', this.startPlayTime);
+            //速度统计request
             'loadeddata loadedmetadata loadstart progress'.split(/\s+/).forEach(function(val, index) {
                 video.on(val, function() {
                     var currentTime = +new Date(),
@@ -259,6 +261,9 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
 
             //不断统计视频播放时间初始话
             this.statsPlayTime().stayTime();
+        },
+        log: function() {
+            this.opts.isDebug && console.log.apply(console, Array.prototype.slice.call(arguments));
         }
     });
 
@@ -462,7 +467,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
         collData: function(data) {
             var player = this.player;
 
-            console.log(extend({}, {
+            this.log(extend({}, {
                 videoaddress: player.currentSrc(), //当前视频地址
                 nowPlayTime: player.currentTime() //当前视频播放时间
             }, data));

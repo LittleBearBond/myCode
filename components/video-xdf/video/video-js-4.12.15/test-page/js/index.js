@@ -19,7 +19,8 @@
     var vid = document.getElementById("vid1");
 
     var player = videojs.videoXdf('#vid1', {
-        time: 5
+        time: 5,
+        isDebug: true
     });
 
     window.player = player;
@@ -78,6 +79,5 @@
             el.innerHTML = ++num;
         }, false);
     })
-
 
 }());
