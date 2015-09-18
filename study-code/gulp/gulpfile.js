@@ -12,6 +12,7 @@
 // 引入 gulp及组件
 var gulp = require('gulp'), //基础库
     imagemin = require('gulp-imagemin'), //图片压缩
+    //gulp-ruby-sass 不靠谱 还是gulp-sass好使
     sass = require('gulp-ruby-sass'), //sass
     minifycss = require('gulp-minify-css'), //css压缩
     jshint = require('gulp-jshint'), //js检查
@@ -74,8 +75,8 @@ gulp.task('css', function() {
             includeContent: false,
             sourceRoot: 'source'
         }))
-        .pipe(gulp.dest(cssDst))
-        /*.pipe(rename({
+        /*.pipe(gulp.dest(cssDst))
+        .pipe(rename({
             suffix: '.min'
         }))
         .pipe(minifycss())*/
@@ -158,7 +159,9 @@ gulp.task('clean', function() {
 });
 
 // 默认任务 清空图片、样式、js并重建 运行语句 gulp
-gulp.task('default', ['clean', 'html', 'css', 'images', 'js'] /*, function() {gulp.start(); }*/ );
+gulp.task('default', ['clean'], function() {
+    gulp.start('html', 'css', 'images', 'js');
+});
 
 
 // web服务 Server + watching scss/js files
