@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>title</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<meta content="telephone=no" name="format-detection">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="full-screen" content="true">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-fullscreen" content="true">
+<meta name="360-fullscreen" content="true">
+<meta name="description" content="">
+<meta name="keywords" content="">
+
+</head>
+<body>
+    <p>
+        <input type="text" placeholder="输入消息" id="message" />
+        <button type="button" class="btn btn-primary" onclick="sendMessage('parent');">send to parent</button>
+        <button type="button" class="btn btn-primary" onclick="sendMessage('iframe2','http://static.koolearn.com:8088/test-page/iframe2.html');">send to iframe2</button>
+        <!-- <button type="button" class="btn btn-success" onclick="sendAll();">send to all</button> -->
+    </p>
+    <pre id="output" class="alert alert-warning"></pre>
+<script type="text/javascript" src="http://static.koolearn.com:8000/study-code/crossDomains/my-cross/message.js"></script>
+<script type="text/javascript">
+     var messenger = new Messenger('iframe1', 'MessengerDemo');
+     var input = document.getElementById('message');
+     messenger.listen(function(msg) {
+         var newline = '\r\n';
+         var text = document.createTextNode(msg + newline);
+         document.getElementById('output').appendChild(text);
+     });
+
+     messenger.addTarget(window.parent, 'parent');
+     messenger.addTarget(window.parent.frames[1], 'iframe2');
+
+     //console.log(top.location.href)
+     function sendMessage(name, url) {
+         var msg = input.value;
+         messenger.targets[name].send("message from iframe1: " + msg, url);
+         input.value = '';
+     }
+
+     function sendAll() {
+         var msg = input.value;
+         messenger.send("message from iframe1: " + msg);
+         input.value = '';
+     }
+</script>
+</body>
+</html>
