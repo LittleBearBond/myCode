@@ -6,3 +6,8 @@
 5. **study-materials** 一些前端的知识点放在StudyMaterials里面
 6. **book-code** 购买书籍的部分代码，在学习的时候自己按自己的习惯对代码有改动或添加
 7. **my-test** 主要是一些测试性的代码
+    
+##study-code 截图
+
+<img src="https://raw.githubusercontent.com/LittleBearBond/myCode/master/study-materials/screenshot/study-code.png" alt="study-code" width="200" height="640" >
+ 
