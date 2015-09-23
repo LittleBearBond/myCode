@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="full-screen" content="true">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <script type="text/javascript" src="./Messenger.js"></script>
+
+</head>
+<body>
+    <p>
+        <iframe id="iframe1" src="http://10.155.114.55:8081/my-code/myCode/study-code/crossDomains/window-name/test-page-iframe1.html" width="550px" height="300px"></iframe>
+        <iframe id="iframe2" src="http://10.155.114.55:8088/test-page/test-page-iframe2.html" width="550px" height="300px"></iframe>
+    </p>
+     <p>
+        <input type="text" placeholder="输入消息" id="message" />
+        <button type="button" class="btn btn-primary" onclick="sendMessage('iframe1');">send to iframe1</button>
+        <button type="button" class="btn btn-primary" onclick="sendMessage('iframe2');">send to iframe2</button>
+        <button type="button" class="btn btn-success" onclick="sendAll();">send to all</button>
+        <button type="button" id="child" class="btn btn-info" onclick="openWindow();">open a window</button>
+    </p>
+    <pre id="output" class="alert alert-warning"></pre>
+
+    <script type="text/javascript">
+        var messenger = new Messenger('parent', 'MessengerDemo'),
+            iframe1 = document.getElementById('iframe1'),
+            iframe2 = document.getElementById('iframe2'),
+            input = document.getElementById('message');
+
+        messenger.listen(function(msg) {
+            console.log(msg);
+             var newline = '\n';
+            var text = document.createTextNode(msg + newline);
+            document.getElementById('output').appendChild(text);
+        });
+
+        messenger.addTarget(iframe1.contentWindow, 'iframe1');
+        messenger.addTarget(iframe2.contentWindow, 'iframe2');
+
+        function sendMessage(name) {
+            var msg = input.value;
+            messenger.targets[name].send("message from parent: " + msg);
+            input.value = '';
+        }
+
+        function sendAll() {
+            var msg = input.value;
+            messenger.send("message from parent: " + msg);
+            input.value = '';
+        }
+
+        function openWindow() {
+            var outerWindow = window.open("http://biqinglabs.duapp.com/messenger/child.html", "_blank", "width=603,height=489,location=yes,status=yes,toolbar=no,resizable=no");
+            messenger.addTarget(outerWindow, 'childWindow');
+            document.getElementById("child").innerHTML = "send to child window";
+            document.getElementById("child").onclick = function() {
+                sendMessage('childWindow');
+            };
+        }
+        </script>
+</body>
+</html>

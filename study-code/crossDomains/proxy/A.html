@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="full-screen" content="true">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <style type="text/css">
+
+        body{
+            background-color: #ccc;
+        }
+        p{
+            font-size: 30px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-inline">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Text input" id="msg">
+        </div>
+        <button id="btn-send" class="btn btn-primary">send msg</button>
+   </div>
+<p>AAAAAAAA</p>
+
+
+<iframe id="iframeB" src="http://10.155.114.55:8081/my-code/myCode/study-code/crossDomains/proxy/B.html" width="550px" height="300px"></iframe>
+<iframe id="iframe-proxy" name="iframe-proxy" src="http://10.155.114.55:8081/my-code/myCode/study-code/crossDomains/proxy/b.php" width="550px" height="300px"></iframe>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./cross-domains-proxy.js"></script>
+<script type="text/javascript">
+var __global_proxy=function () {
+    console.log(arguments)
+};
+var $input = $('#msg');
+var $btnSend = $('#btn-send');
+
+$btnSend.on('click', function() {
+    var $form = $('<form method="post" action="http://10.155.114.55:8081/my-code/myCode/study-code/crossDomains/proxy/b.php" target="iframe-proxy"></form>')
+        .append($('<input>', {
+            name:'js',
+            value: $input.val() || 'msg'
+        }))
+        .appendTo($('body'))
+        .submit();
+
+    setTimeout(function() {
+        $form.remove();
+    }, 500);
+   /* $('#iframe-proxy').remove();
+    var url=
+    $('<iframe id="iframe-proxy" src="http://10.155.114.55:8081/my-code/myCode/study-code/crossDomains/proxy/b.php?js='+ $input.val().trim() + '"></iframe>')
+        .appendTo($('body'));*/
+});
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
