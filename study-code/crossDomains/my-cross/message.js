@@ -50,6 +50,7 @@ window.Messenger = (function() {
         this.name = name;
         this.prefix = prefix;
     }
+
     /**
      * 消息拼接
      * @param  {[string]} msg
@@ -60,7 +61,10 @@ window.Messenger = (function() {
         return this.prefix + '|' + this.name + '__Messenger__' + msg;
     };
 
-    // 往 target 发送消息, 出于安全考虑, 发送消息会带上前缀
+    /**
+     * 往 target 发送消息, 出于安全考虑, 发送消息会带上前缀
+     * @type {[type]}
+     */
     Target.prototype.send = supportPostMessage ?
         // IE8+ 以及现代浏览器支持
         function(msg) {
@@ -68,12 +72,15 @@ window.Messenger = (function() {
         } :
         // 兼容IE 6/7
         function(msg, targetUrl) {
-            targetUrl = targetUrl || parent.location.href;
+            targetUrl = (targetUrl || this.target.location || parent.location.href)+'';
             //修改hash
             this.target.location = targetUrl.replace(/#.*$/, '') + '#' + (+new Date) + (cacheId++) + '&' + this.handleMsg(msg);
         };
 
-
+    /**
+     * 默认配置项，目前就一个
+     * @type {Object}
+     */
     var defaultOpts = {
         delay: 200
     };
@@ -104,8 +111,16 @@ window.Messenger = (function() {
      * @param {string} name
      */
     Messenger.prototype.addTarget = function(target, name) {
-        var targetObj = new Target(target, name, this.prefix);
-        this.targets[name] = targetObj;
+        this.targets[name] = new Target(target, name, this.prefix);
+    };
+
+    /**
+     * 移除一个消息对象
+     * @param  {string} name
+     * @return {}
+     */
+    Messenger.prototype.removeTarget = function(name) {
+        delete this.targets[name];
     };
 
     /**
@@ -163,7 +178,11 @@ window.Messenger = (function() {
         }
     };
 
-    // 监听消息
+    /**
+     * 监听消息
+     * @param  {Function} callback
+     * @return {[type]}
+     */
     Messenger.prototype.listen = function(callback) {
         var i = 0;
         var len = this.listenFunc.length;
@@ -179,13 +198,21 @@ window.Messenger = (function() {
         }
     };
 
-    // 注销监听
+    /**
+     * 注销监听
+     * @return {[type]} [description]
+     */
     Messenger.prototype.clear = function() {
         this.listenFunc.length = 0;
     };
 
-    // 广播消息
-    /*Messenger.prototype.send = function(msg) {
+    /**
+     * 广播消息,给所有的消息对象发送消息
+     * @param  {[type]} msg [description]
+     * @return {[type]}     [description]
+     */
+    //低版本浏览器要求提供url 这里不行
+    Messenger.prototype.send = function(msg) {
         var targets = this.targets,
             target;
         for (target in targets) {
@@ -193,6 +220,6 @@ window.Messenger = (function() {
                 targets[target].send(msg);
             }
         }
-    };*/
+    };
     return Messenger;
 }());

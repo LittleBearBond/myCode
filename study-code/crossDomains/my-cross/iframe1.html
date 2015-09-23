@@ -20,8 +20,8 @@
     <p>
         <input type="text" placeholder="输入消息" id="message" />
         <button type="button" class="btn btn-primary" onclick="sendMessage('parent');">send to parent</button>
-        <button type="button" class="btn btn-primary" onclick="sendMessage('iframe2','http://static.koolearn.com:8088/test-page/iframe2.html');">send to iframe2</button>
-        <!-- <button type="button" class="btn btn-success" onclick="sendAll();">send to all</button> -->
+        <button type="button" class="btn btn-primary" onclick="sendMessage('iframe2');">send to iframe2</button>
+        <button type="button" class="btn btn-success" onclick="sendAll();">send to all</button>
     </p>
     <pre id="output" class="alert alert-warning"></pre>
 <script type="text/javascript" src="http://static.koolearn.com:8000/study-code/crossDomains/my-cross/message.js"></script>
@@ -38,9 +38,9 @@
      messenger.addTarget(window.parent.frames[1], 'iframe2');
 
      //console.log(top.location.href)
-     function sendMessage(name, url) {
+     function sendMessage(name) {
          var msg = input.value;
-         messenger.targets[name].send("message from iframe1: " + msg, url);
+         messenger.targets[name].send("message from iframe1: " + msg);
          input.value = '';
      }
 
