@@ -17,46 +17,47 @@
 
 </head>
 <body>
-    <p>
-        <iframe id="iframe1" src="http://static.koolearn.com:8081/my-code/myCode/study-code/crossDomains/my-cross/iframe1.html" width="550px" height="300px"></iframe>
-        <iframe id="iframe2" src="http://static.koolearn.com:8088/test-page/iframe2.html" width="550px" height="300px"></iframe>
-    </p>
-     <p>
-        <input type="text" placeholder="输入消息" id="message" />
-        <button type="button" class="btn btn-primary" onclick="sendMessage('iframe1');">send to iframe1</button>
-        <button type="button" class="btn btn-primary" onclick="sendMessage('iframe2');">send to iframe2</button>
-        <button type="button" class="btn btn-success" onclick="sendAll();">send to all</button>
-    </p>
-    <pre id="output" class="alert alert-warning"></pre>
-    <script type="text/javascript" src="http://static.koolearn.com:8000/study-code/crossDomains/my-cross/message.js"></script>
+        <p> 绑定host  10.155.114.55 static.koolearn.com</p>
+        <p>
+            <iframe id="iframe1" src="http://static.koolearn.com:8081/my-code/myCode/study-code/crossDomains/my-cross/iframe1.html" width="550px" height="300px"></iframe>
+            <iframe id="iframe2" src="http://static.koolearn.com:8088/test-page/iframe2.html" width="550px" height="300px"></iframe>
+        </p>
+        <p>
+            <input type="text" placeholder="输入消息" id="message" />
+            <button type="button" class="btn btn-primary" onclick="sendMessage('iframe1');">send to iframe1</button>
+            <button type="button" class="btn btn-primary" onclick="sendMessage('iframe2');">send to iframe2</button>
+            <button type="button" class="btn btn-success" onclick="sendAll();">send to all</button>
+        </p>
+        <pre id="output" class="alert alert-warning"></pre>
+        <script type="text/javascript" src="http://static.koolearn.com:8000/study-code/crossDomains/my-cross/message.js"></script>
 
-    <script type="text/javascript">
-        var messenger = new Messenger('parent', 'MessengerDemo'),
+        <script type="text/javascript">
+            var messenger = new Messenger('parent', 'MessengerDemo'),
             iframe1 = document.getElementById('iframe1'),
             iframe2 = document.getElementById('iframe2'),
             input = document.getElementById('message');
 
-        messenger.listen(function(msg) {
-            var newline = '\r\n';
-            var text = document.createTextNode(msg + newline);
-            document.getElementById('output').appendChild(text);
-        });
+            messenger.listen(function(msg) {
+                var newline = '\r\n';
+                var text = document.createTextNode(msg + newline);
+                document.getElementById('output').appendChild(text);
+            });
 
-        messenger.addTarget(iframe1.contentWindow, 'iframe1');
-        messenger.addTarget(iframe2.contentWindow, 'iframe2');
+            messenger.addTarget(iframe1.contentWindow, 'iframe1');
+            messenger.addTarget(iframe2.contentWindow, 'iframe2');
 
-        function sendMessage(name, url) {
-            var msg = input.value;
-            messenger.targets[name].send("message from parent: " + msg, url);
-            input.value = '';
-        }
+            function sendMessage(name, url) {
+                var msg = input.value;
+                messenger.targets[name].send("message from parent: " + msg, url);
+                input.value = '';
+            }
 
-        function sendAll() {
-            var msg = input.value;
-            messenger.send("message from parent: " + msg);
-            input.value = '';
-        }
+            function sendAll() {
+                var msg = input.value;
+                messenger.send("message from parent: " + msg);
+                input.value = '';
+            }
 
         </script>
-</body>
-</html>
+    </body>
+    </html>
