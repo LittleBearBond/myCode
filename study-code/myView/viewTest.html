@@ -2,103 +2,102 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<title>view</title>
-	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<!-- 忽略页面中的数字识别为电话号码  email识别 -->
-	<meta content="telephone=no, email=no" name="format-detection" />
-	<!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<!-- 当启动webapp功能时，显示手机信号、时间、电池的顶部导航栏的颜色。默认值为default（白色），可以定为black（黑色）和black-translucent（灰色半透明）。这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
-	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-	<!-- 不让 Android 手机识别邮箱 -->
-	<meta content="email=no" name="format-detection" />
-	<!-- 启用360浏览器的极速模式(webkit) -->
-	<meta name="renderer" content="webkit">
-	<!-- 避免IE使用兼容模式 -->
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
-	<meta name="HandheldFriendly" content="true">
-	<!-- Reset Css -->
-	<!-- <link rel="stylesheet" href="../css/reset.css"> -->
-	<style>
-		.list{
-			list-style:none;
-			font-size: 15px;
-			width:50em;
-			margin:20px auto;
-		}
-		.list>li{
-			line-height:2em;
-			height:2em;
-			border-bottom:1px solid #666666;
-		}
-        .list>li>strong{
-            color:rgb(0,151,208);
-            margin-left: 15px;
-        }
-	</style>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>view</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- 忽略页面中的数字识别为电话号码  email识别 -->
+  <meta content="telephone=no, email=no" name="format-detection" />
+  <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <!-- 当启动webapp功能时，显示手机信号、时间、电池的顶部导航栏的颜色。默认值为default（白色），可以定为black（黑色）和black-translucent（灰色半透明）。这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <!-- 不让 Android 手机识别邮箱 -->
+  <meta content="email=no" name="format-detection" />
+  <!-- 启用360浏览器的极速模式(webkit) -->
+  <meta name="renderer" content="webkit">
+  <!-- 避免IE使用兼容模式 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+  <meta name="HandheldFriendly" content="true">
+  <!-- Reset Css -->
+  <!-- <link rel="stylesheet" href="../css/reset.css"> -->
+  <style>
+    .list{
+      list-style:none;
+      font-size: 15px;
+      width:50em;
+      margin:20px auto;
+    }
+    .list>li{
+      line-height:2em;
+      height:2em;
+      border-bottom:1px solid #666666;
+    }
+    .list>li>strong{
+      color:rgb(0,151,208);
+      margin-left: 15px;
+    }
+  </style>
 </head>
 <body>
-	<ol class="list">
-		<li class="jp-test1">"click .jp-test1": "test1"<strong>委托到根节点绑定</strong></li>
-		<li class="jp-test2">"dblclick .jp-test2": "test2"<strong>同1</strong></li>
-		<li><a href="" class="jp-test3">"click $jp-test3": "test3" </a><strong>在this中找到$jp-test3再绑定，this[$jp-test3]</strong></li>
-		<li class="jp-test4"> 'click $$.jp-test4':'test4'<strong>$(.jp-test4)找到元素在绑定</strong></li>
-		<li class="jp-test5">"click $$.jp-test5": "window.testWindowFN"<strong>$(.jp-test5) 找到元素在绑定window作用域下的fn</strong></li>
-		<li><a href="mailto:joe@example.com?subject=feedback" "email me" id="jp-test6">"click #jp-test6": "test6"</a></li>
-	</ol>
+  <ol class="list">
+    <li class="jp-test1">"click .jp-test1": "test1"<strong>委托到根节点绑定</strong></li>
+    <li class="jp-test2">"dblclick .jp-test2": "test2"<strong>同1</strong></li>
+    <li><a href="" class="jp-test3">"click $jp-test3": "test3" </a><strong>在this中找到$jp-test3再绑定，this[$jp-test3]</strong></li>
+    <li class="jp-test4"> 'click $$.jp-test4':'test4'<strong>$(.jp-test4)找到元素在绑定</strong></li>
+    <li class="jp-test5">"click $$.jp-test5": "window.testWindowFN"<strong>$(.jp-test5) 找到元素在绑定window作用域下的fn</strong></li>
+    <li><a href="mailto:joe@example.com?subject=feedback" "email me" id="jp-test6">"click #jp-test6": "test6"</a></li>
+  </ol>
 
-	<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.js"></script>
-	<script type="text/javascript" src="./viewBindEvent1.0.js"></script>
-	<script>
+  <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.js"></script>
+  <script type="text/javascript" src="./viewBindEvent1.0.js"></script>
+  <script>
   // The DOM element for a todo item...
   var TodoView = MyView.extend({
-  	el:$('.list'),
+    el:$('.list'),
     viewData:{
-        '$jp-test3':'.jp-test3'
+      '$jp-test3':'.jp-test3'
     },
-  	events: {
-  		"click .jp-test1": "test1",
-  		"dblclick .jp-test2": "test2",
-  		"click $jp-test3": "test3",
-        'click $$.jp-test4':'test4',
-  		"click $$.jp-test5": "window.test5WindowFN",
-  		"click #jp-test6": "test6"
-  	},
-  	initialize: function() {
-  		console.log('initialize');
-  		return false;
-  	},
+    events: {
+      "click .jp-test1": "test1",
+      "dblclick .jp-test2": "test2",
+      "click $jp-test3": "test3",
+      'click $$.jp-test4':'test4',
+      "click $$.jp-test5": "window.test5WindowFN",
+      "click #jp-test6": "test6"
+    },
+    initialize: function() {
+      console.log('initialize');
+      return false;
+    },
     //正常委托绑定
-  	test1: function(e) {
-  		console.log('test1:','"click .jp-test1": "test1"');
-  		return false;
-  	},
-    test2: function() {
-        console.log('test2','"dblclick .jp-test2": "test2"');
-        return false;
+    test1: function(e) {
+      console.log('test1:','"click .jp-test1": "test1"');
+      return false;
     },
-  	test3: function() {
-  		console.log('test3','"click $jp-test3": "test3"');
-  		return false;
-  	},
+    test2: function() {
+      console.log('test2','"dblclick .jp-test2": "test2"');
+      return false;
+    },
+    test3: function() {
+      console.log('test3','"click $jp-test3": "test3"');
+      return false;
+    },
     test4: function() {
-        console.log('test4',"click $$.jp-test4':'test4");
-        return false;
+      console.log('test4',"click $$.jp-test4':'test4");
+      return false;
     },
     test6: function() {
-        console.log('test6','"click #jp-test6": "test6"');
-        return false;
+      console.log('test6','"click #jp-test6": "test6"');
+      return false;
     }
   });
 
   function test5WindowFN(){
-  	console.log('jp-test5','click $$.jp-test5": "window.test5WindowFN"')
+    console.log('jp-test5','click $$.jp-test5": "window.test5WindowFN"')
     return false;
   }
-  var sview=new TodoView();
-  console.log(sview)
+  console.log(new TodoView())
 </script>
 
 </body>

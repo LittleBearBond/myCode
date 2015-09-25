@@ -1,12 +1,12 @@
 ;
 (function(root, factory) {
 	"use strict";
-	if (typeof define === "function" && define.amd) {
+	if (typeof define === "function" && define.cmd) {
 		define(factory);
 	} else {
 		root.MyView = factory(root, root.$);
 	}
-}(window, function(root) {
+}(window, function() {
 	if (!Object.create) {
 		Object.create = function(o) {
 			if (arguments.length > 1) {
@@ -20,7 +20,7 @@
 	}
 	var emptyFunc = function() {},
 		defaultOpts = {
-			initialize: emptyFunc,
+			init: emptyFunc,
 			el: '',
 			events: {},
 		},
@@ -33,8 +33,8 @@
 			return toStr.call(o) === '[object Function]';
 		},
 		startsWith = function(target, str, ignorecase) {
-			var start_str = target.substr(0, str.length);
-			return ignorecase ? start_str.toLowerCase() === str.toLowerCase() : start_str === str;
+			var startStr = target.substr(0, str.length);
+			return ignorecase ? startStr.toLowerCase() === str.toLowerCase() : startStr === str;
 		},
 		getObj = function(obj, str) {
 			if (startsWith(str, 'window')) {
@@ -49,33 +49,65 @@
 		item;
 
 	function MyView() {
-		isFunc(this.initialize) && this.initialize.call(this);
+		/**
+		 * 所有初始话之前执行
+		 */
+		isFunc(self.onInitBefore) && self.onInitBefore.call(self);
 		//根节点this.el
 		isString(this.el) && (this.el = $(this.el));
+
 		this._init();
 	}
 
 	$.extend(MyView.prototype, {
 		constructor: MyView,
+		/**
+		 * 初始话，在domReady之后执行
+		 * @return {[type]} [description]
+		 */
 		_init: function() {
 			var self = this;
 			$(function() {
 				self._initView()._initEvent();
+				isFunc(self.init) && self.init.call(self);
 			});
 			return this;
 		},
+		/**
+		 * 视图初始化前
+		 * 视图初始话后
+		 * 事件初始话前
+		 * 事件初始话后
+		 * @type {[type]}
+		 */
+		onBeforeViewInit: emptyFunc,
+		onAfterViewInit: emptyFunc,
+		onBeforeEventInit: emptyFunc,
+		onAfterEventInit: emptyFunc,
+		/**
+		 * 视图初始话，取到对应的相关元素，附加到this对象上
+		 * @return {[type]} [description]
+		 */
 		_initView: function() {
 			var self = this;
+			this.onBeforeViewInit.call(this);
 			$.each(this.viewData || {}, function(key, sel) {
 				self[key] = $(sel);
 			});
+			this.onAfterViewInit.call(this);
 			return this;
 		},
+		/**
+		 * 根据配置项，给相关元素绑定相关事件
+		 * @return {[type]} [description]
+		 */
 		_initEvent: function() {
+			this.onBeforeEventInit.call(this);
 			var es = this.events;
 			for (item in es) {
 				es.hasOwnProperty(item) && this._bindEvent(item, es[item]);
 			}
+			this.onAfterEventInit.call(this);
 			return this;
 		},
 		/**
@@ -133,20 +165,30 @@
 			}
 
 			/**
-			 * 'click $btn':'fn'
-			 * this[$btn] 不存在就委托到根节点 this.el上面
-			 * this[$btn].on('click',fn)
+			 * 'click .btn':'fn'
+			 * this.el.on('click' , '.btn' , fn)
+			 * 直接委托绑定到根节点上
 			 * @param  {[type]}
 			 */
 			//委托绑定
 			this.el && this.el.length && this.el.on(type, selector, func);
 		}
 	});
+
+	/**
+	 * 把obj  F.prototype 上，并且new一个F实例对象返回
+	 * F集成于MyView
+	 * @param  {[object]} o
+	 * @return {[type]}
+	 */
 	MyView.extend = function(o) {
 		var parent = this;
 
-		function F() {
-			return parent.apply(this, sl.call(arguments));
+		function F(args) {
+			this.opts = $.extend(true, {}, this.opts || {}, args || {});
+			//调用父类构造函数
+			parent.call(this);
+			//return parent.apply(this, sl.call(arguments));
 		}
 
 		F.prototype = Object.create(MyView.prototype);
