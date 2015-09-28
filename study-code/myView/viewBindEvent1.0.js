@@ -21,7 +21,7 @@
 	var emptyFunc = function() {},
 		defaultOpts = {
 			init: emptyFunc,
-			el: '',
+			$el: '',
 			events: {},
 		},
 		toStr = ({}).toString,
@@ -53,8 +53,8 @@
 		 * 所有初始话之前执行
 		 */
 		isFunc(self.onInitBefore) && self.onInitBefore.call(self);
-		//根节点this.el
-		isString(this.el) && (this.el = $(this.el));
+		//根节点this.$el
+		isString(this.$el) && (this.$el = $(this.$el));
 
 		this._init();
 	}
@@ -166,12 +166,12 @@
 
 			/**
 			 * 'click .btn':'fn'
-			 * this.el.on('click' , '.btn' , fn)
+			 * this.$el.on('click' , '.btn' , fn)
 			 * 直接委托绑定到根节点上
 			 * @param  {[type]}
 			 */
 			//委托绑定
-			this.el && this.el.length && this.el.on(type, selector, func);
+			this.$el && this.$el.length && this.$el.on(type, selector, func);
 		}
 	});
 
@@ -183,6 +183,12 @@
 	 */
 	MyView.extend = function(o) {
 		var parent = this;
+
+		//已经实例化
+		if (this instanceof MyView) {
+			$.extend(true, this, o || {});
+			return this;
+		}
 
 		function F(args) {
 			this.opts = $.extend(true, {}, this.opts || {}, args || {});
