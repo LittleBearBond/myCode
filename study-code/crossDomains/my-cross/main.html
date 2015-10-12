@@ -17,7 +17,7 @@
 
 </head>
 <body>
-        <p> 绑定host  10.155.114.55 static.koolearn.com</p>
+        <p> 绑定host  10.155.114.106 static.koolearn.com</p>
         <p>
             <iframe id="iframe1" src="http://static.koolearn.com:8081/my-code/myCode/study-code/crossDomains/my-cross/iframe1.html" width="550px" height="300px"></iframe>
             <iframe id="iframe2" src="http://static.koolearn.com:8088/test-page/iframe2.html" width="550px" height="300px"></iframe>
@@ -46,9 +46,9 @@
             messenger.addTarget(iframe1.contentWindow, 'iframe1');
             messenger.addTarget(iframe2.contentWindow, 'iframe2');
 
-            function sendMessage(name, url) {
+            function sendMessage(name) {
                 var msg = input.value;
-                messenger.targets[name].send("message from parent: " + msg, url);
+                messenger.targets[name].send("message from parent: " + msg);
                 input.value = '';
             }
 

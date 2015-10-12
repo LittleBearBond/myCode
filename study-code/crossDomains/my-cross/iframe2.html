@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,14 +21,15 @@
     <p>
         <input type="text" placeholder="输入消息" id="message" />
         <button type="button" class="btn btn-primary" onclick="sendMessage('parent');">send to parent</button>
-        <button type="button" class="btn btn-primary" onclick="sendMessage('iframe1');">send to iframe2</button>
-        <!-- <button type="button" class="btn btn-success" onclick="sendAll();">send to all</button> -->
+        <button type="button" class="btn btn-primary" onclick="sendMessage('iframe1');">send to iframe1</button>
+        <button type="button" class="btn btn-success" onclick="sendAll();">send to all</button>
     </p>
     <pre id="output" class="alert alert-warning"></pre>
 <script type="text/javascript" src="http://static.koolearn.com:8000/study-code/crossDomains/my-cross/message.js"></script>
 <script type="text/javascript">
-     var messenger = new Messenger('iframe1', 'MessengerDemo');
+     var messenger = new Messenger('iframe2', 'MessengerDemo');
      var input = document.getElementById('message');
+
      messenger.listen(function(msg) {
          var newline = '\r\n';
          var text = document.createTextNode(msg + newline);
@@ -37,13 +39,10 @@
      messenger.addTarget(window.parent, 'parent');
      messenger.addTarget(window.parent.frames[0], 'iframe1');
 
-     var href = parent.location.href;
-
-     parent.location.href = (href.replace(/#.*$/, '') + '#123');
      //console.log(top.location.href)
      function sendMessage(name) {
          var msg = input.value;
-         messenger.targets[name].send("message from iframe1: " + msg, href);
+         messenger.targets[name].send("message from iframe2: " + msg);
          input.value = '';
      }
 
