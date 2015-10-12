@@ -1,3 +1,5 @@
+/* @grunt-build */
+
 /**
  * author           xj
  * @date            2015-09-22 15:35:30
