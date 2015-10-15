@@ -1,6 +1,7 @@
 # console
 
 ###console.xxx
+
 - console.log：普通信息
 - console.info：提示类信息
 - console.error：错误信息
@@ -35,6 +36,7 @@ console.error("Error: %s (%i)", "Server is  not responding",500);
     );
 });
 ```
+
 <table>
   <tr>
     <th>Format</th>
@@ -65,6 +67,7 @@ console.error("Error: %s (%i)", "Server is  not responding",500);
     <td>Formats the output string according to CSS styles you provide.</td>
   </tr>
 </table>
+
 ###console.clear()
 
 ###console.assert(expression, object)
@@ -117,7 +120,6 @@ console.table(family, ["firstName", "lastName", "age"]);
 ```
 
 ###console.count(label)
-
 ``` js
 function foo(){
     //其他函数逻辑blah blah。。。
@@ -146,8 +148,8 @@ for (var i = array.length - 1; i >= 0; i--) {
 console.timeEnd("Array initialize");
 array = null;
 ```
-###console.profile console.profileEnd  console.timeLine console.timeLineEnd
 
+###console.profile console.profileEnd  console.timeLine console.timeLineEnd
 ```js
 profile("init")
 profileEnd("init")
@@ -155,6 +157,7 @@ profile("init")
 profileEnd("init")
 
 ```
+
 ### $
 Chrome 控制台中原生支持选择器
 |$()  |  document.querySelector()|
@@ -171,7 +174,6 @@ inspect($('p'))//方法打开相关面板，并选中相应的元素：DOM元素
 通过此命令可以将在控制台获取到的内容复制到剪贴板
 
 ###keys & values
-
 ```js
 var tboy={name:'xj',gender:'unknown',hobby:'opposite to the gender'};
 keys(tboy);
@@ -193,7 +195,6 @@ sayHello('xj');
 ```
 
 ###debug & undebug
-
 ```js
 function sayHello(name){
     debugger
