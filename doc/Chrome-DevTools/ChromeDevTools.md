@@ -162,9 +162,12 @@ F8 F10 F11
 
 ##Timeline
 http://www.cnblogs.com/constantince/p/4585983.html
+
 ##Profiles
 http://www.cnblogs.com/constantince/p/4607497.html
+
 https://css-tricks.com/six-tips-for-chrome-devtools/
+
 https://developers.google.com/web/updates/chrome-devtools/
 
 ##我的书签：
@@ -189,6 +192,7 @@ http://ued.taobao.org/blog/2012/06/debug-with-chrome-dev-tool/
 
 使用Chrome DevTools的Timeline和Profiles提高Web应用程序的性能:
 http://www.oschina.net/translate/performance-optimisation-with-timeline-profiles
+
 http://www.w3ctech.com/topic/652
 
 Chrome 39 新功能（译）:
@@ -214,6 +218,7 @@ https://css-tricks.com/six-tips-for-chrome-devtools/
 
 Six Tips for Chrome DevTools:
 https://developers.google.com/web/updates/chrome-devtools/
+
 https://umaar.com/dev-tips/
 
 前端像页面，javascript在调试 bug 等有什么奇技淫巧么？ - 前端开发:
