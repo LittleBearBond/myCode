@@ -224,4 +224,7 @@ https://umaar.com/dev-tips/
 前端像页面，javascript在调试 bug 等有什么奇技淫巧么？ - 前端开发:
 http://www.zhihu.com/question/35667558#answer-20989452
 
+分享国过程视频
+http://www.iqiyi.com/w_19rtk7l465.html
+
 
