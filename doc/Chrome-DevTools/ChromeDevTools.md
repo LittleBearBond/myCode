@@ -167,4 +167,56 @@ http://www.cnblogs.com/constantince/p/4607497.html
 https://css-tricks.com/six-tips-for-chrome-devtools/
 https://developers.google.com/web/updates/chrome-devtools/
 
+##我的书签：
+https://developers.google.com/chrome-developer-tools/
+
+CN-Chrome-DevTools/CN-Chrome-DevTools · GitHub:
+https://github.com/CN-Chrome-DevTools/CN-Chrome-DevTools
+
+Chrome 控制台不完全指南:
+http://www.cnblogs.com/Wayou/p/chrome-console-tips-and-tricks.html
+
+前端不为人知的一面--前端冷知识集锦:
+http://www.cnblogs.com/Wayou/p/things_you_dont_know_about_frontend.html
+
+http://blogread.cn/it/article/6971?f=wb
+
+console对象 -- JavaScript 标准参考教程（alpha）:
+http://javascript.ruanyifeng.com/tool/console.html
+
+chrome developer tool :
+http://ued.taobao.org/blog/2012/06/debug-with-chrome-dev-tool/
+
+使用Chrome DevTools的Timeline和Profiles提高Web应用程序的性能:
+http://www.oschina.net/translate/performance-optimisation-with-timeline-profiles
+http://www.w3ctech.com/topic/652
+
+Chrome 39 新功能（译）:
+http://www.cnblogs.com/yanhaijing/p/4172440.html
+
+如何调试移动端网页:
+http://www.html-js.com/article/2327
+
+chrome调试工具常用功能整理:
+http://web.jobbole.com/81915/
+
+Chrome开发者工具之JavaScript内存分析:
+http://www.ido321.com/1497.html
+
+【译】15个必须知道的chrome开发者技巧:
+http://www.cnblogs.com/liyunhua/p/4544738.html#top
+
+chrome使用技巧（看了定不让你失望）:
+http://www.cnblogs.com/constantince/p/4607497.html
+
+Chrome开发者工具不完全指南（四、性能进阶篇）:
+https://css-tricks.com/six-tips-for-chrome-devtools/
+
+Six Tips for Chrome DevTools:
+https://developers.google.com/web/updates/chrome-devtools/
+https://umaar.com/dev-tips/
+
+前端像页面，javascript在调试 bug 等有什么奇技淫巧么？ - 前端开发:
+http://www.zhihu.com/question/35667558#answer-20989452
+
 
