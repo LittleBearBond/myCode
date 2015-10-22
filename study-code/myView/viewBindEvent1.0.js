@@ -1,3 +1,9 @@
+/**
+ * author           xj
+ * @date            2015-9-23 10:08:00
+ * @email           568915669@qq.com
+ * @description
+ */
 ;
 (function(root, factory) {
 	"use strict";
@@ -45,8 +51,7 @@
 				return o && o[n];
 			}, obj);
 			return fn && fn.bind(obj);
-		},
-		item;
+		};
 
 	function MyView() {
 		/**
@@ -55,7 +60,6 @@
 		isFunc(self.onInitBefore) && self.onInitBefore.call(self);
 		//根节点this.$el
 		isString(this.$el) && (this.$el = $(this.$el));
-
 		this._init();
 	}
 
@@ -111,22 +115,31 @@
 			return this;
 		},
 		/**
-		 * 		"click .jp-test1": "test1",
-		 *		"dblclick .jp-test2": "test2",
-		 *		"click $jp-test3": "test3",
-		 *		'click $$.jp-test4':'test4',
-		 *		"click $$.jp-test5": "window.test5WindowFN",
-		 *		"click #jp-test6": "test6"
+		 * 	"click .jp-test1": "test1",
+		 *	"dblclick .jp-test2": "test2",
+		 *	"click $jp-test3": "test3",
+		 *	'click $$.jp-test4':'test4',
+		 *	"click $$.jp-test5": "window.test5WindowFN",
+		 *	"click #jp-test6": "test6"
 		 * @param  {[type]} de   [description]
 		 * @param  {[type]} func [description]
 		 * @return {[type]}      [description]
 		 */
 		_bindEvent: function(de, func) {
-			var key = de.split(' '),
+			var key = de.split(/\s+/),
 				//事件类型
 				type = key[0],
 				//选择器
-				selector = key[1];
+				selector = key[1],
+				//委托绑定
+				delegate = $.trim(key[2] || ''),
+				el;
+			//委托时间是 tr td .XXX  有多个空格隔开这种需要特殊处理
+			if (key.length >= 3) {
+				key.shift();
+				key.shift();
+				delegate = key.join(' ');
+			}
 			if (!type || !selector) {
 				return;
 			}
@@ -149,7 +162,9 @@
 			 * @param  {[type]}
 			 */
 			if (startsWith(selector, '$$')) {
-				$(selector.substr(2)).on(type, func);
+				el = $(selector.substr(2));
+				//委托绑定和直接绑定
+				delegate ? el.on(type, delegate, func) : el.on(type, func);
 				return;
 			}
 			/**
@@ -160,7 +175,10 @@
 			 * @param  {[type]}
 			 */
 			if (startsWith(selector, '$')) {
-				this[selector] && this[selector].length && this[selector].on(type, func);
+				el = this[selector];
+				if (el && el.length) {
+					delegate ? el.on(type, delegate, func) : el.on(type, func);
+				}
 				return;
 			}
 
@@ -170,23 +188,25 @@
 			 * 直接委托绑定到根节点上
 			 * @param  {[type]}
 			 */
-			//委托绑定
+			//委托绑定到根节点(this.$el)上
 			this.$el && this.$el.length && this.$el.on(type, selector, func);
 		}
 	});
 
 	/**
 	 * 把obj  F.prototype 上，并且new一个F实例对象返回
-	 * F集成于MyView
+	 * F继承于MyView
 	 * @param  {[object]} o
 	 * @return {[type]}
 	 */
-	MyView.extend = function(o) {
+	MyView.extend = function(obj) {
+		obj = obj || {};
 		var parent = this;
 
 		//已经实例化
+		//没有处理覆盖prototype的情况
 		if (this instanceof MyView) {
-			$.extend(true, this, o || {});
+			$.extend(true, this, obj);
 			return this;
 		}
 
@@ -197,10 +217,19 @@
 			//return parent.apply(this, sl.call(arguments));
 		}
 
+		/**
+		 * 附加对象到F上
+		 * @param  {object} obj
+		 * @return {this}
+		 */
+		F.extend = function(obj) {
+			$.extend(true, F.prototype, obj);
+		};
+
 		F.prototype = Object.create(MyView.prototype);
 		F.prototype.constructor = F;
 
-		$.extend(F.prototype, o || {});
+		$.extend(true, F.prototype, obj);
 
 		return F;
 	};

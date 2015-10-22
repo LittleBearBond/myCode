@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<title>view</title>
+	<title>view-init</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<!-- 忽略页面中的数字识别为电话号码  email识别 -->
 	<meta content="telephone=no, email=no" name="format-detection" />
@@ -23,9 +23,8 @@
 	<!-- <link rel="stylesheet" href="../css/reset.css"> -->
 	<style>
 		.list{
-			list-style:none;
 			font-size: 15px;
-			width:50em;
+			width:52em;
 			margin:20px auto;
 		}
 		.list>li{
@@ -37,16 +36,24 @@
       color:rgb(0,151,208);
       margin-left: 15px;
     }
+    h1{
+      font-size: 30px;
+      text-align: center;
+      padding: 10px 0;
+      color: #828282;
+    }
   </style>
 </head>
 <body>
+  <h1>事件绑定demo</h1>
 	<ol class="list">
-		<li class="jp-test1">"click .jp-test1": "test1"<strong>委托到根节点绑定</strong></li>
+		<li class="jp-test1">"click .jp-test1": "test1"<strong>默认委托绑定到根节点(this.$el)上.相当于:this.$el.on('click','.jp-test1',this.test1.bind(this))</strong></li>
 		<li class="jp-test2">"dblclick .jp-test2": "test2"<strong>同1</strong></li>
-		<li><a href="" class="jp-test3">"click $jp-test3": "test3" </a><strong>在this中找到$jp-test3再绑定，this[$jp-test3]</strong></li>
-		<li class="jp-test4"> 'click $$.jp-test4':'test4'<strong>$(.jp-test4)找到元素在绑定</strong></li>
-		<li class="jp-test5">"click $$.jp-test5": "window.testWindowFN"<strong>$(.jp-test5) 找到元素在绑定window作用域下的fn</strong></li>
-		<li><a href="mailto:joe@example.com?subject=feedback" "email me" id="jp-test6">"click #jp-test6": "test6"</a></li>
+		<li><a href="" class="jp-test3">"click $jp-test3": "test3" </a><strong>相当于：this.$jp-test3.on("click" , this.test3.bind(this))</strong></li>
+		<li class="jp-test4"> 'click $$.jp-test4':'test4'<strong>$$开头的是先找到$(.jp-test4)元素再绑定对应时间</strong></li>
+		<li class="jp-test5">"click $$.jp-test5": "window.testWindowFN"<strong>相当于：$('.jp-test5').on("click",'#jp-test6',window.testWindowFN)</strong></li>
+    <li><a href="mailto:joe@example.com?subject=feedback" "email me" id="jp-test6">"click #jp-test6": "test6"</a><strong>相当于：this.$el.on("click" , '#jp-test6' , this.test6.bind(this))</strong></li>
+		<li id="jp-test7"><a href="javascript:" "email me" >"click $test7 a": "test7"</a><strong>相当于：this.$test7.on("click" , 'a' , this.test7.bind(this)),不委托到根节点</strong></li>
 	</ol>
 
 	<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.js"></script>
@@ -56,7 +63,8 @@
   var TodoView = MyView.extend({
   	$el:$('.list'),
     viewData:{
-      '$jp-test3':'.jp-test3'
+      '$jp-test3':'.jp-test3',
+      '$test7':'#jp-test7'
     },
     events: {
       "click .jp-test1": "test1",
@@ -64,7 +72,8 @@
       "click $jp-test3": "test3",
       'click $$.jp-test4':'test4',
       "click $$.jp-test5": "window.test5WindowFN",
-      "click #jp-test6": "test6"
+      "click #jp-test6": "test6",
+      "click $test7 a": "test7"
     },
     initialize: function() {
       console.log('initialize');
@@ -89,6 +98,10 @@
     },
     test6: function() {
       console.log('test6','"click #jp-test6": "test6"');
+      return false;
+    },
+    test7: function() {
+      console.log('test7','"click $test7 a": "test7"');
       return false;
     }
   });
