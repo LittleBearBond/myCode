@@ -6,6 +6,18 @@ var openWin = require("open");
 //var $ = require('jquery');
 //var url = 'http://cl.mocl.xyz/thread0806.php?fid=2&search=&page=2';
 
+/*
+var request = require('request'),
+    cheerio = require('cheerio'),
+    Iconv = require('iconv').Iconv;
+
+var iconv = new Iconv('GBK', 'UTF-8');
+
+request(opts, function (err, response, body) {
+    var result = iconv.convert(new Buffer(body, 'binary')).toString();
+    var $ = cheerio.load(result);
+});
+ */
 var optins = {
     reviewNums: 25
 };
