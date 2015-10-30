@@ -31,7 +31,6 @@ exports.request = function(url, opts, cb) {
         return;
     }
     console.log(url)
-
     request({
         url: url,
         'accept-charset': 'utf-8',
