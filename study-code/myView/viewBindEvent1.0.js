@@ -1,3 +1,5 @@
+/* @grunt-build */
+
 /**
  * author           xj
  * @date            2015-9-23 10:08:00
@@ -108,7 +110,7 @@
 		_initEvent: function() {
 			this.onBeforeEventInit.call(this);
 			var es = this.events;
-			for (item in es) {
+			for (var item in es) {
 				es.hasOwnProperty(item) && this._bindEvent(item, es[item]);
 			}
 			this.onAfterEventInit.call(this);
@@ -134,16 +136,17 @@
 				//委托绑定
 				delegate = $.trim(key[2] || ''),
 				el;
-			//委托时间是 tr td .XXX  有多个空格隔开这种需要特殊处理
+			//"click tr td .sel":"fn" 委托事件,有多个空格隔开这种需要特殊处理。
 			if (key.length >= 3) {
 				key.shift();
 				key.shift();
+				//取到委托的selector，并且处理掉多个空格的情况
 				delegate = key.join(' ');
 			}
+
 			if (!type || !selector) {
 				return;
 			}
-
 			/**
 			 * func如果是字符串就是从自身取，这里就是一个key
 			 * 如果传递就是fn 那就直接绑定fn
