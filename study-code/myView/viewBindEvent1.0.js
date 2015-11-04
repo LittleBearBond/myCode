@@ -27,11 +27,6 @@
 		};
 	}
 	var emptyFunc = function() {},
-		defaultOpts = {
-			init: emptyFunc,
-			$el: '',
-			events: {},
-		},
 		toStr = ({}).toString,
 		sl = [].slice,
 		isString = function(o) {
@@ -66,6 +61,7 @@
 	}
 
 	$.extend(MyView.prototype, {
+		//修正constructor
 		constructor: MyView,
 		/**
 		 * 初始话，在domReady之后执行
@@ -73,17 +69,19 @@
 		 */
 		_init: function() {
 			var self = this;
-			$(function() {
+			var handle = function() {
 				self._initView()._initEvent();
 				isFunc(self.init) && self.init.call(self);
-			});
+			};
+			//基本上百分之九十九的情况都是要走domReady的
+			this.opts.isNotDomReady === true ? handle() : $(handle);
 			return this;
 		},
 		/**
-		 * 视图初始化前
-		 * 视图初始话后
-		 * 事件初始话前
-		 * 事件初始话后
+		 * 1、视图初始化前
+		 * 2、视图初始话后
+		 * 3、事件初始话前
+		 * 4、事件初始话后
 		 * @type {[type]}
 		 */
 		onBeforeViewInit: emptyFunc,
@@ -206,6 +204,10 @@
 		obj = obj || {};
 		var parent = this;
 
+		if (typeof obj !== 'object') {
+			throw new Error('arguments[0] must be object');
+		}
+
 		//已经实例化
 		//没有处理覆盖prototype的情况
 		if (this instanceof MyView) {
@@ -220,19 +222,19 @@
 			//return parent.apply(this, sl.call(arguments));
 		}
 
+		F.prototype = Object.create(MyView.prototype);
+		F.prototype.constructor = F;
+
+		$.extend(true, F.prototype, obj);
+
 		/**
 		 * 附加对象到F上
 		 * @param  {object} obj
 		 * @return {this}
 		 */
-		F.extend = function(obj) {
+		F.prototype.extend = F.extend = function(obj) {
 			$.extend(true, F.prototype, obj);
 		};
-
-		F.prototype = Object.create(MyView.prototype);
-		F.prototype.constructor = F;
-
-		$.extend(true, F.prototype, obj);
 
 		return F;
 	};

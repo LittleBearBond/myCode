@@ -61,16 +61,16 @@
 	<script>
   // The DOM element for a todo item...
   var TodoView = MyView.extend({
-  	$el:$('.list'),
-    viewData:{
-      '$jp-test3':'.jp-test3',
-      '$test7':'#jp-test7'
+    $el: $('.list'),
+    viewData: {
+      '$jp-test3': '.jp-test3',
+      '$test7': '#jp-test7'
     },
     events: {
       "click .jp-test1": "test1",
       "dblclick .jp-test2": "test2",
       "click $jp-test3": "test3",
-      'click $$.jp-test4':'test4',
+      'click $$.jp-test4': 'test4',
       "click $$.jp-test5": "window.test5WindowFN",
       "click #jp-test6": "test6",
       "click $test7 a": "test7"
@@ -81,36 +81,40 @@
     },
     //正常委托绑定
     test1: function(e) {
-      console.log('test1:','"click .jp-test1": "test1"');
+      console.log('test1:', '"click .jp-test1": "test1"');
       return false;
     },
     test2: function() {
-      console.log('test2','"dblclick .jp-test2": "test2"');
+      console.log('test2', '"dblclick .jp-test2": "test2"');
       return false;
     },
     test3: function() {
-      console.log('test3','"click $jp-test3": "test3"');
+      console.log('test3', '"click $jp-test3": "test3"');
       return false;
     },
     test4: function() {
-      console.log('test4',"click $$.jp-test4':'test4");
+      console.log('test4', "click $$.jp-test4':'test4");
       return false;
     },
     test6: function() {
-      console.log('test6','"click #jp-test6": "test6"');
+      console.log('test6', '"click #jp-test6": "test6"');
       return false;
     },
     test7: function() {
-      console.log('test7','"click $test7 a": "test7"');
+      console.log('test7', '"click $test7 a": "test7"');
       return false;
     }
   });
 
-  function test5WindowFN(){
-  	console.log('jp-test5','click $$.jp-test5": "window.test5WindowFN"')
+  function test5WindowFN() {
+    console.log('jp-test5', 'click $$.jp-test5": "window.test5WindowFN"')
     return false;
   }
-  console.log(new TodoView())
+  var view = new TodoView();
+  view.extend({
+    a: 1
+  });
+  console.log(view.a);
 </script>
 
 </body>
