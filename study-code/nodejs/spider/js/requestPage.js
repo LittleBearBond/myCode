@@ -36,7 +36,7 @@ exports.request = function(url, opts, cb) {
         'accept-charset': 'utf-8',
         headers: {
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36'
+            'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36"
         }
     }, function(error, response, body) {
         if (error) {
@@ -82,9 +82,7 @@ exports.request = function(url, opts, cb) {
                 dataObj.push(data);
             }
 
-            return dataObj.filter(function(curr) {
-                return curr && curr.reviewNums >= opts.reviewNums;
-            });
+            return dataObj;
         };
 
         if (urlObj.params) {
@@ -103,12 +101,14 @@ exports.request = function(url, opts, cb) {
 
         var arrData = findData(
             $main.find('tr.tr3').slice(5)
-        ).sort(function(curr, next) {
+        ).filter(function(curr) {
+            return curr && curr.reviewNums >= opts.reviewNums;
+        }).sort(function(curr, next) {
             return curr.reviewNums < next.reviewNums;
         }).map(function(curr) {
             setTimeout(function() {
                 openWin(curr.href);
-            })
+            });
             return JSON.stringify(curr);
         });
 
