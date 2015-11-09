@@ -12,7 +12,7 @@ window.Messenger = (function() {
     // !注意 消息前缀应使用字符串类型
     var prefix = "koolearn",
         supportPostMessage = 'postMessage' in window,
-        lastHash,
+        lastHash = document.location.hash,
         intervalId,
         cacheId = 1,
         extend = function() {
@@ -74,7 +74,7 @@ window.Messenger = (function() {
         } :
         // 兼容IE 6/7
         function(msg, targetUrl) {
-            targetUrl = (targetUrl || this.target.location || parent.location.href)+'';
+            targetUrl = (targetUrl || this.target.location || parent.location.href) + '';
             //修改hash
             this.target.location = targetUrl.replace(/#.*$/, '') + '#' + (+new Date) + (cacheId++) + '&' + this.handleMsg(msg);
         };
@@ -157,27 +157,27 @@ window.Messenger = (function() {
             }
         };
 
+        //高级浏览器
         if (supportPostMessage) {
             if ('addEventListener' in document) {
                 window.addEventListener('message', generalCallback, false);
             } else if ('attachEvent' in document) {
                 window.attachEvent('onmessage', generalCallback);
             }
-        } else {
-            // 兼容IE 6/7
-            intervalId && clearInterval(intervalId);
-            intervalId = null;
-
-            intervalId = setInterval(function() {
-                var hash = document.location.hash,
-                    re = /^#?\d+&/;
-                if (hash !== lastHash && re.test(hash)) {
-                    lastHash = hash;
-                    generalCallback(hash.replace(re, ''));
-                }
-            }, self.opts.delay);
-
+            return;
         }
+
+        // 兼容IE 6/7
+        intervalId && clearInterval(intervalId);
+        intervalId = null;
+        intervalId = setInterval(function() {
+            var hash = document.location.hash,
+                re = /^#?\d+&/;
+            if (hash !== lastHash && re.test(hash)) {
+                lastHash = hash;
+                generalCallback(hash.replace(re, ''));
+            }
+        }, self.opts.delay);
     };
 
     /**
