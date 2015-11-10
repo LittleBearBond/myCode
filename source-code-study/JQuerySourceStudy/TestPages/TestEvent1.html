@@ -14,7 +14,8 @@
 				return false;
 			});
 
-			p1.on('click', function () {
+			p1.on('click', function (e) {
+				e.stopImmediatePropagation();
 				console.log('灰-p1-1');
 			});
 

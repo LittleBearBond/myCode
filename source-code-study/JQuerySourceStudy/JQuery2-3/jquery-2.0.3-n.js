@@ -4904,12 +4904,12 @@
 			return event.result;
 		},
 		/*
-	         处理 事件处理器 针对事件委托和原生事件（例如"click"）绑定 区分对待
-	         事件委托从队列头部推入，而普通事件绑定从尾部推入，通过记录delegateCount来划分，委托(delegate)绑定和普通绑定。
-	         * @param {Object} event:jQuery.Event事件对象
-	         * @param {Object} handlers ：事件处理程序
-	         * @return {Object} 返回事件处理器 队列
-	         */
+         处理 事件处理器 针对事件委托和原生事件（例如"click"）绑定 区分对待
+         事件委托从队列头部推入，而普通事件绑定从尾部推入，通过记录delegateCount来划分，委托(delegate)绑定和普通绑定。
+         * @param {Object} event:jQuery.Event事件对象
+         * @param {Object} handlers ：事件处理程序
+         * @return {Object} 返回事件处理器 队列
+         */
 		handlers: function(event, handlers) {
 			var i,
 				matches,
@@ -5040,6 +5040,7 @@
 			}
 			copy = fixHook.props ? this.props.concat(fixHook.props) : this.props;
 
+			//创建一个jQuery.Event实例对象，把originalEvent的相关属性拷贝到jQuery.Event实例对象上
 			event = new jQuery.Event(originalEvent);
 
 			i = copy.length;
@@ -7189,28 +7190,28 @@
 	// 然后深度克隆deep对象到target.
 	// 最后都返回target
 	function ajaxExtend(target, src) {
-			var key,
-				deep,
-				flatOptions = jQuery.ajaxSettings.flatOptions || {};
+		var key,
+			deep,
+			flatOptions = jQuery.ajaxSettings.flatOptions || {};
 
-			for (key in src) {
-				if (src[key] !== undefined) {
-					// 如果jQuery.ajaxSettings.flatOptions存在src对应的key值，
-					// 就直接给target添加（覆盖）相应key/value，
-					// 否则创建一个deep对象，将src的key/value添加给deep
-					(flatOptions[key] ? target : (deep || (deep = {})))[key] = src[key];
-				}
+		for (key in src) {
+			if (src[key] !== undefined) {
+				// 如果jQuery.ajaxSettings.flatOptions存在src对应的key值，
+				// 就直接给target添加（覆盖）相应key/value，
+				// 否则创建一个deep对象，将src的key/value添加给deep
+				(flatOptions[key] ? target : (deep || (deep = {})))[key] = src[key];
 			}
-			if (deep) {
-				jQuery.extend(true, target, deep);
-			}
-
-			return target;
 		}
-		/**
-		 *  事件处理函数中也有一个方法叫 .load()。
-		 *  jQuery根据传递给它的参数设置来确定使用哪个方法执行。
-		 */
+		if (deep) {
+			jQuery.extend(true, target, deep);
+		}
+
+		return target;
+	}
+	/**
+	 *  事件处理函数中也有一个方法叫 .load()。
+	 *  jQuery根据传递给它的参数设置来确定使用哪个方法执行。
+	 */
 	jQuery.fn.load = function(url, params, callback) {
 		//加载事件
 		if (typeof url !== "string" && _load) {
@@ -8992,7 +8993,7 @@
 		// if we don't include width, step value is 2 to skip over Left and Right
 		includeWidth = includeWidth ? 1 : 0;
 		for (; i < 4; i += 2 - includeWidth) {
-			which = cssExpand[i];//cssExpand = ["Top", "Right", "Bottom", "Left"]
+			which = cssExpand[i]; //cssExpand = ["Top", "Right", "Bottom", "Left"]
 			attrs["margin" + which] = attrs["padding" + which] = type;
 		}
 
