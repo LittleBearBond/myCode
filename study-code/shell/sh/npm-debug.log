@@ -1,0 +1,231 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'n' ]
+2 info using npm@2.14.7
+3 info using node@v4.2.1
+4 verbose install initial load of /usr/local/lib/package.json
+5 verbose readDependencies loading dependencies from /usr/local/lib/package.json
+6 silly cache add args [ 'n', null ]
+7 verbose cache add spec n
+8 silly cache add parsed spec Result {
+8 silly cache add   raw: 'n',
+8 silly cache add   scope: null,
+8 silly cache add   name: 'n',
+8 silly cache add   rawSpec: '',
+8 silly cache add   spec: '*',
+8 silly cache add   type: 'range' }
+9 silly addNamed n@*
+10 verbose addNamed "*" is a valid semver range for n
+11 silly addNameRange { name: 'n', range: '*', hasData: false }
+12 silly mapToRegistry name n
+13 silly mapToRegistry using default registry
+14 silly mapToRegistry registry https://registry.npmjs.org/
+15 silly mapToRegistry uri https://registry.npmjs.org/n
+16 verbose addNameRange registry:https://registry.npmjs.org/n not in flight; fetching
+17 verbose request uri https://registry.npmjs.org/n
+18 verbose request no auth needed
+19 info attempt registry request try #1 at 11:26:53
+20 verbose request id 9fc3a26cb6a30db6
+21 verbose etag "B2BJC1YIJPRQ1TIUGLKQVOLOX"
+22 http request GET https://registry.npmjs.org/n
+23 http 200 https://registry.npmjs.org/n
+24 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+24 verbose headers   etag: '"8NOLND6DAY6P7H9MX12SB460A"',
+24 verbose headers   'content-type': 'application/json',
+24 verbose headers   'cache-control': 'max-age=60',
+24 verbose headers   'content-length': '52286',
+24 verbose headers   'accept-ranges': 'bytes',
+24 verbose headers   date: 'Fri, 13 Nov 2015 03:26:50 GMT',
+24 verbose headers   via: '1.1 varnish',
+24 verbose headers   age: '0',
+24 verbose headers   connection: 'keep-alive',
+24 verbose headers   'x-served-by': 'cache-itm7421-ITM',
+24 verbose headers   'x-cache': 'MISS',
+24 verbose headers   'x-cache-hits': '0',
+24 verbose headers   'x-timer': 'S1447385209.549237,VS0,VE627',
+24 verbose headers   vary: 'Accept' }
+25 silly get cb [ 200,
+25 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+25 silly get     etag: '"8NOLND6DAY6P7H9MX12SB460A"',
+25 silly get     'content-type': 'application/json',
+25 silly get     'cache-control': 'max-age=60',
+25 silly get     'content-length': '52286',
+25 silly get     'accept-ranges': 'bytes',
+25 silly get     date: 'Fri, 13 Nov 2015 03:26:50 GMT',
+25 silly get     via: '1.1 varnish',
+25 silly get     age: '0',
+25 silly get     connection: 'keep-alive',
+25 silly get     'x-served-by': 'cache-itm7421-ITM',
+25 silly get     'x-cache': 'MISS',
+25 silly get     'x-cache-hits': '0',
+25 silly get     'x-timer': 'S1447385209.549237,VS0,VE627',
+25 silly get     vary: 'Accept' } ]
+26 verbose get saving n to /Users/little_bear/.npm/registry.npmjs.org/n/.cache.json
+27 silly addNameRange number 2 { name: 'n', range: '*', hasData: true }
+28 silly addNameRange versions [ 'n',
+28 silly addNameRange   [ '0.0.1',
+28 silly addNameRange     '0.0.2',
+28 silly addNameRange     '0.0.3',
+28 silly addNameRange     '0.0.4',
+28 silly addNameRange     '0.1.0',
+28 silly addNameRange     '0.1.1',
+28 silly addNameRange     '0.1.2',
+28 silly addNameRange     '0.2.0',
+28 silly addNameRange     '0.2.1',
+28 silly addNameRange     '0.2.2',
+28 silly addNameRange     '0.3.0',
+28 silly addNameRange     '0.4.0',
+28 silly addNameRange     '0.4.1',
+28 silly addNameRange     '0.4.2',
+28 silly addNameRange     '0.5.0',
+28 silly addNameRange     '0.5.1',
+28 silly addNameRange     '0.5.2',
+28 silly addNameRange     '0.5.3',
+28 silly addNameRange     '0.5.4',
+28 silly addNameRange     '0.6.0',
+28 silly addNameRange     '0.6.1',
+28 silly addNameRange     '0.7.0',
+28 silly addNameRange     '0.7.1',
+28 silly addNameRange     '0.7.2',
+28 silly addNameRange     '0.7.3',
+28 silly addNameRange     '0.8.0',
+28 silly addNameRange     '0.8.1',
+28 silly addNameRange     '0.8.2',
+28 silly addNameRange     '0.9.0',
+28 silly addNameRange     '0.9.1',
+28 silly addNameRange     '0.9.2',
+28 silly addNameRange     '0.9.3',
+28 silly addNameRange     '1.0.0',
+28 silly addNameRange     '1.1.0',
+28 silly addNameRange     '1.2.1',
+28 silly addNameRange     '1.2.2',
+28 silly addNameRange     '1.2.3',
+28 silly addNameRange     '1.2.4',
+28 silly addNameRange     '1.2.5',
+28 silly addNameRange     '1.2.6',
+28 silly addNameRange     '1.2.7',
+28 silly addNameRange     '1.2.8',
+28 silly addNameRange     '1.2.9',
+28 silly addNameRange     '1.2.11',
+28 silly addNameRange     '1.2.13',
+28 silly addNameRange     '1.2.14',
+28 silly addNameRange     '1.3.0',
+28 silly addNameRange     '1.4.0',
+28 silly addNameRange     '2.0.0',
+28 silly addNameRange     '1.4.1',
+28 silly addNameRange     '2.0.1',
+28 silly addNameRange     '1.4.2',
+28 silly addNameRange     '2.0.2' ] ]
+29 silly addNamed n@2.0.2
+30 verbose addNamed "2.0.2" is a plain semver version for n
+31 silly cache afterAdd n@2.0.2
+32 verbose afterAdd /Users/little_bear/.npm/n/2.0.2/package/package.json not in flight; writing
+33 verbose afterAdd /Users/little_bear/.npm/n/2.0.2/package/package.json written
+34 silly install resolved [ { name: 'n',
+34 silly install resolved     description: 'node version manager',
+34 silly install resolved     version: '2.0.2',
+34 silly install resolved     author: { name: 'TJ Holowaychuk', email: 'tj@vision-media.ca' },
+34 silly install resolved     homepage: 'https://github.com/tj/n',
+34 silly install resolved     bugs: { url: 'https://github.com/tj/n/issues' },
+34 silly install resolved     contributors: [ [Object] ],
+34 silly install resolved     keywords:
+34 silly install resolved      [ 'nvm',
+34 silly install resolved        'node',
+34 silly install resolved        'version',
+34 silly install resolved        'manager',
+34 silly install resolved        'switcher',
+34 silly install resolved        'node',
+34 silly install resolved        'binary',
+34 silly install resolved        'env' ],
+34 silly install resolved     bin: { n: './bin/n' },
+34 silly install resolved     repository: { type: 'git', url: 'git://github.com/tj/n.git' },
+34 silly install resolved     preferGlobal: true,
+34 silly install resolved     os: [ '!win32' ],
+34 silly install resolved     engines: { node: '*' },
+34 silly install resolved     license: 'MIT',
+34 silly install resolved     gitHead: '7831e76a57429afc6341a583febb99469db4d1dc',
+34 silly install resolved     _id: 'n@2.0.2',
+34 silly install resolved     scripts: {},
+34 silly install resolved     _shasum: '1d132d1e33c8687bae54313792626e7878bd5f57',
+34 silly install resolved     _from: 'n@*',
+34 silly install resolved     _npmVersion: '2.13.4',
+34 silly install resolved     _nodeVersion: '0.12.7',
+34 silly install resolved     _npmUser: { name: 'maxrimue', email: 'max.rittmueller@gmail.com' },
+34 silly install resolved     dist:
+34 silly install resolved      { shasum: '1d132d1e33c8687bae54313792626e7878bd5f57',
+34 silly install resolved        tarball: 'http://registry.npmjs.org/n/-/n-2.0.2.tgz' },
+34 silly install resolved     maintainers:
+34 silly install resolved      [ [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object] ],
+34 silly install resolved     directories: {},
+34 silly install resolved     _resolved: 'https://registry.npmjs.org/n/-/n-2.0.2.tgz',
+34 silly install resolved     readme: 'ERROR: No README data found!' } ]
+35 info install n@2.0.2 into /usr/local/lib
+36 info installOne n@2.0.2
+37 verbose installOne of n to /usr/local/lib not in flight; installing
+38 verbose lock using /Users/little_bear/.npm/_locks/n-a01478239d85533e.lock for /usr/local/lib/node_modules/n
+39 silly install write writing n 2.0.2 to /usr/local/lib/node_modules/n
+40 verbose unbuild lib/node_modules/n
+41 info preuninstall n@2.0.2
+42 info uninstall n@2.0.2
+43 verbose unbuild rmStuff n@2.0.2 from /usr/local/lib/node_modules
+44 silly gentlyRm /usr/local/bin/n is being gently removed
+45 silly gentlyRm verifying /usr/local is an npm working directory
+46 silly gentlyRm containing path /usr/local is under npm's control, in /usr/local
+47 silly gentlyRm deletion target /usr/local/bin/n is under /usr/local
+48 verbose gentlyRm vacuuming from /usr/local/bin/n up to /usr/local
+49 silly vacuum-fs removing /usr/local/bin/n
+50 silly vacuum-fs quitting because other entries in /usr/local/bin
+51 info postuninstall n@2.0.2
+52 silly gentlyRm /usr/local/lib/node_modules/n is being purged from base /usr/local
+53 verbose gentlyRm don't care about contents; nuking /usr/local/lib/node_modules/n
+54 silly vacuum-fs purging /usr/local/lib/node_modules/n
+55 verbose unlock done using /Users/little_bear/.npm/_locks/n-a01478239d85533e.lock for /usr/local/lib/node_modules/n
+56 verbose stack Error: EACCES: permission denied, unlink '/usr/local/lib/node_modules/n/Makefile'
+56 verbose stack     at Error (native)
+57 verbose cwd /Users/little_bear/files/my-code/myCode/study-code/shell/sh
+58 error Darwin 15.0.0
+59 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "-g" "n"
+60 error node v4.2.1
+61 error npm  v2.14.7
+62 error path /usr/local/lib/node_modules/n/Makefile
+63 error code EACCES
+64 error errno -13
+65 error syscall unlink
+66 error Error: EACCES: permission denied, unlink '/usr/local/lib/node_modules/n/Makefile'
+66 error     at Error (native)
+66 error  { [Error: EACCES: permission denied, unlink '/usr/local/lib/node_modules/n/Makefile']
+66 error   errno: -13,
+66 error   code: 'EACCES',
+66 error   syscall: 'unlink',
+66 error   path: '/usr/local/lib/node_modules/n/Makefile' }
+67 error Please try running this command again as root/Administrator.
+68 verbose exit [ -13, true ]
+69 verbose unbuild lib/node_modules/n
+70 info preuninstall n@2.0.2
+71 info uninstall n@2.0.2
+72 verbose unbuild rmStuff n@2.0.2 from /usr/local/lib/node_modules
+73 silly gentlyRm /usr/local/bin/n is being gently removed
+74 silly gentlyRm verifying /usr/local is an npm working directory
+75 silly gentlyRm containing path /usr/local is under npm's control, in /usr/local
+76 silly gentlyRm deletion target /usr/local/bin/n is under /usr/local
+77 verbose gentlyRm vacuuming from /usr/local/bin/n up to /usr/local
+78 info postuninstall n@2.0.2
+79 silly gentlyRm /usr/local/lib/node_modules/n is being purged from base /usr/local
+80 verbose gentlyRm don't care about contents; nuking /usr/local/lib/node_modules/n
+81 silly vacuum-fs purging /usr/local/lib/node_modules/n
+82 error error rolling back Error: EACCES: permission denied, unlink '/usr/local/lib/node_modules/n/Makefile'
+82 error error rolling back     at Error (native)
+82 error error rolling back  { [Error: EACCES: permission denied, unlink '/usr/local/lib/node_modules/n/Makefile']
+82 error error rolling back   errno: -13,
+82 error error rolling back   code: 'EACCES',
+82 error error rolling back   syscall: 'unlink',
+82 error error rolling back   path: '/usr/local/lib/node_modules/n/Makefile' }
