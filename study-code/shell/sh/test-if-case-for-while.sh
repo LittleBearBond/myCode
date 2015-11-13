@@ -12,6 +12,9 @@
 #	echo "you are right"
 #fi
 
+#echo 'input you names'
+#read -a names
+#echo "names ${names[0]}-${names[1]}-${names[2]}"
 
 #------------------------------------------
 #echo $0- $1-$2- $3- $4
@@ -107,7 +110,6 @@
 #done
 
 
-
 #for name in $*                                  #读取脚本的命令行参数数组，还可以写成for name的简化形式。
 #do
 #    echo "Hi, $name"
@@ -121,7 +123,6 @@
 #    let num+=1
 #done
 #echo -e "\nHere's out of loop."
-
 
 
 #go=start
@@ -262,17 +263,18 @@
 #echo $-
 #echo $?
 
-SYSTEM=`uname -s`
-if [ $SYSTEM = "Linux" ] ; then
-echo "Linux"
-elif [ $SYSTEM = "FreeBSD" ] ; then
-echo "FreeBSD"
-elif [ $SYSTEM = "Solaris" ] ; then
-echo "Solaris"
-elif [ $SYSTEM = "Darwin" ] ; then
-echo "Mac"
-else
-echo "What?"
-fi
-echo $SYSTEM
+#SYSTEM=`uname -s`
+#if [ $SYSTEM = "Linux" ] ; then
+#echo "Linux"
+#elif [ $SYSTEM = "FreeBSD" ] ; then
+#echo "FreeBSD"
+#elif [ $SYSTEM = "Solaris" ] ; then
+#echo "Solaris"
+#elif [ $SYSTEM = "Darwin" ] ; then
+#echo "Mac"
+#else
+#echo "What?"
+#fi
+#echo $SYSTEM
+
 
