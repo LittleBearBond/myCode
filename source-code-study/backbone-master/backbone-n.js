@@ -1745,6 +1745,7 @@
 		// The constructor function for the new subclass is either defined by you
 		// (the "constructor" property in your `extend` definition), or defaulted
 		// by us to simply call the parent's constructor.
+		// protoProps object function
 		if (protoProps && _.has(protoProps, 'constructor')) {
 			child = protoProps.constructor;
 		} else {
@@ -1754,6 +1755,7 @@
 		}
 
 		// Add static properties to the constructor function, if supplied.
+		// extend
 		_.extend(child, parent, staticProps);
 
 		// Set the prototype chain to inherit from `parent`, without calling
@@ -1762,6 +1764,7 @@
 			this.constructor = child;
 		};
 		Surrogate.prototype = parent.prototype;
+		//每次调用都会new一次 避免父级引用类型有引用关系
 		child.prototype = new Surrogate;
 
 		// Add prototype properties (instance properties) to the subclass,
@@ -1776,6 +1779,7 @@
 	};
 
 	// Set up inheritance for the model, collection, router, view and history.
+	//看懂这个用backbone你至少应该明白一些事情了
 	Model.extend = Collection.extend = Router.extend = View.extend = History.extend = extend;
 
 	// Throw an error when a URL is needed, and none is supplied.

@@ -12,6 +12,8 @@
 - Audits：提供网页优化的建议。
 - Console：用来运行JavaScript命令。
 
+- 移动设备调试
+
 ##基本设置
 - Disable cache (while DevTools is open)
 - Enable JavaScript source maps
