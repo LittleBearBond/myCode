@@ -3175,9 +3175,8 @@
 							console.log(self.deferredNums + '      then    ' + newDefer.deferredNums);
 							/*-------------debug code---------------*/
 						};
-						var newd = jQuery.Deferred(func).promise();
 						//返回新的promise
-						return newd;
+						return jQuery.Deferred(func).promise();
 					},
 					// Get a promise for this deferred
 					// If obj is provided, the promise aspect is added to the object
@@ -3427,7 +3426,7 @@
 		// Support: Android < 4,
 		// Old WebKit does not have Object.preventExtensions/freeze method,
 		// return new empty object instead with no [[set]] accessor
-		Object.defineProperty(this.cache = {}, 0, { //访问器属性        内部创建一个cache对象{}, 来保存缓存数据
+		Object.defineProperty(this.cache = {}, 0, { //访问器属性内部创建一个cache对象{}, 来保存缓存数据
 			get: function() {
 				return {};
 			}
