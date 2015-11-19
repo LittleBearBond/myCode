@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>event-delegateevent</title>
+    <script src="../JQuery2-3/jquery-2.0.3-n.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            var $p4 = $('#p4'),
+                $p1 = $('#p1'),
+                $p2 = $('#p2');
+
+            /*$p4.on('click', function() {
+                console.log('灰-p4-0');
+            });
+
+            $p4.on('click', function() {
+                console.log('灰-p4-1');
+            });*/
+
+            $p1.on('click', '#p4', function(e) {
+                // console.log('p1 delegate p4 click')
+                console.log(e)
+                console.log('e.currentTarget', e.currentTarget)
+                console.log('e.target', e.target)
+                console.log('e.delegateTarget', e.delegateTarget)
+            }).on('click', function(e) {
+                // console.log('p1 click')
+               /* console.log('e.currentTarget', e.currentTarget)
+                console.log('e.target', e.target)
+                console.log('e.delegateTarget', e.delegateTarget)
+                console.dir(e)*/
+            });
+
+            /*$p2.on('click','#p4',function () {
+                console.log('p2 delegate p4 click')
+            }).on('click',function () {
+                console.log('p2 click')
+            });*/
+
+            //currEL
+            $p4.triggerHandler('click');
+
+            //eventPath
+            //$p4.trigger('click');
+
+        });
+
+    </script>
+</head>
+<body>
+
+    <div id='p1' style="width: 500px; height: 500px; background: #ccc">
+        p1
+        <div id='p2' style="width: 300px; height: 300px; background: #a9ea00">
+            p2
+            <p id="p3" style="width: 200px; height: 100px; background: red" id="test">
+                p3
+                <a id="p4" href="http://wwww.baidu.com" target="_blank" style="width: 50px; height: 50px; background: #ffc;line-height: 3" id="test1">点击a元素p4</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

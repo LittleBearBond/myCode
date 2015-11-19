@@ -4764,6 +4764,7 @@
 				if (!rfocusMorph.test(bubbleType + type)) {
 					cur = cur.parentNode;
 				}
+				//trigge this->window
 				for (; cur; cur = cur.parentNode) {
 					eventPath.push(cur);
 					tmp = cur;
