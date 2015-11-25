@@ -14,12 +14,15 @@ var readDir = (dir, done) => {
         var len = list.length;
         var index = 0;
 
+        list = list.map(function(val) {
+            return path.join(dir, val);
+        });
+
         (function next() {
-            var name = list[index++];
-            if (!name) {
+            var fullPath = list[index++];
+            if (!fullPath) {
                 return done(null, readFiles);
             }
-            var fullPath = path.join(dir, name);
 
             fs.stat(fullPath, function(err, stat) {
                 if (stat && stat.isDirectory()) {
