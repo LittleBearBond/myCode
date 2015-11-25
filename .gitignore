@@ -30,5 +30,7 @@ my-test/**/node_modules/
 tmp-cmd/
 **/obj
 **/bin
+**/.ntvs_analysis.dat.tmp
+**/.ntvs_analysis.dat*
 #**/spider/pages/
 #IntellijIdea
