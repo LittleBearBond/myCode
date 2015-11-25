@@ -23,7 +23,7 @@ var define, require;
             }
             var len = obj.length,
                 i = 0;
-            if (len !== +obj.length) {
+            if (len !== +obj.length) {//obj.length>>>0
                 return;
             }
             while (i < len) {
