@@ -113,6 +113,7 @@
 
     // Canonicalize a path
     // realpath("http://test.com/a//./b/../c") ==> "http://test.com/a/c"
+    // 对路径的处理
     function realpath(path) {
         // /a/b/./c/./d ==> /a/b/c/d
         path = path.replace(DOT_RE, "/")
@@ -145,6 +146,7 @@
             return path.substring(0, last)
         }
 
+        //是否加上.js
         return (path.substring(last - 2) === ".js" ||
             path.indexOf("?") > 0 ||
             lastC === 47 /* "/" */ ) ? path : path + ".js"
