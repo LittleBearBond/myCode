@@ -2,7 +2,7 @@
 
 var path = require("path");
 // var walk = require("./1-1.js").walk;
-var walk = require("./my-1.js").walk;
+var getFilesByDir = require("./my-1.js");
 var getMaxFile = require("./1-4.js");
 var getfiles = require("./my-2.js");
 
@@ -27,8 +27,14 @@ var logResult = function(err, result) {
         return curr.size + "----------" + curr.fullPath;
     }).join("\n"));
 };
-walk(readPth, logResult);
 
+getFilesByDir(readPth, logResult);
+
+getfiles(readPth).then(function(result) {
+    console.log(result);
+}, function(result) {
+    console.log(result);
+});
 
 /*getMaxFile('./')
     .then(function(filename) {

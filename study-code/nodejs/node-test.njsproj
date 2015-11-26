@@ -27,8 +27,12 @@
     <Compile Include="express-study\test01.js" />
     <Compile Include="express-study\test02.js" />
     <Compile Include="generator\1-1.js" />
+    <Compile Include="generator\1-2.js" />
+    <Compile Include="generator\1-3.js" />
+    <Compile Include="generator\1-4.js" />
     <Compile Include="generator\1.js" />
-    <Compile Include="generator\2-my.js" />
+    <Compile Include="generator\my-1.js" />
+    <Compile Include="generator\my-2.js" />
     <Compile Include="generator\test-main.js" />
     <Compile Include="http-net\netclient.js" />
     <Compile Include="http-net\netserver.js" />

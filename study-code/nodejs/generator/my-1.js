@@ -67,4 +67,4 @@ var readDir = (dir, done) => {
     });
 }
 
-exports.walk = readDir;
+return readDir;

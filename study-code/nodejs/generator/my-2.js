@@ -48,7 +48,13 @@ var readDir = (dir, done) => {
 }
 
 
-
+module.exports = function(dir) {
+    return new Promise(function(resolve, reject) {
+        readDir(dir, function(err, result) {
+            err ? reject(err) : resolve(result);
+        });
+    });
+};
 
 /* var files = yield readdir(dir);
  var stats = yield files.map(function(file) {
