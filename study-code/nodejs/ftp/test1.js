@@ -27,6 +27,7 @@ var uploadFile = function() {
                 return;
             }
             if (len === 0) {
+                c.end();
                 console.log('all succ');
             }
         });
