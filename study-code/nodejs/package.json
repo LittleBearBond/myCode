@@ -13,6 +13,11 @@
   "license": "ISC",
   "devDependencies": {
     "co": "^4.6.0",
+    "ftp": "^0.3.10",
+    "ftp-client": "^0.2.2",
     "thunkify": "^2.1.2"
+  },
+  "dependencies": {
+    "ftp-client": "^0.2.2"
   }
 }
