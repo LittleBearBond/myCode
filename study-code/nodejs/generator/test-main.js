@@ -2,9 +2,9 @@
 
 var path = require("path");
 // var walk = require("./1-1.js").walk;
-var getFilesByDir = require("./my-1.js");
+var getFilesByDir = require("./getFilesByDir-1.js");
 var getMaxFile = require("./1-4.js");
-var getfiles = require("./my-2.js");
+var getfiles = require("./getFilesByDir-2.js");
 
 
 

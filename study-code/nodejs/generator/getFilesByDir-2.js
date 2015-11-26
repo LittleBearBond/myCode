@@ -32,15 +32,15 @@ var readDir = (dir, done) => {
                         readFiles = readFiles.concat(res);
                         next();
                     });
-                } else {
-                    readFiles.push({
-                        fileName: path.basename(fullPath),
-                        fullPath: fullPath,
-                        size: stat.size
-                    });
-                    //readFiles.push(fullPath);
-                    next();
+                    return;
                 }
+                readFiles.push({
+                    fileName: path.basename(fullPath),
+                    fullPath: fullPath,
+                    size: stat.size
+                });
+                //readFiles.push(fullPath);
+                next();
             });
         }());
 

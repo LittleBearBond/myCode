@@ -1,13 +1,13 @@
 var Client = require('ftp');
 var fs = require('fs');
 var path = require("path");
-var getFilesByDir = require("../generator/my-2.js");
+var getFilesByDir = require("../generator/getFilesByDir-2.js");
 
 var c = new Client();
 c.on('ready', function() {
     c.list(function(err, list) {
         if (err) {
-            console.log(err)
+            console.log(err);
             return;
         }
         console.dir(list);
@@ -46,7 +46,7 @@ var uploadFile = function() {
         }).forEach(function(val) {
             putFile(val);
         });
-    }, function(error) {
+    }, function(err) {
         console.log(err);
         c.end();
     });
