@@ -33,7 +33,7 @@
 			return toStr.call(o) === '[object String]';
 		},
 		isFunc = function(o) {
-			return toStr.call(o) === '[object Function]';
+			return $.isFunction(o);
 		},
 		startsWith = function(target, str, ignorecase) {
 			var startStr = target.substr(0, str.length);
