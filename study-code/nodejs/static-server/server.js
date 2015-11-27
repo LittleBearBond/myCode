@@ -11,9 +11,8 @@ var Server = function(rootPath, opts) {
     var self = this;
     this.rootPath = path.normalize(path.resolve(rootPath || '.'));
 
-
     var server = http.createServer(function(request, response) {
-        var pathname = url.parse(request.url).pathname;
+        var pathname = decodeURI(url.parse(request.url).pathname);
         var realPath = self.rootPath + pathname;
 
         fs.stat(realPath, function(err, stat) {
