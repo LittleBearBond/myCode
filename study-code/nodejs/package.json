@@ -16,6 +16,7 @@
     "ftp": "^0.3.10",
     "ftp-client": "^0.2.2",
     "lodash": "^3.10.1",
+    "request": "^2.67.0",
     "thunkify": "^2.1.2"
   },
   "dependencies": {

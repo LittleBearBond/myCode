@@ -5,8 +5,7 @@ var path = require("path");
 var getFilesByDir = require("./getFilesByDir-1.js");
 var getMaxFile = require("./1-4.js");
 var getfiles = require("./getFilesByDir-2.js");
-
-
+var getallfiles = require("./getFilesByDir-3.es6");
 
 var readPth = path.join(__dirname, "../");
 var results = [];
@@ -28,13 +27,15 @@ var logResult = function(err, result) {
     }).join("\n"));
 };
 
-getFilesByDir(readPth, logResult);
+/*getFilesByDir(readPth, logResult);
 
 getfiles(readPth).then(function(result) {
     console.log(result);
 }, function(result) {
     console.log(result);
-});
+});*/
+
+getallfiles(readPth);
 
 /*getMaxFile('./')
     .then(function(filename) {
