@@ -6,7 +6,7 @@
     <ProjectGuid>{8dc3e937-3665-4c52-8a84-a817ce970cea}</ProjectGuid>
     <ProjectHome />
     <ProjectView>ShowAllFiles</ProjectView>
-    <StartupFile>static-server\main1.js</StartupFile>
+    <StartupFile>getFilesByDir\test-main.js</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
@@ -36,6 +36,14 @@
     <Compile Include="generator\getFilesByDir-1.js" />
     <Compile Include="generator\getFilesByDir-2.js" />
     <Compile Include="generator\test-main.js" />
+    <Compile Include="getFilesByDir\1-1.js" />
+    <Compile Include="getFilesByDir\1-2.js" />
+    <Compile Include="getFilesByDir\1-3.js" />
+    <Compile Include="getFilesByDir\1-4.js" />
+    <Compile Include="getFilesByDir\1.js" />
+    <Compile Include="getFilesByDir\getFilesByDir-1.js" />
+    <Compile Include="getFilesByDir\getFilesByDir-2.js" />
+    <Compile Include="getFilesByDir\test-main.js" />
     <Compile Include="http-net\netclient.js" />
     <Compile Include="http-net\netserver.js" />
     <Compile Include="http-net\testclient.js" />
@@ -52,6 +60,7 @@
     <Content Include="node_modules\thunkify\Makefile" />
     <Content Include="node_modules\thunkify\package.json" />
     <Content Include="node_modules\thunkify\Readme.md" />
+    <Content Include="package.json" />
     <Content Include="spider\package.json" />
     <Compile Include="node_modules\co\index.js" />
     <Compile Include="node_modules\thunkify\index.js" />
@@ -89,6 +98,7 @@
     <Folder Include="express-study\app4\views" />
     <Folder Include="express-study\tmp" />
     <Folder Include="ftp\" />
+    <Folder Include="getFilesByDir\" />
     <Folder Include="http-net" />
     <Folder Include="io" />
     <Folder Include="generator\" />
