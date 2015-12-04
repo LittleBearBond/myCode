@@ -7,7 +7,7 @@ var getMaxFile = require("./1-4.js");
 var getfiles = require("./getFilesByDir-2.js");
 
 
-var readPth = 'E:/Work-XDF/code/static/project/cms-mix/1.x/js'; // path.join(__dirname, "../");
+var readPth =  path.join(__dirname, "../");//'E:/Work-XDF/code/static/project/cms-mix/1.x/js'; 
 var topNum = 10;
 var results = [];
 var logResult = function(err, result) {
