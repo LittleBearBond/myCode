@@ -17,7 +17,7 @@ function getVersion(){
 
     if [ -e "$1" ]
     then
-        svn info "$1" |grep -i 'Changed Rev' | cut -c19-
+        svn info "$1" | grep -i 'Changed Rev' | cut -c19-
     else
         logError $1
     fi
