@@ -18,8 +18,7 @@ var logResult = function(err, result) {
 
     results = results.filter(function(curr) {
         return curr.fullPath && curr.fullPath.trim().endsWith('.js');
-    });
-    results = results.sort(function(pre, next) {
+    }).sort(function(pre, next) {
         if (next.size > pre.size) {
             return 1;
         }
@@ -27,9 +26,7 @@ var logResult = function(err, result) {
             return -1;
         }
         return 0;
-    });
-
-    results = results.slice(0, topNum);
+    }).slice(0, topNum);
 
     console.log(results.map(function(curr) {
         return curr.size + ":" + curr.fullPath;
