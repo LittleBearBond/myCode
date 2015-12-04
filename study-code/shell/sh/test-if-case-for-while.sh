@@ -93,11 +93,11 @@
 #echo "out of for loop"
 
 
-#for row in $(cat ../listfile.txt) #TestFile) #for将循环读取cat TestFile命令的执行结果。
-#do
-#    echo "row = $row"
-#done
-#echo "out of for loop."
+for row in $(cat ../listfile.txt) #TestFile) #for将循环读取cat TestFile命令的执行结果。
+do
+    echo "row = $row"
+done
+echo "out of for loop."
 
 
 
