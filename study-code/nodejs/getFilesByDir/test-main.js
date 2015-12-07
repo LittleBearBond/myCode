@@ -1,3 +1,4 @@
+/* global __dirname */
 "use strict";
 
 var path = require("path");
