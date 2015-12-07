@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>demo hello vue</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="full-screen" content="true">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" type="text/css" href="../../../source-code-study/bootstrap-3.2.0/dist/css/bootstrap.css">
+    <style type="text/css">
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="alert alert-success">Message: {{ msg }}</div>
+        <div class="alert alert-success">Message: {{ msg.split('').reverse().join('') }}</div>
+        <div class="alert alert-success">This will never change: {{* msg }}</div>
+        <div class="alert alert-success">This will never change: {{{ msg }}}</div>
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon1">@</span>
+            <input v-model="msg" type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
+        </div>
+        <h1>a={{ a }}, b={{ b }}</h1>
+        <div class="alert alert-{{className}}"> {{fullName}}</div>
+    </div>
+    <script type="text/javascript" src="../lib/vue.js"></script>
+    <script type="text/javascript">
+        Vue.config.debug = true;
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '<h1>1234567</h1>',
+                a: 1,
+                firstName: 'Foo',
+                lastName: 'Bar',
+                fullName: 'Foo Bar',
+                className:'success'
+            },
+            computed: {
+                // 一个计算属性的 getter
+                b: function() {
+                    // `this` 指向 vm 实例
+                    return this.a + 1
+                },
+                fullName:
+                /* function () {
+                    return this.firstName + ' ' + this.lastName
+                }*/
+                // getter
+                {
+                    get: function() {
+                        return this.firstName + ' ' + this.lastName
+                    },
+                    // setter
+                    set: function(newValue) {
+                        var names = newValue.split(' ')
+                        this.firstName = names[0]
+                        this.lastName = names[names.length - 1]
+                    }
+                }
+            },
+            methods: {
+
+            }
+        });
+        /*vm.$watch('firstName', function (val) {
+            this.fullName = val + ' ' + this.lastName
+        })
+
+        vm.$watch('lastName', function (val) {
+            this.fullName = this.firstName + ' ' + val
+        })*/
+
+        setTimeout(function () {
+            vm.fullName = "little bear";
+            vm.className = "danger";
+        },3000);
+        console.log(vm);
+
+    </script>
+</body>
+
+</html>

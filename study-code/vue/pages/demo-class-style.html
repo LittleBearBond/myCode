@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>demo hello vue</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="full-screen" content="true">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" type="text/css" href="../../../source-code-study/bootstrap-3.2.0/dist/css/bootstrap.css">
+    <style type="text/css">
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="alert" v-bind:class="{ 'alert-success': isA, 'alert-danger': isB }"> {{fullName}}</div>
+        <div class="alert" v-bind:class="classObject"> {{{fullName}}}</div>
+        <div class="alert" v-bind:class="classObject"> {{* fullName}}</div>
+        <div class="alert" v-bind:class="[classA, classB]"> {{fullName}}</div>
+        <div class="alert" v-bind:class="[classA, isB ? classB : '']"> {{fullName}}</div>
+
+        <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">{ color: activeColor, fontSize: fontSize + 'px' }</div>
+        <div v-bind:style="styleObject">v-bind:style="styleObject"</div>
+    </div>
+    <script type="text/javascript" src="../lib/vue.js"></script>
+    <script type="text/javascript">
+        Vue.config.debug = true;
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                isA: true,
+                isB: false,
+                fullName: 'this is vue demo',
+                classObject: {
+                    'alert-info': true,
+                    'alert-warning': false
+                },
+                classA: 'alert',
+                classB: 'alert-danger',
+
+                activeColor: 'red',
+                fontSize: 20,
+                styleObject: {
+                    color: 'red',
+                    fontSize: '20px',
+                    'margin-top':'15px'
+                }
+            },
+            computed: {
+
+            },
+            methods: {
+
+            }
+        });
+
+        setTimeout(function() {
+            vm.fullName = 'this is next full name ';
+
+            vm.isA = false;
+            vm.isB = true;
+
+            vm.classObject['alert-info'] = false;
+            vm.classObject['alert-warning'] = true;
+
+            vm.styleObject.fontSize='30px';
+            vm.styleObject.color='#e96900';
+        }, 3000);
+        console.log(vm);
+
+    </script>
+</body>
+
+</html>

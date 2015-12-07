@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>demo hello vue</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="full-screen" content="true">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" type="text/css" href="../../../source-code-study/bootstrap-3.2.0/dist/css/bootstrap.css">
+    <style type="text/css">
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <ul class="list-group">
+            <li class="list-group-item" v-for="item in items">
+                {{ parentMessage }} - {{ $index }} - {{ item.message }}
+            </li>
+        </ul>
+
+        <ul class="list-group">
+            <template v-for="item in items">
+                <li>{{ item.message }}</li>
+                <li class="list-group-item list-group-item-info">{{ item.message }}</li>
+            </template>
+        </ul>
+
+
+        <div v-for="(index, item) in items">
+            {{ index }} {{ item.message }}
+        </div>
+
+        <ul class="list-group" id="repeat-object">
+            <li v-for="value in object" class="list-group-item list-group-item-info">
+                {{ $key }} : {{ value }}
+            </li>
+        </ul>
+        <div v-for="(key, val) in object">
+            {{ key }} {{ val }}
+        </div>
+
+        <ul class="list-group">
+            <li v-for="n in 5" class="list-group-item list-group-item-success">{{n}}</li>
+        </ul>
+    </div>
+    <script type="text/javascript" src="../lib/vue.js"></script>
+    <script type="text/javascript">
+        Vue.config.debug = true;
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            parentMessage: 'Parent',
+            items: [
+            { message: 'Foo' },
+            { message: 'Bar' }
+            ],
+            object: {
+                FirstName: 'John',
+                LastName: 'Doe',
+                Age: 30
+            }
+        },
+        computed: {
+
+        },
+        methods: {
+
+        }
+    });
+
+    setTimeout(function() {
+        vm.items.push({
+            message: 'Baz'
+        });
+        vm.object.FirstName = "little";
+        vm.object.LastName = "bear";
+
+    }, 3000);
+    console.log(vm);
+
+    </script>
+</body>
+
+</html>

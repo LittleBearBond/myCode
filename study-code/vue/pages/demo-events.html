@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>demo hello vue</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="full-screen" content="true">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" type="text/css" href="../../../source-code-study/bootstrap-3.2.0/dist/css/bootstrap.css">
+    <style type="text/css">
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="alert alert-success">
+            <button class="btn btn-primary" v-on:click="greet">{{name}}</button>
+            <button class="btn btn-primary" v-on:click="say('hi')">say hi</button>
+            <button class="btn btn-primary" v-on:click="say('what')">say what</button>
+            <button class="btn btn-primary" v-on:click="say('what $event', $event)">say what $event</button>
+        </div>
+        <!-- 只有在 keyCode 是 13 时调用 vm.submit() -->
+        <input v-on:keyup.13="submit" v-model="inputVal">
+        <input v-on:keyup.enter="submit" v-model="inputVal">
+    </div>
+    <script type="text/javascript" src="../lib/vue.js"></script>
+    <script type="text/javascript">
+        Vue.config.debug = true;
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                name: 'Vue.js',
+                inputVal:''
+            },
+            computed: {
+
+            },
+            methods: {
+                greet:function (event) {
+                    console.log(this.name)
+                    console.dir(event)
+                    this.name = "clicked this";
+                },
+                say: function (msg , event) {
+                    console.log(msg)
+                    event.preventDefault();
+                },
+                submit: function () {
+                    console.log(this.inputVal)
+                    this.inputVal = '';
+                    console.log('key code 13 sublimt')
+                }
+            }
+        });
+
+        setTimeout(function() {
+            //直接在这里调用
+            //vm.greet();
+        }, 3000);
+
+        console.log(vm);
+    </script>
+</body>
+
+</html>
