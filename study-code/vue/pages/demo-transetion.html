@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>demo hello vue</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="full-screen" content="true">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" type="text/css" href="../../../source-code-study/bootstrap-3.2.0/dist/css/bootstrap.css">
+    <style type="text/css">
+        /* 必需 */
+        .expand-transition {
+          transition: all .3s ease;
+        }
+
+        /* .expand-enter 定义进入的开始状态 */
+        /* .expand-leave 定义离开的结束状态 */
+        .expand-enter, .expand-leave {
+          opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div v-if="show" transition="expand" class="alert alert-info">Heads up! This alert needs your attention, but it's not super important.</div>
+    </div>
+    <script type="text/javascript" src="../lib/vue.js"></script>
+    <script type="text/javascript">
+        Vue.config.debug = true;
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                show: false
+            },
+            computed: {
+
+            },
+            methods: {
+
+            }
+        });
+        Vue.transition('expand', {
+
+            beforeEnter: function(el) {
+                el.textContent = 'beforeEnter'
+                console.log('beforeEnter')
+            },
+            enter: function(el) {
+                el.textContent = 'enter'
+                console.log('enter')
+            },
+            afterEnter: function(el) {
+                el.textContent = 'afterEnter'
+                console.log('afterEnter')
+            },
+            enterCancelled: function(el) {
+                // handle cancellation
+                console.log('enterCancelled')
+            },
+
+
+            beforeLeave: function(el) {
+                el.textContent = 'beforeLeave'
+                console.log('beforeLeave')
+            },
+            leave: function(el) {
+                el.textContent = 'leave'
+                console.log('leave')
+            },
+            afterLeave: function(el) {
+                el.textContent = 'afterLeave'
+                console.log('afterLeave')
+            },
+            leaveCancelled: function(el) {
+                // handle cancellation
+                console.log('leaveCancelled')
+            }
+        });
+        setTimeout(function() {
+            vm.show = true;
+        }, 3000);
+        setTimeout(function() {
+            vm.show = false;
+        }, 4000);
+        console.log(vm);
+
+    </script>
+</body>
+
+</html>

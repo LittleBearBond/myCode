@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>demo hello vue</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="full-screen" content="true">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" type="text/css" href="../../../source-code-study/bootstrap-3.2.0/dist/css/bootstrap.css">
+    <style type="text/css"> </style>
+</head>
+
+<body>
+    <div id="app">
+         <my-component></my-component>
+    </div>
+    <script type="text/javascript" src="../lib/vue.js"></script>
+    <script type="text/javascript">
+        // 定义
+        var MyComponent = Vue.extend({
+            template: '<div class="alert alert-info">A custom component!</div>'
+        })
+
+        // 注册
+        Vue.component('my-component', MyComponent)
+
+        // 创建根实例
+        var vm = new Vue({
+            el: '#app'
+        });
+
+
+        /*// 在一个步骤中扩展与注册
+        Vue.component('my-component1', {
+            template: '<div class="alert alert-info">A custom component!</div>'
+        })*/
+
+        // 局部注册也可以这么做
+        var Parent = Vue.extend({
+            components: {
+                'my-component1': {
+                    template: '<div class="alert alert-info"> A custom component!</div>'
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>
