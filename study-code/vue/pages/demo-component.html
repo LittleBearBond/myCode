@@ -22,7 +22,22 @@
 <body>
     <div id="app">
          <my-component></my-component>
+         <child msg="hello bond"></child>
+         <child msg="hello little bear"></child>
+
+         <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">@</span>
+            <input  v-model="parentMsg" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+        </div>
+        <child1 v-bind:my-message="parentMsg"></child1>
+        <!-- 默认为单向绑定 -->
+        <child1 :my-message="parentMsg"></child1>
+        <!-- 双向绑定 -->
+        <child1 :my-message.sync="parentMsg"></child1>
+        <!-- 单次绑定 -->
+        <child1 :my-message.once="parentMsg"></child1>
     </div>
+
     <script type="text/javascript" src="../lib/vue.js"></script>
     <script type="text/javascript">
         // 定义
@@ -32,12 +47,6 @@
 
         // 注册
         Vue.component('my-component', MyComponent)
-
-        // 创建根实例
-        var vm = new Vue({
-            el: '#app'
-        });
-
 
         /*// 在一个步骤中扩展与注册
         Vue.component('my-component1', {
@@ -51,8 +60,29 @@
                     template: '<div class="alert alert-info"> A custom component!</div>'
                 }
             }
+        });
+
+        Vue.component('child', {
+          // 声明 props
+          props: ['msg'],
+          // prop 可以用在模板内
+          // 可以用 `this.msg` 设置
+          template: '<div  class="alert alert-info"> {{ msg }}</div>'
         })
 
+        Vue.component('child1', {
+          // 声明 props
+          props: ['myMessage'],
+          template: '<div  class="alert alert-success"> {{ myMessage }}</div>'
+        });
+
+        // 创建根实例
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                parentMsg: 'Message from parent'
+            }
+        });
     </script>
 </body>
 
