@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>demo hello vue</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="full-screen" content="true">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" type="text/css" href="../../../source-code-study/bootstrap-3.2.0/dist/css/bootstrap.css">
+    <style type="text/css">
+
+    </style>
+</head>
+
+<body>
+
+    <!-- 子组件模板 -->
+    <template id="child-template">
+        <input v-model="msg">
+        <button v-on:click="notify" class="btn btn-primary">Dispatch Event</button>
+    </template>
+
+    <!-- 父组件模板 -->
+    <div id="events-example">
+        <p class="alert alert-warning">Messages: {{ messages | json }}</p>
+        <child v-on:child-msg="handleIt" v-ref:child></child>
+        <child1 v-show="someChildProperty"></child1>
+    </div>
+
+
+    <div id="app">
+        <template id="my-component">
+            <h1>This is my component!</h1>
+            <slot>
+                This will only be displayed if there is no content to be distributed.
+            </slot>
+        </template>
+
+
+        <my-component>
+            <p>This is some original content</p>
+            <p>This is some more original content</p>
+        </my-component>
+
+        <template id="multi-insertion">
+            <slot name="one"></slot>
+            <slot></slot>
+            <slot name="two"></slot>
+        </template>
+
+        <multi-insertion>
+          <p slot="one">One</p>
+          <p slot="two">Two</p>
+          <p>Default A</p>
+        </multi-insertion>
+    </div>
+    <script type="text/javascript" src="../lib/vue.js"></script>
+    <script type="text/javascript">
+        Vue.config.debug = true;
+    // 注册子组件
+    // 将当前消息派发出去
+    Vue.component('child', {
+        template: '#child-template',
+        data: function() {
+            return {
+                msg: 'hello'
+            }
+        },
+        methods: {
+            notify: function() {
+                if (this.msg.trim()) {
+                    this.$dispatch('child-msg', this.msg)
+                    this.msg = ''
+                }
+            }
+        }
+    })
+    Vue.component('child1', {
+        template: '<div class="alert alert-info">child1 {{ msg}}</div>',
+        data: function() {
+            return {
+                msg: 'child1 msg'
+            }
+        },
+        methods: {}
+    })
+
+    // 启动父组件
+    // 将收到消息时将事件推入一个数组
+    var parent = new Vue({
+        el: '#events-example',
+        data: {
+            messages: [],
+            someChildProperty: false
+        },
+        // 在创建实例时 `events` 选项简单地调用 `$on`
+        events: {
+            'child-msg': function(msg) {
+                // 事件回调内的 `this` 自动绑定到注册它的实例上
+                this.messages.push(msg);
+                //console.log(msg)
+            }
+        },
+        methods: {
+            handleIt: function(msg) {
+                console.log(msg)
+            }
+        }
+    });
+
+    Vue.component('my-component', {
+        template: '#my-component'
+    })
+    Vue.component('multi-insertion', {
+        template: '#multi-insertion'
+    })
+
+    var newCon = new Vue({
+        el: '#app'
+    });
+
+    console.log(parent.$refs.child)
+    setTimeout(function() {
+        parent.someChildProperty = true;
+    }, 3000)
+    </script>
+</body>
+
+</html>

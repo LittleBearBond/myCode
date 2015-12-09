@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>demo hello vue</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="full-screen" content="true">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" type="text/css" href="../../../source-code-study/bootstrap-3.2.0/dist/css/bootstrap.css">
+    <style type="text/css">
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="alert alert-success" v-show="A" v-el:msgA v-on:click="updateMessageA" role="alert"> ...A{{msgA}}</div>
+        <div class="alert alert-info"  v-show="B"  v-el:msgB v-on:click="updateMessageB" role="alert">...B</div>
+        <div class="alert alert-warning"  v-show="C" role="alert">...C{{ msgC }}</div>
+        <div class="alert alert-danger"  v-show="D" role="alert">...D{{ msgD }}</div>
+        <example></example>
+    </div>
+    <script type="text/javascript" src="../lib/vue.js"></script>
+    <script type="text/javascript">
+        Vue.config.debug = true;
+        Vue.component('example', {
+            template: '<div class="alert alert-warning" v-on:click="updateMessage">{{msg}}</div>',
+            data: function() {
+                return {
+                    msg: 'not updated'
+                }
+            },
+            methods: {
+                updateMessage: function() {
+                    this.msg = 'updated'
+                    console.log(this.$el.textContent) // => 'not updated'
+                    this.$nextTick(function() {
+                        console.log(this.$el.textContent) // => 'updated'
+                    })
+                }
+            }
+        })
+
+        //this.$els.xxx 处理为小写
+        //数组驱动界面会异步更新 DOM
+        //直接操作dom 不会异步更新
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                A: false,
+                B: false,
+                C: true,
+                D: true,
+                msgA:"",
+                msgB:"",
+                msgC: "",
+                msgD: ""
+            },
+            methods: {
+                updateMessageA: function() {
+                    this.msgA = '...A updated';
+                    console.log(this.$els.msga.textContent) // => 'not updated'
+                    this.$nextTick(function() {
+                        console.log(this.$els.msga.textContent) // => 'updated'
+                    })
+                },
+                updateMessageB: function() {
+                    this.$els.msgb.textContent = '...B updated'
+                    console.log(this.$els.msgb.textContent) // => 'not updated'
+                    this.$nextTick(function() {
+                        console.log(this.$els.msgb.textContent) // => 'updated'
+                    })
+                }
+            }
+        })
+        setTimeout(function() {
+            vm.A = true;
+            vm.$set('B', true);
+            // 然后设置 `msg`
+            vm.msgC = 'Hello!'
+
+            Vue.nextTick(function() {
+                vm.msgD = 'new message' // true
+            })
+
+        }, 3000)
+    </script>
+</body>
+
+</html>

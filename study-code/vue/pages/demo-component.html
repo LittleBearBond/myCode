@@ -16,18 +16,20 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <link rel="stylesheet" type="text/css" href="../../../source-code-study/bootstrap-3.2.0/dist/css/bootstrap.css">
-    <style type="text/css"> </style>
+    <style type="text/css">
+
+    </style>
 </head>
 
 <body>
     <div id="app">
-         <my-component></my-component>
-         <child msg="hello bond"></child>
-         <child msg="hello little bear"></child>
+        <my-component></my-component>
+        <child msg="hello bond"></child>
+        <child msg="hello little bear"></child>
 
-         <div class="input-group">
+        <div class="input-group">
             <span class="input-group-addon" id="basic-addon1">@</span>
-            <input  v-model="parentMsg" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+            <input v-model="parentMsg" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
         </div>
         <child1 v-bind:my-message="parentMsg"></child1>
         <!-- 默认为单向绑定 -->
@@ -36,17 +38,19 @@
         <child1 :my-message.sync="parentMsg"></child1>
         <!-- 单次绑定 -->
         <child1 :my-message.once="parentMsg"></child1>
+
     </div>
 
     <script type="text/javascript" src="../lib/vue.js"></script>
     <script type="text/javascript">
+        Vue.config.debug = true;
         // 定义
         var MyComponent = Vue.extend({
-            template: '<div class="alert alert-info">A custom component!</div>'
-        })
-
-        // 注册
+                template: '<div class="alert alert-info">A custom component!</div>'
+            })
+            // 注册
         Vue.component('my-component', MyComponent)
+
 
         /*// 在一个步骤中扩展与注册
         Vue.component('my-component1', {
@@ -63,17 +67,55 @@
         });
 
         Vue.component('child', {
-          // 声明 props
-          props: ['msg'],
-          // prop 可以用在模板内
-          // 可以用 `this.msg` 设置
-          template: '<div  class="alert alert-info"> {{ msg }}</div>'
+            // 声明 props
+            props: ['msg'],
+            // prop 可以用在模板内
+            // 可以用 `this.msg` 设置
+            template: '<div  class="alert alert-info"> {{ msg }}</div>'
         })
 
         Vue.component('child1', {
-          // 声明 props
-          props: ['myMessage'],
-          template: '<div  class="alert alert-success"> {{ myMessage }}</div>'
+            // 声明 props
+            props: ['myMessage'],
+            template: '<div  class="alert alert-success"> {{ myMessage }}</div>'
+        });
+
+        Vue.component('example', {
+            props: {
+                // 基础类型检测 （`null` 意思是任何类型都可以）
+                propA: Number,
+                // 必需且是字符串
+                /*propB: {
+                    type: String,
+                    required: true
+                },*/
+                // 数字，有默认值
+                propC: {
+                    type: Number,
+                    default: 100
+                },
+                // 对象/数组的默认值应当由一个函数返回
+                propD: {
+                    type: Object,
+                    default: function() {
+                        return {
+                            msg: 'hello'
+                        }
+                    }
+                },
+                // 指定这个 prop 为双向绑定
+                // 如果绑定类型不对将抛出一条警告
+                propE: {
+                    twoWay: true
+                },
+                // 自定义验证函数
+                propF: {
+                    validator: function(value) {
+                        return value > 10
+                    }
+                }
+            },
+            template: '<div  class="alert alert-success"> {{ propA }} {{ propB }}</div>'
         });
 
         // 创建根实例
