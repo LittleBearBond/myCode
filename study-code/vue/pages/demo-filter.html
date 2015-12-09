@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>demo hello vue</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="full-screen" content="true">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" type="text/css" href="../../../source-code-study/bootstrap-3.2.0/dist/css/bootstrap.css">
+    <style type="text/css">
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div v-text="message | reverse" class="alert alert-info"></div>
+        <div v-text="number | reverse" class="alert alert-info"></div>
+        <div v-text="message | wrap 'before---' '---after'" class="alert alert-info"></div>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">{{money}}</span>
+            <input v-model="money | currencyDisplay" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">{{message | concat userInput}}</span>
+            <input  v-model="userInput" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+        </div>
+
+    </div>
+    <script type="text/javascript" src="../lib/vue.js"></script>
+    <script type="text/javascript">
+        Vue.filter('reverse' , function (value) {
+            return value && value.split('').reverse().join('');
+        })
+
+        Vue.filter('wrap', function (value, begin, end) {
+            return begin + value + end
+        })
+
+        Vue.filter('currencyDisplay' , {
+            // model -> view
+            // 在更新 `<input>` 元素之前格式化值
+            read: function(val) {
+                return '$' + val.toFixed(2)
+            },
+            // view -> model
+            // 在写回数据之前格式化值
+            write: function(val, oldVal) {
+                var number = +val.replace(/[^\d.]/g, '')
+                return isNaN(number) ? 0 : parseFloat(number.toFixed(2))
+            }
+        })
+
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                message: 'hello!',
+                number: '123456789',
+                money: 123.45
+            }
+        })
+
+        Vue.filter('concat', function (value, input) {
+            // `input` === `this.userInput`
+            return value + input
+        })
+
+        setTimeout(function() {
+
+        }, 3000)
+    </script>
+</body>
+
+</html>
