@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>jquery todos</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta content="telephone=no" name="format-detection">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="full-screen" content="true">
+	<meta name="screen-orientation" content="portrait">
+	<meta name="x5-fullscreen" content="true">
+	<meta name="360-fullscreen" content="true">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<link rel="stylesheet" type="text/css" href="../../../source-code-study/bootstrap-3.2.0/dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../css/index.css">
+</head>
+
+<body>
+	<div class="todoapp">
+		<h1>Todos</h1>
+		<div class="input-group input-group-lg">
+			<input type="text" id="jq-input" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
+		</div>
+		<div class="checkbox">
+			<input type="checkbox" id="jq-mark-complete">
+			<label> Mark all as complete </label>
+		</div>
+		<ul class="list-group" id="jq-list-group">
+			<li class="list-group-item">
+				<div class="checkbox">
+					<input type="checkbox">
+					<label> Mark all as complete </label>
+					<span class="glyphicon glyphicon-remove"></span>
+				</div>
+				<div class="input-group input-group-lg">
+					<input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
+				</div>
+			</li>
+			<li class="list-group-item edit">
+				<div class="checkbox">
+					<input type="checkbox">
+					<label> Mark all as complete </label>
+					<span class="glyphicon glyphicon-remove"></span>
+				</div>
+				<div class="input-group input-group-lg">
+					<input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
+				</div>
+			</li>
+		</ul>
+		<footer id="jq-footer">
+			<a class="clear-completed" id="jq-clear-completed">Clear 2 completed items</a>
+			<div class="todo-count" id="jq-todo-count"><b>3</b> items left</div>
+		</footer>
+	</div>
+	<script type="text/javascript" src="../../../source-code-study/JQuerySourceStudy/JQuery2-3/jquery-2.0.3-n.js"></script>
+	<script type="text/javascript" src="../../../source-code-study/underscore-master/underscore.js"></script>
+	<script type="text/javascript" src="./page.js">
+
+	</script>
+	<script type="text/javascript">
+		$(function () {
+		    app.init();
+		});
+	</script>
+	<script type="text" id="jq-itemview">
+		<li class="list-group-item">
+			<div class="checkbox">
+				<input type="checkbox">
+				<label>
+					<%- val %>
+				</label>
+				<span class="glyphicon glyphicon-remove"></span>
+			</div>
+			<div class="input-group input-group-lg">
+				<input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
+			</div>
+		</li>
+	</script>
+</body>
+
+</html>
