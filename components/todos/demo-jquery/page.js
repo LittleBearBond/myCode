@@ -1,3 +1,9 @@
+/**
+ * author           xj
+ * @date            2015-12-10 15:56:52
+ * @email           568915669@qq.com
+ * @description
+ */
 var app = {
     init: function(args) {
         this.opts = $.extend(true, args || {});
