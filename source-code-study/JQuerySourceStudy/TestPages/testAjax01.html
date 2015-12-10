@@ -12,6 +12,7 @@
         <meta name="description" content="">
         <meta name="keywords" content="">
         <script src="../JQuery2-3/jquery-2.0.3-n.js"></script>
+        <script src="../../../my-lib-js/ajax-advance.js"></script>
     </head>
 
     <body>
@@ -27,13 +28,14 @@
                 }).ajaxSuccess(function (e, jqXHR, s, data) {
                         log('txt_event', '触发ajaxSuccess回调函数');
                 }).ajaxError(function (e, jqXHR, s, errorData) {
+                        console.log('ajaxError',arguments)
                         log('txt_event', '触发ajaxError回调函数');
                 }).ajaxComplete(function (e, jqXHR, s) {
                         log('txt_event', '触发ajaxComplete回调函数');
                 }).ajaxStop(function (e) {
                         log('txt_event', '触发ajaxStop回调函数');
                 });
-                $('#btnTest').on('click',bindLocalEvent);
+                var $btn = $('#btnTest').on('click',bindLocalEvent);
                 // 局部事件
                 function bindLocalEvent(e) {
                         /*var textareaid ='txt_event';             
@@ -62,12 +64,30 @@
                     }).done(function(){
                         console.log('ajax done',this,[].slice.call(arguments));
                     });*/
-                    $.get('ajax.php',log,'json');
+                    // $.get('ajax.php',log,'json');
+                    $.ajax({
+                        url: 'ajax.php',
+                        data: {
+                            a: 11
+                        },
+                        type:'get',
+                        mode:'limit',
+                        smartType: 1
+                    }).done(function(r) {
+                        console.log('success', r);
+                    });
                 }
 
                 function log(textareaid, txt) {
                     console.log(txt);
                 }
+                var setTimer = setInterval(function () {
+                    $btn.click();
+                },100);
+                setTimeout(function () {
+                    clearInterval(setTimer);
+                },2000)
+
         </script>
     </body>
 
