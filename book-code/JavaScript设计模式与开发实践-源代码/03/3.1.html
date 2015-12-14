@@ -1,5 +1,5 @@
 ﻿<script type="text/javascript">
-	
+
 	//另外一种情况是用var 关键字在函数中声明变量，这时候的变量即是局部变量，只有在该函数内部才能访问到这个变量，在函数外面是访问不到的。代码如下：
 	var func = function(){
 		var a = 1;
@@ -44,6 +44,7 @@
 
 	var Type = {};
 
+	//观察变和不变的，抽出不变的部分
 	for ( var i = 0, type; type = [ 'String', 'Array', 'Number' ][ i++ ]; ){
 		(function( type ){
 			Type[ 'is' + type ] = function( obj ){

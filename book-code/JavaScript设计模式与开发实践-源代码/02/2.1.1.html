@@ -69,7 +69,7 @@
 
 
 <script type="text/javascript">
-
+	//严格模式下 这个this会这样……  好吧这个个规定
 	function func(){
 		"use strict"
 		alert ( this ); // 输出：undefined
@@ -101,6 +101,7 @@
 
 	var MyClass = function(){
 		this.name = 'sven'
+		//在new的时候返回不是引用类型 没什么用
 		return 'anne'; // 返回string 类型
 	};
 
