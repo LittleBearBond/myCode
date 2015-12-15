@@ -45,7 +45,7 @@ var mainView = MyView.extend({
     toEditItem: function(e) {
         var $curr = $(e.currentTarget);
         this.resetItemToDefault();
-        $curr.closest('.list-group-item').find('.form-control').val($curr.text())
+        $curr.closest('.list-group-item').find('.form-control').val($curr.text()).focus()
             //回到.list-group-item
             .end().addClass('edit');
     },
