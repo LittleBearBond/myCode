@@ -146,7 +146,7 @@ var MainView = Backbone.View.extend({
         this.listenTo(Todos, 'all', this.render);
 
         this.$footer = this.$('footer');
-        this.$main = $('#main');
+        this.$main = this.$listGroup;
 
         //Todos.fetch();
     },
