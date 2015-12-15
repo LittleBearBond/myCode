@@ -9,6 +9,7 @@
 
 });*/
 //extend，todo继承与model 现在就具有model的所有行为
+//小的实体
 var ToDo = Backbone.Model.extend({
     defaults: function() {
         return {
@@ -25,6 +26,9 @@ var ToDo = Backbone.Model.extend({
     }
 });
 
+//集合对象，todos 主要是针对列表的操作，添加，删除，修改，其实就是对数据的添加修改删除
+//单条数据对于ToDo对象，列表对于TodoList
+//具体操作也就对应相关的事件
 var TodoList = Backbone.Collection.extend({
     model: ToDo,
     localStorage: new Backbone.LocalStorage("todos-backbone"),
@@ -55,12 +59,14 @@ var TodoList = Backbone.Collection.extend({
 
 //TodoList 继承自Backbone.Collection
 //TodoList已经具有Backbone.Collection所有的行为了，并且附加上了自己的一些行为
+//等会这个集合的真删改就可以驱动试图变化，试图订阅集合的 添加 销毁 改变事件即可根据数据的变化试图做出对应的处理
 var Todos = new TodoList();
 
 
 //数据准备完毕，下面进行试图的拆分
 //老规矩 试图从从Backbone.View继承，先把试图拆分成小块的，最后进行组装，这样有利于维护
 //就行山地自行车一样，各个零件独立才开，最后组装起来，各自有各自的智能
+//试图对应数据，创建这个试图对应这一个model。 model发生变化试图就做出对应的处理
 var TodoView = Backbone.View.extend({
     //看源码可知道这是默认使用div进行包裹，这里改成li
     tagName: 'li',
@@ -81,7 +87,7 @@ var TodoView = Backbone.View.extend({
     },
     render: function() {
         this.$el.html(this.template(this.model.toJSON()))
-            .addClass('list-group-item').find(':checkbox').prop('checked',this.model.get('done'));
+            .addClass('list-group-item').find(':checkbox').prop('checked', this.model.get('done'));
         this.$input = this.$('.text');
         return this;
     },
@@ -136,6 +142,7 @@ var MainView = Backbone.View.extend({
         //一个数据变化可以通知到所有订阅了事件的试图
         this.listenTo(Todos, 'add', this.addOne);
         this.listenTo(Todos, 'reset', this.addAll);
+        //发生任何变化都需要重新渲染一下
         this.listenTo(Todos, 'all', this.render);
 
         this.$footer = this.$('footer');
@@ -151,6 +158,7 @@ var MainView = Backbone.View.extend({
         Todos.create({
             title: this.$input.val()
         });
+        //trigger ---->this.addOne --->new TodoView--->render
         this.$input.val('');
     },
     render: function() {
@@ -177,6 +185,9 @@ var MainView = Backbone.View.extend({
         this.allCheckbox.checked = !remaining;
     },
     addOne: function(todo) {
+        //创建一个试图实力，并且指定一个demo
+        //不过页面这样做比如消耗更带的内存，每个小的试图就需要各种初始话，各种绑定事件
+        //为了更好的可维护性，这个内存就牺牲掉了
         var view = new TodoView({
             model: todo
         });
