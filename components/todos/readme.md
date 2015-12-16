@@ -25,7 +25,7 @@
 
 >这个demo最扯的是是监听集合事件all，都作出重新渲染视图处理，这个dom开销就不说了……
 
-##jquery-my 版本 第四版
+##jquery-my-new 版本 第四版
 
 在用backbone完成todos之后，我想了想之前的代码也可以像backbone那样进行视图拆分。单个itemView和整体的mainView各自有各自的操作，两者之间通过事件的订阅发布机制进行通信。
 
