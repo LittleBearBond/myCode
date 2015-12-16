@@ -5,7 +5,6 @@
  * @email           568915669@qq.com
  * @description
  */
-
 var itemView = baseView.extend({
     'events': {
         //双击进入编辑状态
