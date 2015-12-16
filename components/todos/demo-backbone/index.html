@@ -71,7 +71,7 @@
 		</div>
 	</script>
 	<script type="text/template" id="stats-template">
-	    <a class="clear-completed" id="clear-completed" <%= done || print('style="display:none"')%> >Clear <%= done %> completed <%= done === 1 ? 'item' : 'items' %> </a>
+	    <a class="clear-completed" id="jq-clear-completed" <%= done || print('style="display:none"')%> >Clear <%= done %> completed <%= done === 1 ? 'item' : 'items' %> </a>
 	    <div class="todo-count" id="jq-todo-count"><b><%= remaining %></b> <%= remaining === 1 ? 'item' : 'items' %> left</div>
     </script>
 
