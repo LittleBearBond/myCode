@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>jquery todos</title>
+	<title>vue todos</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 	<meta content="telephone=no" name="format-detection">
 	<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -66,6 +66,7 @@
 			<div class="todo-count" id="jq-todo-count" v-on:click="removeCompleted" v-show="todos.length > remaining" ><b>{{remaining}}</b> items left</div>
 		</footer>
 		<div>
+			<!-- 简写和非简写同事存在，只为感受两者的差异😄 -->
 	        <button v-on:click="reverseList" class="btn btn-primary">Reverse list</button>
 	        <button v-on:click="removeAll" class="btn btn-primary">removeAll</button>
 		</div>
