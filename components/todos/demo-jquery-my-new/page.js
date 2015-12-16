@@ -28,7 +28,7 @@ var itemView = baseView.extend({
         $(e.currentTarget).closest('.list-group-item').addClass('edit').find('.form-control').focus();
     },
     removeItem: function(e) {
-        $(e.currentTarget).closest('li').remove();
+        $(e.currentTarget).closest('li').off().remove();
         this.trigger('updateStatus');
     },
     checkItem: function(e) {
@@ -102,7 +102,7 @@ var mainView = baseView.extend({
     },
     clearItems: function() {
         this.$listGroup.find(':checkbox:checked').each(function() {
-            $(this).closest('li').remove();
+            $(this).closest('li').off().remove();
         });
         this.updateStatus();
     },
