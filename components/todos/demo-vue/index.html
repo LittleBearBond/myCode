@@ -41,7 +41,7 @@
 		<ul class="list-group" id="jq-list-group" >
 			<li class="list-group-item"
 			v-for="todo in filteredTodos"
-            :class="{edit:todo == editedTodo}"
+            :class="{edit:todo.isEditing}"
 			>
 				<div class="checkbox">
 					<input type="checkbox" v-model="todo.completed">

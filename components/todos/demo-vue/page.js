@@ -27,7 +27,9 @@
     };
 
     window.vm = new Vue({
+        //节点
         el: '.todoapp',
+        //数据
         data: {
             todos: [],
             inputVal: '',
@@ -35,6 +37,7 @@
             visibility: 'all'
         },
         watch: {
+            //监听对应对数据做出相应的处理
             todos: {
                 handler: function(todos) {
                     //console.log(todos)
@@ -71,7 +74,8 @@
                 }
                 this.todos.push({
                     title: value,
-                    completed: false
+                    completed: false,
+                    isEditing: false
                 });
                 this.inputVal = '';
             },
@@ -85,21 +89,23 @@
             //编辑
             editTodo: function(todo) {
                 this.beforeEditCache = todo.title;
-                this.editedTodo = todo;
+                todo.isEditing = true;
+                //this.editedTodo = todo;
             },
             //保存
             saveEdit: function(todo) {
-                if (!this.editedTodo) {
+                /*if (!this.editedTodo) {
                     return;
-                }
-                this.editedTodo = null;
+                }*/
+                todo.isEditing = false;
                 todo.title = todo.title.trim();
                 if (!todo.title) {
                     this.removeTodo(todo);
                 }
             },
             cancelEdit: function(todo) {
-                this.editedTodo = null;
+                //this.editedTodo = null;
+                todo.isEditing = false;
                 todo.title = this.beforeEditCache;
             },
             //移除完成的
