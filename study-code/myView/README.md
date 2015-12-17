@@ -2,9 +2,11 @@
 
 1. 代码更简洁
 2. 避免重复代码
-3. 最好的及时继承的实现，这里可以参见project/vip-student/1.x/js/my-course/page.es6以及/project/vip-student/1.x/demo/my-course/index.html 这个页面右边时间控件实现公用，采用继承的方式，把共有的东西抽象到父类中实现，子类中不一样的复写父类或者扩展父类，从而实现代码的重用。
-4. 事件绑定抽出，内部做处理。源于backbone的思想
+3. 继承的实现，这里可以参见project/vip-student/1.x/js/my-course/page.es6，以及/project/vip-student/1.x/demo/my-course/index.html 这个页面右边时间控件实现公用，采用继承的方式，把共有的东西抽象到父类中实现，子类中不一样的复写父类或者扩展父类，从而实现代码的重用。
+4. 事件绑定抽出，内部做处理，源于backbone的思想
 5. 为什么不用backbone，我们当前堆代码的方式和业务决定了我们如果使用backbone是得不偿失
+
+用该组件来完成todos[demo地址](https://github.com/LittleBearBond/myCode/blob/master/components/todos/demo-jquery-my-new/page.js)
 
 平时我们的业务代码结构大致如下，基本是属于我们开发时候的一个模板
 ```js
@@ -139,6 +141,31 @@ define(function(require, exports, module) {
 ##1.1
 
 主要改进extend，支持静态方法和实例方法的继承
+对继承这一块有了新的改进
+```js
+var a = TodoView.extend({
+        a: 'a'
+    });
+//1.0 只能这样继续扩展a，而不能从a派生出b c ……
+    a.extend({
+        b: 'a'
+    });
+
+//但是往往我们需要的是
+var a = TodoView.extend({
+        a: 'a'
+    });
+    //b 从a继承
+var b = a.extend({
+        b: 'b'
+    });
+    //c从a继承
+var c = a.extend({
+        c:  'c'
+    });
+//这在1.0的时候是不行的，自己想法太简单，导致设计失误，后来想了想backbone 恩！还是他的成熟点。
+```
+
 
 ```js
 //1.0支持这样
