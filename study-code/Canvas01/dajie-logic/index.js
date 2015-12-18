@@ -100,9 +100,9 @@
         }
         return realLength;
     };
-    drawPath(160, 200, polygon, radius, '#08682d') //在300,200处画一个半径为40的八边形
+    drawPath(160, 200, polygon, radius, '#08682d') //在300,200处画一个半径为60的八边形
     drawPath(160, 200, polygon, 40, '#0c7334') //在300,200处画一个半径为40的八边形
-    drawPath(160, 200, polygon, 20, '#097c36') //在300,200处画一个半径为40的八边形
+    drawPath(160, 200, polygon, 20, '#097c36') //在300,200处画一个半径为20的八边形
     drawArc(160, 200, polygon, radius, '#08682d')
     drawPathInnerLine(160, 200, polygon, radius, '#08682d')
     drawText(160, 200, polygon, radius, '#fff');

@@ -10,12 +10,15 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 	<meta name="description" content="">
 	<meta name="keywords" content="">
+    <link rel="stylesheet" type="text/css" href="../../source-code-study/bootstrap-3.2.0/dist/css/bootstrap.css">
 
 </head>
 <body>
 	<img src="img/loading_ico.png" alt="" id="img1">
 	<canvas id="canvas" width="300" height="300">
 	</canvas>
+	<button class="btn btn-primary" id="jq-reverse">反像</button>
+	<script type="text/javascript" src="../../source-code-study/JQuerySourceStudy/JQuery2-3/jquery-2.0.3-n.js"></script>
 	<script>
 		/*function getImgData(){
 			var canvas = document.getElementById('canvas');
@@ -35,27 +38,61 @@
 			}
 			console.log(textPoint)
 		}*/
-
-		function getImgData1(){
+		function getImgData1() {
 			var canvas = document.getElementById('canvas');
 			var ctx = canvas.getContext('2d');
-			var img =  document.getElementById('img1');
+			var img =  document.getElementById('img1');
 			ctx.drawImage(img, 0, 0);
 			var textPoint = [];
+			//返回的是r g b a
 			var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
-			for(var i = 0; i < imgData.width; i++){
-				  for(var j = 0; j < imgData.height; j++) {
-					    var index = (i + j * imgData.width) * 4 + 3;
-					    if(imgData.data[index]) {
-						      textPoint.push([i, j]);
-					    }
-				  } 
+			for (var i = 0; i < imgData.width; i++) {  
+				for (var j = 0; j < imgData.height; j++) {    
+					var index = (i + j * imgData.width) * 4 + 3;
+					//这个点不透明    
+					if (imgData.data[index]) {      
+						textPoint.push([i, j]);    
+					}  
+				} 
 			}
-			console.log(textPoint);
+			//console.log(textPoint);
 		}
 
+		function getImgData2() {
+			var canvas = document.getElementById('canvas');
+			var ctx = canvas.getContext('2d');
+			ctx.fillStyle="red";
+			ctx.fillRect(0,0,10,10);
+			var imgData = ctx.getImageData(0, 0, 10, 10)
+		}
+		function reverseData(imgData, index) {
+			[0,1,2].forEach(function (val) {
+				imgData.data[index + val] = 255 - imgData.data[index+val];
+			});
+			imgData.data[index + 3] = 255;
+		}
+
+		function reverse() {
+			var canvas = document.getElementById('canvas');
+			var ctx = canvas.getContext('2d');
+			var textPoint = [];
+			var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+			var w = ctx.canvas.width;
+			var h = ctx.canvas.height;
+			var i = 0,
+				j = 0,
+				index = 0;
+			for (; i < w; i++) {
+				for (j = 0; j < h; j++) {
+					index = (j * w + i) * 4;
+					reverseData(imgData, index)
+				}
+			}
+			ctx.putImageData(imgData, 0, 0);
+		}
 		window.addEventListener('load',getImgData1,false);
+		$('#jq-reverse').on('click',reverse);
 	</script>
 </body>
 </html>
