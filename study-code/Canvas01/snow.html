@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>title</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<meta content="telephone=no" name="format-detection">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="full-screen" content="true">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-fullscreen" content="true">
+<meta name="360-fullscreen" content="true">
+<meta name="description" content="">
+<meta name="keywords" content="">
+
+</head>
+<body>
+<canvas id="snow" width="500" height="500"></canvas>
+
+<script type="text/javascript">
+var snowEl = document.getElementById("snow")
+var canvasContext = snowEl.getContext("2d");
+var canvasWidth = snowEl.width;
+var canvasHeight = snowEl.height;
+var num = 30;
+var i = 0;
+
+function Snow() {
+    this.radius = randomInRange(3, 10);
+    //初始的x位置
+    this.x = (Math.random() * canvasWidth);
+    this.y = (Math.random() * canvasWidth);
+    //透明度
+    this.alpha = randomInRange(0.3, 1);
+    //绘制雪球
+    this.render();
+}
+
+Snow.prototype.render = function() {
+    //清除路径
+    //开始一个画布中的一条新路径（或者子路径的一个集合）
+    canvasContext.beginPath();
+    //用来填充路径的当前的颜色，白色的雪球
+    canvasContext.fillStyle = "rgba(255, 255, 255, " + this.alpha + ")";
+    //一个中心点和半径，为一个画布的当前子路径添加一条弧线
+    //坐标，圆，沿着圆指定弧的开始点和结束点的一个角度
+    //弧沿着圆周的逆时针方向（TRUE）还是顺时针方向（FALSE）遍历
+    canvasContext.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+    //关闭子路径
+    canvasContext.closePath();
+    //fill() 方法使用 fillStyle 属性所指定的颜色、渐变和模式来填充当前路径
+    canvasContext.fill();
+}
+
+function randomInRange(min, max) {
+    var random = Math.random() * (max - min) + min;
+    return random;
+}
+
+(function drawRect (  ) {
+    canvasContext.beginPath();
+    //用来填充路径的当前的颜色，白色的雪球
+    canvasContext.fillStyle = "#000000";
+    canvasContext.rect(0,0,canvasWidth,canvasWidth);
+    canvasContext.stroke();
+    canvasContext.fill();
+}())
+while (i < num) {
+    new Snow();
+    i++;
+}
+/*var img = new Image();
+img.src = "../../study-materials/screenshot/study-code01.png";
+img.onload = function() {
+    canvasContext.drawImage(img, 0, 0);
+    while (i < num) {
+        new Snow();
+        i++;
+    }
+};*/
+
+</script>
+</body>
+</html>
