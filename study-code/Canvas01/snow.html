@@ -59,17 +59,16 @@ function randomInRange(min, max) {
     return random;
 }
 
-(function drawRect (  ) {
+(function drawRect() {
     canvasContext.beginPath();
     //用来填充路径的当前的颜色，白色的雪球
     canvasContext.fillStyle = "#000000";
-    canvasContext.rect(0,0,canvasWidth,canvasWidth);
+    canvasContext.rect(0, 0, canvasWidth, canvasWidth);
     canvasContext.stroke();
     canvasContext.fill();
 }())
-while (i < num) {
+while (i++ < num) {
     new Snow();
-    i++;
 }
 /*var img = new Image();
 img.src = "../../study-materials/screenshot/study-code01.png";
