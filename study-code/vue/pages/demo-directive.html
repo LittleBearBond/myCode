@@ -23,8 +23,10 @@
 
 <body>
     <div id="app">
-        <div v-my-directive="someValue"  class="alert alert-info"></div>
-        <div v-demo:hello.a.b="msg" class="alert alert-info"></div>
+        <div v-my-directive="someValue"  class="alert alert-info">v-my-directive</div>
+        <div v-demo:hello.a.b="msg" class="alert alert-info">v-demo:hello.a.b="msg"</div>
+        <div v-demo1="{ color: 'white', text: 'hello!' }" class="alert alert-info">v-demo1</div>
+        <div v-demo1.literal="foo bar baz" class="alert alert-info">v-demo1</div>
     </div>
     <script type="text/javascript" src="../lib/vue.js"></script>
     <script type="text/javascript">
@@ -58,6 +60,12 @@
                     'modifiers - ' + JSON.stringify(this.modifiers) + '<br>' +
                     'value - ' + value
             }
+        })
+
+        Vue.directive('demo1', function(value) {
+            console.log(value.color) // "white"
+            console.log(value.text) // "hello!"
+            console.log(this)
         })
         var vm = new Vue({
             el: "#app",
