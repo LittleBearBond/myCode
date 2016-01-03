@@ -62,6 +62,8 @@
           <p slot="two">Two</p>
           <p>Default A</p>
         </multi-insertion>
+
+        <async-example></async-example>
     </div>
     <script type="text/javascript" src="../lib/vue.js"></script>
     <script type="text/javascript">
@@ -124,6 +126,13 @@
         template: '#multi-insertion'
     })
 
+    Vue.component('async-example', function(resolve, reject) {
+        setTimeout(function() {
+            resolve({
+                template: '<div class="alert alert-danger">I am async!</div>'
+            })
+        }, 5000);
+    })
     var newCon = new Vue({
         el: '#app'
     });
