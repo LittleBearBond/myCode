@@ -49,7 +49,7 @@ git push <远程主机名> <本地分支名>:<远程分支名>
 
 --分支合并
 git merge --no-ff project-test1_dialog
-确认git分支为当前开发的项目分支（projectname）
+确认git分支为当前开发的项目分支（projectname），你可以加一个 --no-ff 标志, 最后可以看到非常清楚的提交历史树
 git merge --squash projectname_aa # squash 参数为静默合并，合并时仅合并代码，不会将子分支中的提交log合并过来
 
 
@@ -76,6 +76,23 @@ git merge --squash projectname_aa # squash 参数为静默合并，合并时仅�
 1 git checkout -f
 2 git reset --hard XXX?
 
+git log --oneline --graph
+–author=“Alex Kras” ——只显示某个用户的提交任务
+–name-only ——只显示变更文件的名称
+–oneline——将提交信息压缩到一行显示
+–graph ——显示所有提交的依赖树
+–reverse ——按照逆序显示提交记录（最先提交的在最前面）
+–after ——显示某个日期之后发生的提交
+–before ——显示发生某个日期之前的提交
+
+不仅显示提交说明、提交者以及提交日期，还会显示这每次提交实际修改的内容
+git -log -p filename 
+
+查看尚未合并的变更
+git log --no-merges master
+
+查看其他分支中的文件
+git show some-branch:some-file.js
 
 
 三、常出错误：
