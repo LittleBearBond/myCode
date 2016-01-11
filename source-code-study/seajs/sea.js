@@ -126,6 +126,7 @@
         */
         path = path.replace(MULTI_SLASH_RE, "$1/")
 
+        //处理完继续处理
         // a/b/c/../../d  ==>  a/b/../d  ==>  a/d
         while (path.match(DOUBLE_DOT_RE)) {
             path = path.replace(DOUBLE_DOT_RE, "/")
@@ -236,6 +237,7 @@
         return realpath(ret)
     }
 
+    //看这个比看文档来得清晰，路径 变量 map 的优先级先后处理顺序
     function id2Uri(id, refUri) {
         if (!id) return ""
 
@@ -469,7 +471,7 @@
      * ref: tests/research/parse-dependencies/test.html
      * ref: https://github.com/seajs/crequire
      */
-
+    //这处理真牛逼……
     function parseDependencies(s) {
         if (s.indexOf('require') == -1) {
             return []
@@ -691,7 +693,7 @@
     /**
      * module.js - The core of module loader
      */
-
+    //缓存module
     var cachedMods = seajs.cache = {}
     var anonymousMeta
 
@@ -719,11 +721,11 @@
 
     function Module(uri, deps) {
         this.uri = uri
-        this.dependencies = deps || []
-        this.deps = {} // Ref the dependence modules
-        this.status = 0
+        this.dependencies = deps || [] // 依赖模块ID列表
+        this.deps = {} // Ref the dependence modules 依赖模块Module对象列表
+        this.status = 0 // 模块当前的状态，调试的时候有的模块没能加载，还得查这个状态是什么😢
 
-        this._entry = []
+        this._entry = [] // 在模块加载完成之后需要调用callback的模块
     }
 
     // Resolve module.dependencies
@@ -768,6 +770,7 @@
     }
 
     // Load module.dependencies and fire onload when all done
+    // 判断这个模块是否加载过， 如果没有加载过，调用fetch方法，加载过 直接调用
     Module.prototype.load = function() {
         var mod = this
 
@@ -779,17 +782,19 @@
         mod.status = STATUS.LOADING
 
         // Emit `load` event for plugins such as combo plugin
+        //解析依赖模块的URL地址
         var uris = mod.resolve()
         emit("load", uris)
 
         for (var i = 0, len = uris.length; i < len; i++) {
+            //缓存中取
             mod.deps[mod.dependencies[i]] = Module.get(uris[i])
         }
 
-        // Pass entry to it's dependencies
+        // Pass entry to it's dependencies 将entry传递给依赖的但还没加载的模块
         mod.pass()
 
-        // If module has entries not be passed, call onload
+        // If module has entries not be passed, call onload 模块加载完成
         if (mod._entry.length) {
             mod.onload()
             return
@@ -799,6 +804,7 @@
         var requestCache = {}
         var m
 
+        // 加载依赖的模块
         for (i = 0; i < len; i++) {
             m = cachedMods[uris[i]]
 
@@ -936,13 +942,13 @@
 
         // Emit `request` event for plugins such as text plugin
         emit("request", emitData = {
-            uri: uri,
-            requestUri: requestUri,
-            onRequest: onRequest,
-            charset: isFunction(data.charset) ? data.charset(requestUri) : data.charset,
-            crossorigin: isFunction(data.crossorigin) ? data.crossorigin(requestUri) : data.crossorigin
-        })
-
+                uri: uri,
+                requestUri: requestUri,
+                onRequest: onRequest,
+                charset: isFunction(data.charset) ? data.charset(requestUri) : data.charset,
+                crossorigin: isFunction(data.crossorigin) ? data.crossorigin(requestUri) : data.crossorigin
+            })
+            //把加载的模块的真实地址为key 生成requestCache[emitData.requestUri]  = sendRequest ，赋值内部函数 sendRequest，然后sendRequest调用内部onRequest
         if (!emitData.requested) {
             requestCache ?
                 requestCache[emitData.requestUri] = sendRequest :
@@ -950,6 +956,7 @@
         }
 
         function sendRequest() {
+            //--->307
             seajs.request(emitData.requestUri, emitData.onRequest, emitData.charset, emitData.crossorigin)
         }
 
@@ -1176,6 +1183,7 @@
                 }
 
                 // Set config
+                // 内部data,挂接在seajs.data
                 data[key] = curr
             }
         }
