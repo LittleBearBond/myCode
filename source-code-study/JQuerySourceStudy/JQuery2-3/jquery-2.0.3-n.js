@@ -4411,6 +4411,9 @@
 		};
 	}
 
+	//$('#xxx').prop('readonly', true)
+	//$('#xxx').prop('readOnly', true)
+	//这处理真到位
 	jQuery.each([
 		"tabIndex",
 		"readOnly",
