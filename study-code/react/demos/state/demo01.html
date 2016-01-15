@@ -10,10 +10,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="description" content="">
     <meta name="keywords" content="">
-    <script src="../build/react.js"></script>
-    <script src="../build/JSXTransformer.js"></script>
-    <script src="../lib/jquery1-11-2.js"></script>
-    <script src="../lib/showdown.min.js"></script>
+    <script src="../../build/react.js"></script>
+    <script src="../../build/JSXTransformer.js"></script>
+    <script src="../../lib/jquery1-11-2.js"></script>
+    <script src="../../lib/showdown.min.js"></script>
 </head>
 <body>
     <div id="example"> </div>
@@ -38,15 +38,34 @@ var Comment = React.createClass({
 });
 
 var CommentBox=React.createClass({
+    getInitialState:function() {
+        return {data:[]}
+    },
+    loadCommentsFromServer: function() {
+        $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            success: function(data) {
+                this.setState({
+                    data: data
+                });
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        });
+    },
+    componentDidMount: function() {
+        this.loadCommentsFromServer();
+        setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+    },
     render:function() {
         return (
             <div className="commentBox">
-                <h1>little bear</h1>
-                <Comment author="little bear 01">#This is one comment</Comment>
-                <Comment author="little bear 02">##This is *another* comment</Comment>
-                <CommentList data={this.props.data} />
+                <h1>Comments</h1>
+                <CommentList data={this.state.data} />
             </div>
-            )
+            );
     }
 });
 
@@ -66,11 +85,10 @@ var CommentList = React.createClass({
     );
   }
 });
+
 React.render(
-    //<CommentBox  />,
-    <CommentBox data={data} />,
-    //<CommentBox url="comments.json" />,
-    document.getElementById('example')
+        <CommentBox url="comments.php" pollInterval={20000} />,
+        document.getElementById('example')
     )
 </script>
 </body>
