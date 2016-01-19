@@ -713,6 +713,8 @@ function funTransitionHeight(element, time, newHeight) { // time, 数值，可�
 		element.style.height = targetHeight;
 	}, 15);
 };
+
+//函数依赖注入
 // 假设已定义好某些Service
 var services = {
 		abc: 123,
