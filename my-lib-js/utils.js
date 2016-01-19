@@ -44,7 +44,7 @@ window.onerror = function(msg, url, line, col, error) {
 };
 
 Object.prototype.hash = function(path) {
-	return path.split('.').reduce(function(obj, key) {
+	return path && path.split('.').reduce(function(obj, key) {
 		return obj && obj[key];
 	}, this);
 };
