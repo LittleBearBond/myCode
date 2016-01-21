@@ -107,8 +107,10 @@ app.use(function* (next) {
         return;
     }
 
-    var n = this.session.views || 0;
-    this.cookies.set('session-view', this.session.views = ++n);
+    this.session.views = this.session.views || 0;
+    this.session.views++;
+    console.log( this.session.views);
+    this.cookies.set('session-view', this.session.views);
 });
 
 require('./route/route')(app);
