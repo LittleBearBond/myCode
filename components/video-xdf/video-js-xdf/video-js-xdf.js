@@ -1,3 +1,4 @@
+/* @grunt-copy */
 /**
  * author           xj
  * @date            2015-09-10 16:37:15
@@ -7,77 +8,42 @@
 
 //durationchange ended error firstplay fullscreenchange loadedalldata loadeddata loadedmetadata
 //loadstart pause play progress seeked seeking timeupdate volumechange waiting resize
-
-/*
-
-var eventsArr = ['onabort', //script  在退出时运行的脚本。
-        'oncanplay', //script  当文件就绪可以开始播放时运行的脚本（缓冲已足够开始时）。
-        'oncanplaythrough', //script  当媒介能够无需因缓冲而停止即可播放至结尾时运行的脚本。
-        'ondurationchange', //script  当媒介长度改变时运行的脚本。
-        'onemptied', //script  当发生故障并且文件突然不可用时运行的脚本（比如连接意外断开时）。
-        'onended', //script  当媒介已到达结尾时运行的脚本（可发送类似“感谢观看”之类的消息）。
-        'onerror', //script  当在文件加载期间发生错误时运行的脚本。
-        'onloadeddata', //script  当媒介数据已加载时运行的脚本。
-        'onloadedmetadata', //script  当元数据（比如分辨率和时长）被加载时运行的脚本。
-        'onloadstart', //script  在文件开始加载且未实际加载任何数据前运行的脚本。
-        'onpause', //script  当媒介被用户或程序暂停时运行的脚本。
-        'onplay', //script  当媒介已就绪可以开始播放时运行的脚本。
-        'onplaying', //script  当媒介已开始播放时运行的脚本。
-        'onprogress', //script  当浏览器正在获取媒介数据时运行的脚本。
-        'onratechange', //script  每当回放速率改变时运行的脚本（比如当用户切换到慢动作或快进模式）。
-        'onreadystatechange', //script  每当就绪状态改变时运行的脚本（就绪状态监测媒介数据的状态）。
-        'onseeked', //script  当 seeking 属性设置为 false（指示定位已结束）时运行的脚本。
-        'onseeking', //script  当 seeking 属性设置为 true（指示定位是活动的）时运行的脚本。
-        'onstalled', //script  在浏览器不论何种原因未能取回媒介数据时运行的脚本。
-        'onsuspend', //script  在媒介数据完全加载之前不论何种原因终止取回媒介数据时运行的脚本。
-        'ontimeupdate', //script  当播放位置改变时（比如当用户快进到媒介中一个不同的位置时）运行的脚本。
-        'onvolumechange', //script  每当音量改变时（包括将音量设置为静音）时运行的脚本。
-        'onwaiting' //script  当媒介已停止播放但打算继续播放时（比如当媒介暂停已缓冲更多数据）运行脚本
-    ];
-
-    var propsArr = ['audioTracks', //返回表示可用音频轨道的 AudioTrackList 对象。
-        'autoplay', //   设置或返回是否在就绪（加载完成）后随即播放视频。
-        'buffered', //   返回表示视频已缓冲部分的 TimeRanges 对象。
-        'controller', // 返回表示视频当前媒体控制器的 MediaController 对象。
-        'controls', //   设置或返回视频是否应该显示控件（比如播放/暂停等）。
-        'crossOrigin', //设置或返回视频的 CORS 设置。
-        'currentSrc', // 返回当前视频的 URL。
-        'currentTime', //设置或返回视频中的当前播放位置（以秒计）。
-        'defaultMuted', //   设置或返回视频默认是否静音。
-        'defaultPlaybackRate', //设置或返回视频的默认播放速度。
-        'duration', //   返回视频的长度（以秒计）。
-        'ended', //  返回视频的播放是否已结束。
-        'error', //  返回表示视频错误状态的 MediaError 对象。
-        'height', // 设置或返回视频的 height 属性的值。
-        'loop', //   设置或返回视频是否应在结束时再次播放。
-        'mediaGroup', // 设置或返回视频所属媒介组合的名称。
-        'muted', //  设置或返回是否关闭声音。
-        'networkState', //   返回视频的当前网络状态。
-        'paused', // 设置或返回视频是否暂停。
-        'playbackRate', //   设置或返回视频播放的速度。
-        'played', // 返回表示视频已播放部分的 TimeRanges 对象。
-        'poster', // 设置或返回视频的 poster 属性的值。
-        'preload', //设置或返回视频的 preload 属性的值。
-        'readyState', // 返回视频当前的就绪状态。
-        'seekable', //   返回表示视频可寻址部分的 TimeRanges 对象。
-        'seeking', //返回用户当前是否正在视频中进行查找。
-        'src', //设置或返回视频的 src 属性的值。
-        'startDate', //  返回表示当前时间偏移的 Date 对象。
-        'textTracks', // 返回表示可用文本轨道的 TextTrackList 对象。
-        'videoTracks', //返回表示可用视频轨道的 VideoTrackList 对象。
-        'volume', // 设置或返回视频的音量。
-        'width' //  设置或返回视频的 width 属性的值。
-    ];
- */
 ((function(root, factory) {
     "use strict";
-    /*if (typeof define === "function" && define.amd) {
-        define(['videojs'], factory);
-    } else {*/
-    factory();
-    /*}*/
+    if (typeof define === "function" && define.amd) {
+        define(factory);
+    } else {
+        factory();
+    }
 })(window, function() {
-
+    videojs.options.flash.swf = '../../video/video-js.swf';
+    videojs.addLanguage("zh-CN", {
+        "Play": "播放",
+        "Pause": "暂停",
+        "Current Time": "当前时间",
+        "Duration Time": "时长",
+        "Remaining Time": "剩余时间",
+        "Stream Type": "媒体流类型",
+        "LIVE": "直播",
+        "Loaded": "加载完毕",
+        "Progress": "进度",
+        "Fullscreen": "全屏",
+        "Non-Fullscreen": "退出全屏",
+        "Mute": "静音",
+        "Unmuted": "取消静音",
+        "Playback Rate": "播放码率",
+        "Subtitles": "字幕",
+        "subtitles off": "字幕关闭",
+        "Captions": "内嵌字幕",
+        "captions off": "内嵌字幕关闭",
+        "Chapters": "节目段落",
+        "You aborted the video playback": "视频播放被终止",
+        "A network error caused the video download to fail part-way.": "网络错误导致视频下载中途失败。",
+        "The video could not be loaded, either because the server or network failed or because the format is not supported.": "视频因格式不支持或者服务器或网络的问题无法加载。",
+        "The video playback was aborted due to a corruption problem or because the video used features your browser did not support.": "由于视频文件损坏或是该视频使用了你的浏览器不支持的功能，播放终止。",
+        "No compatible source was found for this video.": "无法找到此视频兼容的源。",
+        "The video is encrypted and we do not have the keys to decrypt it.": "视频已加密，无法解密。"
+    });
     //简单修复Object.keys
     Object.keys || (Object.keys = function(o) {
         if (o !== Object(o)) {
@@ -99,7 +65,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
     });
 
     //statisticsData
-    var statsData = {},
+    var statsData = function() {},
         extend = function() {
             var args = arguments,
                 o = args[0],
@@ -124,6 +90,12 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
             return end
         },
         playerOpts = {
+            controls: true,
+            width: '100%',
+            height: '100%',
+            controls: 'auto',
+            'data-setup': '{}',
+            poster: 'http://video-js.zencoder.com/oceans-clip.png',
             children: {
                 // bigPlayButton: false,
                 // textTrackDisplay: false,
@@ -150,10 +122,12 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
         //播放器是否在ios 中内联播放
         isInline: true,
         //是否是调试状态
-        isDebug: false
+        isDebug: false,
+        //后来加的参数，这个外部可以覆盖这个参数，只是给他们统计使用做标识
+        systemId: 1002001
     };
 
-    extend(statsData, {
+    extend(statsData.prototype, {
         //默认设置，外部可以修改
         defaults: {
             // ios 微信内嵌播放
@@ -162,36 +136,74 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
             statsDisTime: 60 * 1000
         },
         init: function(id, opts) {
+            opts = opts || {};
             if (!id) {
                 console.warn('id is null');
                 return;
             }
-            this.opts = extend({}, defaults, opts || {});
 
+            this.opts = extend({}, defaults, playerOpts, opts);
             //设定缓冲time这么长的时间 超过time*2*1000 这么久久认为很慢
             this.opts.bufferTime = this.opts.time * 2 * 1000;
-            self.hasRecord = false;
+            this.hasRecord = false;
 
             //get player
-            this.player = videojs(id, playerOpts);
+            this.player = videojs(id, this.getPlayerOpts(opts));
 
             //init
             this.initEvent().initGetData();
 
+            this._isFirstPlay = true;
+
             return this.player;
         },
         initEvent: function() {
+            var that = this;
             //第一次播放的时候才开始准备进行统计
             this.player.on('firstplay', this.firstPlayDo.bind(this));
 
             //set ios weixin webkit-playsinline
             //this.opts.isInline && this.player.el().querySelector('video').setAttribute(this.defaults.playInlineAttr, '');
 
+            //发送数据
+            this.player.one('error', function() {
+                that.dataCollectionPlugin({
+                    canPlay: '0',
+                    firstBuffer: '0'
+                });
+            });
             return this;
         },
-        //第一次播放的时候需要做些事情
+        /**
+         * 只取playerOpts 有的key 忽略其他没有的
+         * @param  {[type]} opts [description]
+         * @return {[type]}      [description]
+         */
+        getPlayerOpts: function(opts) {
+            var playerOptsKeys = Object.keys(playerOpts),
+                obj = extend({}, playerOpts),
+                hasOwn = Object.prototype.hasOwnProperty;
+            for (var item in opts) {
+                //may use  (item in playerOptsKeys)
+                if (hasOwn.call(opts, item) && !!~playerOptsKeys.indexOf(item)) {
+                    obj[item] = opts[item];
+                }
+            }
+            return obj;
+        },
+        /**
+         * 第一次播放的时候需要做些事情
+         * 初始话绑定事件，做速度计算
+         * @param  {Object} video
+         * @return {}
+         */
         firstPlayDo: function(video) {
-            var self = this;
+            if (!this._isFirstPlay) {
+                return;
+            }
+            this.getPlaySrc();
+
+            var that = this;
             var video = this.player;
             //记住视频开始播放时间
             this.startPlayTime = +new Date();
@@ -199,55 +211,59 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
             //速度统计request
             'loadeddata loadedmetadata loadstart progress'.split(/\s+/).forEach(function(val, index) {
                 video.on(val, function() {
+                    //已经统计过了，不在统计
+                    if (that.hasRecord) {
+                        return;
+                    }
+
                     var currentTime = +new Date(),
-                        //第一次这里self.startTime 是没有滴
-                        loadTime = currentTime - self.startTime || 0,
+                        //第一次这里that.startTime 是没有滴
+                        loadTime = currentTime - that.startTime || 0,
                         //当前缓冲到多少秒
                         currBufferedTime = getEnd(video);
 
-
-                    //已经统计过了，不在统计
-                    if (self.hasRecord) {
-                        return;
-                    }
                     //首次初始话,第一次给定开始时间
-                    if (!self.startTime) {
+                    if (!that.startTime) {
                         //初始话开始记录时间
-                        self.startTime = +new Date();
+                        that.startTime = +new Date();
                         //初始话开始缓冲时间
-                        self.bufferedStart = getEnd(video);
+                        that.bufferedStart = getEnd(video);
                         return;
                     }
 
                     //加载时长已经超过我们的预期，证明很慢
-                    if (loadTime > self.opts.bufferTime) {
-                        console.warn('low low low');
+                    if (loadTime > that.opts.bufferTime) {
+                        //console.warn('low low low');
                         return;
                     }
 
                     /*加载时长还不到指定的秒数
                      *或者是已经记录过数据了，这里就返回
-                     *加载currBufferedTime - self.bufferedStart 这么长的时间耗时 loadTime
+                     *加载currBufferedTime - that.bufferedStart 这么长的时间耗时 loadTime
                      *把loadTime传回服务端做数据统计
                      */
-                    var hasBurfferTime = currBufferedTime - self.bufferedStart;
-                    if (hasBurfferTime < self.opts.time) {
+                    var hasBurfferTime = currBufferedTime - that.bufferedStart;
+                    if (hasBurfferTime < that.opts.time) {
                         return;
                     }
 
                     //给个标记，表示数据已经记录过了
-                    self.hasRecord = true;
+                    that.hasRecord = true;
                     //记录数据
-                    //console.log('加载' + self.opts.time + ' 秒，耗时：', loadTime / 1000);
+                    that.log('加载' + that.opts.time + ' 秒，耗时：', loadTime / 1000);
 
-                    self.collData({
+                    that.collData({
                         method: 'request',
                         actionName: 'request',
                         totalTime: video.duration(),
-                        contentLength: self.opts.time,
+                        contentLength: that.opts.time,
                         loadingTime: loadTime / 1000
                     });
 
+                    that.dataCollectionPlugin({
+                        canPlay: '1',
+                        firstBuffer: loadTime / 1000
+                    });
                 });
             });
 
@@ -262,8 +278,60 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
             //不断统计视频播放时间初始话
             this.statsPlayTime().stayTime();
         },
+        //获取播放的地址
+        getPlaySrc: function() {
+            var that = this;
+            if (this._ajaxLimit) {
+                return;
+            }
+            this._ajaxLimit = true;
+            $.ajax({
+                url: this.opts.getMoblieInfoUrl,
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    hasT: 1,
+                    mId: this.opts.mobliePlayId
+                },
+                error: function() {
+                    //发生错误的时候可以重新获取地址
+                    that._isFirstPlay = true;
+                    console.log(arguments)
+                }
+            }).done(function(r) {
+                if (String(r.status) !== '0') {
+                    console.warn(r.message);
+                    return;
+                }
+                that._isFirstPlay = false;
+                that.player.src(r.data).play();
+            }).always(function() {
+                that._ajaxLimit = false;
+            });
+        },
         log: function() {
-            this.opts.isDebug && console.log.apply(console, Array.prototype.slice.call(arguments));
+            this.opts.isDebug && console.trace.apply(console, Array.prototype.slice.call(arguments));
+        }
+    });
+
+    /**
+     * dataCollectionPlugin
+     * 20160112 加
+     */
+    extend(statsData.prototype, {
+        dataCollectionPlugin: function(data) {
+            var player = this.player;
+            var that = this;
+            /*
+             *   firstBuffer: '',//第一次加载视频时间
+             *   canPlay: '1', //是否能够播放 0不能播放，1可以播放
+             */
+            window.dataCollectionPlugin && dataCollectionPlugin.connect(extend({}, {
+                videoUrl: player.currentSrc(), //当前视频地址
+                systemId: that.opts.systemId,
+                userId: that.opts.userId || ''
+            }, data), true);
+            return this;
         }
     });
 
@@ -327,6 +395,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
         }
     };
 
+    //拖动特殊处理
     var seekHooks = {
         /*
          *   触发一次seeking然后就触发seeked 这个时候就是点击播放
@@ -334,40 +403,44 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
          */
         seeking: function() {
             //第一次触发seeking，初始话开始触发时间，记录触发次数
-            if (!statsData.seekStartTime) {
-                statsData.seekStartTime = statsData.player.currentTime();
-                statsData.seekTimes = 1;
+            if (!this.seekStartTime) {
+                this.seekStartTime = this.player.currentTime();
+                this.seekTimes = 1;
             } else {
                 //多次触发，增加触发次数
-                statsData.seekTimes && (statsData.seekTimes++);
+                this.seekTimes && (this.seekTimes++);
             }
         },
         seeked: function() {
-            statsData.seekEndTime = statsData.player.currentTime();
-            var startTime = statsData.seekStartTime || statsData.seekEndTime;
+            this.seekEndTime = this.player.currentTime();
+            var startTime = this.seekStartTime || this.seekEndTime;
             //清除seeking 开始的时候记录的时间
-            statsData.seekStartTime = null;
+            this.seekStartTime = null;
             return {
                 startPlayTime: startTime,
-                nowPlayTime: statsData.seekEndTime,
+                nowPlayTime: this.seekEndTime,
                 /*
-                 * statsData.seekTimes 大于1 就是拖拽快进
-                 * statsData.seekTimes小于1 就是直接点击快进
+                 * this.seekTimes大于1 就是拖拽快进
+                 * this.seekTimes小于1 就是直接点击快进
                  */
-                method: statsData.seekTimes > 1 ? 'dragVideoBar' : 'click', //点击事件
+                method: this.seekTimes > 1 ? 'dragVideoBar' : 'click', //点击事件
                 actionName: 'seeked', //动作名称
             }
         }
     };
 
     //数据统计相关
-    extend(statsData, {
+    extend(statsData.prototype, {
         statsPlayTime: function() {
-            var self = this;
+            var that = this;
+            /**
+             * 精确统计用户的播放事件，剔除用户的暂停时间和加载时间
+             * @return {[type]} [description]
+             */
             var updateTime = function() {
-                self.playToPauseTime = (+new Date()) - self.startPlayTime;
+                that.playToPauseTime = (+new Date()) - that.startPlayTime;
                 //更新指针位置，之前的播放时长
-                self.lastPlayTime = self.playTotalTime;
+                that.lastPlayTime = that.playTotalTime;
             };
             /*
              * 为了精确统计用户播放视频的时长，这里也蛮拼的，用了三个变量来记录相关的状态
@@ -393,47 +466,46 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
 
             this.player.on('play', function() {
                 //更新开始播放时间
-                self.startPlayTime = (+new Date());
+                that.startPlayTime = (+new Date());
             });
 
             ['pause', 'ended'].forEach(function(val) {
-                self.player.on(val, updateTime);
+                that.player.on(val, updateTime);
             });
 
             // 累加播放时间
             this.player.on('timeupdate', function(event) {
                 //暂停的时候不做统计
-                if (self.player.paused()) {
+                if (that.player.paused()) {
                     return;
                 }
                 //这次播放的时长差值
-                self.playToPauseTime = +new Date() - self.startPlayTime;
+                that.playToPauseTime = +new Date() - that.startPlayTime;
                 // 播放时间
-                self.playTotalTime = self.lastPlayTime + (+new Date() - self.startPlayTime) / 1000;
+                that.playTotalTime = that.lastPlayTime + (+new Date() - that.startPlayTime) / 1000;
 
             });
             return this;
         },
-        //不断统计用户停留在页面上的时间   1442458519486
+        initGetData: function() {
+            var that = this;
+            //把要数据统计的相关事件都给绑上去
+            Object.keys(getDataHooks).concat(Object.keys(seekHooks)).forEach(function(val, index) {
+                that.player.on(val, that.proxyCollData.bind(that));
+            });
+        },
+        //不断统计用户停留在页面上的时间
         stayTime: function() {
 
             this.collData({
                 method: 'stay',
                 actionName: 'stay',
                 //用户播放视频，播放了多久
-                stay: this.playTotalTime.toFixed(2), //(+new Date) - this.startPlayTime,
+                stay: this.playTotalTime.toFixed(2),
                 totalTime: this.player.duration()
             });
-
             //定时统计
             setTimeout(this.stayTime.bind(this), this.defaults.statsDisTime || 60 * 1000);
-        },
-        initGetData: function() {
-            var self = this;
-            //把要数据统计的相关事件都给绑上去
-            Object.keys(getDataHooks).concat(Object.keys(seekHooks)).forEach(function(val, index) {
-                self.player.on(val, self.proxyCollData.bind(self));
-            });
         },
         proxyCollData: function(e) {
             //事件名称
@@ -447,14 +519,19 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
                 return;
             }
             var args = Array.prototype.slice.call(arguments);
+            //把播放器对象扔进去^_^
             args.unshift(this.player);
 
-            //对seeking 和seeked 做了特殊处理
+            /**
+             * 对seeking 和seeked 做了特殊处理
+             * getDataHooks seekHooks两种不同的处理
+             */
             if (name in getDataHooks) {
                 data = extend({}, data, getDataHooks[name].apply(this, args) || {});
             } else if (name in seekHooks) {
                 data = extend({}, data, seekHooks[name].apply(this, args) || {});
             }
+
             //seeking 不做统计，这个在拖动的时候会连续触发
             if (name === 'seeking') {
                 return;
@@ -472,10 +549,6 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
                 nowPlayTime: player.currentTime() //当前视频播放时间
             }, data));
 
-            /*if (data.actionName === 'seeked') {
-                document.getElementById('info').innerHTML = JSON.stringify(data);
-            }*/
-
             window.videoSetCollectionsData && window.videoSetCollectionsData(extend({}, {
                 videoaddress: player.currentSrc(), //当前视频地址
                 nowPlayTime: player.currentTime() //当前视频播放时间
@@ -484,7 +557,7 @@ var eventsArr = ['onabort', //script  在退出时运行的脚本。
     });
 
     videojs.videoXdf = function(id, option) {
-        return statsData.init(id, option);
+        return new statsData().init(id, option);
     };
 
 }));

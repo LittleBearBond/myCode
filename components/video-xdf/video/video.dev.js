@@ -1,3 +1,5 @@
+/* @grunt-build */
+
 /**
  * @fileoverview Main function src.
  */
@@ -8676,7 +8678,7 @@ indexOf = function(searchElement, fromIndex) {
  *   readonly attribute unsigned long length;
  *   getter TextTrack (unsigned long index);
  *   TextTrack? getTrackById(DOMString id);
- * 
+ *
  *   attribute EventHandler onchange;
  *   attribute EventHandler onaddtrack;
  *   attribute EventHandler onremovetrack;

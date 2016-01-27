@@ -3,9 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <title>Videojs-xdf-player</title>
-
-    <link href="../video-js.css" rel="stylesheet" type="text/css">
-    <link href="../video-js-xdf/video-js-xdf.css" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="full-screen" content="true">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="../video/video-js.css" rel="stylesheet" type="text/css">
+    <link href="../video-js-xdf/video-xdf.css" rel="stylesheet" type="text/css">
     <style type="text/css">
         html, body {
             width: 100%;
@@ -47,13 +56,26 @@
             clear: both;
             display: table;
         }
-
+        #uuidimg{
+            display: none;
+        }
     </style>
-    <script src="../video.js"></script>
+    <script src="../video/video.js"></script>
+
+</head>
+<body>
+    <video id="vid1" class="video-js vjs-default-skin vjs-big-play-centered my-skin">
+        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+    </video>
+    <div class="con con1"></div>
+    <div class="con con2"></div>
+    <div id="info"></div>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <!-- Set the location of the flash SWF -->
+    <script src="http://static.neibu.koolearn.com/kooplayer-collect/kooplayer-collect-single.js" id="__sprout_main__" conf="http://fe.neibu.koolearn.com:8080/collect/videoConfig.js"></script>
     <script src="../video-js-xdf/video-js-xdf.js"></script>
-    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>    <!-- Set the location of the flash SWF -->
     <script>
-        videojs.options.flash.swf = '../video-js.swf';
+        videojs.options.flash.swf = '../video/video-js.swf';
         videojs.addLanguage("zh-CN", {
             "Play": "播放",
             "Pause": "暂停",
@@ -81,26 +103,7 @@
             "No compatible source was found for this video.": "无法找到此视频兼容的源。",
             "The video is encrypted and we do not have the keys to decrypt it.": "视频已加密，无法解密。"
         });
-</script>
-
-</head>
-<body>
-    <video id="vid1" class="video-js vjs-default-skin vjs-big-play-centered my-skin" controls
-    preload="auto" width="100%" height="400"
-    poster="http://video-js.zencoder.com/oceans-clip.png"
-    data-setup='{}'>
-        <source src="http://10.155.114.55:8081/echo-hereweare.mp4" type='video/mp4' />
-        <!-- <source src="http://vjs.zencdn.net/v/oceans.mp4" type='video/mp4' /> -->
-        <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4'>
-        <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm'>
-        <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg'>
-        <!--<track kind="captions" src="../build/demo-files/demo.captions.vtt" srclang="en" label="English"></track> Tracks need an ending tag thanks to IE9 -->
-        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-    </video>
-    <div class="con con1"></div>
-    <div class="con con2"></div>
-    <div id="info"></div>
+    </script>
    <script type="text/javascript" src='./js/index.js'></script>
-
 </body>
 </html>

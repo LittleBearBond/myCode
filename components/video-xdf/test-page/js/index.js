@@ -7,20 +7,33 @@
  * @description
  */
 (function() {
-
-
     // register the plugin
-    videojs.plugin('progressed', function(options) {
+    /*videojs.plugin('progressed', function(options) {
         this.on('progress', function(e) {
             console.log(this.bufferedPercent());
         });
-    });
-
+    });*/
     var vid = document.getElementById("vid1");
 
     var player = videojs.videoXdf('#vid1', {
+        getMoblieInfoUrl: '/project/video-h5/1.x/test-page/data/data.php',
         time: 5,
-        isDebug: true
+        isDebug: true,
+        height: '400px',
+        poster: 'http://www.jplayer.org/video/poster/Big_Buck_Bunny_Trailer_480x270.png', //默认背景图
+        //m4v: 'http://10.155.114.55:8081/echo-hereweare.mp4' //HTTP 视频地址
+        m4v: [{
+                type: "video/mp4",
+                src: "http://127.0.0.1:8081/echo-hereweare.mp4"
+            }
+            /*, {
+                type: "video/webm",
+                src: "http://www.example.com/path/to/video.webm"
+            }, {
+                type: "video/ogg",
+                src: "http://www.example.com/path/to/video.ogv"
+            }*/
+        ]
     });
 
     window.player = player;
