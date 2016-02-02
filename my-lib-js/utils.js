@@ -48,6 +48,28 @@ Object.prototype.hash = function(path) {
 		return obj && obj[key];
 	}, this);
 };
+// 20160202 add
+function setUrlParam(url, name, value) {
+	var regMatchKey = new RegExp('((' + name + ')=([^&#]*))', 'gi')
+	var paramsStr = url.split('?')[1];
+	var matchKey = paramsStr && paramsStr.match(regMatchKey);
+	if (matchKey) {
+		url = url.replace(regMatchKey, function() {
+			return (name + '=' + value);
+		});
+		return url;
+	};
+	if (!value) {
+		return url;
+	}
+	if (!~url.indexOf('?')) {
+		return (url + '?' + name + '=' + value);
+	}
+	if (endsWith(url, '?')) {
+		return (url + name + '=' + value);
+	}
+	return endsWith(url, '&') ? (url + name + '=' + value) : (url + '&' + name + '=' + value);
+}
 
 function setUrlParam(name, value, url) {
 	url = url || window.location.href;
@@ -491,7 +513,7 @@ window.cancelNextRequestAnimationFrame = window.cancelRequestAnimationFrame || w
 /*requestAnimationFrame*/
 (function() {
 	var lastTime = 0;
-	var vendors = ['webkit', 'moz'];
+	var vendors = ['webkit', 'moz', 'ms'];
 	for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
 		window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
 		window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || // Webkit中此取消方法的名字变了
