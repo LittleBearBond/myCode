@@ -4487,7 +4487,6 @@
 				origType,
 				//获取数据缓存
 				elemData = data_priv.get(elem);
-				console.log(data_priv)
 			// Don't attach events to noData or text/comment nodes (but allow plain objects)
 			//检测状态，若为空数据、text或comment节点时，阻止绑定事件
 			if (!elemData) {
