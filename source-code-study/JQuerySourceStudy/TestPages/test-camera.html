@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>tokenize</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="full-screen" content="true">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <!-- <script src="../JQuery2-3/jquery-2.0.3.js"></script> -->
+    <style type="text/css">
+    label {
+      display: inline-block;
+      margin: 1em 0;
+
+      /* Styles to make it look like a button */
+      padding: 0.5em;
+      border: 2px solid #666;
+      border-color: #EEE #CCC #CCC #EEE;
+      background-color: #DDD;
+    }
+
+    /* Look like a clicked/depressed button */
+    label:active {
+      border-color: #CCC #EEE #EEE #CCC;
+    }
+
+    /* This is the part that actually hides the 'Choose file' text box */
+    label input {
+      display: none;
+    }
+    </style>
+</head>
+<body>
+    <label>accept="image/*;capture=camera"
+        <input type="file" name = "file" accept="image/*;capture=camera"></input>
+    </label>
+    <hr>
+    <label>accept="image/*;"capture="camera"
+        <input type="file" name = "file" accept="image/*;" capture="camera" ></input>
+    </label>
+    <hr>
+    <label>accept="image/*"
+        <input type="file" name = "file" accept="image/*" />
+    </label>
+    <hr>
+    <label>accept="video/*;capture=camcorder"
+        <input type="file" name = "file" accept="video/*;capture=camcorder">
+    </label>
+    <hr>
+    <label>accept="audio/*;capture=microphone"
+        <input type="file" name = "file" accept="audio/*;capture=microphone">
+    </label>
+    <script> </script>
+</body>
+</html>
