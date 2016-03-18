@@ -36,6 +36,11 @@
 			$d.ajaxStop(function (e) {
 				    log('txt_event', '触发ajaxStop回调函数');
 			});
+			$.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
+				// Modify options, control originalOptions, store jqXHR, etc
+				jqXHR.setRequestHeader('my-header','setRequestHeader');
+				console.log(jqXHR)
+			});
 			$('#btnTest').on('click',bindLocalEvent);
 			// 局部事件
 			function bindLocalEvent(e) {
