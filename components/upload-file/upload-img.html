@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="UTF-8">
+   <meta name="format-detection" content="telephone=no">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+   <title>工资单列表</title>
+   <link href="http://static.udache.com/gulfstream/webapp/css/didi.new.css?v=1" rel="stylesheet" type="text/css">
+   <link href="css/upload.css" rel="stylesheet" type="text/css">
+   </head>
+   <body>
+    <div class="wrap" style="width: 300px;margin: 0 auto; min-height: 500px;">
+        <div class="head" style="height: 200px;text-align: center;font-size: 30px;">  上传图片 demo</div>
+        <div data-title="点击拍照" class="upload-photo" >
+            <div data-key="id_card_img_url" class="btn-upload"  id="driver_sign_img" ></div>
+            <input type="file" data-key="id_card_img_url" id="js-card-img" class="">
+            <div class="preview" style=""></div>
+        </div>
+    </div>
+    <script src="http://static.udache.com/gulfstream/webapp/js/didi.new.js"></script>
+    <script src="js/upload.js"></script>
+    <script type="text/javascript">
+        new uploadFile($('#js-card-img'),{
+            $previewEl:$('.preview')
+        });
+    </script>
+</body>
+</html>
+
+
