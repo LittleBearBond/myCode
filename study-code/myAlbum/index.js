@@ -39,14 +39,14 @@ var render = function() {
 };
 
 function viewLarge() {
-	$('#container').on('tap', 'li', function() {
+	$('#container').on('click', 'li', function() {
 		var url = 'imgs/p/' + $(this).find('canvas').attr('id') + '.jpg';
 		var index = $(this).attr('index');
 		imgLoad(url, showLgImg(url, index));
 		return false;
 	});
 
-	$('#lgimg-wrap').tap(function() {
+	$('#lgimg-wrap').click(function() {
 		$(this).hide();
 		isShow = false;
 		$("html,body").removeAttr("style");

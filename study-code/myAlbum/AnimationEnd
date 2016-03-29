@@ -1,0 +1,17 @@
+AnimationEnd
+
+function GetAnimationEnd() {
+    var el = document.createElement('bootstrap');
+    var transEndEventNames = {
+        WebkitAnimation: 'webkitanimationEnd',
+        MozAnimation: 'animationend',
+        OAnimation: 'oanimationEnd oanimationend',
+        Animation: 'animationend'
+    };
+    for (var name in transEndEventNames) {
+        if (el.style[name] !== undefined) {
+            return transEndEventNames[name];
+        }
+    }
+    return ''; // explicit for ie8 (  ._.)
+}
