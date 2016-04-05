@@ -20,12 +20,16 @@
         $.extend(this, simpleUploadFile.defaultOpts, args || {});
         this.init();
     }
-
+    /*
+    type: "file",
+    compress: true,
+    business_type: "walle"
+     */
     simpleUploadFile.defaultOpts = {
         $fileInput: null, //html file控件
         $dragDrop: null, //拖拽敏感区域
         $upButton: null, //提交按钮
-        url: "http://10.10.38.143:1337/api/public/upload", //ajax地址
+        url: "http://10.10.38.143:1337/api/public/upload?type=file&compress=true&business_type=walle", //ajax地址
         fileFilter: [], //过滤后的文件数组
         filter: function(files) { //选择文件组的过滤方法
             return files;
@@ -104,6 +108,7 @@
             var that = this;
             for (var i = 0, file; file = this.fileFilter[i]; i++) {
                 (function(file) {
+                    file = file[0];
                     var xhr = new XMLHttpRequest();
                     if (!xhr.upload) {
                         console.log('error');
@@ -133,11 +138,10 @@
                     // 开始上传
                     xhr.open("POST", that.url, true);
                     // xhr.setRequestHeader("X_FILENAME", file.name);
-                    xhr.send(file, {
-                        type: "file",
-                        compress: true,
-                        business_type: "walle"
-                    });
+                    xhr.send(file);
+                    xhr.onerror = function() {
+                        that.onFailure(file, xhr.responseText)
+                    };
                 })(file);
             }
         }
