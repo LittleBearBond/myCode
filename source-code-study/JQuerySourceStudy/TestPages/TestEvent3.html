@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>event-delegateevent</title>
+    <script src="../JQuery2-3/jquery-2.0.3-n.js"></script>
+</head>
+<body>
+    <div id='p1' style="width: 500px; height: 500px; background: #ccc">
+        p1
+        <div id='p2' style="width: 300px; height: 300px; background: #a9ea00">
+            p2
+            <p id="p3" style="width: 100px; height: 100px; background: red" id="test">
+                p3
+                <a id="p4" style="width: 50px; height: 50px; background: blue" id="test1">点击a元素p4</a>
+            </p>
+        </div>
+    </div>
+    <div id="p5" style="width: 500px; height: 500px; background: #ccc">p5
+        <div id="p6" style="width: 300px; height: 300px; background: #a9ea00"></div>
+    </div>
+    <script type="text/javascript">
+        var $p1 =$('#p1');
+        var $p2 =$('#p2');
+        var $p3 =$('#p3');
+        var $p4 =$('#p4');
+        var $p5 =$('#p5');
+        var $p6 =$('#p6');
+
+        $p1.on('click', '#p2', function() {
+            console.log('p2 del');
+        });
+
+        $p1.on('click', function() {
+            console.log('p1');
+        });
+
+        $p2.on('click', function() {
+            console.log('p2');
+        });
+
+        $p3.on('click', function() {
+            console.log('p3');
+        });
+
+    </script>
+</body>
+</html>
