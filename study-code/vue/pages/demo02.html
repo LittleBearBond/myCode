@@ -16,9 +16,7 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <link rel="stylesheet" type="text/css" href="../../../source-code-study/bootstrap-3.2.0/dist/css/bootstrap.css">
-    <style type="text/css">
-
-    </style>
+    <style type="text/css"> </style>
 </head>
 
 <body>
@@ -26,7 +24,7 @@
         <div class="alert alert-success">Message: {{ msg }}</div>
         <div class="alert alert-success">Message: {{ msg.split('').reverse().join('') }}</div>
         <div class="alert alert-success">This will never change: {{* msg }}</div>
-        <div class="alert alert-success">This will never change: {{{ msg }}}</div>
+        <div class="alert alert-{{className}}">This will never change: {{{ msg }}}</div>
         <div class="input-group input-group-lg">
             <span class="input-group-addon" id="sizing-addon1">@</span>
             <input v-model="msg" type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">

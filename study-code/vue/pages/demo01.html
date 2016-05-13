@@ -16,77 +16,86 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <link rel="stylesheet" type="text/css" href="../../../source-code-study/bootstrap-3.2.0/dist/css/bootstrap.css">
-    <style type="text/css">
-
-    </style>
+    <style type="text/css"> </style>
 </head>
 
 <body>
     <div id="app">
+        <h1>This will never change: {{* message }}</h1>
+        <h1>HTML：{{{ message }}}</h1>
         <h1>{{ message }}</h1>
+        <h1>{{message.split('').reverse().join('')}}</h1>
         <div class="input-group input-group-lg">
             <span class="input-group-addon" id="sizing-addon1">@</span>
             <input v-model="message" type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
         </div>
 
         <div class="well well-sm">
-            <button v-on:click="reverseMessage" class="btn btn-primary">Reverse Message</button>
-            <button v-on:click="reverseList" class="btn btn-primary">Reverse list</button>
+            <button @click="reverseMessage" class="btn btn-primary">Reverse Message</button>
+            <button @click="reverseList" class="btn btn-primary">Reverse list</button>
+            <button @click="removeList" class="btn btn-primary">Rmove list</button>
         </div>
 
         <div class="input-group">
-            <input v-model="newTodo" v-on:keyup.enter="addTodo" type="text" class="form-control" placeholder="Recipient's username" aria-describedby="basic-addon2">
+            <input v-model="newTodo" @keyup.enter="addTodo" type="text" class="form-control" placeholder="Recipient's username" aria-describedby="basic-addon2">
             <span class="input-group-addon" id="basic-addon2">enter to add item</span>
         </div>
         <ul class="list-group">
             <li v-for="todo in todos" class="list-group-item">
                 <span>{{$index + 1}}--{{ todo.text }}</span>
-                <button v-on:click="removeTodo($index)" class="btn btn-primary btn-sm">X</button>
+                <button @click="removeTodo($index)" class="btn btn-primary btn-sm">X</button>
             </li>
         </ul>
     </div>
     <script type="text/javascript" src="../lib/vue.js"></script>
     <script type="text/javascript">
         Vue.config.debug = true;
-    var vm = new Vue({
-        el: '#app',
-        data: {
-            newTodo: '',
-            message: 'Hello Vue.js!',
-            todos: [{
-                text: 'Learn JavaScript'
-            }, {
-                text: 'Learn Vue.js'
-            }, {
-                text: 'Build Something Awesome'
-            }, {
-                text: '翯翯'
-            }]
-        },
-        methods: {
-            reverseMessage: function() {
-                this.message = this.message.split('').reverse().join('');
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                newTodo: '',
+                message: 'Hello Vue.js!',
+                todos: [{
+                    text: 'Learn JavaScript'
+                }, {
+                    text: 'Learn Vue.js'
+                }, {
+                    text: 'Build Something Awesome'
+                }, {
+                    text: '翯翯'
+                }]
             },
-            reverseList: function() {
-                this.todos = this.todos.reverse();
-            },
-            removeTodo: function(index) {
-                this.todos.splice(index, 1);
-            },
-            addTodo: function() {
-                var text = this.newTodo.trim();
-                if (!text) {
-                    return;
+            methods: {
+                reverseMessage: function() {
+                    this.message = this.message.split('').reverse().join('');
+                },
+                reverseList: function() {
+                    this.todos = this.todos.reverse();
+                },
+                removeTodo: function(index) {
+                    this.todos.splice(index, 1);
+                },
+                removeList:function () {
+                    this.todos = [];
+                },
+                addTodo: function() {
+                    var text = this.newTodo.trim();
+                    if (!text) {
+                        return;
+                    }
+                    this.todos.push({
+                        text: text
+                    });
+                    this.newTodo = '';
                 }
-                this.todos.push({
-                    text: text
-                });
-                this.newTodo = '';
+            },
+            //钩子在实例创建后调用，compiled、 ready 、destroyed
+            created: function () {
+                // `this` 指向 vm 实例
+                console.trace('message is: ' + this.message)
             }
-        }
-    });
-console.log(vm);
-
+        });
+        console.log(vm);
     </script>
 </body>
 
