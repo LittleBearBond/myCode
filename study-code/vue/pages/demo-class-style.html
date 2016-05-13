@@ -16,21 +16,18 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <link rel="stylesheet" type="text/css" href="../../../source-code-study/bootstrap-3.2.0/dist/css/bootstrap.css">
-    <style type="text/css">
-
-    </style>
+    <style type="text/css"> </style>
 </head>
 
 <body>
     <div id="app">
-        <div class="alert" v-bind:class="{ 'alert-success': isA, 'alert-danger': isB }"> {{fullName}}</div>
-        <div class="alert" v-bind:class="classObject"> {{{fullName}}}</div>
-        <div class="alert" v-bind:class="classObject"> {{* fullName}}</div>
-        <div class="alert" v-bind:class="[classA, classB]"> {{fullName}}</div>
-        <div class="alert" v-bind:class="[classA, isB ? classB : '']"> {{fullName}}</div>
-
-        <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">{ color: activeColor, fontSize: fontSize + 'px' }</div>
-        <div v-bind:style="styleObject">v-bind:style="styleObject"</div>
+        <div class="alert" :class="{ 'alert-success': isA, 'alert-danger': isB }"> {{fullName}}</div>
+        <div class="alert" :class="classObject"> {{{fullName}}}</div>
+        <div class="alert" :class="classObject"> {{* fullName}}</div>
+        <div class="alert" :class="[classA, classB]"> {{fullName}}</div>
+        <div class="alert" :class="[classA, isB ? classB : '']"> {{fullName}}</div>
+        <div :style="{ color: activeColor, fontSize: fontSize + 'px' }">{ color: activeColor, fontSize: fontSize + 'px' }</div>
+        <div :style="styleObject" > :style="styleObject"</div>
     </div>
     <script type="text/javascript" src="../lib/vue.js"></script>
     <script type="text/javascript">
@@ -56,12 +53,8 @@
                     'margin-top':'15px'
                 }
             },
-            computed: {
-
-            },
-            methods: {
-
-            }
+            computed: {},
+            methods: {}
         });
 
         setTimeout(function() {
