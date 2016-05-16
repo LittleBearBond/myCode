@@ -47,7 +47,7 @@
             </li>
         </ul>
     </div>
-    <script type="text/javascript" src="../lib/vue.js"></script>
+    <script type="text/javascript" src="../lib/vue-1.0.24.js"></script>
     <script type="text/javascript">
         Vue.config.debug = true;
         var vm = new Vue({
@@ -65,6 +65,7 @@
                     text: '翯翯'
                 }]
             },
+            //最后都挂接到了this上面，并且把里面的函数this全部绑定到了vue this 实例上面
             methods: {
                 reverseMessage: function() {
                     this.message = this.message.split('').reverse().join('');

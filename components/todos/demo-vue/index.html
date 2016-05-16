@@ -32,7 +32,7 @@
 				autofocus autocomplete="off"
 	            placeholder="What needs to be done?"
 	            v-model="inputVal"
-	            v-on:keyup.enter="addTodo">
+	            @keyup.enter="addTodo">
 		</div>
 		<div class="checkbox">
 			<input type="checkbox"  v-model="allDone">
@@ -62,13 +62,13 @@
 			</li>
 		</ul>
 		<footer id="jq-footer" v-show="todos.length">
-			<a class="clear-completed" id="jq-clear-completed">Clear {{completed}} completed items</a>
-			<div class="todo-count" id="jq-todo-count" v-on:click="removeCompleted" v-show="todos.length > remaining" ><b>{{remaining}}</b> items left</div>
+			<a class="clear-completed" id="jq-clear-completed"  @click="removeCompleted">Clear {{completed}} completed items</a>
+			<div class="todo-count" id="jq-todo-count" v-show="todos.length > remaining" ><b>{{remaining}}</b> items left</div>
 		</footer>
 		<div>
 			<!-- 简写和非简写同事存在，只为感受两者的差异😄 -->
-	        <button v-on:click="reverseList" class="btn btn-primary">Reverse list</button>
-	        <button v-on:click="removeAll" class="btn btn-primary">removeAll</button>
+	        <button @click="reverseList" class="btn btn-primary">Reverse list</button>
+	        <button @click="removeAll" class="btn btn-primary">removeAll</button>
 		</div>
 	</div>
 	<script type="text/javascript" src="../../../study-code/vue/lib/vue.js"></script>
