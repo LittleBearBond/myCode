@@ -498,13 +498,14 @@
         };
     }
 
+    //这还限制大小
     function Cache(limit) {
         this.size = 0;
         this.limit = limit;
         this.head = this.tail = undefined;
         this._keymap = Object.create(null);
     }
-
+    //这样取名好吗？
     var p = Cache.prototype;
 
     /**
@@ -520,25 +521,34 @@
 
     p.put = function(key, value) {
         var removed;
+        //达到最大值了，要移除一个了
         if (this.size === this.limit) {
             removed = this.shift();
         }
 
         var entry = this.get(key, true);
+        //这个key 之前是否已经存过值了
         if (!entry) {
+            //木有
             entry = {
                 key: key
             };
+            //这样存的嗦
             this._keymap[key] = entry;
+            //尾部，第一次这个为空，就会给头部赋值
             if (this.tail) {
+                //这个即将是老的啦，不过得让它指导新的
                 this.tail.newer = entry;
+                //老的
                 entry.older = this.tail;
             } else {
+                //头部
                 this.head = entry;
             }
             this.tail = entry;
             this.size++;
         }
+        //保存value
         entry.value = value;
 
         return removed;
@@ -551,11 +561,16 @@
      */
 
     p.shift = function() {
+        //把头部这个取出来
         var entry = this.head;
         if (entry) {
+            //重写设置这个头部，应该是指向它对应的新值
             this.head = this.head.newer;
+            //清空它指向的前驱节点
             this.head.older = undefined;
+            //清空取出去的这个对象的前后驱节点
             entry.newer = entry.older = undefined;
+            //把值也情空
             this._keymap[entry.key] = undefined;
             this.size--;
         }
@@ -574,6 +589,7 @@
     p.get = function(key, returnEntry) {
         var entry = this._keymap[key];
         if (entry === undefined) return;
+        //这个值是尾部节点
         if (entry === this.tail) {
             return returnEntry ? entry : entry.value;
         }
@@ -581,7 +597,9 @@
         //   <.older   .newer>
         //  <--- add direction --
         //   A  B  C  <D>  E
+        //  不是尾部节点
         if (entry.newer) {
+            //这是个头部节点
             if (entry === this.head) {
                 this.head = entry.newer;
             }
