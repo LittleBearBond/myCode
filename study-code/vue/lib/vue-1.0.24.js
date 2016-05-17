@@ -1355,6 +1355,7 @@
         if (el.classList) {
             el.classList.add(cls);
         } else {
+            //这么简单的处理 好吗
             var cur = ' ' + getClass(el) + ' ';
             if (cur.indexOf(' ' + cls + ' ') < 0) {
                 setClass(el, (cur + cls).trim());
@@ -2044,7 +2045,7 @@
     /**
      * Intercept mutating methods and emit events
      */
-
+    //包装数组的这些方法
     ;
     ['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse'].forEach(function(method) {
         // cache original method
@@ -2142,6 +2143,7 @@
     function Observer(value) {
         this.value = value;
         this.dep = new Dep();
+        //给value中定义一个__ob__引用父对应this
         def(value, '__ob__', this);
         if (isArray(value)) {
             var augment = hasProto ? protoAugment : copyAugment;
@@ -2332,7 +2334,7 @@
     }
 
 
-
+    //冻结对象是指那些不能添加新的属性，不能修改、删除已有属性，不能修改已有属性的可枚举性、可配置性、可写性的对象
     var util = Object.freeze({
         defineReactive: defineReactive,
         set: set,
@@ -7933,7 +7935,7 @@
                     warn('Data field "' + key + '" is already defined ' + 'as a prop. To provide default value for a prop, use the "default" ' + 'prop option; if you want to pass prop values to an instantiation ' + 'call, use the "propsData" option.', this);
                 }
             }
-            // observe data
+            // observe data this和data扯上关系
             observe(data, this);
         };
 
@@ -9476,6 +9478,7 @@
             if (!el) {
                 el = document.createElement('div');
             }
+            //哈哈 这个看起来有点复杂
             this._compile(el);
             this._initDOMHooks();
             if (inDoc(this.$el)) {
@@ -9852,7 +9855,7 @@
          * @param {String} sign
          * @param {Number} decimals Decimal places
          */
-
+        //弄得这么复杂……
         currency: function currency(value, _currency, decimals) {
             value = parseFloat(value);
             if (!isFinite(value) || !value && value !== 0) return '';
@@ -10097,5 +10100,4 @@
     }, 0);
 
     return Vue;
-
 }));

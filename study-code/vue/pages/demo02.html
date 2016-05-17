@@ -32,7 +32,7 @@
         <h1>a={{ a }}, b={{ b }}</h1>
         <div class="alert alert-{{className}}"> {{fullName}}</div>
     </div>
-    <script type="text/javascript" src="../lib/vue.js"></script>
+    <script type="text/javascript" src="../lib/vue-1.0.24.js"></script>
     <script type="text/javascript">
         Vue.config.debug = true;
         var vm = new Vue({
@@ -43,7 +43,7 @@
                 firstName: 'Foo',
                 lastName: 'Bar',
                 fullName: 'Foo Bar',
-                className:'success'
+                className: 'success'
             },
             computed: {
                 // 一个计算属性的 getter
@@ -80,10 +80,10 @@
             this.fullName = this.firstName + ' ' + val
         })*/
 
-        setTimeout(function () {
+        setTimeout(function() {
             vm.fullName = "little bear";
             vm.className = "danger";
-        },3000);
+        }, 3000);
         console.log(vm);
 
     </script>
