@@ -21,6 +21,8 @@
 <body>
     <div id="app">
         <my-component></my-component>
+
+
         <child msg="child hello bond"></child>
         <child msg="child hello little bear"></child>
 
@@ -28,6 +30,7 @@
             <span class="input-group-addon" id="basic-addon1">@</span>
             <input v-model="parentMsg" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
         </div>
+
         <child1 :my-message="parentMsg"></child1>
         <!-- 默认为单向绑定 -->
         <child1 :my-message="parentMsg"></child1>
@@ -44,7 +47,7 @@
         // 定义
         var MyComponent = Vue.extend({
                 template: '<div class="alert alert-info">A custom component!</div>'
-            })
+            });
             // 注册
         Vue.component('my-component', MyComponent);
 

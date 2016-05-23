@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="template-dom" class="{{className}}">
+        <div class="user-profile">
+            <div class="user-avatar">
+                <img src="{{user.avatar}}">
+            </div>
+            {{user.name}}
+        </div>
+    </div>
+    <script>
+        var render = (function() {
+            var reg = /{{([^}]*)}}/g
+
+            /**
+             * 根据prop获取model的某个field
+             * @param model
+             * @param prop
+             * @returns {*}
+             */
+            /*function getField(model, prop) {
+                let keys = prop.split('.')
+                for (let key of keys) {
+                    if (model[key] == null) {
+                        return
+                    }
+                    model = model[key]
+                }
+                return model
+            }*/
+
+            function getField(model, prop) {
+                prop.split('.').reduce(function(obj, key) {
+                    return obj && obj[key];
+                }, model);
+            }
+
+            function traverse(el, model) {
+                // 文本节点,替换文本内容
+                if (el.nodeType === 3) {
+                    el.textContent = el.textContent.replace(reg, function(word, prop) {
+                        return getField(model, prop)
+                    });
+                } else {
+                    //非文本节点替换属性内容
+                    var attributes = Array.prototype.slice.call(el.attributes)
+                    for (let attr of attributes) {
+                        let value = attr.value
+                        value = value.replace(reg, function(word, prop) {
+                            return getField(model, prop)
+                        })
+                        attr.value = value
+                    }
+                }
+
+                /**
+                 * 递归替换子节点
+                 * @type {Array.<T>}
+                 */
+                let childNodes = Array.prototype.slice.call(el.childNodes)
+                for (let child of childNodes) {
+                    traverse(child, model)
+                }
+            }
+
+            function render(el, model) {
+                traverse(el, model)
+            }
+            return render;
+        })();
+</script>
+<script>
+    var m = {
+        className: 'user',
+        user:{
+            name: 'wscn',
+            avatar:'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png'
+        }
+    }
+    render(document.getElementById('template-dom'),m)
+</script>
+</body>
+</html>
