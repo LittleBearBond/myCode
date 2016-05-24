@@ -35,7 +35,7 @@
             }*/
 
             function getField(model, prop) {
-                prop.split('.').reduce(function(obj, key) {
+                return prop.split('.').reduce(function(obj, key) {
                     return obj && obj[key];
                 }, model);
             }
