@@ -16,6 +16,7 @@
     <script>
         var render = (function() {
             var reg = /{{([^}]*)}}/g
+            var _slice = Array.prototype.slice;
 
             /**
              * 根据prop获取model的某个field
@@ -40,30 +41,27 @@
                 }, model);
             }
 
+            function getText(val, model) {
+                return val.replace(reg, function(word, prop) {
+                    return getField(model, prop)
+                });
+            }
+
             function traverse(el, model) {
                 // 文本节点,替换文本内容
                 if (el.nodeType === 3) {
-                    el.textContent = el.textContent.replace(reg, function(word, prop) {
-                        return getField(model, prop)
-                    });
+                    el.textContent = getText(el.textContent, model)
                 } else {
                     //非文本节点替换属性内容
-                    var attributes = Array.prototype.slice.call(el.attributes)
-                    for (let attr of attributes) {
-                        let value = attr.value
-                        value = value.replace(reg, function(word, prop) {
-                            return getField(model, prop)
-                        })
-                        attr.value = value
+                    for (let attr of _slice.call(el.attributes)) {
+                        attr.value = getText(attr.value, model)
                     }
                 }
-
                 /**
                  * 递归替换子节点
                  * @type {Array.<T>}
                  */
-                let childNodes = Array.prototype.slice.call(el.childNodes)
-                for (let child of childNodes) {
+                for (let child of _slice.call(el.childNodes)) {
                     traverse(child, model)
                 }
             }
@@ -73,16 +71,14 @@
             }
             return render;
         })();
-</script>
-<script>
-    var m = {
-        className: 'user',
-        user:{
-            name: 'wscn',
-            avatar:'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png'
+        var m = {
+            className: 'user',
+            user: {
+                name: 'wscn',
+                avatar: 'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png'
+            }
         }
-    }
-    render(document.getElementById('template-dom'),m)
+        render(document.getElementById('template-dom'), m)
 </script>
 </body>
 </html>
