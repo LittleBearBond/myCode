@@ -15,16 +15,16 @@
         var con = document.getElementById('example');
         /********************demo1 Render JSX ***************************/
 
-         /*ReactDOM.render( <h1>Hello, world!</h1>, con );*/
+        /*ReactDOM.render( <h1>Hello, world!</h1>, con );*/
 
 
         /********************demo2 Use JavaScript in JSX***************************/
-         /*var names = ['little', 'bear', 'Bond'];
+        /* var names = ['little', 'bear', 'Bond'];
           ReactDOM.render(
             <div>
                 {
-                    names.map(function (name) {
-                        return <div className="alert alert-success" key={name} role="alert">Hello {name} !</div>
+                    names.map(function (name , index) {
+                        return <div className="alert alert-success" key={index} role="alert">Hello {name} !</div>
                     })
                 }
             </div>,
@@ -32,7 +32,7 @@
           );*/
 
         /********************demo3 Use array in JSX***************************/
-          /*var arr = [
+        /*  var arr = [
             <h1>Hello world!</h1>,
             <h2>React is awesome</h2>
           ];
@@ -87,27 +87,35 @@
         ReactDOM.render( <MyTitle title={data} />, con );*/
 
         /********************demo7 Finding a DOM node***************************/
-        /*var MyComponent = React.createClass({
+        var MyComponent = React.createClass({
           handleClick: function() {
             this.refs.myTextInput.focus();
           },
           clearInput:function () {
             this.refs.myTextInput.value = '';
           },
+          reverseInput:function () {
+            var val = this.refs.myTextInput.value;
+            if (!val) {
+              return;
+            }
+            this.refs.myTextInput.value = val.split('').reverse().join('');
+          },
           render: function() {
             return (
             <div>
                 <div className="input-group">
-                  <input type="text" className="form-control" placeholder="Username" ref="myTextInput"/>
+                  <input type="text" className="form-control" defaultValue={this.props.testAttr} placeholder="Username" ref="myTextInput"/>
                   <span className="input-group-addon" onClick={this.handleClick} >Focus the text input </span>
                 </div>
                 <button type="button" className="btn btn-default" onClick={this.clearInput} >clear input value</button>
+                <button type="button" className="btn btn-default" onClick={this.reverseInput} >reverse input value</button>
             </div>
             );
           }
         });
 
-        ReactDOM.render( <MyComponent />, con );*/
+        ReactDOM.render( <MyComponent testAttr="testAttr-{this.props.name}"/>, con );
         /********************demo8 this.state***************************/
         /*var LikeButton = React.createClass({
             getInitialState: function() {
