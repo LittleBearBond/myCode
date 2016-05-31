@@ -87,7 +87,7 @@
         ReactDOM.render( <MyTitle title={data} />, con );*/
 
         /********************demo7 Finding a DOM node***************************/
-        var MyComponent = React.createClass({
+        /*var MyComponent = React.createClass({
           handleClick: function() {
             this.refs.myTextInput.focus();
           },
@@ -115,7 +115,7 @@
           }
         });
 
-        ReactDOM.render( <MyComponent testAttr="testAttr-{this.props.name}"/>, con );
+        ReactDOM.render( <MyComponent testAttr="testAttr-{this.props.name}"/>, con );*/
         /********************demo8 this.state***************************/
         /*var LikeButton = React.createClass({
             getInitialState: function() {
@@ -153,7 +153,6 @@
                 <div className="input-group">
                   <input type="text" className="form-control" onChange={this.handleChange} placeholder="Username" ref="myTextInput"/>
                   <span className="input-group-addon" onClick={this.handleClick} >Focus the text input </span>
-
                 </div>
                 <div className="alert alert-success" > {value} </div>
               </div>
@@ -162,24 +161,23 @@
         });
         ReactDOM.render(<Input/>, con);*/
         /********************demo10 Component Lifecycle***************************/
-        /*var Hello = React.createClass({
+        var Hello = React.createClass({
           getInitialState: function () {
             return {
               opacity: 1.0
             };
           },
-
           componentDidMount: function () {
-                this.timer = setInterval(function() {
-                    var opacity = this.state.opacity;
-                    opacity -= .005;
-                    if (opacity < 0.1) {
-                        opacity = 1.0;
-                    }
-                    this.setState({
-                        opacity: opacity
-                    });
-                }.bind(this), 1000/60);
+            this.timer = setInterval(function() {
+                var opacity = this.state.opacity;
+                opacity -= .005;
+                if (opacity < 0.1) {
+                    opacity = 1.0;
+                }
+                this.setState({
+                    opacity: opacity
+                });
+            }.bind(this), 1000/60);
           },
           render: function () {
             return (
@@ -189,8 +187,7 @@
             );
           }
         });
-        ReactDOM.render(<Hello name="hello little bear"/>, con );*/
-
+        ReactDOM.render(<Hello name="hello little bear"/>, con );
         </script>
     </body>
 </html>

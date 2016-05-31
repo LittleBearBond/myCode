@@ -29,7 +29,7 @@
         var ProfilePic = React.createClass({
           render: function() {
             return (
-              <img src={'http://graph.facebook.com/' + this.props.username + '/picture'} />
+              <img src={'https://t.alipayobjects.com/images/rmsweb/T1B9hfXcdvXXXXXXXX.svg?_=' + this.props.username} />
             );
           }
         });
@@ -88,14 +88,8 @@
           }
         });
 
-        /*React.render(
-             <Avatar username="pwh" />,
-            document.getElementById('example')
-            );*/
-        React.render(
-             <MyComponent1 results={PRODUCTS} />,
-            document.getElementById('example')
-            );
+        React.render(<Avatar username="pwh" />, document.getElementById('example') );
+        /*React.render(<MyComponent1 results={PRODUCTS} />, document.getElementById('example') );*/
     </script>
 </body>
 </html>

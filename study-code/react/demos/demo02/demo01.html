@@ -40,27 +40,25 @@
             }
         });
 
-    var Item=React.createClass({
+    var Item = React.createClass({
         render: function() {
-            var name=this.props.data.name;
-            name = this.props.data.stocked===true ?
+            var name = this.props.data.name;
+            name = this.props.data.stocked === true ?
             name :
-            <span style={{color: 'red'}}>
-                {name}
-            </span>;
-
+            <span style={{color: 'red'}}> {name} </span>;
             return (
                     <li data-stocked="{this.props.data.stocked}">
-                   {name}-----{this.props.data.category}-----{this.props.data.price}
+                        {name}-----{this.props.data.category}-----{this.props.data.price}
                     </li>
                 );
             }
         });
-    var ItemList=React.createClass({
+
+    var ItemList = React.createClass({
         render: function() {
-            var items=this.props.data.map(function(item) {
+            var items = this.props.data.map(function(item) {
                 return (
-                    <Item data={item}></Item>
+                        <Item data={item}></Item>
                     );
             });
             return (
@@ -68,6 +66,7 @@
             );
         }
     });
+
     var CommentBox = React.createClass({
         searchData: function(text) {
             if (!text) {
@@ -76,12 +75,11 @@
                 });
                 return;
             }
-            var data = PRODUCTS.filter(function(item) {
-                return item.category.toLocaleUpperCase().includes(text.toLocaleUpperCase()) ||
-                    item.name.toLocaleUpperCase().includes(text.toLocaleUpperCase());
-            });
+
             this.setState({
-                data: data
+                data: PRODUCTS.filter(function(item) {
+                    return item.category.toLocaleUpperCase().includes(text.toLocaleUpperCase()) || item.name.toLocaleUpperCase().includes(text.toLocaleUpperCase());
+                })
             });
         },
         getInitialState: function() {
@@ -93,6 +91,9 @@
             this.setState({
                 data: PRODUCTS
             });
+        },
+        componentDidMount:function () {
+            console.log(this.getDOMNode())
         },
         render:function() {
             return (
@@ -107,10 +108,7 @@
             );
         }
     });
-        React.render(
-            <CommentBox/>,
-            document.body
-            )
+    React.render(<CommentBox/>, document.body)
     </script>
 </body>
 </html>
