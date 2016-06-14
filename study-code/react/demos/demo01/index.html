@@ -92,10 +92,10 @@
           handleClick: function() {
             this.refs.myTextInput.focus();
           },
-          clearInput:function () {
+          clearInput() {
             this.refs.myTextInput.value = '';
           },
-          reverseInput:function () {
+          reverseInput() {
             var val = this.refs.myTextInput.value;
             if (!val) {
               return;
@@ -155,7 +155,7 @@
           handleChange: function(event) {
             this.setState({value: event.target.value});
           },
-          handleClick:function () {
+          handleClick() {
             this.refs.myTextInput.focus();
           },
           render: function () {
