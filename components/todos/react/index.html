@@ -39,97 +39,127 @@
     <script scr="../../study-code/react/react-15.1.0/react.js"></script>
     <script scr="../../study-code/react/react-15.1.0/react-dom.js"></script>
     <script>
-    const ESCAPE_KEY = 27;
-    const ENTER_KEY = 13;
+        const ESCAPE_KEY = 27;
+        const ENTER_KEY = 13;
 
-    let input = React.createClass({
-        getInitialState:function () {
-            return {
-                newTodo: ''
-            };
-        },
-        handleNewTodoKeyDown:function (e) {
-            //是否是回车
-            if (e.keyCode !== ENTER_KEY) {
-                return;
-            }
-            e.preventDefault();
-            let val = this.state.newTodo.trim();
-            if (!val) {
-                return;
-            }
-            //log
-            console.log(this.refs.elInput);
-            //添加
-            this.props.mode.addTodo(val);
-            //清空
-            this.setState({newTodo:''});
-        },
-        handleChange:function (e) {
-            this.setState({newTodo: e.target.value});
-        },
-        render:function () {
-            return (
-                     <div class="input-group input-group-lg">
-                        <input type="text" className="form-control" placeholder="Username"
-                            value={this.state.newTodo}
-                            onKeyDown={this.handleNewTodoKeyDown}
-                            onChange={this.handleChange}
-                            autoFocus={true}
-                            ref="elInput"
-                            >
-                    </div>
+        let input = React.createClass({
+            getInitialState: function() {
+                return {
+                    newTodo: ''
+                };
+            },
+            handleNewTodoKeyDown: function(e) {
+                //是否是回车
+                if (e.keyCode !== ENTER_KEY) {
+                    return;
+                }
+                e.preventDefault();
+                let val = this.state.newTodo.trim();
+                if (!val) {
+                    return;
+                }
+                //log
+                console.log(this.refs.elInput);
+                //添加
+                this.props.mode.addTodo(val);
+                //清空
+                this.setState({
+                    newTodo: ''
+                });
+            },
+            handleChange: function(e) {
+                this.setState({
+                    newTodo: e.target.value
+                });
+            },
+            render: function() {
+                return ( < div class = "input-group input-group-lg" >
+                    < input type = "text"
+                    className = "form-control"
+                    placeholder = "Username"
+                    value = {
+                        this.state.newTodo
+                    }
+                    onKeyDown = {
+                        this.handleNewTodoKeyDown
+                    }
+                    onChange = {
+                        this.handleChange
+                    }
+                    autoFocus = {
+                        true
+                    }
+                    ref = "elInput" >
+                    < /div>
                 )
-        }
-    });
+            }
+        });
 
-    let todoItem = React.createClass({
-        getInitialState: function () {
-            return {editText: this.props.todo.title};
-        },
-        handleChange:function (e) {
-            this.setState({editText:e.target.value.trim()});
-        },
-        handleKeyDown:function () {
+        let todoItem = React.createClass({
+            getInitialState: function() {
+                return {
+                    editText: this.props.todo.title
+                };
+            },
+            handleChange: function(e) {
+                this.setState({
+                    editText: e.target.value.trim()
+                });
+            },
+            handleKeyDown: function() {
 
-        },
-        handleSubmit:function () {
+            },
+            handleSubmit: function() {
 
-        },
-        handleEdit:function () {
-            this.setState({editing:true});
-        },
-        render: function () {
-            return (
-                    <li className={classNames({
+            },
+            handleEdit: function() {
+                this.setState({
+                    editing: true
+                });
+            },
+            render: function() {
+                return ( < li className = {
+                        classNames({
                             'list-group-item': true,
                             edit: this.props.editing
-                        })}>
-                        <div className="checkbox">
-                            <input type="checkbox"
-                                checked={this.props.todo.completed}
-                                onChange={this.props.onToggle}
-                            >
-                            <label onDoubleClick={this.handleEdit}>
-                                {this.props.todo.title}
-                            </label>
-                            <span className="glyphicon glyphicon-remove" onClick={this.props.onDestroy}></span>
-                        </div>
-                        <div className="input-group input-group-lg">
-                            <input type="text"
-                                className="form-control"
-                                placeholder="Username"
-                                ref="elEditField"
-                                value={this.state.editText}
-                                onBlur={this.handleSubmit}
-                                onChange={this.handleChange}
-                                onKeyDown={this.handleKeyDown}
-                            >
-                        </div>
-                    </li>
+                        })
+                    } >
+                    < div className = "checkbox" >
+                    < input type = "checkbox"
+                    checked = {
+                        this.props.todo.completed
+                    }
+                    onChange = {
+                        this.props.onToggle
+                    } >
+                    < label onDoubleClick = {
+                        this.handleEdit
+                    } > {
+                        this.props.todo.title
+                    } < /label> < span className = "glyphicon glyphicon-remove"
+                    onClick = {
+                        this.props.onDestroy
+                    } > < /span> < /div> < div className = "input-group input-group-lg" >
+                    < input type = "text"
+                    className = "form-control"
+                    placeholder = "Username"
+                    ref = "elEditField"
+                    value = {
+                        this.state.editText
+                    }
+                    onBlur = {
+                        this.handleSubmit
+                    }
+                    onChange = {
+                        this.handleChange
+                    }
+                    onKeyDown = {
+                        this.handleKeyDown
+                    } >
+                    < /div> < /li>
                 )
-        }
-    });
+            }
+        });
     </script>
     <script type="text" id="jq-itemview">
         <li class="list-group-item">
@@ -144,4 +174,5 @@
         </li>
     </script>
 </body>
+
 </html>

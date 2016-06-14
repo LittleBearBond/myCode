@@ -19,7 +19,7 @@
 
 
         /********************demo2 Use JavaScript in JSX***************************/
-        /* var names = ['little', 'bear', 'Bond'];
+         /*var names = ['little', 'bear', 'Bond'];
           ReactDOM.render(
             <div>
                 {
@@ -42,11 +42,12 @@
         /********************demo4 Define a component***************************/
           /*var HelloMessage = React.createClass({
             render: function() {
-              return <h1>Hello {this.props.name}</h1>;
+              console.log(this.props , this);
+              return <h1 className="alert alert-success"  >Hello {this.props.name}</h1>;
             }
           });
           ReactDOM.render(
-            <HelloMessage name="littlebear" />,
+            <HelloMessage name="littlebear" title="title-test"/>,
             con
           );*/
         /********************demo5 this.props.children***************************/
@@ -117,8 +118,8 @@
 
         ReactDOM.render( <MyComponent testAttr="testAttr-{this.props.name}"/>, con );*/
         /********************demo8 this.state***************************/
-        /*var LikeButton = React.createClass({
-            getInitialState: function() {
+        var LikeButton = React.createClass({
+            getInitialState() {
                 return {
                     liked: false
                 };
@@ -128,13 +129,24 @@
                     liked: !this.state.liked
                 });
             },
-            render: function() {
+            render() {
                 var text = this.state.liked ? 'like' : 'haven\'t liked';
-                return ( <div className="alert alert-success" onClick = {this.handleClick} > You {text } this.  <span className="badge">Click to toggle.</span> </div> );
-            }
+                return ( <div className="alert alert-success" onClick = {this.handleClick} > You {text } this.  <span className="badge">Click to toggle.</span> {this.props.title}</div> );
+            },
+            componentWillMount() {
+                  console.log('componentWillMount')
+            },
+            componentDidMount() {
+              console.log('componentDidMount')
+              setTimeout(function () {
+                this.setState({
+                  liked: !this.state.liked
+                });
+              }.bind(this),2000)
+            },
         });
 
-        ReactDOM.render( <LikeButton /> , con );*/
+        ReactDOM.render( <LikeButton title="title-props"/> , con );
         /********************demo9 Form***************************/
         /*var Input = React.createClass({
           getInitialState: function() {
@@ -161,7 +173,7 @@
         });
         ReactDOM.render(<Input/>, con);*/
         /********************demo10 Component Lifecycle***************************/
-        var Hello = React.createClass({
+        /*var Hello = React.createClass({
           getInitialState: function () {
             return {
               opacity: 1.0
@@ -187,7 +199,7 @@
             );
           }
         });
-        ReactDOM.render(<Hello name="hello little bear"/>, con );
+        ReactDOM.render(<Hello name="hello little bear"/>, con );*/
         </script>
     </body>
 </html>
