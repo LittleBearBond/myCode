@@ -31,7 +31,7 @@
         searchData:function(e) {
             this.props.onsearch(this.refs.input.getDOMNode().value.trim());
         },
-        render: function() {
+        render() {
              //var rawMarkup = converter.makeHtml(this.props.children.toString());
              /*<span dangerouslySetInnerHTML={{__html: rawMarkup}} />*/
             return (
@@ -41,7 +41,7 @@
         });
 
     var Item = React.createClass({
-        render: function() {
+        render() {
             var name = this.props.data.name;
             name = this.props.data.stocked === true ?
             name :
@@ -55,7 +55,7 @@
         });
 
     var ItemList = React.createClass({
-        render: function() {
+        render() {
             var items = this.props.data.map(function(item) {
                 return (
                         <Item data={item}></Item>
@@ -82,17 +82,15 @@
                 })
             });
         },
-        getInitialState: function() {
+        getInitialState() {
             return {
                 data: []
             };
         },
-        componentDidMount: function() {
+        componentDidMount() {
             this.setState({
                 data: PRODUCTS
             });
-        },
-        componentDidMount:function () {
             console.log(this.getDOMNode())
         },
         render:function() {
