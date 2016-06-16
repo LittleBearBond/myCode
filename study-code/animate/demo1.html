@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>animate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="full-screen" content="true">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+</head>
+<body>
+    <div style="position:absolute;background:#4A88f6;width:200px;line-height:200px" id="div">我是div</div>
+    <script type="text/javascript">
+        /**
+         * raf
+         */
+        var requestAnimationFrame = (function() {
+            return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                window.oRequestAnimationFrame ||
+                //所有都不支持，用setTimeout兼容
+                function(callback) {
+                    return window.setTimeout(callback, (callback.interval || 1000 / 60)); // make interval as precise as possible.
+                };
+        })();
+
+        var tween = {
+            //时间 开始位置 结束位置  时长
+            linear: function(t, b, c, d) {
+                return c * t / d + b;
+            },
+            easeIn: function(t, b, c, d) {
+                return c * (t /= d) * t + b;
+            },
+            strongEaseIn: function(t, b, c, d) {
+                return c * (t /= d) * t * t * t * t + b;
+            },
+            strongEaseOut: function(t, b, c, d) {
+                return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
+            },
+            sineaseIn: function(t, b, c, d) {
+                return c * (t /= d) * t * t + b;
+            },
+            sineaseOut: function(t, b, c, d) {
+                return c * ((t = t / d - 1) * t * t + 1) + b;
+            }
+        };
+
+        var Animate = function(dom) {
+            this.dom = dom; // 进行运动的dom 节点
+            this.startTime = 0; // 动画开始时间
+            this.startPos = 0; // 动画开始时，dom 节点的位置，即dom 的初始位置
+            this.endPos = 0; // 动画结束时，dom 节点的位置，即dom 的目标位置
+            this.propertyName = null; // dom 节点需要被改变的css 属性名
+            this.easing = null; // 缓动算法
+            this.duration = null; // 动画持续时间
+        };
+
+        Animate.prototype.start = function(propertyName, endPos, duration, easing) {
+            var that = this;
+            this.startTime = +new Date; // 动画启动时间
+            this.startPos = this.dom.getBoundingClientRect()[propertyName]; // dom 节点初始位置
+            this.propertyName = propertyName; // dom 节点需要被改变的CSS 属性名
+            this.endPos = endPos; // dom 节点目标位置
+            this.duration = duration; // 动画持续事件
+            this.easing = tween[easing]; // 缓动算法
+
+            function nextTick() {
+                if (that.step() === false) { // 如果动画已结束，则清除定时器
+                    return;
+                }
+                requestAnimationFrame(nextTick);
+            }
+            nextTick();
+        };
+
+        Animate.prototype.step = function() {
+            var t = +new Date; // 取得当前时间
+            if (t >= this.startTime + this.duration) { // (1)
+                this.update(this.endPos); // 更新小球的CSS 属性值
+                return false;
+            }
+            var pos = this.easing(t - this.startTime, this.startPos, this.endPos - this.startPos, this.duration);
+            // pos 为小球当前位置
+            this.update(pos); // 更新小球的CSS 属性值
+        };
+
+        Animate.prototype.update = function(pos) {
+            this.dom.style[this.propertyName] = pos + 'px';
+        };
+
+        var div = document.getElementById('div');
+        var animate = new Animate(div);
+
+        animate.start('left', 500, 1000, 'sineaseIn');
+        setTimeout(function() {
+            animate.start('top', 500, 2000, 'strongEaseIn');
+        }, 1500);
+        // animate.start( 'top', 1500, 500, 'strongEaseIn' );
+</script>
+</body>
+</html>
