@@ -31,7 +31,18 @@
                     return window.setTimeout(callback, (callback.interval || 1000 / 60)); // make interval as precise as possible.
                 };
         })();
-
+        /**
+         * cancelAnimationFrame
+         */
+        var cancelAnimationFrame = (function() {
+            return window.cancelAnimationFrame ||
+                window.webkitCancelAnimationFrame ||
+                window.mozCancelAnimationFrame ||
+                window.oCancelAnimationFrame ||
+                function(id) {
+                    window.clearTimeout(id);
+                };
+        }());
         var tween = {
             //时间 开始位置 结束位置  时长
             linear: function(t, b, c, d) {
@@ -77,7 +88,7 @@
                 if (that.step() === false) { // 如果动画已结束，则清除定时器
                     return;
                 }
-                requestAnimationFrame(nextTick);
+                that.intervalTimer = requestAnimationFrame(nextTick);
             }
             nextTick();
         };
@@ -101,6 +112,7 @@
         var animate = new Animate(div);
 
         animate.start('left', 500, 1000, 'sineaseIn');
+
         setTimeout(function() {
             animate.start('top', 500, 2000, 'strongEaseIn');
         }, 1500);
