@@ -33,7 +33,7 @@
 			isEndRebound: false, //当滑动到最后一个的时候是否允许继续滑动回弹
 			lastPageCallBack: emptyFunc, //最后一页的回调
 			totalPage: 100, //总共可以翻多少页
-			inClass: 'in'//元素进入页面加上class
+			inClass: 'in' //元素进入页面加上class
 		},
 		each = function(obj, callback, context) {
 			if (obj == null) {
@@ -413,12 +413,12 @@
 			});
 			this.els[num] && this.els[num].classList.add(cls);
 		},
-		next:function(){
-			this.disX=-(this.opts.dis+10);
+		next: function() {
+			this.disX = -(this.opts.dis + 10);
 			this.move();
 		},
-		pre:function(){
-			this.disX=this.opts.dis+10;
+		pre: function() {
+			this.disX = this.opts.dis + 10;
 			this.move();
 		},
 		translate: function(obj, dist, duration) {
