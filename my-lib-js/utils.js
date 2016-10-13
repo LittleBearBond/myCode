@@ -549,6 +549,22 @@ window.cancelNextRequestAnimationFrame = window.cancelRequestAnimationFrame || w
 	}
 }());
 
+
+var vendors = {
+		Webkit: 'webkit',
+		Moz: '',
+		O: 'o'
+	},
+	testEl = document.createElement('div'),
+	prefix, eventPrefix;
+$.each(vendors, function(key, val) {
+	if (testEl.style[key + 'TransitionProperty'] !== undefined) {
+		prefix = '-' + key.toLowerCase() + '-'
+		eventPrefix = val
+		return false
+	}
+})
+
 function orientationChange() {
 	switch (window.orientation) {
 		case 0:
