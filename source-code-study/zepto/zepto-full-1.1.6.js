@@ -1128,15 +1128,15 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 		 */
 		// trigger a custom event and return false if it was cancelled
 	function triggerAndReturn(context, eventName, data) {
-			//初始化一个Event对象
-			var event = $.Event(eventName)
-				//触发context这个对象的该事件
-			$(context).trigger(event, data)
-				//返回是否调用过阻止默认行为，初始为false，掉用过就是true
-			return !event.isDefaultPrevented()
-		}
-		//触发 ajax的全局事件
-		// trigger an Ajax "global" event
+		//初始化一个Event对象
+		var event = $.Event(eventName)
+			//触发context这个对象的该事件
+		$(context).trigger(event, data)
+			//返回是否调用过阻止默认行为，初始为false，掉用过就是true
+		return !event.isDefaultPrevented()
+	}
+	//触发 ajax的全局事件
+	// trigger an Ajax "global" event
 	function triggerGlobal(settings, context, eventName, data) {
 		//默认context为document
 		if (settings.global) return triggerAndReturn(context || document, eventName, data)
@@ -1166,30 +1166,30 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 	}
 
 	function ajaxSuccess(data, xhr, settings, deferred) {
-			var context = settings.context,
-				status = 'success'
-				//获取上下文，调用success
-			settings.success.call(context, data, status, xhr)
-				//如果引用了Deferred模块，这里执行成功的通知，并传递相关参数
-			if (deferred) deferred.resolveWith(context, [data, status, xhr])
-				//触发全局的成功
-			triggerGlobal(settings, context, 'ajaxSuccess', [xhr, settings, data])
-				//调用ajaxComplete
-			ajaxComplete(status, xhr, settings)
-		}
-		// type: "timeout", "error", "abort", "parsererror"
+		var context = settings.context,
+			status = 'success'
+			//获取上下文，调用success
+		settings.success.call(context, data, status, xhr)
+			//如果引用了Deferred模块，这里执行成功的通知，并传递相关参数
+		if (deferred) deferred.resolveWith(context, [data, status, xhr])
+			//触发全局的成功
+		triggerGlobal(settings, context, 'ajaxSuccess', [xhr, settings, data])
+			//调用ajaxComplete
+		ajaxComplete(status, xhr, settings)
+	}
+	// type: "timeout", "error", "abort", "parsererror"
 	function ajaxError(error, type, xhr, settings, deferred) {
-			var context = settings.context
-				//获取上下文，调用error
-			settings.error.call(context, xhr, type, error)
-				//如果引用了Deferred模块，这里执行失败的通知，并传递相关参数
-			if (deferred) deferred.rejectWith(context, [xhr, type, error])
-				//触发全局的失败
-			triggerGlobal(settings, context, 'ajaxError', [xhr, settings, error || type])
-				//调用ajaxComplete
-			ajaxComplete(type, xhr, settings)
-		}
-		// status: "success", "notmodified", "error", "timeout", "abort", "parsererror"
+		var context = settings.context
+			//获取上下文，调用error
+		settings.error.call(context, xhr, type, error)
+			//如果引用了Deferred模块，这里执行失败的通知，并传递相关参数
+		if (deferred) deferred.rejectWith(context, [xhr, type, error])
+			//触发全局的失败
+		triggerGlobal(settings, context, 'ajaxError', [xhr, settings, error || type])
+			//调用ajaxComplete
+		ajaxComplete(type, xhr, settings)
+	}
+	// status: "success", "notmodified", "error", "timeout", "abort", "parsererror"
 	function ajaxComplete(status, xhr, settings) {
 		var context = settings.context
 			//调用setting里面的complete
@@ -2017,41 +2017,41 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 
 	//取element的唯一标示符，如果没有，则设置一个并返回 ,保证-zid的唯一性
 	function zid(element) {
-			return element._zid || (element._zid = _zid++)
-		}
-		//查找绑定在元素上的指定类型的事件处理函数集合
+		return element._zid || (element._zid = _zid++)
+	}
+	//查找绑定在元素上的指定类型的事件处理函数集合
 	function findHandlers(element, event, fn, selector) {
-			event = parse(event)
-			if (event.ns) var matcher = matcherFor(event.ns)
-			return (handlers[zid(element)] || []).filter(function(handler) {
-				//判断事件命名空间是否相同
-				//注意函数是引用类型的数据zid(handler.fn)的作用是返回handler.fn的标示符，如果没有，则给它添加一个，
-				//这样如果fn和handler.fn引用的是同一个函数，那么fn上应该也可相同的标示符，
-				//这里就是通过这一点来判断两个变量是否引用的同一个函数
-				return handler && (!event.e || handler.e == event.e) &&
-					(!event.ns || matcher.test(handler.ns)) && (!fn || zid(handler.fn) === zid(fn)) && (!selector || handler.sel == selector)
-			})
-		}
-		//解析事件类型，返回一个包含事件名称和事件命名空间的对象
+		event = parse(event)
+		if (event.ns) var matcher = matcherFor(event.ns)
+		return (handlers[zid(element)] || []).filter(function(handler) {
+			//判断事件命名空间是否相同
+			//注意函数是引用类型的数据zid(handler.fn)的作用是返回handler.fn的标示符，如果没有，则给它添加一个，
+			//这样如果fn和handler.fn引用的是同一个函数，那么fn上应该也可相同的标示符，
+			//这里就是通过这一点来判断两个变量是否引用的同一个函数
+			return handler && (!event.e || handler.e == event.e) &&
+				(!event.ns || matcher.test(handler.ns)) && (!fn || zid(handler.fn) === zid(fn)) && (!selector || handler.sel == selector)
+		})
+	}
+	//解析事件类型，返回一个包含事件名称和事件命名空间的对象
 	function parse(event) {
-			var parts = ('' + event).split('.')
-			return {
-				e: parts[0],
-				//name space
-				ns: parts.slice(1).sort().join(' ')
-			}
+		var parts = ('' + event).split('.')
+		return {
+			e: parts[0],
+			//name space
+			ns: parts.slice(1).sort().join(' ')
 		}
-		//生成命名空间的正则
+	}
+	//生成命名空间的正则
 	function matcherFor(ns) {
-			return new RegExp('(?:^| )' + ns.replace(' ', ' .* ?') + '(?: |$)')
-		}
-		//通过给focus和blur事件设置为捕获来达到事件冒泡的目的
+		return new RegExp('(?:^| )' + ns.replace(' ', ' .* ?') + '(?: |$)')
+	}
+	//通过给focus和blur事件设置为捕获来达到事件冒泡的目的
 	function eventCapture(handler, captureSetting) {
-			return handler.del &&
-				(!focusinSupported && (handler.e in focus)) ||
-				!!captureSetting
-		}
-		//修复不支持mouseenter和mouseleave的情况
+		return handler.del &&
+			(!focusinSupported && (handler.e in focus)) ||
+			!!captureSetting
+	}
+	//修复不支持mouseenter和mouseleave的情况
 	function realEvent(type) {
 		return hover[type] || (focusinSupported && focus[type]) || type
 	}
@@ -2931,29 +2931,29 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 
 	//取消longTapTimeout定时器，
 	function cancelLongTap() {
-			if (longTapTimeout) clearTimeout(longTapTimeout)
-			longTapTimeout = null
-		}
+		if (longTapTimeout) clearTimeout(longTapTimeout)
+		longTapTimeout = null
+	}
 
-		//全部取消 重置
+	//全部取消 重置
 	function cancelAll() {
-			if (touchTimeout) clearTimeout(touchTimeout)
-			if (tapTimeout) clearTimeout(tapTimeout)
-			if (swipeTimeout) clearTimeout(swipeTimeout)
-			if (longTapTimeout) clearTimeout(longTapTimeout)
-			touchTimeout = tapTimeout = swipeTimeout = longTapTimeout = null
-			touch = {}
-		}
-		/*
-		 * 是否为移动webkit内核的事件
-		 */
+		if (touchTimeout) clearTimeout(touchTimeout)
+		if (tapTimeout) clearTimeout(tapTimeout)
+		if (swipeTimeout) clearTimeout(swipeTimeout)
+		if (longTapTimeout) clearTimeout(longTapTimeout)
+		touchTimeout = tapTimeout = swipeTimeout = longTapTimeout = null
+		touch = {}
+	}
+	/*
+	 * 是否为移动webkit内核的事件
+	 */
 	function isPrimaryTouch(event) {
-			return (event.pointerType == 'touch' ||
-				event.pointerType == event.MSPOINTER_TYPE_TOUCH) && event.isPrimary
-		}
-		/*
-		 * IE 10 和11的事件
-		 */
+		return (event.pointerType == 'touch' ||
+			event.pointerType == event.MSPOINTER_TYPE_TOUCH) && event.isPrimary
+	}
+	/*
+	 * IE 10 和11的事件
+	 */
 	function isPointerEventType(e, type) {
 		return (e.type == 'pointer' + type ||
 			e.type.toLowerCase() == 'mspointer' + type)
@@ -3080,7 +3080,7 @@ window.$ === undefined && (window.$ = Zepto); //     Zepto.js
 								//可以cancelAll
 							event.cancelTouch = cancelAll
 								//触发tap
-							touch.el.trigger(event)
+							touch.el && touch.el.trigger(event)
 
 							// trigger double tap immediately
 							// 之前touchstart 里面有判断和上次点击时间的时间差
