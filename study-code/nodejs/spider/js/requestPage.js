@@ -17,7 +17,8 @@ request(opts, function (err, response, body) {
     var result = iconv.convert(new Buffer(body, 'binary')).toString();
     var $ = cheerio.load(result);
 });
- */
+*/
+
 var optins = {
     reviewNums: 25
 };
@@ -32,9 +33,9 @@ exports.request = function(url, opts, cb) {
     }
     console.log(url)
     request({
-        url: url,
+        'url': url,
         'accept-charset': 'utf-8',
-        headers: {
+        'headers': {
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
             'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36"
         }

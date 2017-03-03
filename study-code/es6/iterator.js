@@ -67,3 +67,6 @@ let iterable = {
 for (let item of iterable) {
     console.log(item); // undefined, undefined, undefined
 }
+
+
+

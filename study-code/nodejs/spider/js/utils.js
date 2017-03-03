@@ -32,7 +32,7 @@ segments: Array[1]
 source: "http://cl.mocl.xyz/thread0806.php?fid=2&search=&page=2"
  */
 exports.parseURL = function(src) {
-    var obj = url.parse(src);
+    var obj = url.parse(src, true);
     obj.params = (function() {
         var ret = {},
             seg = obj.search.replace(/^\?/, '').split('&'),
