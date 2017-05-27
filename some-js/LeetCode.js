@@ -217,3 +217,33 @@ var longestCommonPrefix = function (arr) {
         }
     }*/
 }
+
+// LeetCode 28. Implement strStr()
+//
+var strStr = function (haystack, needle) {
+    // return haystack.indexOf(needle);
+    if (!needle || !haystack) {
+        return -1;
+    }
+    if (needle.length > haystack.length) {
+        return -1;
+    }
+    var len = haystack.length;
+    var needleLen = needle.length;
+    var index = 0;
+    var j = 1;
+
+    for (; index < len; index++) {
+        if (haystack.charAt(index) !== needle.charAt(0)) {
+            continue;
+        }
+        for (j = 1; j < needleLen; j++) {
+            if (haystack.charAt(index + j) !== needle.charAt(j)) {
+                break;
+            }
+        }
+        if (j === needleLen) {
+            return index;
+        }
+    }
+}
