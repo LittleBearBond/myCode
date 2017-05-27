@@ -251,8 +251,8 @@ var strStr = function (haystack, needle) {
 var strStr = function (sourceStr, searchStr) {
     var i = 0,
         j = 0,
-        sourceLen = sourceStr.length;
-    searchLen = searchStr.length;
+        sourceLen = sourceStr.length,
+        searchLen = searchStr.length;
 
     while (i < sourceLen) {
         // 两字母相等则继续
