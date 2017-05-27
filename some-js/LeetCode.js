@@ -271,3 +271,17 @@ var strStr = function (sourceStr, searchStr) {
     }
     return -1;
 }
+
+console.log(strStr('adfddsf', 'sf'))
+
+// LeetCode 125. Valid Palindrome
+
+var isPalindrome = function (str) {
+    if (!str) {
+        return false;
+    }
+    str = str.replace(/[^a-z0-9]/gi, '').toLowerCase();
+    return str === str.split('').reverse().join('');
+}
+console.log(isPalindrome("A man, a plan, a canal: Panama"))
+console.log(isPalindrome("sdfd df"))
