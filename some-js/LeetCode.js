@@ -167,6 +167,7 @@ var lengthOfLastWord = function (s) {
 console.log(lengthOfLastWord('hello word  '))
 
 // LeetCode 14. Longest Common Prefix
+
 var longestCommonPrefix = function (arr) {
     if (!arr || !Array.isArray(arr) || !arr.length) {
         return ''
@@ -195,3 +196,24 @@ var longestCommonPrefix = function (arr) {
     return commonStr;
 }
 console.log(longestCommonPrefix(['abcd', 'abccc', 'abdec']))
+/*
+ * 还有一种思路就是逐个找  
+ * 先找第一个和第二个的共同串，
+ * 再把共同穿去和后面的继续找共同字符
+ */
+var longestCommonPrefix = function (arr) {
+    if (!arr || !Array.isArray(arr) || !arr.length) {
+        return ''
+    }
+    var len = arr.length;
+    var index = 1;
+    var commonStr = arr[0];
+    var curr;
+    /*for (; index < len; index++) {
+        curr = arr[index];
+        for (var j = 0; j < commonStr.length; j++) {
+            var element = commonStr[j];
+
+        }
+    }*/
+}
