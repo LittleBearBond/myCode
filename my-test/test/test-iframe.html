@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        #ifr { border-width: 0;opacity: 0; transition: .5s;}
+        html{
+            font-size: 35px;
+        }
+        .test{
+            width: 2.66666666rem;
+            height:  2.66666666rem;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <button id="google">Google</button>
+        <button id="yahoo">Yahoo</button>
+        <button id="jcluo">Jcluo</button>
+    </div>
+    <iframe id="ifr" ></iframe>
+    <div class="test"></div>
+    <script type="text/javascript">
+        window.addEventListener('error',function(){
+            console.log(arguments);
+        })
+        var ifr = document.querySelector('#ifr');
+
+        ifr.onload = function () {
+            if (this.getAttribute('is-reset') === '1') {
+                this.style.opacity = 0;
+                this.style.display = 'block';
+                this.contentDocument.write("Can't not load Web");
+                var url = this.getAttribute('src-url');
+                this.setAttribute('src', url);
+                this.setAttribute('is-reset',0);
+            } else {
+                this.style.opacity = '1';
+            }
+        };
+
+        function changeUrl(url) {
+          ifr.style.display = 'none';
+          ifr.setAttribute('is-reset',1);
+          ifr.setAttribute('src', 'about:blank');
+          ifr.setAttribute('src-url', url);
+      }
+
+      document.querySelector('#google').onclick = function () {
+          changeUrl('http://www.google.com');
+      }
+
+      document.querySelector('#yahoo').onclick = function () {
+          changeUrl('http://www.yahoo.com');
+      }
+
+
+      document.querySelector('#jcluo').onclick = function () {
+          changeUrl('http://blog.jcluo.net');
+      }
+
+  </script>
+</body>
+</html>

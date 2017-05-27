@@ -1,4 +1,7 @@
 //http://www.alloyteam.com/2015/09/explore-performance/
+//
+chrome.loadTimes()
+
 // 获取 performance 数据
 var performance = {
     // memory 是非标准属性，只在 Chrome 有
@@ -135,7 +138,16 @@ function getPerformanceTiming() {
 
     //【重要】解析 DOM 树结构的时间
     //【原因】反省下你的 DOM 树嵌套是不是太多了！
-    times.domReady = t.domComplete - t.responseEnd;
+    times.domReady = t.domContentLoadedEventEnd - t.fetchStart;
+
+    //解析dom树耗时
+    times.dom = t.domComplete - t.domInteractive;
+
+    //onload时间
+    times.onload = t.loadEventEnd - t.fetchStart;
+
+    //白屏时间 =
+    times.white = t.domLoading - t.fetchStart
 
     //【重要】重定向的时间
     //【原因】拒绝重定向！比如，http://example.com/ 就不该写成 http://example.com
@@ -171,6 +183,8 @@ function getPerformanceTiming() {
 
     return times;
 }
+
+
 //performance.getEntries()[0]
 var entrie = {
     connectEnd: 9.458000015001744,

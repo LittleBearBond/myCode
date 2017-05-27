@@ -1,40 +1,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>title</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
-<meta content="telephone=no" name="format-detection">
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<meta name="full-screen" content="true">
-<meta name="screen-orientation" content="portrait">
-<meta name="x5-fullscreen" content="true">
-<meta name="360-fullscreen" content="true">
-<meta name="description" content="">
-<meta name="keywords" content="">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="full-screen" content="true">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="360-fullscreen" content="true">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <style type="text/css">
+        body{
+            font-size: 20px;
+            line-height: 2;
+        }
+        .defined-wh{
+          width: 100px;
+          height: 50px;
 
+          border: solid 1px red;
+          background: yellow;
+
+          font-size: 20px;
+          line-height: 20px;
+      }
+      .broken{
+          border: solid 1px red;
+          background: yellow;
+
+      }
+      .existed{
+          margin: 20px;
+          padding: 20px;
+          border: solid 1px red;
+          background: yellow;
+          background-clip: content-box;
+      }
+
+      .parent{
+          line-height: 1;
+          font-size: 14px;
+
+          border: solid 1px yellow;
+      }
+      .child{
+          font-size: 30px;
+          vertical-align: middle;
+
+          border: solid 1px blue;
+      }
+      .inline-block{
+          display: inline-block;
+          overflow: hidden;
+
+          border: solid 1px red;
+      }
+      .other{
+          border: solid 1px green;
+      }
+  </style>
 </head>
 <body>
-    <!-- (a[href=#test$]{test$}+br)*10 -->
-    <a href="#test1">test1</a><br>
-    <a href="#test2">test2</a><br>
-    <a href="#test3">test3</a><br>
-    <a href="#test4">test4</a><br>
-    <a href="#test5">test5</a><br>
-    <a href="#test6">test6</a><br>
-    <a href="#test7">test7</a><br>
-    <a href="#test8">test8</a><br>
-    <a href="#test9">test9</a><br>
-    <a href="#test10">test10</a><br>
-    <script type="text/javascript" src="jquery-2.1.1.js"></script>
-    <script type="text/javascript">
-    $(window).on('hashchange', function(e) {
-        console.log('hashchange', e, history.state, location.href)
-    }).on('popstate', function(e) {
-        console.log('popstate', e, history.state, location.href)
-    });
-    </script>
+    <!-- <div class="defined-wh"></div> -->
+    <span class="defined-wh">s background-origin: padding-box</span>
+    <div class="broken">一段文字一段文字一段文字一段文字一段文字一段文字</div>
+    <span class="broken">一段文字一段文字一段文字一段文字一段文字一段文字</span>
+
+    <br>
+    <div>before bababababababa</div>
+    <div class="existed">babababababababababa</div>
+    <div>after bababababababa</div>
+    <br>
+
+    <div>before bababababababa</div>
+    <span class="existed">babababababababababa</span>
+    <div>after bababababababa</div>
+    <br>
+
+    <span class="parent">
+      <span class="child">
+        <span class="inline-block">display:inline-block元素</span>
+        xp子元素的文字
+    </span>
+    xp父元素的文字
+</span>
+<div class="other">其他元素</div>
 </body>
 </html>

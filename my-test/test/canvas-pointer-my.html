@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>canvas</title>
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    #container {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      padding-top: 100%;
+      height: 0px;
+      background-color: white;
+    }
+
+    #container canvas{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(0.5);
+    }
+
+  </style>
+
+</head>
+<body>
+  <div id="container">
+    <canvas></canvas>
+  </div>
+  <script type="text/javascript">
+
+    //画实心圆
+    function drawSolidCircle(ctx, color, x, y, r) {
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2, true);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    //画线段
+    function drawLine(ctx, color, x1, y1, x2, y2) {
+      ctx.strokeStyle = color;
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+      ctx.closePath();
+    }
+
+    const canvas = document.querySelector('#container canvas');
+    const ctx = canvas.getContext('2d');
+    //retina 屏上获得清晰的显示效果 Canvas 的宽高增加一倍
+    let width = 2 * container.getBoundingClientRect().width;
+    canvas.width = canvas.height = width;
+
+    let xn = 3,
+      yn = 3,
+      i = 1,
+      j = 1,
+      color = '#676';
+    let range = Math.round(width / (xn + 1));
+    let r = Math.round(range / 5),
+      x, y, circles = [];
+
+    for (; i <= xn; i++) {
+      for (j = 1; j <= yn; j++) {
+        y = range * i;
+        x = range * j;
+        drawSolidCircle(ctx, color, x, y, r);
+        let circlePoint = {
+          x,
+          y
+        };
+        circlePoint.pos = [i, j];
+        circles.push(circlePoint)
+      }
+    }
+
+    let lineTo = drawLine.bind(null, ctx, color);
+
+    (function(...path) {
+
+      path.reduce((p1, p2) => {
+        lineTo(p1.x, p1.y, p2.x, p2.y);
+        return p2;
+      });
+
+    })(circles[0], circles[1], circles[3], circles[4], circles[8], circles[7]);
+  </script>
+</body>
+</html>
