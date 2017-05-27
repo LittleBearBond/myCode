@@ -310,3 +310,22 @@ console.log(compareVersion('0.1.5', '1.2.2'))
 console.log(compareVersion('1.3.5', '1.2.2'))
 console.log(compareVersion('1.1.1', '1.1.1'))
 console.log(compareVersion('1.1.1', '1.1.1.0.1'))
+
+// LeetCode 258. Add Digits
+
+var addDigits = function (num) {
+    if (num < 10) {
+        return num
+    }
+    sum = String(num).split('').reduce((pre, next) => {
+        return (pre | 0) + (next | 0)
+    }, 0)
+    return addDigits(sum);
+    /*if (num == 0) {
+        return 0;
+    }
+    if (num % 9 == 0) {
+        return 9;
+    }
+    return num % 9;*/
+}
