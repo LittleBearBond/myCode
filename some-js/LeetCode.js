@@ -312,7 +312,7 @@ console.log(compareVersion('1.1.1', '1.1.1'))
 console.log(compareVersion('1.1.1', '1.1.1.0.1'))
 
 // LeetCode 258. Add Digits
-
+// num = 38，則 3+8 = 11，1+1 = 2, 2是個為數，回傳2。
 var addDigits = function (num) {
     if (num < 10) {
         return num
@@ -329,3 +329,27 @@ var addDigits = function (num) {
     }
     return num % 9;*/
 }
+console.log(addDigits(38))
+console.log(addDigits(138))
+
+// LeetCode 283. Move Zeroes
+var moveZeroes = function (nums) {
+    if (!nums.length) {
+        retrun;
+    }
+    var index = 0,
+        len = nums.length;
+    for (var i = 0; i < len; i++) {
+        if (nums[i] !== 0) {
+            nums[index++] = nums[i];
+        }
+    }
+
+    for (; index < len; index++) {
+        nums[index] = 0;
+    }
+    return nums;
+}
+
+console.log(moveZeroes([1, 2, 3, 0, 4, 0, 5]))
+console.log(moveZeroes([1, 2, 3, 0, 4, 0, 5, 0]))
