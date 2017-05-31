@@ -374,3 +374,26 @@ var intersection = function (nums1, nums2) {
 }
 console.log(intersection([1, 2, 2, 1], [2, 2]))
 console.log(intersection([1, 2, 2, 1, 3, 4, 5], [2, 2, 3, 3]))
+
+// LeetCode 169. Majority Element
+var majorityElement = function (nums) {
+    if (!nums.length) {
+        return;
+    }
+    if (nums.length === 1) {
+        return nums[0];
+    }
+    var map = {},
+        count = nums.length / 2;
+    for (let num of nums) {
+        if (!map[num]) {
+            map[num] = 1
+        } else {
+            map[num]++;
+            if (map[num] >= count) {
+                return num;
+            }
+        }
+    }
+}
+console.log(majorityElement([1, 2, 2, 1, 1]))
