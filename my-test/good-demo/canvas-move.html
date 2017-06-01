@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>particle nets</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="cas"></canvas>
+    <script>
+        var canvas = document.getElementById("cas");
+        var ctx = canvas.getContext("2d");
+        var started = false;
+        var x = 0,
+            y = 0;
+        window.onresize = resize;
+
+        function resize() {
+            canvas.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+            canvas.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        }
+        resize();
+        var RAF = (function () {
+            return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame ||
+                window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (callback) {
+                    window.setTimeout(callback, 1000 / 60);
+                };
+        })();
+        x = canvas.width / 2;
+        y = canvas.height / 2;
+        ctx.fillStyle = "blue";
+        drawRect(x, y)
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+        }
+
+        function drawRect(x, y, e = {
+            pageX: 100,
+            pageY: 100,
+            preventDefault: () => {}
+        }, w = 80, h = 40) {
+            clearCanvas();
+            var pos = getPointOnCanvas(canvas, e.pageX, e.pageY)
+            if (x <= 0) {
+                x = 0;
+            } else if (x + 80 >= canvas.width) {
+                x = canvas.width - 80
+            }
+            if (y <= 0) {
+                y = 0;
+            } else if (y + 40 >= canvas.height) {
+                y = canvas.height - 40
+            }
+            ctx.fillRect(x, y, w, h);
+            e.preventDefault();
+        }
+
+        function doKeyDown(e) {
+            var keyID = e.keyCode ? e.keyCode : e.which;
+            if (keyID === 38 || keyID === 87) { // up arrow and W  
+                y = y - 10;
+                drawRect(x, y, e);
+            }
+            if (keyID === 39 || keyID === 68) { // right arrow and D  
+                x = x + 10;
+                drawRect(x, y);
+            }
+            if (keyID === 40 || keyID === 83) { // down arrow and S  
+                y = y + 10;
+                drawRect(x, y);
+            }
+            if (keyID === 37 || keyID === 65) { // left arrow and A  
+                x = x - 10;
+                drawRect(x, y);
+            }
+        }
+
+        function getPointOnCanvas(canvas, x, y) {
+            var bbox = canvas.getBoundingClientRect();
+            return {
+                x: x - bbox.left * (canvas.width / bbox.width),
+                y: y - bbox.top * (canvas.height / bbox.height)
+            };
+        }
+
+        function doMouseDown(event) {
+            var x = event.pageX;
+            var y = event.pageY;
+            var canvas = event.target;
+            var loc = getPointOnCanvas(canvas, x, y);
+            console.log("mouse down at point( x:" + loc.x + ", y:" + loc.y + ")");
+            ctx.beginPath();
+            ctx.moveTo(loc.x, loc.y);
+            started = true;
+        }
+
+        function doMouseMove(event) {
+            var x = event.pageX;
+            var y = event.pageY;
+            var canvas = event.target;
+            var loc = getPointOnCanvas(canvas, x, y);
+            if (started) {
+                ctx.lineTo(loc.x, loc.y);
+                ctx.stroke();
+            }
+        }
+
+        function doMouseUp(event) {
+            console.log("mouse up now");
+            if (started) {
+                doMouseMove(event);
+                started = false;
+            }
+        }
+        // canvas.addEventListener('keydown', doKeyDown, true);
+        window.addEventListener('keydown', doKeyDown, true);
+        canvas.focus();
+        // mouse event  
+        canvas.addEventListener("mousedown", doMouseDown, false);
+        canvas.addEventListener('mousemove', doMouseMove, false);
+        canvas.addEventListener('mouseup', doMouseUp, false);
+    </script>
+</body>
+
+</html>
