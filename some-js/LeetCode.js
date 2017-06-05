@@ -397,3 +397,39 @@ var majorityElement = function (nums) {
     }
 }
 console.log(majorityElement([1, 2, 2, 1, 1]))
+
+// LeetCode 104. Maximum Depth of Binary Tree
+var maxDepth = function (rootNode) {
+    var find = function (node) {
+        if (node == null) {
+            return 0
+        }
+        var deepL = 1;
+        var deepR = 1;
+        if (node.left != null) {
+            deepL += find(node.left)
+        }
+        if (node.right != null) {
+            deepR += find(node.right)
+        }
+        return deepL > deepR ? deepL : deepR;
+    }
+    return find(rootNode);
+}
+
+// LeetCode 226. Invert Binary Tree
+
+var TreeNode = function (val) {
+    this.left = this.tirht = null;
+    this.val = val
+}
+
+var invertTree = function (node) {
+    if (node == null || (node.left == null && node.right == null)) {
+        return node;
+    }
+    var temp = node.left;
+    node.left = invertTree(node.right);
+    node.right = invertTree(temp);
+    return node;
+}
