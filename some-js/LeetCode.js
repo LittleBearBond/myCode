@@ -433,3 +433,19 @@ var invertTree = function (node) {
     node.right = invertTree(temp);
     return node;
 }
+
+// LeetCode 100. Same Tree
+
+var isSameTree = function (l, r) {
+    if (l == null && r == null) {
+        return true;
+    }
+
+    if ((l == null && r != null) || (l != null && r == null)) {
+        return false;
+    }
+    if (l.val !== r.val) {
+        return false;
+    }
+    return isSameTree(l.left, r.left) && isSameTree(l.right, r.right);
+}
