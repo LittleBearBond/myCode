@@ -437,11 +437,11 @@ var invertTree = function (node) {
 // LeetCode 100. Same Tree
 
 var isSameTree = function (l, r) {
-    if (l == null && r == null) {
+    if (l === null && r === null) {
         return true;
     }
 
-    if ((l == null && r != null) || (l != null && r == null)) {
+    if ((l === null && r !== null) || (l !== null && r === null)) {
         return false;
     }
     if (l.val !== r.val) {
