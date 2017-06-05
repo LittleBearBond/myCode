@@ -1,3 +1,31 @@
+function connectPromise({ loader, mapResultsToProps }) {
+    return function (Com) {
+        return class AsyncCom extends Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    result: undefined
+                }
+            }
+            componentDidMount() {
+                loader().then(result => this.setState(resule))
+            }
+            render() {
+                return <Com {...mapResultsToProps(this.state) } {...this.props} />
+            }
+        }
+    }
+}
+
+const UserList = connectPromise({
+    loader: loadUsers,
+    mapResultToProps: result => ({ list: result.userList })
+})(List)
+
+const BookList = connectPromise({
+    promiseLoader: loadBooks,
+    mapResultToProps: result => ({ list: result.bookList })
+})(List);
 /**
  * @param {String}  errorMessage   错误信息
  * @param {String}  scriptURI      出错的文件
