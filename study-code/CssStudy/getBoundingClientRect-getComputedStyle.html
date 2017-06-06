@@ -61,6 +61,13 @@
             }
             document.querySelector('.con').appendChild(conEl);
         }())
+
+        setTimeout(function () {
+            var el = document.querySelector('#js-test');
+            console.dir(el)
+            console.log(getComputedStyle(el))
+            console.log(el.getBoundingClientRect())
+        }, 2000)
     </script>
 </body>
 
