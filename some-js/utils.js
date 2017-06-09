@@ -1,30 +1,40 @@
-function connectPromise({ loader, mapResultsToProps }) {
-    return function (Com) {
-        return class AsyncCom extends Component {
-            constructor(props) {
-                super(props);
-                this.state = {
-                    result: undefined
-                }
-            }
-            componentDidMount() {
-                loader().then(result => this.setState(resule))
-            }
-            render() {
-                return <Com {...mapResultsToProps(this.state) } {...this.props} />
-            }
-        }
-    }
+function connectPromise({
+	loader,
+	mapResultsToProps
+}) {
+	return function (Com) {
+		return class AsyncCom extends Component {
+			constructor(props) {
+				super(props);
+				this.state = {
+					result: undefined
+				}
+			}
+			componentDidMount() {
+				loader().then(result => this.setState(resule))
+			}
+			render() {
+				return <Com { ...mapResultsToProps(this.state)
+				} { ...this.props
+				}
+				/>
+			}
+		}
+	}
 }
 
 const UserList = connectPromise({
-    loader: loadUsers,
-    mapResultToProps: result => ({ list: result.userList })
+	loader: loadUsers,
+	mapResultToProps: result => ({
+		list: result.userList
+	})
 })(List)
 
 const BookList = connectPromise({
-    promiseLoader: loadBooks,
-    mapResultToProps: result => ({ list: result.bookList })
+	promiseLoader: loadBooks,
+	mapResultToProps: result => ({
+		list: result.bookList
+	})
 })(List);
 /**
  * @param {String}  errorMessage   错误信息
@@ -33,11 +43,11 @@ const BookList = connectPromise({
  * @param {Long}    columnNumber   出错代码的列号
  * @param {Object}  errorObj       错误的详细信息，Anything
  */
-window.onerror = function(errorMessage, scriptURI, lineNumber, columnNumber, errorObj) {
+window.onerror = function (errorMessage, scriptURI, lineNumber, columnNumber, errorObj) {
 	// code..
 	console.log(errorMessage)
 }
-window.onerror = function(msg, url, line, col, error) {
+window.onerror = function (msg, url, line, col, error) {
 	//没有URL不上报！上报也不知道错误
 	if (msg != "Script error." && !url) {
 		return true;
@@ -49,7 +59,7 @@ window.onerror = function(msg, url, line, col, error) {
 	//而离开文章之后的上报对于业务来说是可丢失的
 	//所以我把这里的执行流放到异步事件去执行
 	//脚本的异常数降低了10倍
-	setTimeout(function() {
+	setTimeout(function () {
 		var data = {};
 		//不一定所有浏览器都支持col参数
 		col = col || (window.event && window.event.errorCharacter) || 0;
@@ -82,8 +92,8 @@ window.onerror = function(msg, url, line, col, error) {
 	return true;
 };
 
-Object.prototype.hash = function(path) {
-	return path && path.split('.').reduce(function(obj, key) {
+Object.prototype.hash = function (path) {
+	return path && path.split('.').reduce(function (obj, key) {
 		return obj && obj[key];
 	}, this);
 };
@@ -93,7 +103,7 @@ function setUrlParam(url, name, value) {
 	var paramsStr = url.split('?')[1];
 	var matchKey = paramsStr && paramsStr.match(regMatchKey);
 	if (matchKey) {
-		url = url.replace(regMatchKey, function() {
+		url = url.replace(regMatchKey, function () {
 			return (name + '=' + value);
 		});
 		return url;
@@ -114,13 +124,13 @@ function setUrlParam(name, value, url) {
 	url = url || window.location.href;
 	var re = new RegExp("(^|&|\\?)" + name + "=([^&]*)(&|$)", "ig"),
 		m = url.match(re),
-		endsWith = function(target, str, ignorecase) {
+		endsWith = function (target, str, ignorecase) {
 			var end_str = target.substring(target.length - str.length);
 			return ignorecase ? end_str.toLowerCase() === str.toLowerCase() :
 				end_str === str;
 		};
 	if (m) {
-		return (url.replace(re, function($0, $1, $2, $3) {
+		return (url.replace(re, function ($0, $1, $2, $3) {
 			if (!value) {
 				return $1 == '?' ? $1 : $3; //return ''; 20130910 xj 修正
 			} else {
@@ -142,11 +152,11 @@ function setUrlParam(name, value, url) {
 
 //图片加载
 function loadImage(container, afterSingle, afterAll) {
-	var noop = function() {},
-		isFunc = function(variable) {
+	var noop = function () {},
+		isFunc = function (variable) {
 			return typeof variable === 'function';
 		},
-		loadCheck = function(loadImg) {
+		loadCheck = function (loadImg) {
 			if (!loadImg) {
 				return;
 			}
@@ -159,7 +169,7 @@ function loadImage(container, afterSingle, afterAll) {
 				return;
 			}
 			//轮询
-			setTimeout(function() {
+			setTimeout(function () {
 				loadCheck(loadImg);
 			}, 100);
 		},
@@ -190,7 +200,7 @@ function parseURL(url) {
 		host: a.hostname,
 		port: a.port,
 		query: a.search,
-		params: (function() {
+		params: (function () {
 			var ret = {},
 				seg = a.search.replace(/^\?/, '').split('&'),
 				len = seg.length,
@@ -230,7 +240,7 @@ function transitionEnd() {
 	return ''; // explicit for ie8 (  ._.)
 }
 
-$.support.transition = (function() {
+$.support.transition = (function () {
 	var el = document.createElement('bootstrap'),
 		transEndEventNames = {
 			'WebkitTransition': 'webkitTransitionEnd',
@@ -274,7 +284,7 @@ function getTransitionEndEventName() {
 			ret = "transitionend"
 		} catch (e) {}
 	}
-	getTransitionEndEventName = function() {
+	getTransitionEndEventName = function () {
 		return ret;
 	};
 	return ret;
@@ -305,7 +315,7 @@ function format(str, obj) {
 		}
 		return result.join('');
 	}
-	return str.replace(/\\?\{\{([^{}]+)\}\}/gm, function(match, name) {
+	return str.replace(/\\?\{\{([^{}]+)\}\}/gm, function (match, name) {
 		if (match.charAt(0) == '\\') {
 			return match.slice(1);
 		}
@@ -320,7 +330,7 @@ function format(str, obj) {
 	});
 }
 
-var each = function(obj, callback, context) {
+var each = function (obj, callback, context) {
 	if (!obj) {
 		return;
 	}
@@ -339,14 +349,14 @@ var each = function(obj, callback, context) {
 
 function funcBind() {
 	if (!Function.prototype.hasOwnProperty('bind')) {
-		Function.prototype.bind = function(context) {
+		Function.prototype.bind = function (context) {
 			var fn = this,
 				sl = [].slice,
 				args = sl.call(arguments, 1);
 			if (typeof fn != "function") {
 				throw new TypeError();
 			}
-			return function() {
+			return function () {
 				return fn.apply(context || this, args.concat(sl.call(arguments)));
 			};
 		};
@@ -358,7 +368,7 @@ function animate(el, css, time, fn) {
 		return;
 	}
 	var tn = transitionEnd(),
-		cb = function() {
+		cb = function () {
 			fn(arguments);
 			el.removeListener(tn, fn);
 		};
@@ -373,13 +383,13 @@ function animate(el, css, time, fn) {
 // 公共方法
 var common = {
 	// 添加class
-	addClass: function(obj, className) {
+	addClass: function (obj, className) {
 		if (obj.classList) {
-			this.addClass = function(obj, className) {
+			this.addClass = function (obj, className) {
 				obj.classList.add(className);
 			};
 		} else {
-			this.addClass = function(obj, className) {
+			this.addClass = function (obj, className) {
 				var originalClass = obj.className;
 				var re = new Regexp("\\b" + className + "\\b", "g");
 				var result = className;
@@ -394,56 +404,56 @@ var common = {
 		}
 		this.addClass(obj, className);
 	},
-	removeClass: function(obj, className) {
+	removeClass: function (obj, className) {
 		if (obj.classList) {
-			this.removeClass = function(obj, className) {
+			this.removeClass = function (obj, className) {
 				obj.classList.remove(className);
 			}
 		} else {
-			this.removeClass = function(obj, className) {
+			this.removeClass = function (obj, className) {
 				var re = new RegExp("\\b" + className + "\\b", "g");
 				obj.className = this.combAndTrim(obj.className.replace(re, ''));
 			}
 		}
 		this.removeClass.apply(this, arguments);
 	},
-	getStyle: function(obj, name) {
+	getStyle: function (obj, name) {
 		if (obj.currentStyle) {
-			getStyle = function(obj, name) {
+			getStyle = function (obj, name) {
 				return obj.currentStyle[name];
 			};
 		} else {
-			getStyle = function(obj, name) {
+			getStyle = function (obj, name) {
 				return getComputedStyle(obj, false)[name];
 			};
 		}
 		return getStyle(obj, name);
 	},
 	// 合并空格并且移除首位空格
-	combAndTrim: function(str) {
+	combAndTrim: function (str) {
 		return str.replace(/\s+/g, ' ').replace(/(^\s+)|(\s+$)/, "");
 	}
 };
 
 var eventHandler = {
 	//添加绑定事件
-	addHandler: function(oElement, sEventType, fnHandler) {
+	addHandler: function (oElement, sEventType, fnHandler) {
 		return oElement.addEventListener ? oElement.addEventListener(sEventType, fnHandler, false) : oElement.attachEvent("on" + sEventType, fnHandler)
 	},
 	//删除绑定事件
-	removeHandler: function(oElement, sEventType, fnHandler) {
+	removeHandler: function (oElement, sEventType, fnHandler) {
 		return oElement.removeEventListener ? oElement.removeEventListener(sEventType, fnHandler, false) : oElement.detachEvent("on" + sEventType, fnHandler)
 	},
 	//绑定事件到对象
-	bind: function(object, fnHandler) {
-		return function() {
+	bind: function (object, fnHandler) {
+		return function () {
 			return fnHandler.apply(object, arguments);
 		}
 	},
-	getEvent: function(e) {
+	getEvent: function (e) {
 		return e || window.eventeventevent;
 	},
-	stopPropagation: function(e) {
+	stopPropagation: function (e) {
 		if (e && e.stopPropagation) {
 			e.stopPropagation();
 		} else {
@@ -471,17 +481,17 @@ function isSupportFixed() {
 	return !!(isFixed || ios5below || operaMini);
 }
 
-window.requestAnimFrame = (function() {
+window.requestAnimFrame = (function () {
 	return window.requestAnimationFrame ||
 		window.webkitRequestAnimationFrame ||
 		window.mozRequestAnimationFrame ||
 		window.msRequestAnimationFrame ||
-		function(c) {
+		function (c) {
 			window.setTimeout(c, 1000 / 60);
 		};
 })();
 
-window.requestNextAnimationFrame = (function() {
+window.requestNextAnimationFrame = (function () {
 	var originalWebkitRequestAnimationFrame = undefined,
 		wrapper = undefined,
 		callback = undefined,
@@ -494,7 +504,7 @@ window.requestNextAnimationFrame = (function() {
 
 	if (window.webkitRequestAnimationFrame) {
 		// Define the wrapper
-		wrapper = function(time) {
+		wrapper = function (time) {
 			if (time === undefined) {
 				time = +new Date();
 			}
@@ -502,7 +512,7 @@ window.requestNextAnimationFrame = (function() {
 		};
 		// Make the switch
 		originalWebkitRequestAnimationFrame = window.webkitRequestAnimationFrame;
-		window.webkitRequestAnimationFrame = function(callback, element) {
+		window.webkitRequestAnimationFrame = function (callback, element) {
 			self.callback = callback;
 			// Browser calls the wrapper and wrapper calls the callback
 			originalWebkitRequestAnimationFrame(wrapper, element);
@@ -532,11 +542,11 @@ window.requestNextAnimationFrame = (function() {
 		window.oRequestAnimationFrame ||
 		window.msRequestAnimationFrame ||
 
-		function(callback, element) {
+		function (callback, element) {
 			var start,
 				finish;
 
-			window.setTimeout(function() {
+			window.setTimeout(function () {
 				start = +new Date();
 				callback(start);
 				finish = +new Date();
@@ -550,7 +560,7 @@ window.requestNextAnimationFrame = (function() {
 window.cancelNextRequestAnimationFrame = window.cancelRequestAnimationFrame || window.webkitCancelAnimationFrame || window.webkitCancelRequestAnimationFrame || window.mozCancelRequestAnimationFrame || window.oCancelRequestAnimationFrame || window.msCancelRequestAnimationFrame || clearTimeout;
 
 /*requestAnimationFrame*/
-(function() {
+(function () {
 	var lastTime = 0;
 	var vendors = ['webkit', 'moz', 'ms'];
 	for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
@@ -560,10 +570,10 @@ window.cancelNextRequestAnimationFrame = window.cancelRequestAnimationFrame || w
 	}
 
 	if (!window.requestAnimationFrame) {
-		window.requestAnimationFrame = function(callback, element) {
+		window.requestAnimationFrame = function (callback, element) {
 			var currTime = new Date().getTime();
 			var timeToCall = Math.max(0, 16.7 - (currTime - lastTime));
-			var id = window.setTimeout(function() {
+			var id = window.setTimeout(function () {
 				callback(currTime + timeToCall);
 			}, timeToCall);
 			lastTime = currTime + timeToCall;
@@ -571,7 +581,7 @@ window.cancelNextRequestAnimationFrame = window.cancelRequestAnimationFrame || w
 		};
 	}
 	if (!window.cancelAnimationFrame) {
-		window.cancelAnimationFrame = function(id) {
+		window.cancelAnimationFrame = function (id) {
 			clearTimeout(id);
 		};
 	}
@@ -585,7 +595,7 @@ var vendors = {
 	},
 	testEl = document.createElement('div'),
 	prefix, eventPrefix;
-$.each(vendors, function(key, val) {
+$.each(vendors, function (key, val) {
 	if (testEl.style[key + 'TransitionProperty'] !== undefined) {
 		prefix = '-' + key.toLowerCase() + '-'
 		eventPrefix = val
@@ -762,7 +772,7 @@ function cancelFullScreen() {
 }
 
 // 高度无缝动画方法
-var funTransitionHeight = function(element, time) { // time, 数值，可缺省
+/*var funTransitionHeight = function (element, time) { // time, 数值，可缺省
 	if (typeof window.getComputedStyle == "undefined") return;
 	//原本高度
 	var height = window.getComputedStyle(element).height;
@@ -771,23 +781,62 @@ var funTransitionHeight = function(element, time) { // time, 数值，可缺省
 	var targetHeight = window.getComputedStyle(element).height;
 	//设置会当前高度
 	element.style.height = height;
-	setTimeout(function() {
+	setTimeout(function () {
 		if (time) element.style.transition = "height " + time + "ms";
 		//过度到最后高度
 		element.style.height = targetHeight;
 	}, 15);
-};
+};*/
 //我的改版
 function funTransitionHeight(element, time, newHeight) { // time, 数值，可缺省
-	if (typeof window.getComputedStyle == "undefined") return;
-
+	if (typeof window.getComputedStyle === "undefined") {
+		return;
+	}
+	if (+newHeight === newHeight) {
+		newHeight = newHeight + 'px'
+	}
 	var height = window.getComputedStyle(element).height;
 	element.style.height = "auto";
-	var targetHeight = typeof newHeight != 'undefined' ? newHeight : window.getComputedStyle(element).height;
+	var styleObj = window.getComputedStyle(element)
+	//再次获取高度
+	var targetHeight = typeof newHeight !== 'undefined' ? newHeight : styleObj.height;
+	if (targetHeight !== '0px') {
+		targetHeight = parseInt(targetHeight, 10) + parseInt(element.dataset.paddingTop || 0, 10) + parseInt(element.dataset.paddingBottom || 0, 10) + 'px';
+	}
 	element.style.height = height;
-	setTimeout(function() {
-		if (time) element.style.transition = "height " + time + "ms";
+	/*if (newHeight === 0) {
+	    var timmer, done = function () {
+	        element.removeEventListener("transitionend", done);
+	        clearTimeout(timmer);
+	        // element.style.display = "none";
+	    }
+	    element.addEventListener("transitionend", done, false);
+	    timmer = setTimeout(done, time);
+	} */
+	setTimeout(function () {
+		if (time) {
+			element.style.transition = "height " + time + "ms ease-in-out,padding-top " + time + "ms ease-in-out,padding-bottom " + time + "ms ease-in-out";
+		}
 		element.style.height = targetHeight;
+		if (!element.dataset) {
+			element.dataset = {};
+		}
+		if (targetHeight === '0px') {
+			//cache old padding
+			element.dataset.paddingTop = styleObj.paddingTop;
+			element.dataset.paddingBottom = styleObj.paddingBottom;
+			element.dataset.overflow = styleObj.overflow;
+			element.style.paddingTop = 0;
+			element.style.paddingBottom = 0;
+			element.style.overflow = 'hidden';
+		} else {
+			element.style.paddingTop = element.dataset.paddingTop;
+			element.style.paddingBottom = element.dataset.paddingBottom;
+			element.style.overflow = 'hidden';
+			setTimeout(function () {
+				element.style.overflow = element.dataset.overflow;
+			}, time)
+		}
 	}, 15);
 };
 
@@ -799,14 +848,14 @@ var services = {
 		ghi: 789
 	},
 	// 获取func的参数列表(依赖列表)
-	getFuncParams = function(func) {
+	getFuncParams = function (func) {
 		var matches = func.toString().match(/^function\s*[^\(]*\(\s*([^\)]*)\)/m);
 		if (matches && matches.length > 1)
 			return matches[1].replace(/\s+/, '').split(',');
 		return [];
 	},
 	// 根据参数列表(依赖列表)填充参数(依赖项)
-	setFuncParams = function(params) {
+	setFuncParams = function (params) {
 		for (var i in params) {
 			params[i] = services[params[i]];
 		}
@@ -820,7 +869,7 @@ function Activitor(func) {
 }
 // 定义新Service
 function Service(abc, ghi) {
-	this.write = function() {
+	this.write = function () {
 		console.log(abc, ghi);
 	}
 }

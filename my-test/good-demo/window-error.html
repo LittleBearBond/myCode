@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>particle nets</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="cas"></canvas>
+    <script>
+        const _processStackMsg = error => {
+            let stack = error.stack
+                .replace(/\n/gi, '') // 去掉换行，节省传输内容大小
+                .replace(/\bat\b/gi, '@') // chrome中是at，ff中是@
+                .split('@') // 以@分割信息
+                .slice(0, 10) // 最大堆栈长度（Error.stackTraceLimit = 10），所以只取前10条
+                .map(v => v.replace(/^\s*|\s*$/g, '')) //去除多余空格
+                .join('~') // 手动添加分隔符，便于后期展示
+                .replace(/\?[^:]+/gi, ''); // 去除js文件链接的多余参数(?x=1之类)
+            let msg = error.toString();
+            if (stack.indexOf(msg) < 0) {
+                stack = msg + '~' + stack;
+            }
+            return 'STACK:' + stack;
+        };
+
+        window.onerror = function (msg, url, row, col, error) {
+            debugger
+            if (!url) {
+                return true;
+            }
+            console.log(_processStackMsg(error))
+            /*report({
+                msg, // 错误信息
+                url, // 发生错误对应的脚本链接
+                row, // 行号
+                col // 列号
+            })*/
+        }
+
+        console.log(a);
+    </script>
+</body>
+
+</html>
