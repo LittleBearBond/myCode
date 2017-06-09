@@ -1,7 +1,4 @@
-function connectPromise({
-	loader,
-	mapResultsToProps
-}) {
+function connectPromise({ loader, mapResultsToProps }) {
 	return function (Com) {
 		return class AsyncCom extends Component {
 			constructor(props) {
@@ -14,10 +11,7 @@ function connectPromise({
 				loader().then(result => this.setState(resule))
 			}
 			render() {
-				return <Com { ...mapResultsToProps(this.state)
-				} { ...this.props
-				}
-				/>
+				return <Com {...mapResultsToProps(this.state) } {...this.props} />
 			}
 		}
 	}
@@ -25,16 +19,12 @@ function connectPromise({
 
 const UserList = connectPromise({
 	loader: loadUsers,
-	mapResultToProps: result => ({
-		list: result.userList
-	})
+	mapResultToProps: result => ({ list: result.userList })
 })(List)
 
 const BookList = connectPromise({
 	promiseLoader: loadBooks,
-	mapResultToProps: result => ({
-		list: result.bookList
-	})
+	mapResultToProps: result => ({ list: result.bookList })
 })(List);
 /**
  * @param {String}  errorMessage   错误信息
@@ -152,7 +142,7 @@ function setUrlParam(name, value, url) {
 
 //图片加载
 function loadImage(container, afterSingle, afterAll) {
-	var noop = function () {},
+	var noop = function () { },
 		isFunc = function (variable) {
 			return typeof variable === 'function';
 		},
@@ -270,7 +260,7 @@ function getTransitionEndEventName() {
 			ev = document.createEvent(name) //只有firefox不支持
 			ret = obj[name]
 			break
-		} catch (e) {}
+		} catch (e) { }
 	}
 	if (ret === false) {
 		try {
@@ -282,7 +272,7 @@ function getTransitionEndEventName() {
 				pseudoElement: "pseudo"
 			});
 			ret = "transitionend"
-		} catch (e) {}
+		} catch (e) { }
 	}
 	getTransitionEndEventName = function () {
 		return ret;
@@ -292,9 +282,9 @@ function getTransitionEndEventName() {
 console.log(getTransitionEndEventName() + "!!!!!!!!!!!!!!!!")
 
 var eventName = {
-		AnimationEvent: 'animationend',
-		WebKitAnimationEvent: 'webkitAnimationEnd'
-	},
+	AnimationEvent: 'animationend',
+	WebKitAnimationEvent: 'webkitAnimationEnd'
+},
 	animationend;
 for (var name in eventName) {
 	if (/object|function/.test(typeof window[name])) {
@@ -589,10 +579,10 @@ window.cancelNextRequestAnimationFrame = window.cancelRequestAnimationFrame || w
 
 
 var vendors = {
-		Webkit: 'webkit',
-		Moz: '',
-		O: 'o'
-	},
+	Webkit: 'webkit',
+	Moz: '',
+	O: 'o'
+},
 	testEl = document.createElement('div'),
 	prefix, eventPrefix;
 $.each(vendors, function (key, val) {
@@ -709,7 +699,7 @@ if (/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|S
 				// 判断访问环境是 其他移动设备 则加载以下样式
 				setActiveStyleSheet("style_mobile_other.css");
 			}
-		} catch (e) {}
+		} catch (e) { }
 	}
 } else {
 	// 如果以上都不是，则加载以下样式
@@ -772,7 +762,7 @@ function cancelFullScreen() {
 }
 
 // 高度无缝动画方法
-/*var funTransitionHeight = function (element, time) { // time, 数值，可缺省
+/*var funTransitionHeight = function(element, time) { // time, 数值，可缺省
 	if (typeof window.getComputedStyle == "undefined") return;
 	//原本高度
 	var height = window.getComputedStyle(element).height;
@@ -781,7 +771,7 @@ function cancelFullScreen() {
 	var targetHeight = window.getComputedStyle(element).height;
 	//设置会当前高度
 	element.style.height = height;
-	setTimeout(function () {
+	setTimeout(function() {
 		if (time) element.style.transition = "height " + time + "ms";
 		//过度到最后高度
 		element.style.height = targetHeight;
@@ -805,13 +795,13 @@ function funTransitionHeight(element, time, newHeight) { // time, 数值，可�
 	}
 	element.style.height = height;
 	/*if (newHeight === 0) {
-	    var timmer, done = function () {
-	        element.removeEventListener("transitionend", done);
-	        clearTimeout(timmer);
-	        // element.style.display = "none";
-	    }
-	    element.addEventListener("transitionend", done, false);
-	    timmer = setTimeout(done, time);
+		var timmer, done = function () {
+			element.removeEventListener("transitionend", done);
+			clearTimeout(timmer);
+			// element.style.display = "none";
+		}
+		element.addEventListener("transitionend", done, false);
+		timmer = setTimeout(done, time);
 	} */
 	setTimeout(function () {
 		if (time) {
@@ -843,10 +833,10 @@ function funTransitionHeight(element, time, newHeight) { // time, 数值，可�
 //函数依赖注入
 // 假设已定义好某些Service
 var services = {
-		abc: 123,
-		def: 456,
-		ghi: 789
-	},
+	abc: 123,
+	def: 456,
+	ghi: 789
+},
 	// 获取func的参数列表(依赖列表)
 	getFuncParams = function (func) {
 		var matches = func.toString().match(/^function\s*[^\(]*\(\s*([^\)]*)\)/m);
