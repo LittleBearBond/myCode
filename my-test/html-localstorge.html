@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="formatdetection" content="telephone=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link rel="dns-prefetch" href="//manhattan.didistatic.com">
+	<script>
+		(function () {
+			var scale = 1 / window.devicePixelRatio;
+			document.querySelector('meta[name=viewport]').setAttribute('content', 'width=device-width,initial-scale=' + scale +
+				',maximum-scale=' + scale + ',minimum-scale=' + scale + ',user-scalable=no');
+			var rangingRem = document.createElement('div');
+			rangingRem.style.cssText = 'width:1rem;';
+			document.head.appendChild(rangingRem);
+			var defaultFontSize = parseFloat(getComputedStyle(rangingRem).getPropertyValue('width'), 10);
+			document.head.removeChild(rangingRem);
+			document.documentElement.style.fontSize = document.documentElement.clientWidth * 10 / 75 / defaultFontSize * 100 +
+				'%';
+		})();
+		window.addEventListener('load', function () {
+			setTimeout(function () {
+				var script = document.createElement('script');
+				script.crossorigin = true;
+				script.src = '//webapp.didistatic.com/static/webapp/shield/z/omega/omega/latest/omega.min.js';
+				document.head.appendChild(script);
+			}, 0);
+		});
+	</script>
+	<title>滴滴金桔宝</title>
+</head>
+
+<body>
+	<div id="app" style="text-align:center;">
+		<canvas id="appLoading" width="100" height="100" style="margin:50% auto 0; width:0.5rem; height:0.5rem;"></canvas>
+		<script>
+			(function () {
+				var ctx = document.getElementById('appLoading').getContext('2d');
+				var arcLength = Math.PI * 2 * 0.85;
+				var frames = 60;
+				var delay = window.requestAnimationFrame || function (callback) {
+					setTimeout(callback, 0)
+				};
+				ctx.lineWidth = 10;
+				ctx.strokeStyle = '#fc9153';
+
+				function start(appear) {
+					var inter = 0;
+					(function fn() {
+						ctx.clearRect(0, 0, 100, 100);
+						ctx.beginPath();
+						ctx.arc(50, 50, 40, appear ? 0 : arcLength, arcLength / frames * (++inter), !appear);
+						ctx.stroke();
+						if (inter !== frames) {
+							delay(fn);
+						} else {
+							if (document.getElementById('appLoading')) {
+								start(!appear);
+							}
+						}
+					})();
+				}
+				start();
+			})();
+		</script>
+	</div>
+	<script>
+		var App = (function () {
+			var appengine;
+			var appdataDeps = {};
+			var appdataReady = false;
+			return {
+				data: function (key, data) {
+					appdataDeps[key] = data;
+				},
+				ready: function () {
+					appdataReady = true;
+					if (appengine) {
+						appengine(appdataDeps);
+					}
+				},
+				start: function (fn) {
+					appengine = fn;
+					if (appdataReady) {
+						appengine(appdataDeps);
+					}
+				}
+			};
+		})();
+		(function () {
+			function loadScripts(productName, assets) {
+				if (!('async' in document.createElement('script'))) {
+					assets.forEach(function (asset) {
+						document.write('<script src="' + asset.url + '"><\/script>');
+					});
+					return;
+				}
+				if (location.search.indexOf('debug') === -1) {
+					var valid = assets.every(function (asset) {
+						var storeKey = productName + '_static_' + asset.name;
+						var cache = localStorage.getItem(storeKey);
+						if (cache) {
+							var index = cache.indexOf('|');
+							if (cache.substr(0, index) === asset.url) {
+								asset.content = cache.substr(index + 1);
+								return true;
+							}
+						}
+					});
+					if (valid) {
+						setTimeout(function fn() {
+							if (document.readyState === 'complete') {
+								assets.forEach(function (asset) {
+									var script = document.createElement('script');
+									script.innerHTML = asset.content;
+									document.head.appendChild(script);
+								});
+							} else {
+								setTimeout(fn, 50);
+							}
+						}, 50);
+						return;
+					}
+				}
+				assets.forEach(function (asset) {
+					var script = document.createElement('script');
+					script.onload = function () {
+						var xhr = new XMLHttpRequest();
+						xhr.open('GET', asset.url);
+						xhr.onload = function () {
+							try {
+								var storeKey = productName + '_static_' + asset.name;
+								localStorage.setItem(storeKey, asset.url + '|' + xhr.responseText);
+							} catch (e) {
+								for (var i = 0; i < localStorage.length; i++) {
+									var key = localStorage.key(i);
+									if (key.indexOf(productName + '_') === 0) {
+										localStorage.removeItem(key);
+										i--;
+									}
+								}
+							}
+						};
+						xhr.send();
+					};
+					script.crossorigin = true;
+					script.async = false;
+					script.src = asset.url;
+					document.body.appendChild(script);
+				});
+				localStorage.removeItem('ada_cache_static_name_omega');
+				localStorage.removeItem('ada_cache_static_content_omega');
+			}
+			loadScripts('blanka', [{
+				name: 'vendor',
+				url: '//manhattan.didistatic.com/static/manhattan/blanka/output/vendor.66b20e8.js'
+			}, {
+				name: 'create',
+				url: '//manhattan.didistatic.com/static/manhattan/blanka/output/create.fc87cef.js'
+			}, {
+				name: 'app',
+				url: '//manhattan.didistatic.com/static/manhattan/blanka/output/app.66b20e8.js'
+			}]);
+		})();
+		var Omega = {
+			autoClick: false,
+			autoSendPageView: false,
+			productName: 'manhattan-gob-tracker'
+		};
+	</script>
+	<script>
+		App.data('user', {
+			"errno": 0,
+			"errmsg": null,
+			"token": null,
+			"productId": 1,
+			"userStatus": 0,
+			"realName": null,
+			"certNo": null,
+			"balance": 0,
+			"yestYield": 0,
+			"sumYield": 0,
+			"balanceStatus": false,
+			"accountStatus": 0,
+			"sevenDayYearRate": null,
+			"showBlankaGuide": false,
+			"risk": null,
+			"intransferOpen": false,
+			"createTimestamp": 0,
+			"couponYestYield": 0,
+			"couponSumYield": 0,
+			"maskBankCardNo": null,
+			"maskPhone": null,
+			"maskRealName": null,
+			"maskCertNo": null,
+			"relateFlag": null
+		})
+	</script>
+	<script>
+		App.data('banks', [{
+			"code": "002",
+			"name": "工商银行",
+			"logo": "//manhattan.didistatic.com/static/manhattan/blanka_bank/uploads/14bc1ae94348287feb097075b4760375",
+			"singleTransLimit": 10000,
+			"singleTransText": "1万",
+			"singleDayLimit": 200000,
+			"singleDayText": "20万",
+			"singleMonthLimit": 0,
+			"singleMonthText": "",
+			"abbr": "ICBC"
+		}, {
+			"code": "018",
+			"name": "平安银行",
+			"logo": "//manhattan.didistatic.com/static/manhattan/blanka_bank/uploads/3399ccf91be1d0b6717f63e33ef1c97b",
+			"singleTransLimit": 10000,
+			"singleTransText": "1万",
+			"singleDayLimit": 200000,
+			"singleDayText": "20万",
+			"singleMonthLimit": 0,
+			"singleMonthText": "",
+			"abbr": "PINGAN"
+		}, {
+			"code": "004",
+			"name": "中国银行",
+			"logo": "//manhattan.didistatic.com/static/manhattan/blanka_bank/uploads/54db4314bb1b38a7022911eaa8e39861",
+			"singleTransLimit": 10000,
+			"singleTransText": "1万",
+			"singleDayLimit": 200000,
+			"singleDayText": "20万",
+			"singleMonthLimit": 0,
+			"singleMonthText": "",
+			"abbr": "BOC"
+		}, {
+			"code": "007",
+			"name": "招商银行",
+			"logo": "//manhattan.didistatic.com/static/manhattan/blanka_bank/uploads/4cf68682b2a219a1596373ac14287abf",
+			"singleTransLimit": 10000,
+			"singleTransText": "1万",
+			"singleDayLimit": 200000,
+			"singleDayText": "20万",
+			"singleMonthLimit": 0,
+			"singleMonthText": "",
+			"abbr": "CMB"
+		}, {
+			"code": "003",
+			"name": "农业银行",
+			"logo": "//manhattan.didistatic.com/static/manhattan/blanka_bank/uploads/d82303b99961fa1ecd83582264775f37",
+			"singleTransLimit": 10000,
+			"singleTransText": "1万",
+			"singleDayLimit": 200000,
+			"singleDayText": "20万",
+			"singleMonthLimit": 0,
+			"singleMonthText": "",
+			"abbr": "ABC"
+		}, {
+			"code": "005",
+			"name": "建设银行",
+			"logo": "//manhattan.didistatic.com/static/manhattan/blanka_bank/uploads/790c9573c90f71f3cb849c4442fc3b88",
+			"singleTransLimit": 10000,
+			"singleTransText": "1万",
+			"singleDayLimit": 200000,
+			"singleDayText": "20万",
+			"singleMonthLimit": 0,
+			"singleMonthText": "",
+			"abbr": "CCB"
+		}, {
+			"code": "006",
+			"name": "交通银行",
+			"logo": "//manhattan.didistatic.com/static/manhattan/blanka_bank/uploads/bb1290b84f43d22cbf4af5b1caeeab99",
+			"singleTransLimit": 10000,
+			"singleTransText": "1万",
+			"singleDayLimit": 50000,
+			"singleDayText": "5万",
+			"singleMonthLimit": 0,
+			"singleMonthText": "",
+			"abbr": "BOCO"
+		}, {
+			"code": "014",
+			"name": "民生银行",
+			"logo": "//manhattan.didistatic.com/static/manhattan/blanka_bank/uploads/fe42eface4d2f65bfe14b82e67607e85",
+			"singleTransLimit": 10000,
+			"singleTransText": "1万",
+			"singleDayLimit": 200000,
+			"singleDayText": "20万",
+			"singleMonthLimit": 0,
+			"singleMonthText": "",
+			"abbr": "CMBC"
+		}, {
+			"code": "012",
+			"name": "华夏银行",
+			"logo": "//manhattan.didistatic.com/static/manhattan/blanka_bank/uploads/97dc9a03a2296d56d83ab1a1fe44ee40",
+			"singleTransLimit": 10000,
+			"singleTransText": "1万",
+			"singleDayLimit": 200000,
+			"singleDayText": "20万",
+			"singleMonthLimit": 0,
+			"singleMonthText": "",
+			"abbr": "HXB"
+		}, {
+			"code": "011",
+			"name": "浦发银行",
+			"logo": "//manhattan.didistatic.com/static/manhattan/blanka_bank/uploads/ff43ed36fa1422e36eab1b76992cb58a",
+			"singleTransLimit": 10000,
+			"singleTransText": "1万",
+			"singleDayLimit": 200000,
+			"singleDayText": "20万",
+			"singleMonthLimit": 0,
+			"singleMonthText": "",
+			"abbr": "SPDB"
+		}, {
+			"code": "017",
+			"name": "上海银行",
+			"logo": "//manhattan.didistatic.com/static/manhattan/blanka_bank/uploads/e45ea0b933e543973a0ac948b1824bc2",
+			"singleTransLimit": 10000,
+			"singleTransText": "1万",
+			"singleDayLimit": 200000,
+			"singleDayText": "20万",
+			"singleMonthLimit": 0,
+			"singleMonthText": "",
+			"abbr": "BOSH"
+		}, {
+			"code": "021",
+			"name": "兴业银行",
+			"logo": "//manhattan.didistatic.com/static/manhattan/blanka_bank/uploads/a1d3f039d5e9d8e6ddf6899743d6c8e8",
+			"singleTransLimit": 10000,
+			"singleTransText": "1万",
+			"singleDayLimit": 200000,
+			"singleDayText": "20万",
+			"singleMonthLimit": 0,
+			"singleMonthText": "",
+			"abbr": "CIB"
+		}, {
+			"code": "022",
+			"name": "邮储银行",
+			"logo": "//manhattan.didistatic.com/static/manhattan/blanka_bank/uploads/3204b8a7a012c911853507a6718216a7",
+			"singleTransLimit": 10000,
+			"singleTransText": "1万",
+			"singleDayLimit": 200000,
+			"singleDayText": "20万",
+			"singleMonthLimit": 0,
+			"singleMonthText": "",
+			"abbr": "PSBC"
+		}, {
+			"code": "015",
+			"name": "中信银行",
+			"logo": "//img-hxy021.didistatic.com/static/strategymis/blanka_bank/uploads/e1004505ce112342c875c2d3ee87e505",
+			"singleTransLimit": 10000,
+			"singleTransText": "1万",
+			"singleDayLimit": 20000,
+			"singleDayText": "2万",
+			"singleMonthLimit": 0,
+			"singleMonthText": "",
+			"abbr": "ECITIC"
+		}, {
+			"code": "016",
+			"name": "广发银行",
+			"logo": "//img-hxy021.didistatic.com/static/strategymis/blanka_bank/uploads/7b97d4424db26e3b9a468c2984ad3708",
+			"singleTransLimit": 10000,
+			"singleTransText": "1万",
+			"singleDayLimit": 20000,
+			"singleDayText": "2万",
+			"singleMonthLimit": 0,
+			"singleMonthText": "",
+			"abbr": "GDB"
+		}])
+	</script>
+	<script>
+		App.data('cards', [])
+	</script>
+	<script>
+		App.data('switches', [{
+			"operation": "BLANKA_CREATE",
+			"disableOperate": false,
+			"noticeContent": "",
+			"valid": false,
+			"validTime": 0,
+			"invalidTime": 0
+		}, {
+			"operation": "BLANKA_PURCHASE",
+			"disableOperate": false,
+			"noticeContent": "",
+			"valid": false,
+			"validTime": 0,
+			"invalidTime": 0
+		}, {
+			"operation": "BLANKA_PURCHASE_BALANCE_MANUAL",
+			"disableOperate": false,
+			"noticeContent": "",
+			"valid": false,
+			"validTime": 0,
+			"invalidTime": 0
+		}, {
+			"operation": "BLANKA_REDEEM",
+			"disableOperate": false,
+			"noticeContent": "",
+			"valid": false,
+			"validTime": 0,
+			"invalidTime": 0
+		}])
+	</script>
+	<script>
+		App.data('product', {
+			"tenThousYieldRate": "1.4351",
+			"seventhDayYearRate": "4.3920",
+			"profitDate": "01-04",
+			"sevenDayYearRate": [{
+				"errno": 0,
+				"errmsg": null,
+				"token": null,
+				"productId": 0,
+				"userStatus": 0,
+				"tenThousYieldRate": "0.9045",
+				"yearRate": "3.6620",
+				"profitDate": "12-29"
+			}, {
+				"errno": 0,
+				"errmsg": null,
+				"token": null,
+				"productId": 0,
+				"userStatus": 0,
+				"tenThousYieldRate": "1.1338",
+				"yearRate": "3.6460",
+				"profitDate": "12-30"
+			}, {
+				"errno": 0,
+				"errmsg": null,
+				"token": null,
+				"productId": 0,
+				"userStatus": 0,
+				"tenThousYieldRate": "1.1338",
+				"yearRate": "3.6190",
+				"profitDate": "12-31"
+			}, {
+				"errno": 0,
+				"errmsg": null,
+				"token": null,
+				"productId": 0,
+				"userStatus": 0,
+				"tenThousYieldRate": "1.1321",
+				"yearRate": "3.6420",
+				"profitDate": "01-01"
+			}, {
+				"errno": 0,
+				"errmsg": null,
+				"token": null,
+				"productId": 0,
+				"userStatus": 0,
+				"tenThousYieldRate": "1.1724",
+				"yearRate": "3.7500",
+				"profitDate": "01-02"
+			}, {
+				"errno": 0,
+				"errmsg": null,
+				"token": null,
+				"productId": 0,
+				"userStatus": 0,
+				"tenThousYieldRate": "1.3314",
+				"yearRate": "3.9990",
+				"profitDate": "01-03"
+			}, {
+				"errno": 0,
+				"errmsg": null,
+				"token": null,
+				"productId": 0,
+				"userStatus": 0,
+				"tenThousYieldRate": "1.4351",
+				"yearRate": "4.3920",
+				"profitDate": "01-04"
+			}],
+			"showYieldInfo": 0,
+			"yestYield": 0,
+			"balance": 0
+		})
+	</script>
+	<script>
+		App.ready()
+	</script>
+</body>
+
+</html>

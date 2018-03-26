@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+  "name": "hello",
+  "bin": {
+    "hello": "hello"
+  },
+  "dependencies": {
+    "commander": "^2.12.2",
+    "git-clone": "^0.1.0",
+    "shelljs": "^0.7.8",
+    "yargs": "^10.0.3"
+  },
+  "description": "cli test",
+  "main": "hello.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cli",
+    "test"
+  ],
+  "author": "xiongjian",
+  "license": "ISC"
+}
