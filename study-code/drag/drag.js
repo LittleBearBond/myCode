@@ -1,4 +1,4 @@
-var each = function(obj, callback, context) {
+var each = function (obj, callback, context) {
 	if (obj == null) {
 		return;
 	}
@@ -28,21 +28,21 @@ function $$$(className, element, tagName) {
 	var reClass = new RegExp("(^|//s)" + className + "(//s|$)");
 	var aElement = $$(tagName || "*", element || document);
 	var len = aElement.length;
-	each(aElement, function(obj, index) {
+	each(aElement, function (obj, index) {
 		reClass.test(obj.className) && aClass.push(obj);
 	});
 	return aClass
 };
 
 if (!Function.prototype.hasOwnProperty('bind')) {
-	Function.prototype.bind = function(context) {
+	Function.prototype.bind = function (context) {
 		var target = this;
 		if (typeof target != "function") {
 			throw new TypeError();
 		}
 		var sl = [].slice,
 			args = sl.call(arguments, 1);
-		return function() {
+		return function () {
 			return fn.apply(context || this, args.concat(sl.call(arguments)));
 		};
 	};
@@ -50,23 +50,23 @@ if (!Function.prototype.hasOwnProperty('bind')) {
 
 var eventHandler = {
 	//添加绑定事件
-	addHandler: function(oElement, sEventType, fnHandler) {
+	addHandler: function (oElement, sEventType, fnHandler) {
 		return oElement.addEventListener ? oElement.addEventListener(sEventType, fnHandler, false) : oElement.attachEvent("on" + sEventType, fnHandler)
 	},
 	//删除绑定事件
-	removeHandler: function(oElement, sEventType, fnHandler) {
+	removeHandler: function (oElement, sEventType, fnHandler) {
 		return oElement.removeEventListener ? oElement.removeEventListener(sEventType, fnHandler, false) : oElement.detachEvent("on" + sEventType, fnHandler)
 	},
 	//绑定事件到对象
-	bind: function(object, fnHandler) {
-		return function() {
+	bind: function (object, fnHandler) {
+		return function () {
 			return fnHandler.apply(object, arguments)
 		}
 	},
-	getEvent: function(e) {
+	getEvent: function (e) {
 		return e || window.eventeventevent;
 	},
-	stopPropagation: function(e) {
+	stopPropagation: function (e) {
 		if (e && e.stopPropagation) {
 			e.stopPropagation();
 		} else {
@@ -128,8 +128,7 @@ function css(element, attr, value) {
 function Drag(opts) {
 	this.el = $(opts.el);
 	this.handle = $$$(opts.handle, this.el);
-	this.body = $$$('body'
-		this.el);
+	this.body = $$$('body', this.el);
 	this.b = $$('b', this.body);
 
 	this.isDrag = false; //
@@ -140,12 +139,12 @@ function Drag(opts) {
 
 Drag.prototype = {
 	constructor: Drag,
-	init: function() {
+	init: function () {
 		initEvent();
 	},
-	initEvent: function() {
+	initEvent: function () {
 		var self = this;
-		eventHandler.addHandler(this.handle, 'mousedown', function(e) {
+		eventHandler.addHandler(this.handle, 'mousedown', function (e) {
 			e = eventHandler.getEvent(e);
 			self.isDrag = true;
 			self.disX = e.clientX - self.offsetLeft;
@@ -156,7 +155,7 @@ Drag.prototype = {
 			return false;
 		});
 
-		eventHandler.addHandler(document, 'mousemove', function(e) {
+		eventHandler.addHandler(document, 'mousemove', function (e) {
 			if (!self.isDrag) {
 				return;
 			}
@@ -180,7 +179,7 @@ Drag.prototype = {
 			return false;
 		});
 
-		eventHandler.addHandler(document, 'mouseup', function(e) {
+		eventHandler.addHandler(document, 'mouseup', function (e) {
 			self.isDrag = false;
 			this.handle.releaseCapture && this.handle.releaseCapture();
 			self.status();
@@ -188,12 +187,12 @@ Drag.prototype = {
 
 
 	},
-	status: function(il, it) {
+	status: function (il, it) {
 		this.b[0].innerHTML = this.isDrag;
 		this.b[1].innerHTML = il;
 		this.b[2].innerHTML = it;
 	},
-	getViewPortSize: function(w) {
+	getViewPortSize: function (w) {
 		w = w || window;
 		if (w.innerWidth != null) {
 			return {
@@ -214,9 +213,9 @@ Drag.prototype = {
 	}
 };
 
-window.onload=function(){
+window.onload = function () {
 	new Drag({
-		el:'box',
-		handle:'header'
+		el: 'box',
+		handle: 'header'
 	});
 };
