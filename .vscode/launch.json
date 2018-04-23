@@ -6,8 +6,8 @@
     "configurations": [{
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceRoot}/study-code/nodejs/test/test1.js"
+            "name": "debugger node file",
+            "program": "${workspaceRoot}/study-code/nodejs/file/index.js"
         },
         {
             "type": "node",
