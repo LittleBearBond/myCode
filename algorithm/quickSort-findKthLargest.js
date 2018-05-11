@@ -204,3 +204,46 @@ function findKthLargestNew(arr, k) {
     }
     return arr[k]
 }
+
+function getMaxLengthArr(arr, sum) {
+    let left = 0;
+    let right = left + 1;
+    let index = 0, len = 0, arrSum = 0;
+    const { length } = arr;
+    while (left < length) {
+        right = left + 1;
+        arrSum = arr[left]
+        while (right < length) {
+            arrSum += arr[right];
+            if (arrSum < sum && Math.max(len, right - left + 1) > len) {
+                index = right - 1;
+                len = Math.max(len, right - left + 1)
+            } else if (arrSum >= sum) {
+                break
+            }
+            right++
+        }
+        left++
+    }
+    console.log(index, len)
+    return arr.slice(index, index + len)
+}
+
+function insertArr(firstArr, secondArr) {
+
+    const arr = new Array(firstArr.length + secondArr.length);
+    let firstIndex = 0
+    let secondIndex = 0
+    /*  Array.from({ length: firstArr.length + secondArr.length }, (v, i) => i).map((v, i) => {
+     }) */
+    for (let index of arr.keys()) {
+        if (firstArr[firstIndex] > secondArr[secondIndex] || firstIndex === firstArr.length) {
+            arr[index] = secondArr[secondIndex]
+            secondIndex++
+        } else {
+            arr[index] = firstArr[firstIndex]
+            firstIndex++
+        }
+    }
+    return arr
+}
