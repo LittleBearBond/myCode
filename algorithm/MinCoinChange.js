@@ -1,34 +1,37 @@
 function MinCoinChange(coins) {
-    var coins = coins; //{1}
-    var cache = {}; //{2}
-    this.makeChange = function (amount) {
-        var me = this;
-        if (!amount) { //{3}
-            return [];
-        }
-        if (cache[amount]) { //{4}
-            return cache[amount];
-        }
-        var min = [], newMin, newAmount;
-        for (var i = 0; i < coins.length; i++) { //{5}
-            var coin = coins[i];
-            newAmount = amount - coin; //{6}
-            if (newAmount >= 0) {
-                newMin = me.makeChange(newAmount); //{7}
-            }
-            if (
-                newAmount >= 0 && //{8}
-                (newMin.length < min.length - 1 || !min.length)//{9}
-                && (newMin.length || !newAmount))//{10})
-            {
-                min = [coin].concat(newMin); //{11}
-                console.log('new Min ' + min + ' for ' + amount);
-            }
-        }
-        return (cache[amount] = min); //{12}
-    };
+	var coins = coins; //{1}
+	var cache = {}; //{2}
+	this.makeChange = function (amount) {
+		var me = this;
+		if (!amount) { //{3}
+			return [];
+		}
+		if (cache[amount]) { //{4}
+			return cache[amount];
+		}
+		var min = [], newMin, newAmount;
+		for (var i = 0; i < coins.length; i++) { //{5}
+			var coin = coins[i];
+			newAmount = amount - coin; //{6}
+			if (newAmount >= 0) {
+				newMin = me.makeChange(newAmount); //{7}
+			}
+			if (
+				newAmount >= 0 && //{8}
+				(newMin.length < min.length - 1 || !min.length)//{9}
+				&& (newMin.length || !newAmount))//{10})
+			{
+				min = [coin].concat(newMin); //{11}
+				console.log('new Min ' + min + ' for ' + amount);
+			}
+		}
+		return (cache[amount] = min); //{12}
+	};
 }
-/* 
+var minCoinChange = new MinCoinChange([1, 5, 10, 25]);
+debugger
+console.log(minCoinChange.makeChange(36));
+/*
     MinCoinChange类接收coins参数（行{1}），该参数代表问题中的面额。对美国的硬币系
     统而言，它是[1, 5, 10, 25]。我们可以随心所欲传递任何面额。此外，为了更加高效且不重
     复计算值，我们使用了cache（行{2}）。
@@ -44,3 +47,40 @@ function MinCoinChange(coins) {
     minValue和newAmount是否是合理的值（{行10}）。若以上判断都成立，意味着有一个比之前
     更优的答案（行{11}。以5美分为
 */
+
+
+function minCoinChange1(coins) {
+	var cache = {};
+	this.makeChange = function (count) {
+		//小于等于0 返回空数组
+		if (count === 0) {
+			return [];
+		}
+		//已经计算过，返回之前的结果
+		if (cache[count]) {
+			return cache[count]
+		}
+		var min = []
+		var newCount;
+		var newMin
+		//每次调用makeChange 传入count 都会循环一次所有硬币，找到最小组合的那一个
+		for (let coin of coins) {
+			//总和减去当前的硬币大小值，得到一个新的总和值
+			newCount = count - coin
+			if (newCount >= 0) {
+				//把新值用递归方式去查找
+				newMin = this.makeChange(newCount)
+			}
+			if (newCount >= 0 &&
+				//当前 min 没有值，或者新找到的比当前这个min 还要小
+				(newMin.length < min.length - 1 || !min.length) &&
+				//newCount 为0 或者 newMin 有值长度；newMin 在 count - coin 为0
+				(newCount === 0 || newMin.length)
+			) {
+				min = [coin].concat(newMin); //{11}
+				console.log(`min ${count} `, min)
+			}
+		}
+		return (cache[count] = min)
+	}
+}
