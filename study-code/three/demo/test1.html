@@ -30,11 +30,19 @@
 		document.body.appendChild(renderer.domElement);
 
 		var geometry = new THREE.BoxGeometry(1, 1, 1);
+		// var geoSphere = new THREE.SphereGeometry(5, 32, 32);
 		var material = new THREE.MeshBasicMaterial({
-			color: '#0084ff'
+			color: 0xffff00
 		});
 		var cube = new THREE.Mesh(geometry, material);
 		scene.add(cube);
+
+		/* var geometry1 = new THREE.SphereGeometry(5, 32, 32);
+		var material = new THREE.MeshBasicMaterial({
+			color: 0xffff00
+		});
+		var sphere = new THREE.Mesh(geometry1, material);
+		scene.add(sphere); */
 
 		camera.position.z = 2;
 
