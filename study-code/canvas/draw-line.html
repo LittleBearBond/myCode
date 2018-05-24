@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>draw line</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		div {
+			height: 200px;
+			background: #ccc;
+		}
+
+	</style>
+</head>
+
+<body>
+	<div>
+		<button class="btn btn-default" type="submit" id="js-restore">撤销</button>
+
+	</div>
+	<canvas id="js-con"></canvas>
+	<script>
+		//https://stackoverflow.com/questions/17150610/undo-redo-for-paint-program-canvas?rq=1
+		const fixCanvasDevicePixelRatio = (context, width, height) => {
+			const {
+				canvas
+			} = context;
+			const {
+				devicePixelRatio = 1
+			} = window;
+
+			if (window.devicePixelRatio) {
+				canvas.style.width = width + "px";
+				canvas.style.height = height + "px";
+				canvas.height = height * devicePixelRatio;
+				canvas.width = width * devicePixelRatio;
+				context.scale(devicePixelRatio, devicePixelRatio);
+			}
+		}
+
+		function getPointOnCanvas(canvas, event) {
+			const {
+				left,
+				top,
+				width,
+				height
+			} = $canvas.getBoundingClientRect()
+			const {
+				clientX,
+				clientY
+			} = event
+			return {
+				//canvas 缩放比例，可能是高分屏
+				x: (clientX - left), //* (canvas.width / width),
+				y: (clientY - top) //* (canvas.height / height)
+
+			};
+		}
+
+		function toDraw(x, y) {
+			context.lineTo(x, y); // 画路径
+			context.lineWidth = 5;
+			context.strokeStyle = "#ff4444";
+			context.stroke(); // 描边
+			// context.save(); // 保存状态
+		}
+
+		const $canvas = document.getElementById('js-con');
+		const context = $canvas.getContext('2d')
+		const canHeight = 500
+		const status = []
+		window.addEventListener('resize', () => fixCanvasDevicePixelRatio(context, innerWidth, canHeight), false)
+		fixCanvasDevicePixelRatio(context, innerWidth, canHeight)
+
+		context.fillStyle = '#fff';
+		context.fillRect(0, 0, innerWidth, canHeight);
+
+		document.getElementById('js-restore').addEventListener('click', function () {
+			if (status.length) {
+				// context.putImageData(status.pop(), 0, 0)
+			} else {
+				// context.fillRect(0, 0, innerWidth, canHeight);
+			}
+			context.res
+		}, false)
+
+		let running = false;
+		$canvas.addEventListener("mousedown", function (e) {
+			const {
+				x,
+				y
+			} = getPointOnCanvas($canvas, e);
+			context.beginPath();
+			context.moveTo(x, y);
+			running = true;
+			// var lastImg = context.getImageData(0, 0, $canvas.width, $canvas.height)
+			// status.push(lastImg)
+		}, false);
+
+		$canvas.addEventListener('mousemove', function (e) {
+			if (running === true) {
+				const {
+					x,
+					y
+				} = getPointOnCanvas($canvas, e);
+				toDraw(x, y)
+			}
+		}, false);
+
+		$canvas.addEventListener('mouseup', function (e) {
+			running = false;
+		}, false);
+
+		$canvas.addEventListener('mouseout', function (e) {
+			running = false;
+		}, false);
+
+	</script>
+</body>
+
+</html>
