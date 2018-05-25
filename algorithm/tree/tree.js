@@ -142,11 +142,11 @@ var removeNode = function (node, key) {
         return node
     }
     if (node.key < key) {
-        node = removeNode(node.right, key)
+        node.left = removeNode(node.right, key)
         return node
     }
     if (node.key > key) {
-        node = removeNode(node.left, key)
+        node.right = removeNode(node.left, key)
         return node
     }
     if (node.left === null && node.right === null) {
@@ -161,7 +161,14 @@ var removeNode = function (node, key) {
         node = node.left;
         return node
     }
-
+	 //找到右侧最小值
+	 var aux = findMinNode(node.right);
+	 //把这个值更新到当前这个节点
+	 node.key = aux.key;
+	 //移除原来这个节点
+	 node.right = removeNode(node.right, aux.key);
+	 //返回给父级
+	 return node;
 }
 
 
@@ -224,7 +231,7 @@ var preOrderUnRecursion = function (node) {
     }
 }
 
-/* 
+/*
     前序遍历：访问根–>遍历左子树–>遍历右子树;
     中序遍历：遍历左子树–>访问根–>遍历右子树;
     后序遍历：遍历左子树–>遍历右子树–>访问根;
