@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>test css</title>
+</head>
+<style>
+	/* .main [test] {
+		color: #ff0;
+	} */
+
+	html,
+	body {
+		height: 100%;
+		min-height: 100%;
+	}
+
+	.main {
+		height: 100%;
+	}
+
+	.left {
+		background: #cc0;
+	}
+
+	.right {
+		background: #c0c;
+	}
+
+	.center {
+		background: #ccc;
+	}
+
+	/* flex <!-- 1 -->*/
+
+	/* .main {
+		display: flex;
+		align-items: stretch;
+	}
+
+	.left,
+	.right {
+		width: 200px;
+	}
+
+	.center {
+		flex: auto;
+	} */
+
+	/* float <!-- 1 -->*/
+
+	/* .main::after {
+		content: "";
+		display: block;
+		clear: both;
+		height: 0;
+	}
+
+	.main {
+		width: 100%;
+	}
+
+	.center {
+		display: inline-block;
+		height: 100%;
+		width: calc(100% - 400px);
+	}
+
+	.left {
+		float: left;
+		width: 200px;
+		height: 100%;
+	}
+
+	.right {
+		float: right;
+		width: 200px;
+		height: 100%;
+	} */
+
+	/* absolute   <!-- 1 -->*/
+
+	/* .main {
+		width: 100%;
+		position: relative;
+	}
+
+	.center {
+		display: inline-block;
+		height: 100%;
+		margin-left: 200px;
+		width: calc(100% - 400px);
+	}
+
+	.left {
+		position: absolute;
+		width: 200px;
+		left: 0;
+		height: 100%;
+	}
+
+	.right {
+		position: absolute;
+		width: 200px;
+		right: 0;
+		top: 0;
+		height: 100%;
+	} */
+
+	/*float	<!-- 2 -->*/
+
+	/* .main>div {
+		height: 100%;
+	}
+
+	.left {
+		float: left;
+		width: 200px;
+		background: red;
+	}
+
+	.right {
+		float: right;
+		width: 200px;
+		background: blue;
+	}
+
+	.center {
+		overflow: hidden;
+		background: yellow;
+	} */
+
+	/*float	<!-- 2 -->*/
+
+	.main>div {
+		height: 100%;
+	}
+
+	.left {
+		float: left;
+		width: 200px;
+		background: red;
+	}
+
+	.right {
+		float: right;
+		width: 200px;
+		background: blue;
+	}
+
+	.center {
+		width: 100%;
+		padding: 0 200px;
+		box-sizing: border-box;
+	}
+
+	/*表格*/
+
+	/*table*/
+
+</style>
+
+<body>
+	<!-- 1 -->
+	<!-- <div class="main">
+		<div class="left"></div>
+		<div class="center"></div>
+		<div class="right"></div>
+	</div> -->
+	<!-- 2 -->
+	<div class="main">
+		<div class="left"></div>
+		<div class="right"></div>
+		<div class="center">这种情况下最优策略也就是匿名用户提到的从14楼开始递减间隔的办法，worst case 需要14次。 </div>
+	</div>
+</body>
+
+</html>
