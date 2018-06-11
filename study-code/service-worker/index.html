@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>services work test</title>
+	<link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+	<h1> if ('serviceWorker' in navigator) { </h1>
+	<script>
+		if ('serviceWorker' in navigator) {
+			window.addEventListener('load', function () {
+				navigator.serviceWorker.register('/sw.js').then(function (registration) {
+					// Registration was successful
+					console.log('ServiceWorker registration successful');
+				}, function (err) {
+					// Registration failed
+					console.log('ServiceWorker registration failed: ', err);
+				});
+			})
+		}
+
+	</script>
+	<script src="./js/app.js"></script>
+	<script src="./js/lib.js"></script>
+</body>
+
+</html>
