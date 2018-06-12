@@ -12,15 +12,22 @@
 <body>
 	<h1> if ('serviceWorker' in navigator) { </h1>
 	<script>
+		const SW_VERSION = '0.0.6';
+
 		if ('serviceWorker' in navigator) {
-			window.addEventListener('load', function () {
-				navigator.serviceWorker.register('/sw.js').then(function (registration) {
+			window.addEventListener('load', () => {
+				navigator.serviceWorker.register('/sw.js').then((registration) => {
 					// Registration was successful
 					console.log('ServiceWorker registration successful');
-				}, function (err) {
+					if (localStorage.getItem('sw_version') !== SW_VERSION) {
+						registration.update().then(() => {
+							localStorage.setItem('sw_version', SW_VERSION)
+						}).catch(err => console.log("update error!", err));
+					}
+				}, (err) => {
 					// Registration failed
 					console.log('ServiceWorker registration failed: ', err);
-				});
+				}).catch(err => console.log("error!", err));
 			})
 		}
 

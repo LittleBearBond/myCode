@@ -1,1 +1,1 @@
-console.log('lib js  -----')
+console.log('lib js  -----', SW_VERSION)
