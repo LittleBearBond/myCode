@@ -26,3 +26,19 @@ test1([1, 2, 'xj'])
 function test2(a: string, b?: string, c: string = 'b'): void {
     console.log(a, b, c)
 }
+
+function test3(...args: Array<any>) {
+    console.log(...args)
+}
+
+const onePerson = {
+    name: 'xx',
+    age: 26,
+    weight: 30,
+    child: {
+        name: 'x',
+        weight: 20
+    }
+}
+const { name: personName, child: { weight }, ...otherProps } = onePerson
+console.log(personName,weight,otherProps)
