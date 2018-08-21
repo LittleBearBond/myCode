@@ -1,0 +1,8 @@
+scripts/
+node_modules
+**/node_modules
+/test/*
+/dist/*
+/build
+/site
+!.eslintrc.js
