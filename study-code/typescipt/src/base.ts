@@ -1,5 +1,5 @@
 
-const myName = 'xj'
+const myName = "xj"
 
 const str = `muti str
     second line
@@ -8,6 +8,10 @@ const str = `muti str
 `
 console.log(str)
 
+/**
+ *函数参数
+ * @param arg 函数参数
+ */
 function test1(arg: Array<string | number>): void {
     console.log(...arg)
 }

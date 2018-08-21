@@ -4,7 +4,7 @@ module.exports = {
     ],
     rules: {
         'no-script-url': 0,
-        'eqeqeq': 0,
+        // 'eqeqeq': 0,
         'typescript/no-namespace': true, // 是否允许全局挂载类型 eg. window.moz....
         'react/jsx-closing-bracket-location': 0,
         'jsx-a11y/href-no-hash': 0,
