@@ -54,8 +54,7 @@ function themeReducer(state, action) {
 const store = createStore(themeReducer)
 ```
 
-
-##redux在react中的初步使用demo
+## redux在react中的初步使用demo
 
 ```jsx
 function createStore (reducer) {
@@ -105,7 +104,6 @@ class Index extends Component {
 }
 
 ```
-
 
 ```jsx
 class Header extends Component {
@@ -327,7 +325,9 @@ class Content extends Component {
   }
 }
 Content = connect(mapStateToProps)(Content)
+
 ```
+
 重构了header和content但是ThemeSwitch 里面的一段代码始终还是不够完美，依然在是冲context里面获取store近相关操作
 这段代码的获取store其实可抽出去，组件里面只需要调用外部一个函数，把参数传过去，函数内部去执行dispatch这个事情
 
@@ -355,6 +355,7 @@ Content = connect(mapStateToProps)(Content)
 ```
 
 所以对connent进行改进
+
 ```js
   const connect = (mapStateToProps , mapDispatchToProps)=>(WrappedComponent)=>{
       class Connect extends Component {
@@ -419,6 +420,7 @@ Content = connect(mapStateToProps)(Content)
     //....
   }
 ```
+
 有了新一代的connect 我么去重构下ThemeSwitch
 
 ```jsx
@@ -488,6 +490,7 @@ export class Provider extends Component {
   }
 }
 ```
+
 这个时候Index 就变得更干净了，只做本质工作了
 
 ```jsx
