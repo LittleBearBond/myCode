@@ -34,3 +34,4 @@ tmp-cmd/
 **/.ntvs_analysis.dat*
 #**/spider/pages/
 #IntellijIdea
+test-index.js
