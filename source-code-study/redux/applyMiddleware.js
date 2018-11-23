@@ -17,25 +17,30 @@ import compose from './compose'
  * @returns {Function} A store enhancer applying the middleware.
  */
 export default function applyMiddleware(...middlewares) {
-  return createStore => (...args) => {
-    const store = createStore(...args)
-    let dispatch = () => {
-      throw new Error(
-        `Dispatching while constructing your middleware is not allowed. ` +
-          `Other middleware would not be applied to this dispatch.`
-      )
-    }
+	return createStore => (...args) => {
+		// 调用createStore
+		// 此时会调用dispatch({type:init})
+		const store = createStore(...args)
+		let dispatch = () => {
+			throw new Error(
+				`Dispatching while constructing your middleware is not allowed. ` +
+				`Other middleware would not be applied to this dispatch.`
+			)
+		}
 
-    const middlewareAPI = {
-      getState: store.getState,
-      dispatch: (...args) => dispatch(...args)
-    }
-    const chain = middlewares.map(middleware => middleware(middlewareAPI))
-    dispatch = compose(...chain)(store.dispatch)
+		const middlewareAPI = {
+			getState: store.getState,
+			dispatch: (...args) => dispatch(...args)
+		}
+		// 所有middlewares 调用一次传递进去getState和dispatch，中间件里面能拿到getState和dispatch
+		const chain = middlewares.map(middleware => middleware(middlewareAPI))
 
-    return {
-      ...store,
-      dispatch
-    }
-  }
+		// dispatch = f1(f2(f3(store.dispatch))))，一层包一层，这是洋葱模型，直到抛到store.dispatch
+		dispatch = compose(...chain)(store.dispatch)
+		// 返回一个包装后的 dispatch
+		return {
+			...store,
+			dispatch
+		}
+	}
 }
