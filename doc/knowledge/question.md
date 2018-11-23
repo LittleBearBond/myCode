@@ -119,4 +119,34 @@ function onEnd(err) {
 
 用过几次，PM2是node进程管理工具，可以利用它来简化很多node应用管理的繁琐任务，如性能监控、自动重启、负载均衡等。我用得很基础，就自动重启，异常监控。
 
-### React声明周期及自己的理解
+### React生命周期及自己的理解
+
+#### 初始化
+
+* constructor(props)
+* static getDerivedStateFromProps(nextProps, prevState)
+* componentWillMount() / UNSAFE_componentWillMount() 将废弃
+* render
+* componentDidMount
+
+#### 更新
+
+* componentWillReceiveProps() / UNSAFE_componentWillReceiveProps() 将废弃
+* static getDerivedStateFromProps() 新
+* shouldComponentUpdate(nextProps, nextState)
+* componentWillUpdate() / UNSAFE_componentWillUpdate() 将废弃
+* render()
+* getSnapshotBeforeUpdate() 新
+* componentDidUpdate(prevProps, prevState, snapshot)
+
+#### 卸载阶段
+
+* componentWillUnmount()
+
+#### 错误处理
+
+* componentDidCatch(error, info)
+
+### Redux
+
+[Redux](./redux.md)
