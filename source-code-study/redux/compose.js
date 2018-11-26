@@ -25,6 +25,7 @@ export default function compose(...funcs) {
 	})
 	*/
 	// (...args) => f(g(h(...args))).
-	// compose(a,b,c,d) ---> (...args) => a(b(c(d(...args)))) ---> 执行d-->c-->b-->a
+	// compose(a,b,c,d) ---> (...args) => a(b(c(d(...args)))) ---> 执行d-->c-->b-->a-->原始dispatch-->a-->b-->c-->d
 	return funcs.reduce((a, b) => (...args) => a(b(...args)))
 }
+

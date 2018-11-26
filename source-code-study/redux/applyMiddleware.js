@@ -17,6 +17,8 @@ import compose from './compose'
  * @returns {Function} A store enhancer applying the middleware.
  */
 export default function applyMiddleware(...middlewares) {
+	// 在createStore里面 enhancer(createStore)(reducer, preloadedState)
+	// ...args ---> (reducer, preloadedState)
 	return createStore => (...args) => {
 		// 调用createStore
 		// 此时会调用dispatch({type:init})
@@ -32,10 +34,12 @@ export default function applyMiddleware(...middlewares) {
 			getState: store.getState,
 			dispatch: (...args) => dispatch(...args)
 		}
+
 		// 所有middlewares 调用一次传递进去getState和dispatch，中间件里面能拿到getState和dispatch
 		const chain = middlewares.map(middleware => middleware(middlewareAPI))
 
-		// dispatch = f1(f2(f3(store.dispatch))))，一层包一层，这是洋葱模型，直到抛到store.dispatch
+		// dispatch = f1(f2(f3(store.dispatch))))，一层包一层，这是洋葱模型，直到抛到最根上的store.dispatch
+		// next(action) 最终会调用到store.dispatch(action)
 		dispatch = compose(...chain)(store.dispatch)
 		// 返回一个包装后的 dispatch
 		return {
