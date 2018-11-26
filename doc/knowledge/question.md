@@ -156,11 +156,41 @@ function onEnd(err) {
 #### 前端页面跨域
 
 1、主域一样，可强行设置主域
+
 2、postMessage
+
 3、window.name url 参数轮询
 
 #### 前端调用后端接口跨域
 
 1、[jsonp](../../some-js/jsonp.ts)
+
 2、服务端配置允许跨域调用，Access-Control-Allow-Origin
+
 3、nginx代理
+
+### 移动端适配1px的问题
+
+1、svg
+
+2、缩放viewport 0.5 0.33333
+
+3、ios可直接设置小数
+
+4、border-image、box-shadow
+
+5、缩放
+
+### flex布局
+
+[css-flex布局](./css.md)
+
+[flex](https://segmentfault.com/a/1190000012275086)
+
+### css垂直居中和布局
+
+[各种布局](https://segmentfault.com/a/1190000013565024)
+
+### webpack
+
+[webpack详解](./webpack.md)
