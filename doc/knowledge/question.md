@@ -161,6 +161,6 @@ function onEnd(err) {
 
 #### 前端调用后端接口跨域
 
-1、jsonp
+1、[jsonp](../../some-js/jsonp.ts)
 2、服务端配置允许跨域调用，Access-Control-Allow-Origin
 3、nginx代理
