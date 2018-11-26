@@ -134,10 +134,12 @@ return funcs.reduce(function (a, b) {
 3、 我们可以把以上过程用代码表示出来
 
 ```js
+// 第一步执行结果
 var a1 = function () {
 	return next(next1.apply(undefined, arguments));
 };
 
+// 第二部执行结果
 var a2 = function () {
 	// arguments --dispatch
 	return a1(next2.apply(undefined, arguments))
