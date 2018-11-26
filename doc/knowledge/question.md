@@ -150,3 +150,17 @@ function onEnd(err) {
 ### Redux
 
 [Redux](./redux.md)
+
+### 跨域
+
+#### 前端页面跨域
+
+1、主域一样，可强行设置主域
+2、postMessage
+3、window.name url 参数轮询
+
+#### 前端调用后端接口跨域
+
+1、jsonp
+2、服务端配置允许跨域调用，Access-Control-Allow-Origin
+3、nginx代理
