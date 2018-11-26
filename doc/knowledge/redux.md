@@ -1,7 +1,7 @@
 # redux 最核心的 就是中间件
 
 ```js
-// 我自定义三个中间件
+// 我自定义三个中间件，用于后续源码分析
 const logger = ({ getState }) => {
     return next => {
         return action => {
