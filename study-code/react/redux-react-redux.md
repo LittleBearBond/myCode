@@ -328,7 +328,7 @@ Content = connect(mapStateToProps)(Content)
 
 ```
 
-重构了header和content但是ThemeSwitch 里面的一段代码始终还是不够完美，依然在是冲context里面获取store近相关操作
+重构了header和content但是ThemeSwitch 里面的一段代码始终还是不够完美，依然在是从context里面获取store近相关操作
 这段代码的获取store其实可抽出去，组件里面只需要调用外部一个函数，把参数传过去，函数内部去执行dispatch这个事情
 
 ```js
