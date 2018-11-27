@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta content="telephone=no" name="format-detection" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<title>test</title>
+	<style>
+		table{border-collapse: separate; border-spacing: 3px 5px;}
+		td{border:3px solid black; padding: 3px;}
+
+
+		ol li{ list-style-type: decimal; }
+		li.off{list-style-type: none; }
+		a[href]:after{
+			content: attr(href);
+		}
+/*   background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);
+background-image:      -o-linear-gradient(left, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);
+background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, .5)), to(rgba(0, 0, 0, .0001)));
+background-image:         linear-gradient(to right, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%); */
+.bg{
+	width:400px;
+	height:200px;
+	background:#caca8c;
+	background-image: -webkit-linear-gradient(linear,50% 0,0 100%,
+		from(transparent),
+		color-stop(.5,transparent),
+		color-stop(.5,#f00),
+		to(#f00)
+		),
+	-webkit-linear-gradient(linear,50% 0,100% 100%,
+		from(transparent),
+		color-stop(.5,transparent),
+		color-stop(.5,#f00),
+		to(#f00)
+		);
+
+	background-image:-webkit-gradient(linear,50% 0,0 100%,
+		from(transparent),
+		color-stop(.5,transparent),
+		color-stop(.5,#f00),
+		to(#f00)
+		),
+	-webkit-gradient(linear,50% 0,100% 100%,
+		from(transparent),
+		color-stop(.5,transparent),
+		color-stop(.5,#f00),
+		to(#f00)
+		);
+
+	background-image:-moz-linear-gradient(50% 0 -45deg,
+		transparent,
+		transparent 50%,
+		#f00 50%,
+		#f00
+		),-moz-linear-gradient(50% 0 -135deg,
+		transparent,
+		transparent 50%,
+		#f00 50%,
+		#f00
+		);
+
+		background-image:linear-gradient(linear,50% 0,0 100%,
+			from(transparent),
+			color-stop(.5,transparent),
+			color-stop(.5,#f00),
+			to(#f00)
+			),
+		linear-gradient(linear,50% 0,100% 100%,
+			from(transparent),
+			color-stop(.5,transparent),
+			color-stop(.5,#f00),
+			to(#f00)
+			);
+
+		background-image:-o-linear-gradient(linear,50% 0,0 100%,
+			from(transparent),
+			color-stop(.5,transparent),
+			color-stop(.5,#f00),
+			to(#f00)
+			),
+		-o-linear-gradient(linear,50% 0,100% 100%,
+			from(transparent),
+			color-stop(.5,transparent),
+			color-stop(.5,#f00),
+			to(#f00)
+			);
+
+		background-size:400px 200px;
+		background-repeat:repeat-x;
+		background-position:0 100%;
+	}
+	.bg1{
+		width:400px;
+		height:200px;
+		background:#ff0;
+		background-image:-webkit-gradient(linear,50% -1%,-1% 100%,
+			from(transparent),
+			color-stop(.5,transparent),
+			color-stop(.5,#f00),
+			to(#f00)
+			) ,
+		-webkit-gradient(linear,50% -1%,100% 100%,
+			from(transparent),
+			color-stop(.5,transparent),
+			color-stop(.5,#f00),
+			to(#f00)
+			) ;
+		        /*
+		        		    background-image:-moz-linear-gradient(50% 0 -45deg,
+		                    transparent,
+		                    transparent 50%,
+		                    #f00 50%,
+		                    #f00
+		        ),-moz-linear-gradient(50% 0 -135deg,
+		                    transparent,
+		                    transparent 50%,
+		                    #f00 50%,
+		                    #f00
+		        );
+		                     background-image:-webkit-linear-gradient(linear,50% 0,0 100%,
+		                                        from(transparent),
+		                                        color-stop(.5,transparent),
+		                                        color-stop(.5,#f00),
+		                                        to(#f00)
+		        					            ),
+		        					            -webkit-linear-gradient(linear,50% 0,100% 100%,
+		        					                                from(transparent),
+		        					                                color-stop(.5,transparent),
+		        					                                color-stop(.5,#f00),
+		        					                                to(#f00)
+		        					            );
+		                     background-image:linear-gradient(linear,50% 0,0 100%,
+		                                        from(transparent),
+		                                        color-stop(.5,transparent),
+		                                        color-stop(.5,#f00),
+		                                        to(#f00)
+		        					            ),
+		        					            linear-gradient(linear,50% 0,100% 100%,
+		        					                                from(transparent),
+		        					                                color-stop(.5,transparent),
+		        					                                color-stop(.5,#f00),
+		        					                                to(#f00)
+		        					                                );                            */
+background-size:200px 100px;
+background-repeat:repeat-x;
+background-position:0% 100%;
+}
+
+.bg2{
+	margin-top: 20px;
+	width:400px;
+	height:200px;
+	background:#f00;
+	background-image:-webkit-gradient(linear,50% -1%,-1% 100%,
+		from(transparent),
+		color-stop(.5,transparent),
+		color-stop(.5,#fff),
+		to(#fff)
+		),
+	-webkit-gradient(linear,50% -1%,100% 100%,
+		from(transparent),
+		color-stop(.5,transparent),
+		color-stop(.5,#fff),
+		to(#fff)
+		);
+		   /*  background-image:-moz-linear-gradient(50% 0 -45deg,
+		                                                             transparent,
+		                                                             transparent 50%,
+		                                                             #fff 50%,
+		                                                             #fff
+		                                                 ),-moz-linear-gradient(50% 0 -135deg,
+		                                                             transparent,
+		                                                             transparent 50%,
+		                                                             #fff 50%,
+		                                                             #fff
+		                                                             );   */
+background-size:200px 100px;
+background-repeat:repeat-x;
+background-position:0% 100%;
+}
+.br{
+	width: 200px;
+	height: 200px;
+	background: #f00;
+	border-top-right-radius:100px 50px;
+}
+.br1{
+	margin-top: 10px;
+	width: 200px;
+	height: 200px;
+	background: #f00;
+	border-radius:20px 40px 80px 100px;
+	box-shadow: 1px -1px #777, 2px -2px #777, 3px -3px #777, -1px -1px #777, -2px -2px #777, -3px -3px #777;
+}
+.icon{
+	height: 50px;
+	width: 10px;
+	background-color: black;
+	margin: 10px auto;
+}
+.icon:after{
+	content: '';
+	position: absolute;
+	margin-top: 1px;
+	height: 50px;
+	border-left: 10px solid #000;
+	box-shadow: 1px 1px #000, 2px 2px #000, 3px 3px #000, 4px 4px #000, 5px 5px #000,
+	-1px 1px #000, -2px 2px #000, -3px 3px #000, -4px 4px #000, -5px 5px #000;
+}
+.demo:after{
+	content:"";
+	height:0;
+	clear:both;
+	display:table;
+	overflow:hidden;
+}
+.stripes {
+	height: 250px;
+	width: 375px;
+	float: left;
+
+	margin: 10px;
+
+	-webkit-background-size: 50px 50px;
+	-moz-background-size: 50px 50px;
+	background-size: 50px 50px; /* 控制条纹的大小 */
+
+	-moz-box-shadow: 1px 1px 8px gray;
+	-webkit-box-shadow: 1px 1px 8px gray;
+	box-shadow: 1px 1px 8px gray;
+}
+
+.horizontal {
+	background-color: #0ae;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255, .2)), color-stop(.5, transparent), to(transparent));
+	background-image: -moz-linear-gradient(rgba(255, 255, 255, .2) 50%, transparent 50%, transparent);
+	background-image: -o-linear-gradient(rgba(255, 255, 255, .2) 50%, transparent 50%, transparent);
+	background-image: linear-gradient(rgba(255, 255, 255, .2) 50%, transparent 50%, transparent);
+}
+
+.vertical {
+	background-color: #f90;
+	background-image: -webkit-gradient(linear, 0 0, 100% 0, color-stop(.5, rgba(255, 255, 255, .2)), color-stop(.5, transparent), to(transparent));
+	background-image: -moz-linear-gradient(0deg, rgba(255, 255, 255, .2) 50%, transparent 50%, transparent);
+	background-image: -o-linear-gradient(0deg, rgba(255, 255, 255, .2) 50%, transparent 50%, transparent);
+	background-image: linear-gradient(0deg, rgba(255, 255, 255, .2) 50%, transparent 50%, transparent);
+}
+
+.picnic {
+	background-color:white;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, transparent), color-stop(.5, rgba(200, 0, 0, .5)), to(rgba(200, 0, 0, .5))),
+	-webkit-gradient(linear, 0 0, 100% 0, color-stop(.5, transparent), color-stop(.5, rgba(200, 0, 0, .5)), to(rgba(200, 0, 0, .5)));
+	background-image: -moz-linear-gradient(transparent 50%, rgba(200, 0, 0, .5) 50%, rgba(200, 0, 0, .5)),
+	-moz-linear-gradient(0deg, transparent 50%, rgba(200, 0, 0, .5) 50%, rgba(200, 0, 0, .5));
+	background-image: -o-linear-gradient(transparent 50%, rgba(200, 0, 0, .5) 50%, rgba(200, 0, 0, .5)),
+	-o-linear-gradient(0deg, transparent 50%, rgba(200, 0, 0, .5) 50%, rgba(200, 0, 0, .5));
+	background-image: linear-gradient(transparent 50%, rgba(200, 0, 0, .5) 50%, rgba(200, 0, 0, .5)),
+	linear-gradient(0deg, transparent 50%, rgba(200, 0, 0, .5) 50%, rgba(200, 0, 0, .5));
+}
+
+.angled {
+	background-color: #ac0;
+	background-image: -webkit-gradient(linear, 0 100%, 100% 0,
+		color-stop(.25, rgba(255, 255, 255, .2)), color-stop(.25, transparent),
+		color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .2)),
+		color-stop(.75, rgba(255, 255, 255, .2)), color-stop(.75, transparent),
+		to(transparent));
+	background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%,
+		transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%,
+		transparent 75%, transparent);
+	background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%,
+		transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%,
+		transparent 75%, transparent);
+	background-image: linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%,
+		transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%,
+		transparent 75%, transparent);
+}
+
+.angled-135 {
+	background-color: #c16;
+	background-image: -webkit-gradient(linear, 0 0, 100% 100%,
+		color-stop(.25, rgba(255, 255, 255, .2)), color-stop(.25, transparent),
+		color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .2)),
+		color-stop(.75, rgba(255, 255, 255, .2)), color-stop(.75, transparent),
+		to(transparent));
+	background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, .2) 25%, transparent 25%,
+		transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%,
+		transparent 75%, transparent);
+	background-image: -o-linear-gradient(-45deg, rgba(255, 255, 255, .2) 25%, transparent 25%,
+		transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%,
+		transparent 75%, transparent);
+	background-image: linear-gradient(-45deg, rgba(255, 255, 255, .2) 25%, transparent 25%,
+		transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%,
+		transparent 75%, transparent);
+}
+
+.checkered {
+	background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, #555), color-stop(.25, transparent), to(transparent)),
+	-webkit-gradient(linear, 0 100%, 100% 0, color-stop(.25, #555), color-stop(.25, transparent), to(transparent)),
+	-webkit-gradient(linear, 0 0, 100% 100%, color-stop(.75, transparent), color-stop(.75, #555)),
+	-webkit-gradient(linear, 0 100%, 100% 0, color-stop(.75, transparent), color-stop(.75, #555));
+	background-image: -moz-linear-gradient(45deg, #555 25%, transparent 25%, transparent),
+	-moz-linear-gradient(-45deg, #555 25%, transparent 25%, transparent),
+	-moz-linear-gradient(45deg, transparent 75%, #555 75%),
+	-moz-linear-gradient(-45deg, transparent 75%, #555 75%);
+	background-image: -o-linear-gradient(45deg, #555 25%, transparent 25%, transparent),
+	-o-linear-gradient(-45deg, #555 25%, transparent 25%, transparent),
+	-o-linear-gradient(45deg, transparent 75%, #555 75%),
+	-o-linear-gradient(-45deg, transparent 75%, #555 75%);
+	background-image: linear-gradient(45deg, #555 25%, transparent 25%, transparent),
+	linear-gradient(-45deg, #555 25%, transparent 25%, transparent),
+	linear-gradient(45deg, transparent 75%, #555 75%),
+	linear-gradient(-45deg, transparent 75%, #555 75%);
+}
+</style>
+</head>
+<body>
+	<table>
+		<tbody></tbody>
+		<tr   >
+			<td colspan="2" width="425" valign="top" bgcolor="#eeeee3">1XXXX</td>
+			<td>2XXXX</td>
+		</tr>
+		<tr>
+			<td vspace="0"  hspace=3 border=0 alt="not looking back"  align="right" >1XXXX</td>
+			<td>MyCode/study/highQ/st1.html</td>
+		</tr>
+		<tr>
+			<td>MyCode/study/highQ/st1.html</td>
+			<td>2XXXX</td>
+		</tr>
+	</table>
+	<ol>
+		<li>MyCode/study/highQ/st1.html</li>
+		<li class='off'>sdgfsdfdsa</li>
+		<li>sdfdsafsdafds</li>
+		<li class='off'>dsfsdfdsafsddas</li>
+	</ol>
+	<a href="www.baidu.com">XXXX</a>
+
+	<div class="bg"></div>
+	<div class="bg1"></div>
+	<div class="bg2"></div>
+	<div class="demo">
+		<div class="horizontal stripes"></div>
+		<div class="vertical stripes"></div>
+		<div class="picnic stripes"></div>
+		<div class="angled stripes"></div>
+		<div class="angled-135 stripes"></div>
+		<div class="checkered stripes"></div>
+	</div>
+
+	<div style="width:500px;  font-size:12px;overflow:hidden;_zoom:1;background:#ccc">
+		<span style="float:left;width:96px;background:#f00; height:100px;">头像</span>
+		<strong style="float:left;clear:left;background:#ff0; height:100px; width:96px;">姓名</strong>
+		<p style="margin-left:106px;background:#0ff; height:200px;">xxxxxxx</p>
+	</div>
+
+	<div class='br'></div>
+	<div class='br1'></div>
+	<div class='icon'></div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<!-- 忽略页面中的数字识别为电话号码  email识别 -->
+<meta content="telephone=no, email=no" name="format-detection" />
+<!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!-- 当启动webapp功能时，显示手机信号、时间、电池的顶部导航栏的颜色。默认值为default（白色），可以定为black（黑色）和black-translucent（灰色半透明）。这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<!-- 不让 Android 手机识别邮箱 -->
+<meta content="email=no" name="format-detection" />
+<!-- 启用360浏览器的极速模式(webkit) -->
+<meta name="renderer" content="webkit">
+<!-- 避免IE使用兼容模式 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+<meta name="HandheldFriendly" content="true">
+<!-- Reset Css -->
+<link rel="stylesheet" href="../css/resetfull.css">
+ <script  type="text/javascript">
+	;(function(){
+		if (!!document.all) {
+			var e = "article,footer,header,section".split(','),
+				i=e.length;
+			while(i--){
+				document.createElement(e[i]);
+			}
+		}
+		var UA = navigator.userAgent,
+		IsAndroid = (/Android|HTC/i.test(UA) || !!(navigator['platform'] + '').match(/Linux/i)),
+		IsIOS = /iP(ad|hone|od)/i.test(UA),
+		IsWeixin =  /MicroMessenger/i.test(UA),
+		IsApp = /Tusi/i.test(UA),
+		isOtherM=/Windows Phone|SymbianOS|windows ce|rv:1.2.3.4|midp/i.test(UA),
+		classNames = [];
+		if (IsIOS) {
+			classNames.push('ios m');
+		} else if (IsAndroid) {
+			classNames.push('android m');
+			var sysVersion;
+			if ((sysVersion = UA.match(/Android[\s\/]([0-9\._]+)/i))) {
+				var versionNum = sysVersion[1].replace(/_/g, '.').replace(/^([0-9]+\.[0-9]+)[0-9\.]*/, '$1');
+				versionNum = parseFloat(versionNum || 0);
+				if (versionNum < 2.4) {
+					classNames.push('fixed_nav');
+				}
+			}
+		} else if(isOtherM){
+			classNames.push('m');
+		}
+
+		if (IsApp) {
+			classNames.push('in_app');
+		} else if (IsWeixin) {
+			classNames.push('in_weixin');
+		}
+		classNames.length && (document.getElementsByTagName('html')[0].className = classNames.join(' '));
+	})()
+
+</script>
