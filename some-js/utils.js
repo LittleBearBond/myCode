@@ -11,7 +11,7 @@ function connectPromise({ loader, mapResultsToProps }) {
 				loader().then(result => this.setState(resule))
 			}
 			render() {
-				return <Com {...mapResultsToProps(this.state) } {...this.props} />
+				return <Com {...mapResultsToProps(this.state)} {...this.props} />
 			}
 		}
 	}
