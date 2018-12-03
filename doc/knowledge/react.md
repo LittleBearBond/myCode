@@ -81,6 +81,39 @@
 </table>
 ```
 
+### React生命周期及自己的理解
+
+```html
+<table>
+    <tr>
+        <th>
+            <!-- 初始化 -->
+            constructor(props) <br/>
+            static getDerivedStateFromProps(nextProps, prevState) <br/>
+            render <br/>
+            componentDidMount<br/>
+        </th>
+        <th>
+            <!-- 更新 -->
+            componentWillReceiveProps() / UNSAFE_componentWillReceiveProps() 将废弃 <br/>
+            static getDerivedStateFromProps() 新 <br/>
+            shouldComponentUpdate(nextProps, nextState) <br/>
+            componentWillUpdate() / UNSAFE_componentWillUpdate() 将废弃 <br/>
+            render() <br/>
+            getSnapshotBeforeUpdate() 新() <br/>
+            componentDidUpdate(prevProps, prevState, snapshot)() <br/>
+        </th>
+        <th>
+            componentWillUnmount
+        </th>
+    </tr>
+</table>
+```
+
+#### 错误处理
+
+* componentDidCatch(error, info)
+
 ### React的Diff算法
 
 [从零开始实现一个React](https://github.com/hujiulong/blog/issues/7)
