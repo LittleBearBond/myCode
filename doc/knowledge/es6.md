@@ -121,7 +121,7 @@
     async 函数
     async函数就是将 Generator 函数的星号（*）替换成async，将yield替换成await，仅此而已
     await命令后面的Promise对象，运行结果可能是rejected，所以最好把await命令放在try...catch代码块中
-    多个await命令后面的异步操作，如果不存在继发关系，最好让它们同时触发
+    多个await命令后面的异步操作，如果不存在继发关系，最好让它们同时触发，使用Promise.all
     await命令只能用在async函数之中，如果用在普通函数，就会报错。
 
     Class 的基本语法

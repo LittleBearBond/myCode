@@ -82,8 +82,9 @@ function UglifyJsPlugin(options) {
 }
 
 module.exports = UglifyJsPlugin;
-
+// 原型上定义一个apply方法。
 UglifyJsPlugin.prototype.apply = function(compiler) {
+  // 绑定compilation事件
   compiler.plugin("compilation", function(compilation) {
     compilation.plugin("build-module", function(module) {
     });
