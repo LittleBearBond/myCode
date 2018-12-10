@@ -117,3 +117,8 @@
 ### React的Diff算法
 
 [从零开始实现一个React](https://github.com/hujiulong/blog/issues/7)
+
+### React Hooks
+
+[30分钟精通React Hooks](https://juejin.im/post/5be3ea136fb9a049f9121014)
+[精读《怎么用 React Hooks 造轮子》](https://zhuanlan.zhihu.com/p/50274018)
