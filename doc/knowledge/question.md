@@ -111,3 +111,5 @@
     file.slice实现文件切片，file.slice((num - 1) * blockSize, num * blockSize);
 
    [参考webUploader](http://fex.baidu.com/webuploader/)
+
+   [Node+H5实现大文件分片上传](https://segmentfault.com/a/1190000008899001)
