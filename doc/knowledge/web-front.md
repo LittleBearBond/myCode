@@ -8,6 +8,16 @@
 [2017、2018面试分享（js面试题记录）](https://segmentfault.com/a/1190000013827826)
 [3月web前端面试小结 | 掘金技术征文](https://juejin.im/post/5abb44c06fb9a028df22ab37)
 
+## 30秒系列
+
+[30秒JS](https://github.com/30-seconds/30-seconds-of-code)
+
+[30秒React](https://github.com/30-seconds/30-seconds-of-react)
+
+[30秒css](https://30-seconds.github.io/30-seconds-of-css/)
+
+[30秒面试](https://30secondsofinterviews.org/)
+
 ## 题目系列
 
 [2018美团前端面试题](https://juejin.im/post/5a96c6326fb9a063626408c8)
