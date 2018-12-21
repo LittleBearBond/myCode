@@ -7,3 +7,5 @@
 ## 自己实现一个Promsie
 
 [Promise.js](../../algorithm/Promise.js)
+
+[8张图帮你一步步看清 async/await 和 promise 的执行顺序](http://web.jobbole.com/95515/)
