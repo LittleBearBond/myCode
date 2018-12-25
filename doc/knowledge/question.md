@@ -49,8 +49,8 @@
 * 介绍http2.0
 * 通过什么做到并发请求
 * http1.1时如何复用tcp连接
-* 介绍service worker
-* 介绍css3中position:sticky
+* 介绍Service Worker
+* 介绍css3中position:sticky 实现粘性布局
 * redux请求中间件如何处理并发
 * 介绍Promise，异常捕获
 * 介绍position属性包括CSS3新增
@@ -62,6 +62,37 @@
 * 前端怎么控制管理路由
 * 使用路由时出现问题如何解决
 * React怎么做数据的检查和变化
+
+## 滴滴
+
+* react-router怎么实现路由切换
+* react-router里的 Link 标签和 a 标签有什么区别
+* a 标签默认事件禁掉之后做了什么才实现了跳转
+* React层面的性能优化
+* 整个前端性能提升大致分几类
+* import { Button } from 'antd'，打包的时候只打包button，分模块加载，是怎么做到的
+* 使用import时，webpack对node_modules里的依赖会做什么
+* JS异步解决方案的发展历程以及优缺点
+* Http报文的请求会有几个部分
+* cookie放哪里，cookie能做的事情和存在的价值
+* cookie和token都存放在header里面，为什么只劫持前者
+* cookie和session有哪些方面的区别
+* React中Dom结构发生变化后内部经历了哪些变化
+* React挂载的时候有3个组件，textComponent、composeComponent、domComponent，区别和关系，Dom结构发生变化时怎么区分data的变化，怎么更新，更新怎么调度，如果更新的时候还有其他任务存在怎么处理
+* key主要是解决哪一类的问题，为什么不建议用索引index（重绘）
+* Redux中异步的请求怎么处理
+* Redux中间件是什么东西，接受几个参数（两端的柯里化函数）
+* 柯里化函数两端的参数具体是什么东西
+* 中间件是怎么拿到store和action，然后怎么处理
+* state是怎么注入到组件的，从reducer到组件经历了什么样的过程
+* koa中response.send、response.rounded、response.json发生了什么事，浏览器为什么能识别到它是一个json结构或是html
+* koa-bodyparser怎么来解析request
+* webpack整个生命周期，loader和plugin有什么区别
+* 介绍AST（Abstract Syntax Tree）抽象语法树
+* 安卓Activity之间数据是怎么传递的
+* 安卓4.0到6.0过程中WebView对js兼容性的变化
+* WebView和原生是如何通信
+* 跨域怎么解决，有没有使用过Apache等方案
 
 ### Koa
 
@@ -146,3 +177,5 @@
    [参考webUploader](http://fex.baidu.com/webuploader/)
 
    [Node+H5实现大文件分片上传](https://segmentfault.com/a/1190000008899001)
+
+### [service worker](../../study-code/serviceworker/index.html)

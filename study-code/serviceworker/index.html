@@ -13,7 +13,7 @@
 	<h1> if ('serviceWorker' in navigator) { </h1>
 	<script>
 		const SW_VERSION = '0.0.6';
-
+		// https://zhuanlan.zhihu.com/p/20040372
 		if ('serviceWorker' in navigator) {
 			window.addEventListener('load', () => {
 				navigator.serviceWorker.register('/sw.js').then((registration) => {

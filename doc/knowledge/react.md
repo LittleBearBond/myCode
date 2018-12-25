@@ -48,6 +48,18 @@
 
     为了解决跨浏览器兼容性问题，React 会将浏览器原生事件（Browser Native Event）封装为合成事件（SyntheticEvent）传入设置的事件处理器中。这里的合成事件提供了与原生事件相同的接口，不过它们屏蔽了底层浏览器的细节差异，保证了行为的一致性。另外有意思的是，React 并没有直接将事件附着到子元素上，而是以单一事件监听器的方式将所有的事件发送到顶层进行处理。这样 React 在更新 DOM 的时候就不需要考虑如何去处理附着在 DOM 上的事件监听器，最终达到优化性能的目的。
 
+    React 使用 SyntheticEvent 代理了浏览器的原生事件，目的在于提供更通用更高效的事件策略
+
+    1. 统一 API
+    2. 补充了一些浏览器原生没有实现的事件
+    3. Event Pooling
+
+    其中最重要的就是 Event Pooling。在绑定事件时，React 不会直接在对应的 DOM 节点上直接绑定事件，而是以「事件委托（Event Delegation）」的方式，将事件委托到 document 上；同时，SyntheticEvent 会被复用：在每次事件回调结束后，除非用户显式的声明该 Event 对象应当被 presist()，否则 React 会回收该对象，并在下一个事件回调中进行复用
+
+[React源码分析6 — React合成事件系统](https://zhuanlan.zhihu.com/p/25883536)
+
+[React源码解读系列 – 事件机制](http://link.zhihu.com/?target=http%3A//zhenhua-lee.github.io/react/react-event.html)
+
 ### 组件的设计原则
 
     单一职责、开放封闭、依赖导致、接口隔离
