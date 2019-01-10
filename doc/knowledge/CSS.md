@@ -94,6 +94,9 @@ box-sizing
     align-content 多行，多轴对齐方式
     align-items 单行 多行均可以 多行实际效果和align-content 也有区别
 
+[flex-grow flex-shrink flex-basis](https://segmentfault.com/a/1190000017826957)
+[flex-grow flex-shrink flex-basis 动画演示](https://juejin.im/entry/595624926fb9a06ba5196083)
+
 ### BFC
 
 [理解CSS中的BFC(块级可视化上下文)](https://www.jianshu.com/p/fc1d61dace7b)

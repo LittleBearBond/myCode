@@ -1,5 +1,6 @@
 // https://juejin.im/post/5b0f9e50518825155911e7be
 // https://lavas.baidu.com/pwa/offline-and-cache-loading/service-worker/how-to-use-service-worker
+// https://segmentfault.com/a/1190000017749922
 const CACHE_NAME = `my-web-app-cache${1}`;
 const ENV = "development"
 const urlsToCache = [
