@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Worker test</title>
+</head>
+
+<body>
+	<h1> if ('Worker' in navigator) { </h1>
+	<script>
+		var worker = new Worker("task.js");
+
+		worker.postMessage({
+			id: 1,
+			msg: 'Hello task worker'
+		});
+
+		worker.onmessage = function ({
+			data
+		}) {
+			console.log(JSON.stringify(data));
+			worker.terminate();
+		};
+
+		worker.onerror = function (error) {
+			console.log(error.filename, error.lineno, error.message);
+		}
+
+	</script>
+</body>
+
+</html>
