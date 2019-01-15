@@ -13,6 +13,34 @@ new Promise((res, rej) => {
 }).then(console.log, console.error).then()
 
 
+function promiseAll(promise = []) {
+	return new Promise((resolve, reject) => {
+		const {
+			length
+		} = promise
+		if (!Array.isArray(promise) || !length) {
+			return reject(new Error('arguments must be promise array'));
+		}
+
+		let promiseCounter = 0
+		const result = new Array(length)
+
+		for (const [index, pro] of promise.entries()) {
+			(function (index) {
+				Promise.resolve(pro).then(res => {
+					promiseCounter++
+					result[index] = res
+					if (promiseCounter === length) {
+						resolve(result)
+					}
+				}, error => {
+					resolve(error)
+				})
+			}(index))
+		}
+	})
+}
+
 /*
 pending
 fulfilled
