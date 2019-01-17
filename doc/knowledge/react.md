@@ -134,3 +134,7 @@
 
 [30分钟精通React Hooks](https://juejin.im/post/5be3ea136fb9a049f9121014)
 [精读《怎么用 React Hooks 造轮子》](https://zhuanlan.zhihu.com/p/50274018)
+
+### React Fiber
+
+[理解React Fiber](http://www.ayqy.net/blog/dive-into-react-fiber/)
