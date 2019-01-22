@@ -1,0 +1,22 @@
+{
+  "name": "typescript-study",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@types/react": "^16.7.20",
+    "@types/react-dom": "^16.0.11",
+    "eslint": "^5.4.0",
+    "eslint-config-alloy": "^1.4.2",
+    "eslint-config-react-app": "^2.1.0",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-typescript": "^0.12.0",
+    "react": "^16.7.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "xj",
+  "license": "ISC"
+}

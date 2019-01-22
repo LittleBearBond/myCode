@@ -138,3 +138,7 @@
 ### React Fiber
 
 [理解React Fiber](http://www.ayqy.net/blog/dive-into-react-fiber/)
+
+### Typescript React
+
+[demo](../../study-code/typescipt/src/ReactTs.tsx)

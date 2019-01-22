@@ -1,26 +1,34 @@
 {
-    "compilerOptions": {
-        "strictNullChecks": true,
-        "moduleResolution": "node",
-        "experimentalDecorators": true,
-        "jsx": "react",
-        "noUnusedParameters": true,
-        "sourceMap": true,
-        "noUnusedLocals": true,
-        "noImplicitAny": true,
-        "target": "es5",
-        "lib": [
-            "dom",
-            "es2015",
-            "es2017",
-            "es2017.object"
-        ]
-    },
-    "module": "ESNext",
-    "exclude": [
-        "node_modules",
-    ],
-    "include": [
-        "./src"
-    ],
+	"compilerOptions": {
+		"allowJs": true,
+		"esModuleInterop": true,
+		"strictNullChecks": true,
+		"moduleResolution": "node",
+		"experimentalDecorators": true,
+		"jsx": "react",
+		"noUnusedParameters": true,
+		"sourceMap": true,
+		"noUnusedLocals": true,
+		"noImplicitAny": true,
+		"target": "es5",
+		"lib": [
+			"dom",
+			"es2015",
+			"es2017",
+			"es2017.object"
+		]
+	},
+	"module": "ESNext",
+	"exclude": [
+		"node_modules",
+		"dll",
+		"build",
+		"scripts",
+		"webpack",
+		"jest",
+		"config",
+	],
+	"include": [
+		"./src"
+	],
 }
