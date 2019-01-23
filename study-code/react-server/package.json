@@ -1,0 +1,19 @@
+{
+    "name": "react-server",
+    "version": "1.0.0",
+    "description": "A project name react-server",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "es6",
+        "react",
+        "mobx"
+    ],
+    "author": "xiongjian",
+    "license": "ISC",
+    "dependencies": {
+        "eslint-config-alloy": "^1.4.2"
+    }
+}
