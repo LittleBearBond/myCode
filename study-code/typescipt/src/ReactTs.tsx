@@ -1,7 +1,6 @@
 // https://juejin.im/post/5bab4d59f265da0aec22629b
 // https://juejin.im/post/5b07caf16fb9a07aa83f2977
-import { SFC } from 'react'
-import { MouseEvent } from 'react'
+import { SFC, MouseEvent } from 'react'
 import * as React from 'react'
 
 export type Dictionary<T> = { [key: string]: T };
