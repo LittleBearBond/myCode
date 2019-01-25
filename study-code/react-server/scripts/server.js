@@ -12,7 +12,6 @@ let template = fs.readFileSync("./dist/index.html", "utf-8");
 
 // 静态资源映射到dist路径下
 app.use("/static", express.static(path.join(__dirname, "../dist/static")));
-
 app.use("/public", express.static(path.join(__dirname, "../public")));
 app.use(favicon(path.join(__dirname, '../public/favicon.ico')));
 
