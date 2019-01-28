@@ -1,5 +1,7 @@
 # 摄影
 
+[拍妹子有哪些需要专门注意的地方](https://www.zhihu.com/question/20902967/answer/146079212)
+
 ## 摄影基础知识
 
 * [教你看懂镜头上那些乱七八糟的符号！](https://weibo.com/ttarticle/p/show?id=2309404060606318706414)
@@ -21,4 +23,4 @@
 
 [怎么拍照显腿长?](https://www.zhihu.com/question/26710340)
 
-[女性拍照时有哪些不错的pose可以选择?](https://www.zhihu.com/question/21432855   )
+[女性拍照时有哪些不错的pose可以选择?](https://www.zhihu.com/question/21432855)
