@@ -62,4 +62,13 @@ const serverGetStyleLoaders = (cssOptions, nextProcessor, lodaerOption) => {
         loader: MiniCssExtractPlugin.loader
     })
 }
-module.exports = { cssRegex, cssModuleRegex, sassRegex, sassModuleRegex, lessRegex, resolveApp, getStyleLoaders, serverGetStyleLoaders }
+module.exports = {
+    cssRegex,
+    cssModuleRegex,
+    sassRegex,
+    sassModuleRegex,
+    lessRegex,
+    resolveApp,
+    getStyleLoaders,
+    serverGetStyleLoaders
+}

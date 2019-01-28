@@ -4,30 +4,87 @@ const PnpWebpackPlugin = require('pnp-webpack-plugin');
 // const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 // const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-// const ManifestPlugin = require('webpack-manifest-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 // const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 // const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
-// const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
+const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
 const { cssRegex, cssModuleRegex, sassRegex, sassModuleRegex, lessRegex, serverGetStyleLoaders, resolveApp } = require('./utils')
-// // const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier');
+// const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const NodeExternals = require("webpack-node-externals");
-const appSrc = resolveApp('src')
+const LoadablePlugin = require("@loadable/webpack-plugin");
 
-// let env = "dev";
-// const publicPath = '/';
+
+const appSrc = resolveApp('src')
+const shouldUseSourceMap = true;
+
+const getStyleLoaders = (cssOptions, preProcessor, lodaerOption = {}) => {
+    const loaders = [
+        {
+            loader: MiniCssExtractPlugin.loader,
+            options: {},
+        },
+        {
+            loader: require.resolve('css-loader'),
+            options: cssOptions,
+        },
+        {
+            // Options for PostCSS as we reference these options twice
+            // Adds vendor prefixing based on your specified browser support in
+            // package.json
+            loader: require.resolve('postcss-loader'),
+            options: {
+                // Necessary for external CSS imports to work
+                // https://github.com/facebook/create-react-app/issues/2677
+                ident: 'postcss',
+                plugins: () => [
+                    require('postcss-flexbugs-fixes'),
+                    require('postcss-preset-env')({
+                        autoprefixer: {
+                            flexbox: 'no-2009',
+                        },
+                        stage: 3,
+                    }),
+                ],
+                sourceMap: shouldUseSourceMap,
+            },
+        },
+    ];
+    if (preProcessor) {
+        loaders.push({
+            loader: require.resolve(preProcessor),
+            options: {
+                sourceMap: shouldUseSourceMap,
+                ...lodaerOption
+            },
+        });
+    }
+    return loaders;
+};
 
 module.exports = {
     target: "node",
     mode: 'production', //isProd ? 'production' : 'development',
     devtool: 'source-map',
-    // entry: resolveApp('src/server.js'),
-    entry: resolveApp('src/entry-server.js'),
+    entry: { app: resolveApp('src/entry-server.js') },
     output: {
         path: resolveApp('dist'),
         filename: "entry-server.js",
-        libraryTarget: "umd"  // 打包成commonjs2规范
+        libraryTarget: "umd"
     },
+    /* optimization: {
+        minimizer: [
+            new OptimizeCSSAssetsPlugin({ƒ
+                cssProcessorOptions: {
+                    parser: safePostCssParser,
+                    map: {
+                        inline: false,
+                        annotation: true,
+                    }
+                },
+            }),
+        ],
+    }, */
     resolve: {
         extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx', '.ts', '.tsx',],
         alias: {
@@ -46,6 +103,22 @@ module.exports = {
         strictExportPresence: true,
         rules: [
             { parser: { requireEnsure: false } },
+
+            {
+                test: /\.(js|mjs|jsx)$/,
+                enforce: 'pre',
+                use: [
+                    {
+                        options: {
+                            formatter: require.resolve('react-dev-utils/eslintFormatter'),
+                            eslintPath: require.resolve('eslint'),
+
+                        },
+                        loader: require.resolve('eslint-loader'),
+                    },
+                ],
+                include: appSrc,
+            },
             {
                 oneOf: [
                     {
@@ -59,11 +132,13 @@ module.exports = {
                     {
                         test: /\.(js|mjs|jsx)$/,
                         include: appSrc,
+
                         loader: require.resolve('babel-loader'),
                         options: {
                             customize: require.resolve(
                                 'babel-preset-react-app/webpack-overrides'
                             ),
+
                             plugins: [
                                 [
                                     require.resolve('babel-plugin-named-asset-import'),
@@ -77,7 +152,8 @@ module.exports = {
                                 ],
                             ],
                             cacheDirectory: true,
-                            cacheCompression: false,
+                            cacheCompression: true,
+                            compact: true,
                         },
                     },
                     {
@@ -95,50 +171,62 @@ module.exports = {
                                 ],
                             ],
                             cacheDirectory: true,
-                            cacheCompression: false,
-                            sourceMaps: true,
+                            cacheCompression: true,
+
+                            sourceMaps: false,
                         },
                     },
-                    {
-                        test: /\.(ts|tsx)$/,
-                        include: appSrc,
-                        use: [
-                            {
-                                loader: require.resolve('ts-loader'),
-                                options: {
-                                    transpileOnly: true,
-                                },
-                            },
-                        ],
-                    },
                     /* {
+                       test: /\.(ts|tsx)$/,
+                       include: appSrc,
+                       use: [
+                         {
+                           loader: require.resolve('ts-loader'),
+                           options: {
+                             transpileOnly: true,
+                           },
+                         },
+                       ],
+                     }, */
+                    {
                         test: cssRegex,
                         exclude: cssModuleRegex,
-                        use: serverGetStyleLoaders({
+                        loader: serverGetStyleLoaders({
                             importLoaders: 1,
+                            sourceMap: shouldUseSourceMap,
                         }),
-                    },
-                    {
-                        test: cssModuleRegex,
-                        use: serverGetStyleLoaders({
-                            importLoaders: 1,
-                            modules: true,
-                            sourceMap: true,
-                            getLocalIdent: getCSSModuleLocalIdent,
-                        }),
+                        sideEffects: true,
                     },
                     {
                         test: sassRegex,
                         exclude: sassModuleRegex,
-                        use: serverGetStyleLoaders({ importLoaders: 2, sourceMap: true }, 'sass-loader'),
-                    },
-                    {
-                        test: sassModuleRegex,
-                        use: serverGetStyleLoaders(
+                        loader: getStyleLoaders(
                             {
                                 importLoaders: 2,
+                                sourceMap: shouldUseSourceMap,
+                            },
+                            'sass-loader'
+                        ),
+                        sideEffects: true,
+                    },
+                    /* {
+                        test: cssModuleRegex,
+                        sideEffects: true,
+                        loader: serverGetStyleLoaders({
+                            importLoaders: 1,
+                            sourceMap: shouldUseSourceMap,
+                            modules: true,
+                            getLocalIdent: getCSSModuleLocalIdent,
+                        }),
+                    }, */
+                    /* {
+                        test: sassModuleRegex,
+                        sideEffects: true,
+                        loader: serverGetStyleLoaders(
+                            {
+                                importLoaders: 2,
+                                sourceMap: shouldUseSourceMap,
                                 modules: true,
-                                sourceMap: true,
                                 getLocalIdent: getCSSModuleLocalIdent,
                             },
                             'sass-loader'
@@ -146,11 +234,15 @@ module.exports = {
                     },
                     {
                         test: lessRegex,
-                        use: serverGetStyleLoaders({ importLoaders: 2, sourceMap: true }, 'less-loader', { javascriptEnabled: true }),
+                        sideEffects: true,
+                        use: serverGetStyleLoaders({
+                            importLoaders: 2,
+                            sourceMap: shouldUseSourceMap,
+                        }, 'less-loader', { javascriptEnabled: true }),
                     }, */
                     {
-                        exclude: [/\.(js|mjs|jsx)$/, /\.html$/, /\.json$/],
                         loader: require.resolve('file-loader'),
+                        exclude: [/\.(js|mjs|jsx)$/, /\.html$/, /\.json$/],
                         options: {
                             name: 'static/media/[name].[hash:8].[ext]',
                         },
@@ -168,7 +260,6 @@ module.exports = {
      }, */
     externals: [
         NodeExternals({
-            whitelist: [/\.css$/]  // 忽略css，让webpack处理
         })
     ],
     plugins: [
@@ -177,22 +268,17 @@ module.exports = {
             template: resolveApp('public/index.html'),
             NODE_ENV: process.env.NODE_ENV === "development",
         }), */
-        // new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
-        // new ModuleNotFoundPlugin(resolveApp('.')),
-        // new webpack.HotModuleReplacementPlugin(),
-        // new serverGetStyleLoaders(),
-        // new WatchMissingNodeModulesPlugin(resolveApp('node_modules')),
-        // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-        /*  new ManifestPlugin({
-             fileName: 'asset-manifest.json',
-             publicPath: publicPath,
-         }), */
+        new LoadablePlugin({
+            filename: "enter-server-manifest.json",
+        }),
+        /* new ManifestPlugin({
+            fileName: 'enter-sever-asset-manifest.json',
+            publicPath: '/',
+        }), */
         new webpack.DefinePlugin({
             "process.env.REACT_ENV": JSON.stringify("server")
         }),
         new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // both options are optional
             filename: 'static/css/[name].[contenthash:8].css',
             chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
         }),

@@ -34,7 +34,7 @@ export default class Post extends Component {
     render() {
         const post = this.state.post;
         return (
-            <div>
+            <div className="container">
                 <h1>Page Post</h1>
                 <Link to="/">Link to Home</Link>
                 <h2>{post.title}</h2>
