@@ -9,8 +9,10 @@ const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 const lessRegex = /\.(less)$/;
 const appDirectory = fs.realpathSync(process.cwd());
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
+const shouldUseSourceMap = true
 
 const cssPlugins = () => [
     require('postcss-flexbugs-fixes'),
@@ -58,6 +60,36 @@ const getStyleLoaders = (cssOptions, nextProcessor, lodaerOption = {}, preLoader
     return loaders;
 };
 
+const serverGetStyleLoaders = (cssOptions, preProcessor, lodaerOption = {}) => {
+    const loaders = [
+        {
+            loader: MiniCssExtractPlugin.loader,
+            options: {},
+        },
+        {
+            loader: require.resolve('css-loader'),
+            options: cssOptions,
+        },
+        {
+            loader: require.resolve('postcss-loader'),
+            options: {
+                ident: 'postcss',
+                plugins: cssPlugins,
+                sourceMap: shouldUseSourceMap,
+            },
+        },
+    ];
+    if (preProcessor) {
+        loaders.push({
+            loader: require.resolve(preProcessor),
+            options: {
+                sourceMap: shouldUseSourceMap,
+                ...lodaerOption
+            },
+        });
+    }
+    return loaders;
+};
 module.exports = {
     cssRegex,
     cssModuleRegex,
@@ -65,5 +97,6 @@ module.exports = {
     sassModuleRegex,
     lessRegex,
     resolveApp,
-    getStyleLoaders
+    getStyleLoaders,
+    serverGetStyleLoaders
 }

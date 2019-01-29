@@ -13,54 +13,8 @@ const { cssRegex, cssModuleRegex, sassRegex, sassModuleRegex, lessRegex, serverG
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const NodeExternals = require("webpack-node-externals");
 const LoadablePlugin = require("@loadable/webpack-plugin");
-
-
 const appSrc = resolveApp('src')
 const shouldUseSourceMap = true;
-
-const getStyleLoaders = (cssOptions, preProcessor, lodaerOption = {}) => {
-    const loaders = [
-        {
-            loader: MiniCssExtractPlugin.loader,
-            options: {},
-        },
-        {
-            loader: require.resolve('css-loader'),
-            options: cssOptions,
-        },
-        {
-            // Options for PostCSS as we reference these options twice
-            // Adds vendor prefixing based on your specified browser support in
-            // package.json
-            loader: require.resolve('postcss-loader'),
-            options: {
-                // Necessary for external CSS imports to work
-                // https://github.com/facebook/create-react-app/issues/2677
-                ident: 'postcss',
-                plugins: () => [
-                    require('postcss-flexbugs-fixes'),
-                    require('postcss-preset-env')({
-                        autoprefixer: {
-                            flexbox: 'no-2009',
-                        },
-                        stage: 3,
-                    }),
-                ],
-                sourceMap: shouldUseSourceMap,
-            },
-        },
-    ];
-    if (preProcessor) {
-        loaders.push({
-            loader: require.resolve(preProcessor),
-            options: {
-                sourceMap: shouldUseSourceMap,
-                ...lodaerOption
-            },
-        });
-    }
-    return loaders;
-};
 
 module.exports = {
     target: "node",
@@ -200,7 +154,7 @@ module.exports = {
                     {
                         test: sassRegex,
                         exclude: sassModuleRegex,
-                        loader: getStyleLoaders(
+                        loader: serverGetStyleLoaders(
                             {
                                 importLoaders: 2,
                                 sourceMap: shouldUseSourceMap,

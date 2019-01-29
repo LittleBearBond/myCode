@@ -25,6 +25,11 @@ const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 const lessRegex = /\.(less)$/;
 
+let isProd = false;
+if (process.env.NODE_ENV === "production") {
+    isProd = true;
+}
+
 const cssPlugins = () => [
     require('postcss-flexbugs-fixes'),
     require('postcss-preset-env')({
@@ -64,9 +69,9 @@ const getStyleLoaders = (cssOptions, preProcessor, lodaerOption = {}) => {
 };
 
 module.exports = {
-    mode: 'development',
-    devtool: 'cheap-module-source-map',
-    entry: [
+    mode: isProd ? 'production' : 'development',
+    devtool: isProd ? 'source-map' : 'cheap-module-source-map',
+    entry: isProd ? resolveApp('src/entry-client.js') : [
         require.resolve('react-dev-utils/webpackHotDevClient'),
         resolveApp('src/entry-client.js'),
     ],
