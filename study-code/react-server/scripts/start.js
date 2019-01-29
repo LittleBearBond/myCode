@@ -60,10 +60,11 @@ const webpackConfig = extend(true, wpconfig, {
     const devServer = new WebpackDevServer(webpack(webpackConfig), extend(devServerConfig, {
         port: port
     }))
+
     // devServer.app.use(mock.reWriteResponseMiddleware);
     devServer.listen(port, HOST, err => {
         if (err) {
-            return console.log(err);
+            return console.error(err);
         }
         if (isInteractive) {
             clearConsole();
@@ -72,6 +73,7 @@ const webpackConfig = extend(true, wpconfig, {
         console.log(chalk.cyan('启动服务中...\n'));
         openBrowser(`http://${HOST}:${PORT}`);
     });
+
     ['SIGINT', 'SIGTERM'].forEach(function (sig) {
         process.on(sig, function () {
             devServer.close();
