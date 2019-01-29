@@ -18,21 +18,31 @@ const { resolveApp } = require('../config/utils')
 const PORT = process.env.PORT || 3008
 const HOST = process.env.HOST || 'localhost'
 const isInteractive = process.stdout.isTTY;
+const devServerConfig = {
+    stats: 'minimal',
 
-const webpackConfig = extend(true, wpconfig, {
-    devServer: {
-        contentBase: resolveApp('./public'),
-        watchContentBase: true,
-        compress: true,
-        publicPath: '/',
-        historyApiFallback: {
-            disableDotRule: true,
-        },
-        public: true,
-        hot: true,
-        quiet: true,
-        port: 3008
+    contentBase: resolveApp('./public'),
+    watchContentBase: true,
+    compress: true,
+    publicPath: '/',
+    historyApiFallback: {
+        disableDotRule: true,
+    },
+    hot: true,
+    quiet: true,
+    port: PORT,
+    noInfo: false,
+    watchOptions: {
+        poll: 1000 // 每秒检查一次变更
+    },
+    before(app, server) {
+        app.use(evalSourceMapMiddleware(server));
+        app.use(errorOverlayMiddleware());
+        app.use(noopServiceWorkerMiddleware());
     }
+}
+const webpackConfig = extend(true, wpconfig, {
+    devServer: devServerConfig
 });
 
 (async function start() {
@@ -47,21 +57,9 @@ const webpackConfig = extend(true, wpconfig, {
         process.exit(1);
         return
     }
-    const devServer = new WebpackDevServer(webpack(webpackConfig), {
-        stats: 'minimal',
-        hot: true,
-        noInfo: false,
-        port: port,
-        overlay: false,
-        watchOptions: {
-            poll: 1000 // 每秒检查一次变更
-        },
-        before(app, server) {
-            app.use(evalSourceMapMiddleware(server));
-            app.use(errorOverlayMiddleware());
-            app.use(noopServiceWorkerMiddleware());
-        },
-    })
+    const devServer = new WebpackDevServer(webpack(webpackConfig), extend(devServerConfig, {
+        port: port
+    }))
     // devServer.app.use(mock.reWriteResponseMiddleware);
     devServer.listen(port, HOST, err => {
         if (err) {
