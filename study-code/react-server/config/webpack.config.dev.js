@@ -242,8 +242,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             inject: true,
-            template: paths.appHtml,
-            NODE_ENV: process.env.NODE_ENV === "development",
+            template: paths.appHtml
         }),
         new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
         new ModuleNotFoundPlugin(paths.appPath),
