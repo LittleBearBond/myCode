@@ -1,34 +1,74 @@
+
+
 const path = require('path');
-const fs = require('fs');
-const webpack = require("webpack");
+const webpack = require('webpack');
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const ManifestPlugin = require('webpack-manifest-plugin');
-const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
-const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
+const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
+const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
+const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
+const getClientEnvironment = require('./env');
+const paths = require('./paths');
+const ManifestPlugin = require('webpack-manifest-plugin');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
-const { cssRegex, cssModuleRegex, sassRegex, sassModuleRegex, lessRegex, getStyleLoaders, resolveApp } = require('./utils')
-// // const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier');
+const { resolveApp } = require('./utils')
 
-const appSrc = resolveApp('src')
 const publicPath = '/';
+const publicUrl = '';
+const env = getClientEnvironment(publicUrl);
 
-const appDirectory = fs.realpathSync(process.cwd());
-process.env.NODE_PATH = (process.env.NODE_PATH || '')
-    .split(path.delimiter)
-    .filter(folder => folder && !path.isAbsolute(folder))
-    .map(folder => path.resolve(appDirectory, folder))
-    .join(path.delimiter);
+const cssRegex = /\.css$/;
+const cssModuleRegex = /\.module\.css$/;
+const sassRegex = /\.(scss|sass)$/;
+const sassModuleRegex = /\.module\.(scss|sass)$/;
+const lessRegex = /\.(less)$/;
+
+const cssPlugins = () => [
+    require('postcss-flexbugs-fixes'),
+    require('postcss-preset-env')({
+        autoprefixer: {
+            flexbox: 'no-2009',
+        },
+        stage: 3,
+    }),
+];
+
+const getStyleLoaders = (cssOptions, preProcessor, lodaerOption = {}) => {
+    const loaders = [
+        require.resolve('style-loader'),
+        {
+            loader: require.resolve('css-loader'),
+            options: cssOptions,
+        },
+        {
+            loader: require.resolve('postcss-loader'),
+            options: {
+                sourceMap: true,
+                ident: 'postcss',
+                plugins: cssPlugins,
+            },
+        },
+    ];
+    if (preProcessor) {
+        loaders.push({
+            loader: require.resolve(preProcessor),
+            options: {
+                sourceMap: true,
+                ...lodaerOption
+            },
+        });
+    }
+    return loaders;
+};
 
 module.exports = {
     mode: 'development',
     devtool: 'cheap-module-source-map',
     entry: [
-        resolveApp('src/entry-client.js'),
         require.resolve('react-dev-utils/webpackHotDevClient'),
+        resolveApp('src/entry-client.js'),
     ],
     output: {
         pathinfo: true,
@@ -51,11 +91,12 @@ module.exports = {
         ),
         extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx', '.ts', '.tsx',],
         alias: {
-            'src': appSrc,
+            'react-native': 'react-native-web',
+            'src': paths.appSrc,
         },
         plugins: [
             PnpWebpackPlugin,
-            new ModuleScopePlugin(appSrc, [resolveApp('package.json')]),
+            new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
         ],
     },
     resolveLoader: {
@@ -67,6 +108,7 @@ module.exports = {
         strictExportPresence: true,
         rules: [
             { parser: { requireEnsure: false } },
+
             {
                 test: /\.(js|mjs|jsx|ts|tsx)$/,
                 enforce: 'pre',
@@ -80,7 +122,7 @@ module.exports = {
                         loader: require.resolve('eslint-loader'),
                     },
                 ],
-                include: appSrc,
+                include: paths.appSrc,
             },
             {
                 oneOf: [
@@ -94,12 +136,13 @@ module.exports = {
                     },
                     {
                         test: /\.(js|mjs|jsx)$/,
-                        include: appSrc,
+                        include: paths.appSrc,
                         loader: require.resolve('babel-loader'),
                         options: {
                             customize: require.resolve(
                                 'babel-preset-react-app/webpack-overrides'
                             ),
+
                             plugins: [
                                 [
                                     require.resolve('babel-plugin-named-asset-import'),
@@ -132,21 +175,22 @@ module.exports = {
                             ],
                             cacheDirectory: true,
                             cacheCompression: false,
-                            sourceMaps: true,
+
+                            sourceMaps: false,
                         },
                     },
-                    {
-                        test: /\.(ts|tsx)$/,
-                        include: appSrc,
-                        use: [
-                            {
-                                loader: require.resolve('ts-loader'),
-                                options: {
-                                    transpileOnly: true,
-                                },
-                            },
-                        ],
-                    },
+                    /* {
+                      test: /\.(ts|tsx)$/,
+                      include: paths.appSrc,
+                      use: [
+                        {
+                          loader: require.resolve('ts-loader'),
+                          options: {
+                            transpileOnly: true,
+                          },
+                        },
+                      ],
+                    }, */
                     {
                         test: cssRegex,
                         exclude: cssModuleRegex,
@@ -155,9 +199,34 @@ module.exports = {
                         }),
                     },
                     {
+                        test: cssModuleRegex,
+                        use: getStyleLoaders({
+                            importLoaders: 1,
+                            modules: true,
+                            sourceMap: true,
+                            getLocalIdent: getCSSModuleLocalIdent,
+                        }),
+                    },
+                    {
                         test: sassRegex,
                         exclude: sassModuleRegex,
                         use: getStyleLoaders({ importLoaders: 2, sourceMap: true }, 'sass-loader'),
+                    },
+                    {
+                        test: sassModuleRegex,
+                        use: getStyleLoaders(
+                            {
+                                importLoaders: 2,
+                                modules: true,
+                                sourceMap: true,
+                                getLocalIdent: getCSSModuleLocalIdent,
+                            },
+                            'sass-loader'
+                        ),
+                    },
+                    {
+                        test: lessRegex,
+                        use: getStyleLoaders({ importLoaders: 2, sourceMap: true }, 'less-loader', { javascriptEnabled: true }),
                     },
                     {
                         exclude: [/\.(js|mjs|jsx)$/, /\.html$/, /\.json$/],
@@ -173,21 +242,27 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             inject: true,
-            template: resolveApp('public/index.html'),
+            template: paths.appHtml,
             NODE_ENV: process.env.NODE_ENV === "development",
         }),
-        // new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
-        new ModuleNotFoundPlugin(resolveApp('.')),
+        new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
+        new ModuleNotFoundPlugin(paths.appPath),
+        new webpack.DefinePlugin(env.stringified),
+        new webpack.HotModuleReplacementPlugin(),
         new CaseSensitivePathsPlugin(),
-        new WatchMissingNodeModulesPlugin(resolveApp('node_modules')),
+        new WatchMissingNodeModulesPlugin(paths.appNodeModules),
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new ManifestPlugin({
             fileName: 'asset-manifest.json',
             publicPath: publicPath,
         }),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-        // new webpack.DefinePlugin({
-        //     "process.env": require("./" + env + ".env")
-        // })
     ],
-}
+    node: {
+        dgram: 'empty',
+        fs: 'empty',
+        net: 'empty',
+        tls: 'empty',
+        child_process: 'empty',
+    },
+    performance: false,
+};

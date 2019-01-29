@@ -1,7 +1,7 @@
 // style files regexes
 const fs = require("fs");
 const path = require("path");
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
@@ -9,6 +9,7 @@ const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 const lessRegex = /\.(less)$/;
 const appDirectory = fs.realpathSync(process.cwd());
+
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 
 const cssPlugins = () => [
@@ -57,11 +58,6 @@ const getStyleLoaders = (cssOptions, nextProcessor, lodaerOption = {}, preLoader
     return loaders;
 };
 
-const serverGetStyleLoaders = (cssOptions, nextProcessor, lodaerOption) => {
-    getStyleLoaders(cssOptions, nextProcessor, lodaerOption = {}, {
-        loader: MiniCssExtractPlugin.loader
-    })
-}
 module.exports = {
     cssRegex,
     cssModuleRegex,
@@ -69,6 +65,5 @@ module.exports = {
     sassModuleRegex,
     lessRegex,
     resolveApp,
-    getStyleLoaders,
-    serverGetStyleLoaders
+    getStyleLoaders
 }
