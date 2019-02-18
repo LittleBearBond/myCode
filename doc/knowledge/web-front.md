@@ -7,6 +7,7 @@
 [一年前端面试打怪升级之路](https://juejin.im/post/5a98a8be518825556140ad4c)
 [2017、2018面试分享（js面试题记录）](https://segmentfault.com/a/1190000013827826)
 [3月web前端面试小结 | 掘金技术征文](https://juejin.im/post/5abb44c06fb9a028df22ab37)
+[中高级前端大厂面试秘籍，为你保驾护航金三银四，直通大厂(上)](https://juejin.im/post/5c64d15d6fb9a049d37f9c20)
 
 ## 30秒系列
 
