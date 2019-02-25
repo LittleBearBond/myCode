@@ -8,7 +8,6 @@
 */
 import React, { useState, useEffect } from 'react';
 
-
 const useWindowWidth = () => {
     const [width, setWidth] = useState(window.innerWidth);
     useEffect(() => {
@@ -47,7 +46,7 @@ function Example() {
     useDocumentTitle(name + ' ' + surname)
 
     return (
-        <div>
+        <>
             <p>You clicked {count} times</p>
             <h1>window width {width} times</h1>
             <button onClick={() => setCount(count + 1)}> Click me </button>
@@ -61,7 +60,7 @@ function Example() {
                     {...surname}
                 />
             </div>
-        </div >
+        </ >
     );
 }
 
