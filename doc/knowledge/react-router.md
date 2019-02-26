@@ -10,7 +10,7 @@
 
 ### Router
 
->借助 context 向 Route 传递组件相关数据，挺近history变化，更新location对象的值
+>借助 context 向 Route 传递组件相关数据，监听history变化，更新location对象的值
 
 ```jsx
 <RouterContext.Provider
