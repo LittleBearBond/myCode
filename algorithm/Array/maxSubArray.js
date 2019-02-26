@@ -9,7 +9,7 @@ function maxSubArray(nums) {
 }
 
 function maxSubArray(nums) {
-	var prev = 0;
+	var pre = 0;
 	var max = -Number.MAX_VALUE;
 	for (var i = 0, length = nums.length; i < length; i++) {
 		pre = Math.max(pre + nums[i], nums[i])
