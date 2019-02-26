@@ -28,7 +28,7 @@
 
 > 最核心组件，它最基本的职责就是当页面的访问地址与 Route 上的 path 匹配时，就渲染出对应的 UI 界面
 
-Route 自带三个 render method 和三个 props 
+Route 自带三个 render method 和三个 props
 
 ```jsx
 // component
