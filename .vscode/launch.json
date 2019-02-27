@@ -7,7 +7,7 @@
             "type": "node",
             "request": "launch",
             "name": "debugger test-index",
-            "program": "${workspaceRoot}/test-index.js"
+            "program": "${workspaceRoot}/algorithm/Array/productExceptSelf.js"
         },
         {
             "type": "node",

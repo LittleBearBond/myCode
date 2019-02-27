@@ -26,6 +26,7 @@ logs/*
 
 node_modules/
 **/node_modules/
+**/tempCodeRunnerFile.js
 .sass-cache/
 tmp-cmd/
 **/obj
