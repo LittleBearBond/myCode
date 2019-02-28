@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>scaleImage</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        #js-con,
+        .wrap-canvas {
+            width: 800px;
+            margin: 0 auto;
+        }
+        
+        .wrap-canvas {
+            box-shadow: 0 0 3px 3px #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap-canvas">
+        <canvas id="js-con"></canvas>
+        <input id="js-range" type="range" min="0.5" max="3" step="0.01" value="1.0" style="margin:20px auto;width: 100%">
+    </div>
+    <script>
+        //https://stackoverflow.com/questions/17150610/undo-redo-for-paint-program-canvas?rq=1
+        const fixCanvasDevicePixelRatio = (context, width, height) => {
+            const {
+                canvas
+            } = context;
+            const {
+                devicePixelRatio = 1
+            } = window;
+
+            if (window.devicePixelRatio) {
+                canvas.style.width = width + "px";
+                canvas.style.height = height + "px";
+                canvas.height = height * devicePixelRatio;
+                canvas.width = width * devicePixelRatio;
+                context.scale(devicePixelRatio, devicePixelRatio);
+            }
+        }
+
+        function getPointOnCanvas(canvas, event) {
+            const {
+                left,
+                top,
+                width,
+                height
+            } = $canvas.getBoundingClientRect()
+            const {
+                clientX,
+                clientY
+            } = event
+            return {
+                //canvas 缩放比例，可能是高分屏
+                x: (clientX - left), //* (canvas.width / width),
+                y: (clientY - top) //* (canvas.height / height)
+            };
+        }
+
+        const $canvas = document.getElementById('js-con');
+        const $range = document.getElementById('js-range');
+        const context = $canvas.getContext('2d')
+
+        fixCanvasDevicePixelRatio(context, 800, 600)
+        var image = new Image();
+        var iw, ih, cw, ch;
+        image.onload = () => {
+            iw = image.width
+            ih = image.height
+            let {
+                width,
+                height
+            } = context.canvas.style
+            cw = parseInt(width, 10)
+            ch = parseInt(height, 10)
+            draw()
+        }
+        image.src =
+            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551371627174&di=4c1f6e788c24ee5391642bd764752850&imgtype=0&src=http%3A%2F%2Fg.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2F77c6a7efce1b9d161b180d02f5deb48f8d5464f2.jpg"
+
+        function draw(scale = 0.8) {
+            context.clearRect(0, 0, cw, ch);
+            var w = iw * scale
+            var h = ih * scale
+
+            var dx = cw / 2 - w / 2;
+            var dy = ch / 2 - h / 2;
+
+            context.drawImage(image, dx, dy, w, h)
+        }
+        $range.addEventListener('change', () => {
+            draw($range.value)
+        })
+    </script>
+</body>
+
+</html>
