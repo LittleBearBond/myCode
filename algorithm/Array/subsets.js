@@ -16,3 +16,21 @@ var subsets = function (nums) {
 	return result
 };
 console.log(subsets([1, 2, 3]))
+var findUnsortedSubarray = function(nums) {
+    var len = nums.length;
+    var temp = nums.slice().sort();
+
+    var start = 0;
+    while (start < len  && nums[start] === temp[start]) {
+        start++;
+    }
+
+    var end = len - 1;
+    while (end > start  && nums[end] === temp[end]) {
+        end--;
+    }
+
+    return end - start + 1;
+};
+
+console.log(findUnsortedSubarray([2, 6, 4, 8, 10, 9, 15]))

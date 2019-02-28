@@ -21,6 +21,20 @@ var rotate = function (matrix) {
 	return matrix
 };
 
+/**
+ * @param {number[][]} matrix
+ * @return {void} Do not return anything, modify matrix in-place instead.
+ */
+var rotate = function (matrix) {
+	var {
+		length
+	} = matrix
+	var i = 0;
+	var j = 0;
+	// 一次旋转四个点
+
+	return matrix
+};
 console.log(rotate(
 	[
 		[1, 2, 3],
