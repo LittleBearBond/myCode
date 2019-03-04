@@ -1,20 +1,20 @@
 // LeetCode 20. Valid
+var matchLeftMap = {
+	'(': true,
+	'[': true,
+	'{': true
+}
+var matchRightMap = {
+	')': '(',
+	']': '[',
+	'}': '{'
+}
 
 /**
  * @param {string} str
  * @return {boolean}
  */
 var isValid = function (str) {
-	var matchLeftMap = {
-		'(': true,
-		'[': true,
-		'{': true
-	}
-	var matchRightMap = {
-		')': '(',
-		']': '[',
-		'}': '{'
-	}
 	var stack = [],
 		code;
 	for (var s in str) {
