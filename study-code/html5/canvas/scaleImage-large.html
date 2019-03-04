@@ -9,28 +9,27 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 	<style>
 		body {
-            margin: 0;
-            padding: 0;
-        }
+			margin: 0;
+			padding: 0;
+		}
 
-        #js-con,
-        .wrap-canvas {
-            width: 800px;
-            margin: 0 auto;
-        }
+		#js-con,
+		.wrap-canvas {
+			width: 800px;
+			margin: 0 auto;
+		}
 
-        .wrap-canvas {
-            box-shadow: 0 0 3px 3px #ccc;
-        }
-    </style>
+		.wrap-canvas {
+			box-shadow: 0 0 3px 3px #ccc;
+		}
+
+	</style>
 </head>
 
 <body>
 	<div class="wrap-canvas">
 		<canvas id="js-con">不支持canvas</canvas>
-		<canvas id="js-water-mark" style="display:none;z-index:5">不支持canvas</canvas>
 		<canvas id="js-large" style="display:none;">不支持canvas</canvas>
-		<input id="js-range" type="range" min="0.5" max="3" step="0.01" value="1.0" style="margin:20px auto;width: 100%">
 	</div>
 	<script>
 		//https://stackoverflow.com/questions/17150610/undo-redo-for-paint-program-canvas?rq=1
@@ -72,25 +71,14 @@
 		const $canvas = document.getElementById('js-con');
 		const context = $canvas.getContext('2d')
 
-		const $canvasWatermark = document.getElementById('js-water-mark');
-		const watermarkContext = $canvasWatermark.getContext('2d');
+		const $canvasLarge = document.getElementById('js-large');
+		const largeContext = $canvasLarge.getContext('2d');
 
 		const $range = document.getElementById('js-range');
 
-		function initWateMarkCanvas() {
-			$canvasWatermark.width = 600
-			$canvasWatermark.height = 100
-
-			watermarkContext.font = 'bold 50px Arial'
-			watermarkContext.lineWidth = '1'
-			watermarkContext.fillStyle = 'rgba(255, 255, 255, 0.5)';
-			watermarkContext.textBaseline = 'middle'
-			watermarkContext.fillText('xiongjian@xxx.com', 100, 50);
-		}
-
 		window.addEventListener('load', () => {
 			fixCanvasDevicePixelRatio(context, 800, 600)
-			initWateMarkCanvas()
+			fixCanvasDevicePixelRatio(largeContext, 800, 600)
 
 			var image = new Image();
 			var iw, ih, cw, ch, scale;
@@ -101,11 +89,16 @@
 					width,
 					height
 				} = context.canvas.style
-				// 设置largecanvas 的大小
 
 				cw = parseInt(width, 10)
 				ch = parseInt(height, 10)
-				scale = iw / width
+				scale = iw / cw
+
+				// 设置largecanvas 的大小
+				$canvasLarge.width = iw
+				$canvasLarge.height = ih
+				largeContext.drawImage(image, 0, 0);
+
 				draw()
 			}
 			image.src =
@@ -113,18 +106,62 @@
 
 
 			function draw(scale = 0.8) {
-				context.clearRect(0, 0, cw, ch);
-				var w = iw * scale
+				/* var w = iw * scale
 				var h = ih * scale
 
 				var dx = cw / 2 - w / 2;
-				var dy = ch / 2 - h / 2;
+				var dy = ch / 2 - h / 2; */
 
-				context.drawImage(image, dx, dy, w, h)
-				context.drawImage($canvasWatermark, cw - $canvasWatermark.width, ch - $canvasWatermark.height)
+				context.clearRect(0, 0, cw, ch);
+				context.drawImage(image, 0, 0, cw, ch)
 			}
-			$range.addEventListener('change', () => draw($range.value))
 
+			function drawLargeCanvas(point, isShow = true) {
+				draw()
+				if (!isShow) {
+					return;
+				}
+				var ilgcenterx = point.x * scale
+				var ilgcentery = point.y * scale
+				var lgRadius = 200
+
+				context.save()
+				context.lineWidth = 5
+				context.beginPath();
+				context.arc(point.x, point.y, lgRadius, 0, Math.PI * 2, false);
+				context.stroke()
+				context.clip();
+				context.drawImage($canvasLarge,
+					ilgcenterx - lgRadius, ilgcentery - lgRadius, lgRadius * 2, lgRadius * 2,
+					point.x - lgRadius, point.y - lgRadius, lgRadius * 2, lgRadius * 2)
+				context.restore();
+			}
+
+			let isMouseDown = false
+			$canvas.addEventListener('mousedown', (e) => {
+				e.preventDefault()
+				isMouseDown = true
+				drawLargeCanvas(getPointOnCanvas($canvas, e), true)
+			})
+
+			$canvas.addEventListener('mousemove', (e) => {
+				e.preventDefault()
+				if (!isMouseDown) {
+					return;
+				}
+				drawLargeCanvas(getPointOnCanvas($canvas, e), true)
+			})
+			$canvas.addEventListener('mouseup', (e) => {
+				e.preventDefault()
+				isMouseDown = false
+				drawLargeCanvas(null, false)
+
+			})
+			$canvas.addEventListener('mouseout', (e) => {
+				e.preventDefault()
+				isMouseDown = false
+				drawLargeCanvas(null, false)
+			})
 		})
 
 	</script>

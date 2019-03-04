@@ -2,4 +2,5 @@
 	"files.associations": {
 		"*.js": "javascript"
 	},
+	"editor.autoIndent": false,
 }
