@@ -1,3 +1,5 @@
+// leetcode 39. Combination Sum
+// https://blog.csdn.net/c602273091/article/details/54799621
 /**
  * @param {number[]} candidates
  * @param {number} target
@@ -46,7 +48,7 @@ function combinationSum(nums, target) {
 	var current = []
 	// 升序排序
 	nums.sort((a, b) => a - b)
-	findSets(nums, current, result, target, 0)
+	dfs(nums, current, result, target, 0)
 	return result
 }
 
@@ -59,7 +61,7 @@ function combinationSum(nums, target) {
  * @param {number} target
  * @param {number} start
  */
-function findSets(nums, current, result, target, start) {
+function dfs(nums, current, result, target, start) {
 	if (target === 0) {
 		// 符合条件的集合添加到结果中，回退
 		return result.push(current.slice())
@@ -70,7 +72,7 @@ function findSets(nums, current, result, target, start) {
 	}
 	for (var i = start; i < nums.length; i++) {
 		current.push(nums[i])
-		findSets(nums, current, result, target - nums[i], i)
+		dfs(nums, current, result, target - nums[i], i)
 		// 删除最后一个元素 回退
 		current.pop()
 	}

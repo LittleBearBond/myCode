@@ -1,3 +1,5 @@
+// 22. Generate Parentheses
+// https://blog.csdn.net/c602273091/article/details/54799621
 /**
  * @param {number} n
  * @return {string[]}
@@ -14,7 +16,7 @@ var generateParenthesis = function (n) {
 };
 
 var dfs = function (result, n, str, left, right) {
-	console.log(n, str, left, right, result)
+	// console.log(n, str, left, right, result)
 	// 回退条件
 	if (str.length === n * 2) {
 		return result.push(str)
@@ -24,6 +26,7 @@ var dfs = function (result, n, str, left, right) {
 	if (left < n) {
 		dfs(result, n, str + '(', left + 1, right)
 	}
+	// 填充右括号;
 	if (right < left) {
 		dfs(result, n, str + ')', left, right + 1)
 	}
