@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -10,23 +11,141 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 	<meta name="description" content="">
 	<meta name="keywords" content="">
-	<script src="lib/jquery2-1-1.js" type="text/javascript" charset="utf-8" ></script>
-	<script src="js/Svg.js" type="text/javascript" charset="utf-8"></script>
+	<!-- <script src="lib/jquery2-1-1.js" type="text/javascript" charset="utf-8"></script> -->
+	<!-- <script src="js/Svg.js" type="text/javascript" charset="utf-8"></script> -->
+	<style>
+		.red {
+			fill: red;
+		}
+
+		.fancy {
+			/* 填充色 */
+			fill: none;
+			/* 描边色 */
+			stroke: black;
+			/* 边框宽度 */
+			stroke-width: 3pt;
+		}
+
+	</style>
 </head>
+
 <body>
+	<!-- http://www.ruanyifeng.com/blog/2018/08/svg.html -->
 	<div id="drawing">
+		<svg width="100" height="100" viewBox="50 50 50 50">
+			<circle id="mycircle" cx="50" cy="50" r="50" />
+		</svg>
+		<svg width="300" height="180">
+			<circle cx="30" cy="50" r="25" />
+			<circle cx="90" cy="50" r="25" class="red" />
+			<circle cx="150" cy="50" r="25" class="fancy" />
+		</svg>
+		<svg width="300" height="180">
+			<line x1="0" y1="0" x2="200" y2="0" style="stroke:rgb(0,0,0);stroke-width:5" />
+		</svg>
+		<svg width="300" height="180">
+			<polyline fill="green" points="3,3 30,28 3,53" fill="none" stroke="black" />
+		</svg>
+		<svg width="300" height="180">
+			<rect x="0" y="0" height="100" width="200" style="stroke: #70d5dd; fill: #dd524b" />
+		</svg>
+
+		<svg width="300" height="180">
+			<ellipse cx="60" cy="60" ry="40" rx="20" stroke="black" stroke-width="5" fill="silver" />
+		</svg>
+		<svg width="300" height="180">
+			<polygon fill="green" stroke="orange" stroke-width="1" points="0,0 100,0 100,100 0,100 0,0" />
+		</svg>
+		<!--
+			M：移动到（moveto）
+			L：画直线到（lineto）
+			Z：闭合路径
+		 -->
+		<svg width="300" height="180">
+			<path d="
+			M 18,3
+			L 46,3
+			L 46,40
+			L 61,40
+			L 32,68
+			L 3,40
+			L 18,40
+			Z
+			"></path>
+		</svg>
+		<h1> use标签用于复制一个形状。</h1>
+		<svg viewBox="0 0 30 10" xmlns="http://www.w3.org/2000/svg">
+			<circle id="myCircle" cx="5" cy="5" r="4" />
+
+			<use href="#myCircle" x="10" y="0" fill="blue" />
+			<use href="#myCircle" x="20" y="0" fill="white" stroke="blue" />
+		</svg>
+		<h1>
+			g 标签用于将多个形状组成一个组（group），方便复用。
+		</h1>
+		<svg width="300" height="100">
+			<g id="myCircle">
+				<text x="25" y="20">圆形</text>
+				<circle cx="50" cy="50" r="20" />
+			</g>
+
+			<use href="#myCircle" x="100" y="0" fill="blue" />
+			<use href="#myCircle" x="200" y="0" fill="white" stroke="blue" />
+		</svg>
+		<h1>
+			defs 标签用于自定义形状，它内部的代码不会显示，仅供引用。
+		</h1>
+		<svg width="300" height="100">
+			<defs>
+				<g id="myCircle">
+					<text x="25" y="20">圆形</text>
+					<circle cx="50" cy="50" r="20" />
+				</g>
+			</defs>
+
+			<use href="#myCircle" x="0" y="0" />
+			<use href="#myCircle" x="100" y="0" fill="blue" />
+			<use href="#myCircle" x="200" y="0" fill="white" stroke="blue" />
+		</svg>
+		<svg width="500px" height="500px">
+			<rect x="0" y="0" width="100" height="100" fill="#feac5e">
+				<animate attributeName="x" from="0" to="500" dur="2s" repeatCount="indefinite" />
+			</rect>
+		</svg>
+		<svg width="350" height="160">
+			<g class="layer" transform="translate(60,10)">
+				<circle r="5" cx="0" cy="105" />
+				<circle r="5" cx="90" cy="90" />
+				<circle r="5" cx="180" cy="60" />
+				<circle r="5" cx="270" cy="0" />
+
+				<g class="y axis">
+					<line x1="0" y1="0" x2="0" y2="120" />
+					<text x="-40" y="105" dy="5">$10</text>
+					<text x="-40" y="0" dy="5">$80</text>
+				</g>
+				<g class="x axis" transform="translate(0, 120)">
+					<line x1="0" y1="0" x2="270" y2="0" />
+					<text x="-30" y="20">January 2014</text>
+					<text x="240" y="20">April</text>
+				</g>
+			</g>
+		</svg>
 
 	</div>
 	<script>
 		/*var draw = SVG('drawing').size(300, 300);
 		var rect = draw.rect(100, 100).attr({ fill: '#f06' });*/
 
-		var draw = SVG('drawing').fixSubPixelOffset()
-		//var polyline = draw.polyline('0,0 100,50 50,100').fill('none').stroke({ width: 1 })
-		var polyline = draw.polyline([[0,0], [100,50], [50,100]]).fill('none').stroke({ width: 1 })
+		// var draw = SVG('drawing').fixSubPixelOffset()
+		// //var polyline = draw.polyline('0,0 100,50 50,100').fill('none').stroke({ width: 1 })
+		// var polyline = draw.polyline([[0,0], [100,50], [50,100]]).fill('none').stroke({ width: 1 })
 
-		polyline.animate(3000).plot([[0,0], [100,50], [50,100], [150,50], [200,50], [250,100], [300,50], [350,50]])
+		// polyline.animate(3000).plot([[0,0], [100,50], [50,100], [150,50], [200,50], [250,100], [300,50], [350,50]])
+
 	</script>
 
 </body>
+
 </html>
