@@ -51,7 +51,6 @@ var merge = function (intervals) {
 		});
 	return res;
 };
-ƒ
 console.log(
 	merge([
 		[1, 3],
