@@ -96,6 +96,7 @@ box-sizing
 
 [flex-grow flex-shrink flex-basis](https://segmentfault.com/a/1190000017826957)
 [flex-grow flex-shrink flex-basis 动画演示](https://juejin.im/entry/595624926fb9a06ba5196083)
+[properties/f/flex/](https://css-tricks.com/almanac/properties/f/flex/)
 
 ### BFC
 
