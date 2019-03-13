@@ -21,6 +21,10 @@
 
 [HTTPS的工作原理](https://www.cnblogs.com/ttltry-air/archive/2012/08/20/2647898.html)
 
+### http1.1 http2 http3
+
+[http2 http3](https://segmentfault.com/a/1190000018401534?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io)
+
 ### http缓存
 
 [HTTP 缓存——从请求到响应过程的一切](https://juejin.im/post/58b7850ba22b9d005ecd6243)

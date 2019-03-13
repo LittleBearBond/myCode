@@ -33,7 +33,12 @@ var strStr = function (sourceStr, searchStr) {
 		j = 0,
 		sourceLen = sourceStr.length,
 		searchLen = searchStr.length;
-
+	if (sourceLen === 0 && searchLen === 0 || searchLen === 0) {
+		return 0
+	}
+	if (searchLen > sourceLen) {
+		return -1
+	}
 	while (i < sourceLen) {
 		// 两字母相等则继续
 		if (sourceStr.charAt(i) === searchStr.charAt(j)) {
