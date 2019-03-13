@@ -170,6 +170,7 @@ var threeSum = function (nums) {
 	if (!n || n < 3) {
 		return []
 	}
+	nums.sort((a, b) => a - b)
 	for (let i = 0; i < n; i++) {
 		if (nums[i] > 0) {
 			break
@@ -202,4 +203,5 @@ var threeSum = function (nums) {
 			}
 		}
 	}
+	return res
 }
