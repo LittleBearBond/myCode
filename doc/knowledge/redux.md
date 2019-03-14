@@ -1,5 +1,7 @@
 # redux 最核心的 就是中间件
 
+[redux源码地址](https://github.com/reduxjs/redux/blob/master/src/compose.js)
+
 ```js
 // 我自定义三个中间件，用于后续源码分析
 const logger = ({ getState }) => {
@@ -150,7 +152,7 @@ var a2 = function () {
 // func = a2
 ```
 
-** 得到 func = compose(...chain) = a2 **
+### ** 得到 func = compose(...chain) = a2 **
 
 ### dispatch = func(store.dispatch) --> a2(store.dispatch)
 
@@ -194,3 +196,39 @@ var a2 = function () {
 9、 dispatch = a2(store.dispatch) = 第一个logger的action
 
 > 总结： 最终返回的是第一个logger的action，赋值给dispatch。这个新的dispatch执行的时候，会调用logger的action函数；logger内部action函数执行，拿到的next是logger1的action函数；logger1的action执行，调用next拿到的是next2的action；logger2的action执行，内部调用next，拿到的next是原始的store.dispatch。
+
+## redux-thunk
+
+[源码地址](https://github.com/reduxjs/redux-thunk/blob/master/src/index.js)
+
+```js
+function createThunkMiddleware(extraArgument) {
+  return ({ dispatch, getState }) => next => action => {
+    if (typeof action === 'function') {
+      return action(dispatch, getState, extraArgument);
+    }
+    return next(action);
+  };
+}
+const thunk = createThunkMiddleware();
+thunk.withExtraArgument = createThunkMiddleware;
+export default thunk;
+
+// demo
+dispatch(fetchUserInfo())
+export function fetchUserInfo(user) {
+    // 第一action 是 function 直接返回，中断了后续中间件的调用
+    return dispatch => {
+        dispatch({
+            type: REQUEST_USER_INFO
+        })
+        return get('/user/get').then(({ data }) => {
+            // 都二次才会调用next(action);
+            return dispatch({
+                type: RECEIVE_USER_INFO,
+                data
+            });
+        });
+    }
+}
+```
