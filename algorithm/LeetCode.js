@@ -205,3 +205,58 @@ var threeSum = function (nums) {
 	}
 	return res
 }
+
+
+/**
+ * @param {string} str
+ * @return {number}
+ */
+var longestValidParentheses = function (str) {
+	let res = 0;
+	let arr = [-1]
+	for (const i = 0; i < str.length; i++) {
+		let s = str[i]
+		if ('(' === s) {
+			arr.push(i)
+		} else if (s === ')') {
+			arr.pop()
+			if (arr.length) {
+				res = Math.max(res, i - arr[arr.length - 1]);
+			} else {
+				arr.push(i)
+			}
+		}
+	}
+	return res
+};
+console.log(longestValidParentheses('(()'))
+
+/**
+ * @param {number[][]} obstacleGrid
+ * @return {number}
+ */
+var uniquePathsWithObstacles = function (obstacleGrid) {
+	var item = new Array(obstacleGrid[0].length)
+	var arr = new Array(obstacleGrid.length).fill([...item])
+	for (let i = 0; i < obstacleGrid.length; i++) {
+		for (let j = 0; j < obstacleGrid[i].length; j++) {
+			if (i === 0 && j === 0) {
+				arr[i][j] = 1
+			} else if (i === 0) {
+				arr[i][j] = arr[i][j - 1]
+			} else if (j === 0) {
+				arr[i][j] = arr[i - 1][j]
+			} else if (obstacleGrid[i][j] === 1) {
+				arr[i][j] = 0
+			} else {
+				arr[i][j] = arr[i - 1][j] + arr[i][j - 1]
+			}
+		}
+	}
+	return obstacleGrid[i - 1][j - 1]
+};
+uniquePathsWithObstacles([
+	[0, 0, 0],
+	[0, 1, 0],
+	[0, 0, 0]
+])

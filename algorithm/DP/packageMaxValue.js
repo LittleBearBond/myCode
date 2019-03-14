@@ -88,21 +88,35 @@ function knapsack(weights, values, W) {
 	f[-1] = new Array(W + 1).fill(0)
 	for (var i = 0; i < n; i++) { //注意边界，没有等号
 		f[i] = new Array(W).fill(0)
-		for (var j = 0; j <= W; j++) {//注意边界，有等号
+		for (var j = 0; j <= W; j++) { //注意边界，有等号
 			if (j < weights[i]) { //注意边界， 没有等号
 				f[i][j] = f[i - 1][j]
 			} else {
-				f[i][j] = Math.max(f[i - 1][j], f[i - 1][j - weights[i]] + values[i]);//case 3
+				f[i][j] = Math.max(f[i - 1][j], f[i - 1][j - weights[i]] + values[i]); //case 3
 			}
 		}
 	}
+	var j = W,
+		w = 0,
+		selected = []
+	for (var i = n - 1; i >= 0; i--) {
+		if (f[i][j] > f[i - 1][j]) {
+			selected.push(i)
+			console.log("物品", i, "其重量为", weights[i], "其价格为", values[i])
+			j = j - weights[i];
+			w += weights[i]
+		}
+	}
+	console.log("背包最大承重为", W, " 现在重量为", w, " 总价值为", f[n - 1][W])
 	return f[n - 1][W]
 }
 
 function knapsack(weights, values, W) {
 	var n = weights.length
 	var lineA = new Array(W + 1).fill(0)
-	var lineB = [], lastLine = 0, currLine
+	var lineB = [],
+		lastLine = 0,
+		currLine
 	var f = [lineA, lineB]; //case1 在这里使用es6语法预填第一行
 	for (var i = 0; i < n; i++) {
 		currLine = lastLine === 0 ? 1 : 0 //决定当前要覆写滚动数组的哪一行
@@ -111,11 +125,11 @@ function knapsack(weights, values, W) {
 			if (j >= weights[i]) {
 				var a = f[lastLine][j]
 				var b = f[lastLine][j - weights[i]] + values[i]
-				f[currLine][j] = Math.max(a, b);//case3
+				f[currLine][j] = Math.max(a, b); //case3
 			}
 
 		}
-		lastLine = currLine//交换行
+		lastLine = currLine //交换行
 	}
 	return f[currLine][W];
 }
