@@ -16,44 +16,45 @@ const logger = ({ getState }) => {
 const logger1 = ({ getState }) => {
     return next1 => {
         return action1 => {
-			console.log('dispatching1', action1)
-			const result = next1(action1)
-			console.log('next state1', getState())
-			return result
-		}
-	}
+            console.log('dispatching1', action1)
+            const result = next1(action1)
+            console.log('next state1', getState())
+            return result
+        }
+    }
 }
 const logger2 = ({ getState }) => {
-	return next2 => {
-		return action2 => {
-			console.log('dispatching2', action2)
-			const result = next2(action2)
-			console.log('next state2', getState())
-			return result
-		}
-	}
+    return next2 => {
+        return action2 => {
+            console.log('dispatching2', action2)
+            const result = next2(action2)
+            console.log('next state2', getState())
+            return result
+        }
+    }
 }
 
 // 创建store
 const store = createStore(
-	reducer,
-	applyMiddleware(logger, logger1, logger2)
+    reducer,
+    applyMiddleware(logger, logger1, logger2)
 )
 
 ```
+
 ## createStore
 
 如果传入了enhancer，createStore会传递给enhancer包装一次，其实就是增强dispatch，重新包装了dispatch
 
 ```js
 if (typeof enhancer !== 'undefined') {
-	if (typeof enhancer !== 'function') {
-		throw new Error('Expected the enhancer to be a function.')
-	}
-	// 把createStore 传给enhancer 在调用一次返回的函数
-	// enhancer是 applyMiddleware 函数生成的函数
-	// 每个middleware 里面的dispatch和getState 会被再次包装
-	return enhancer(createStore)(reducer, preloadedState)
+    if (typeof enhancer !== 'function') {
+        throw new Error('Expected the enhancer to be a function.')
+    }
+    // 把createStore 传给enhancer 在调用一次返回的函数
+    // enhancer是 applyMiddleware 函数生成的函数
+    // 每个middleware 里面的dispatch和getState 会被再次包装
+    return enhancer(createStore)(reducer, preloadedState)
 }
 ```
 
@@ -61,37 +62,37 @@ if (typeof enhancer !== 'undefined') {
 
 ```js
 export default function applyMiddleware(...middlewares) {
-	// 在createStore里面 enhancer(createStore)(reducer, preloadedState)
-	//...args = (reducer, preloadedState)
-	return createStore => (...args) => {
-		// 调用createStore
-		// 此时会调用dispatch({type:init})
-		const store = createStore(...args)
+    // 在createStore里面 enhancer(createStore)(reducer, preloadedState)
+    //...args = (reducer, preloadedState)
+    return createStore => (...args) => {
+        // 调用createStore
+        // 此时会调用dispatch({type:init})
+        const store = createStore(...args)
 
-		let dispatch = () => {
-			throw new Error(
-				`Dispatching while constructing your middleware is not allowed. ` +
-				`Other middleware would not be applied to this dispatch.`
-			)
-		}
+        let dispatch = () => {
+            throw new Error(
+        `Dispatching while constructing your middleware is not allowed. ` +
+        `Other middleware would not be applied to this dispatch.`
+            )
+        }
 
-		const middlewareAPI = {
-			getState: store.getState,
-			dispatch: (...args) => dispatch(...args)
-		}
+        const middlewareAPI = {
+            getState: store.getState,
+            dispatch: (...args) => dispatch(...args)
+        }
 
-		// 所有middlewares 调用一次传递进去getState和dispatch，中间件里面能拿到getState和dispatch
-		const chain = middlewares.map(middleware => middleware(middlewareAPI))
+        // 所有middlewares 调用一次传递进去getState和dispatch，中间件里面能拿到getState和dispatch
+        const chain = middlewares.map(middleware => middleware(middlewareAPI))
 
-		// dispatch = f1(f2(f3(store.dispatch))))，一层包一层，这是洋葱模型，直到抛到最根上的store.dispatch
-		// next(action) 最终会调用到store.dispatch(action)
-		dispatch = compose(...chain)(store.dispatch)
-		// 返回一个包装后的 dispatch
-		return {
-			...store,
-			dispatch
-		}
-	}
+        // dispatch = f1(f2(f3(store.dispatch))))，一层包一层，这是洋葱模型，直到抛到最根上的store.dispatch
+        // next(action) 最终会调用到store.dispatch(action)
+        dispatch = compose(...chain)(store.dispatch)
+        // 返回一个包装后的 dispatch
+        return {
+            ...store,
+            dispatch
+        }
+    }
 }
 ```
 
@@ -115,9 +116,9 @@ dispatch = func(store.dispatch)
 return funcs.reduce((a, b) => (...args) => a(b(...args)))
 // 格式化为以下代码，
 return funcs.reduce(function (a, b) {
-	return function () {
-		return a(b.apply(undefined, arguments));
-	};
+    return function () {
+        return a(b.apply(undefined, arguments));
+    };
 });
 ```
 
@@ -136,13 +137,13 @@ return funcs.reduce(function (a, b) {
 ```js
 // 第一步执行结果
 var a1 = function () {
-	return next(next1.apply(undefined, arguments));
+    return next(next1.apply(undefined, arguments));
 };
 
 // 第二部执行结果
 var a2 = function () {
-	// arguments --dispatch
-	return a1(next2.apply(undefined, arguments))
+    // arguments --dispatch
+    return a1(next2.apply(undefined, arguments))
 };
 // 最返回的是a2
 // 回到上面提到的func = compose(...chain)
@@ -154,6 +155,7 @@ var a2 = function () {
 ### dispatch = func(store.dispatch) --> a2(store.dispatch)
 
 > 观察上面拆解的代码，a2(store.dispatch)
+
 1、首先会执行next2.apply(undefined, [store.dispatch])
 
 2、然后next2内部拿到next就是store.dispatch，把next2.apply(undefined, [store.dispatch])执行完成的结果有传递给a1
@@ -162,14 +164,14 @@ var a2 = function () {
 
 4、next(next1.apply(undefined, next2))
 
-5、这个时候执行 next1.apply(undefined, arguments),arguments是next2的返回结果，其实就是logger2的这个函数
+5、这个时候执行 next1.apply(undefined, arguments)，arguments是next2的返回结果，其实就是logger2的这个函数
 
 ```js
  action2 => {
-	console.log('dispatching2', action2)
-	const result = next2(action2)
-	console.log('next state2', getState())
-	return result
+    console.log('dispatching2', action2)
+    const result = next2(action2)
+    console.log('next state2', getState())
+    return result
 }
 ```
 

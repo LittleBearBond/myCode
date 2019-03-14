@@ -29,7 +29,7 @@ return function (context, next) {
 
 ## koa-body原理
 
-内部调用判断需要处理哪些types， formTypes,jsonTypes,textTypes 然后调用co-body进行处理，co-body 调用 type-is 进行请求数据类型判断，判断主要根据content-type，建源码 **var value = req.headers['content-type']**
+内部调用判断需要处理哪些types,formTypes,jsonTypes,textTypes 然后调用co-body进行处理，co-body 调用 type-is 进行请求数据类型判断，判断主要根据content-type，建源码 **var value = req.headers['content-type']**
 
 ```js
  var jsonType = opts.jsonTypes || jsonTypes;
@@ -79,7 +79,7 @@ function onEnd(err) {
 
 ## 介绍自己写过的中间件
 
-没写过，因为koa2我用得少，express我倒是写过，mock数据，原理是差不多。
+express写过，mock数据,封装成中间件，后来改成koa
 
 ## 介绍pm2
 
