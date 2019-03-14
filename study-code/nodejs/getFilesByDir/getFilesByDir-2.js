@@ -1,72 +1,60 @@
 "use strict";
 var path = require('path');
 var fs = require('fs');
-var co = require('co');
 var thunkify = require('thunkify');
-var fsReaddir = thunkify(fs.readdir);
-var fsStat = thunkify(fs.stat);
 
 var readDir = (dir, done) => {
-    var readFiles = [];
+	var readFiles = [];
 
-    fs.readdir(dir, function(err, list) {
-        if (err) {
-            return done(null, readFiles);
-        }
-        var len = list.length;
-        var index = 0;
+	fs.readdir(dir, function (err, list) {
+		if (err) {
+			return done(null, readFiles);
+		}
+		var len = list.length;
+		var index = 0;
 
-        list = list.map(function(val) {
-            return path.join(dir, val);
-        });
+		list = list.map(function (val) {
+			return path.join(dir, val);
+		});
 
-        (function next() {
-            var fullPath = list[index++];
-            if (!fullPath) {
-                return done(null, readFiles);
-            }
+		(function next() {
+			var fullPath = list[index++];
+			if (!fullPath) {
+				return done(null, readFiles);
+			}
 
-            fs.stat(fullPath, function(err, stat) {
-                if (stat && stat.isDirectory()) {
-                    readDir(fullPath, function(err, res) {
-                        readFiles = readFiles.concat(res);
-                        next();
-                    });
-                    return;
-                }
-                readFiles.push({
-                    fileName: path.basename(fullPath),
-                    fullPath: fullPath,
-                    size: stat.size
-                });
-                //readFiles.push(fullPath);
-                next();
-            });
-        }());
+			fs.stat(fullPath, function (err, stat) {
+				if (stat && stat.isDirectory()) {
+					readDir(fullPath, function (err, res) {
+						readFiles = readFiles.concat(res);
+						next();
+					});
+					return;
+				}
+				readFiles.push({
+					fileName: path.basename(fullPath),
+					fullPath: fullPath,
+					size: stat.size
+				});
+				//readFiles.push(fullPath);
+				next();
+			});
+		}());
 
-    });
+	});
 }
 
-
-module.exports = function(dir) {
-    return new Promise(function(resolve, reject) {
-        readDir(dir, function(err, result) {
-            err ? reject(err) : resolve(result);
-        });
-    });
-};
-
-/* var files = yield readdir(dir);
- var stats = yield files.map(function(file) {
-     return stat(path.join(dir, file));
- });
- var largest = stats
-     .filter(function(stat) {
-         return stat.isFile()
-     })
-     .reduce(function(prev, next) {
-         if (prev.size > next.size) return prev
-         return next;
-     })
- return files[stats.indexOf(largest)];
-});*/
+function scanDir(dir) {
+	var getFullPath = dirPath => fs.readdirSync(dirPath).map(val => path.join(dirPath, val));
+	var files = [];
+	(function next(list) {
+		for (const filePath of list) {
+			if (fs.statSync(filePath).isDirectory()) {
+				next(getFullPath(filePath))
+				continue;
+			}
+			files.push(filePath)
+		}
+	}(getFullPath(dir)))
+	return files;
+}

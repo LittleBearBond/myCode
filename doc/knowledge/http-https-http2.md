@@ -31,6 +31,8 @@
 
 [浏览器缓存知识小结及应用](http://www.cnblogs.com/lyzg/p/5125934.html#top)
 
+[《图解HTTP》知识点摘录](https://juejin.im/post/5aa62f93f265da23906ba830)
+
 ### Expires Cache-Control
 
     Expires 较老的强缓存管理header，随意修改下客户端时间，就能影响缓存命中的结果
