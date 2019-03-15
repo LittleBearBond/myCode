@@ -1,6 +1,6 @@
 /**
  * @author 熊建
- * @email 
+ * @email
  * @create date 2018-04-25 08:03:59
  * @modify date 2018-04-25 08:03:59
  * @desc [description]
@@ -126,9 +126,7 @@ function partition(arr, left, right) {
 }
 
 function swap(arr, i, j) {
-    const val = arr[i]
-    arr[i] = arr[j]
-    arr[j] = val;
+    [arr[i], arr[j]] = [arr[j], arr[i]]
 }
 
 function findKthLargest(arr, k) {
@@ -208,8 +206,12 @@ function findKthLargestNew(arr, k) {
 function getMaxLengthArr(arr, sum) {
     let left = 0;
     let right = left + 1;
-    let index = 0, len = 0, arrSum = 0;
-    const { length } = arr;
+    let index = 0,
+        len = 0,
+        arrSum = 0;
+    const {
+        length
+    } = arr;
     while (left < length) {
         right = left + 1;
         arrSum = arr[left]
