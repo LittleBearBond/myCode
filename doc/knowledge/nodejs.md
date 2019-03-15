@@ -224,3 +224,7 @@ function getLocalIp() {
     return IPAdress;
 }
 ```
+
+## pm2
+
+[使用pm2部署node生产环境](https://segmentfault.com/a/1190000018439311)
