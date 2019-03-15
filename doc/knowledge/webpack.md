@@ -10,6 +10,11 @@
 [参考地址-loader plugin](https://juejin.im/post/5980752ef265da3e2e56e82e)
 
     提供了很多开箱即用的功能，同时它可以用loader和plugin来扩展。webpack本身结构精巧，** 基于tapable的插件架构 ** ，扩展性强，众多的loader或者plugin让webpack显得很复杂
+webpack4.0打包优化策略
+
+[优化策略1](https://juejin.im/post/5abbc2ca5188257ddb0fae9b)
+[优化策略2](https://juejin.im/post/5ac769e7f265da237b225490)
+[优化策略3](https://juejin.im/post/5ac76a8f51882555677ecc06)
 
 ### tapable 面向切面的插件思想
 
