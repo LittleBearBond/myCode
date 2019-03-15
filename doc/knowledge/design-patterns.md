@@ -77,4 +77,135 @@ var proxy = new Proxy(person, {
 
 ### 单一职责
 
-    
+    Single Responsibility Principle 类或者方法都的职责要单一，职责变更的时候引起的变化会更小，代码粒度更小地控制，方便代码重用和扩展以及单元测试。当然代码粒度越小开发的时候可能就相对更麻烦
+
+### 开放封闭
+
+    可扩展但是不可修改，当前程序需要改变或者添加新功能的时候，不用修改原来的代码，可以使用新增代码，来实现。组件设计的时候常常用到这个思想，
+
+    1、消除条件分支免得新增代码需修改之前代码，常用手段是抽出配置，或者使用循环
+    2、找出变化的地方，封装不变的地方（策略模式），既抽出不变相
+    3、放置钩子（模板方法，react组件设计），使用回调函数
+    4、可配置化，插件化
+
+    增加功能不要修改原有代码，常用手段比如新增配置来实现，新增代码，新增方法，或者底层提供强大可配置和钩子，上层可进行二次开发扩展，
+    react-router里面的Route配置，可传递component、可设置render、可传递children、也可是在children是function，灵活多变实现各种功能无需修源码，✘这个好像不太对😆。
+
+## 代码重构
+
+### 提炼函数
+
+    细粒度的函数有利于代码重用，职责更单一，更方便单元测试
+
+### 合并重复条件片段
+
+    1、抽出成配置，在通过相应的key去查找对应条件；列表页状态映射，数字转文字，这样少些if else
+
+```js
+const obj = {
+    title: '操作',
+    dataIndex: 'operate',
+    render: (a, { id, status, orderId, cityId }) => {
+        const toDetailUrl = <Link to={`/app/ordercenter/detail/${id}`}>查看详情</Link>
+        const MAP_SUATUS_LINK = {
+            1: toDetailUrl,
+            3: toDetailUrl,
+            4: toDetailUrl,
+            2: <Link to={`/app/policerecord/detail?orderId=${orderId}&cityId=${cityId}`}>查看详情</Link>,
+        }
+        return MAP_SUATUS_LINK[status]
+    }
+}
+const weeks = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+// 抽出不可变部分
+const weeks = new Array("日", "一", "二", "三", "四", "五", "六").map(v=>`星期${v});
+```
+
+    2、用map代替switch case，redux 的使用
+
+```js
+// 使用switch case
+const login = (state = {
+    isLogin: true,
+    displayName: '',
+    email: '',
+    canCreate: false,
+    auth: {},
+    menus: []
+}, action) => {
+    switch (action.type) {
+        case RECEIVE_USER_INFO: {
+            return {
+                ...state,
+                ...action.data
+            }
+        }
+        default:
+            return state;
+    }
+}
+// 使用map
+const ActionMap = {
+    [REQUEST_CONFLICT_DATA]: (state, action) => {
+        return {
+            ...state,
+            isGetPageDataIng: true
+        };
+    },
+    [RECEIVE_CONFLICT_DATA]: (state, action) => {
+        return {
+            ...state,
+            ...action.data,
+            isGetPageDataIng: false
+        };
+    },
+}
+const ConflictCreate = (state = extend(true, {}, initState), action) => {
+    return ActionMap[action.type] ? ActionMap[action.type](state, action) : state;
+}
+```
+
+    3、使用循环代替重复的条件判断，循环搞定一切，不用反复的if else
+
+```js
+function transitionEnd() {
+    var el = document.createElement('bootstrap');
+    var transEndEventNames = {
+        WebkitTransition: 'webkitTransitionEnd',
+        MozTransition: 'transitionend',
+        OTransition: 'oTransitionEnd otransitionend',
+        transition: 'transitionend'
+    };
+    for (var name in transEndEventNames) {
+        if (el.style[name] !== undefined) {
+            return transEndEventNames[name];
+        }
+    }
+    return ''; // explicit for ie8 (  ._.)
+}
+```
+
+    4、使用extend技巧，处理对象赋值
+
+```js
+// style赋值
+const { style } = document.body
+Object.assign(style,{})
+
+// 对象赋值
+const a={}
+Object.assign(a,{})
+
+```
+
+    5、找出不变部分，封装不变，ItemGenrator、ListCommon、BuildSelect
+
+    6、 if 条件不满足就立即return，让函数提前退出条件分支，不要if else 层层嵌套
+
+    7、 函数参数过多，使用对象传递
+
+    8、 使用链式调用，sfe-bmap 的animation设计
+
+    9、 对大类进行分解，比如一个react组件超过二三百行，这个时候可能有必要对这个类进行拆分
+
+    10、es6 各种技巧让代码更为简洁、例如：结构，Object.entries、for of、Array reduce的妙用
