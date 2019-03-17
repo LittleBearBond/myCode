@@ -98,6 +98,7 @@ const handle = array => {
 ## 模拟bind实现
 
 ```js
+// 简单实现，没管原型
 Function.prototype.bind = function (...args) {
     const that = this
     const fn = args.shift();
