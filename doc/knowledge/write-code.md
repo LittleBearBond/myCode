@@ -64,7 +64,7 @@ const flat = arr => arr.reduce((pre, curr) => pre.concat(Array.isArray(curr) ? f
 const flat = arr => [].concat(...arr.map(v=>Array.isArray(v) ? flat(v): v))
 // 5
 const flat = function (arr) {
-    var inner = function* (arr) {
+    const inner = function* (arr) {
         for (const v of arr) {
             if (Array.isArray(v)) {
                 yield* inner(v)
@@ -80,7 +80,7 @@ const flat = function (arr) {
 ## 数组去重
 
 ```js
-var arr = [1, 2, 1, 3, 4, 5, 4, 3]
+const arr = [1, 2, 1, 3, 4, 5, 4, 3]
 // 1
 [...new Set(arr)]
 // 2
@@ -105,6 +105,21 @@ Function.prototype.bind = function (...args) {
     return function (...arg) {
         return that.apply(fn, [...args, ...arg])
     };
+};
+
+Function.prototype.bind = function (...args) {
+    if (typeof this !== 'function') {
+        throw new TypeError('not function');
+    }
+    const that = this
+    const toThis = args.shift();
+    const fn = function () {}
+    const bindFn = function (...arg) {
+        return that.apply(this instanceof fn ? this : toThis, [...args, ...arg])
+    };
+    fn.prototype = Object.create(this.prototype)
+    bindFn.prototype = new fn()
+    return bindFn
 };
 ```
 
@@ -176,13 +191,14 @@ const handle = function (...args) {
 ```js
 function strUnique(str) {
     const cache = {}
-    let mostStr, mostNum = 0,
+    let mostStr,
+        num = 0,
         arr = []
     for (const s of str) {
         if (s in cache) {
             cache[s]++
-                if (cache[s] > mostNum) {
-                    mostNum = cache[s]
+                if (cache[s] > num) {
+                    num = cache[s]
                     mostStr = s
                 }
             continue;
@@ -190,7 +206,7 @@ function strUnique(str) {
         arr.push(s)
         cache[s] = 1
     }
-    console.log(mostStr, mostNum, arr.join(''))
+    console.log(mostStr, num, arr.join(''))
 }
 ```
 
@@ -213,5 +229,76 @@ function reverse(head) {
         pre = head
         head = next
     }
+}
+```
+
+## 手写jsonp
+
+```js
+function createScript(url) {
+    const script = document.createElement('script')
+    script.setAttribute('type', 'text/javascript')
+    script.setAttribute('src', url)
+    script.async = true
+    return script
+}
+
+function jsonp({
+    url,
+    callbackKeyName = 'callback',
+    data = {}
+} = {}) {
+    return new Promise((resolve, reject) => {
+        const cbName = 'jsonpcallback' + jsonp.index++
+        const dataToStr = Object.entries(data).reduce((arr, [key, val]) => {
+            arr.push(`${key}=${val}`)
+            return arr;
+        }, []).join('&')
+        url += `${url.includes('?') ? `&` : `?`}${callbackKeyName}=${cbName}&${dataToStr}`
+        const el = createScript(url)
+        el.onerror = (error) => {
+            destory()
+            reject(error)
+        }
+        const destory = function () {
+            el.parentNode.removeChild(el)
+            delete window[cbName]
+        }
+        window[cbName] = function (data) {
+            try {
+                resolve(data)
+            } finally {
+                destory()
+            }
+        };
+        (document.head || document.getElementsByTagName('head')[0]).appendChild(el)
+    })
+}
+jsonp.index = 0
+```
+
+## 对象的深拷贝
+
+```js
+function deepCopy(target) {
+    const extendObj = Array.isArray(target) ? [] : {}
+    if (Array.isArray(target)) {
+        for (const val of target) {
+            if (typeof val !== 'object') {
+                extendObj.push(val)
+            } else if (val != target) {
+                extendObj.push(deepCopy(val))
+            }
+        }
+    } else {
+        for (const [key, val] of Object.entries(target)) {
+            if (typeof val !== 'object') {
+                extendObj[key] = val
+            } else if (val != target) {
+                extendObj[key] = deepCopy(val)
+            }
+        }
+    }
+    return extendObj
 }
 ```
