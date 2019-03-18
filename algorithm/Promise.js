@@ -15,7 +15,6 @@ new Promise((res, rej) => {
 
 function promiseAll(promise = []) {
     return new Promise((resolve, reject) => {
-
         if (!Array.isArray(promise) || !promise.length) {
             return reject(new Error('arguments must be promise array'));
         }

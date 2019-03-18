@@ -95,6 +95,16 @@ const handle = array => {
 }
 ```
 
+## 不用循环，创建一个长度为 100 的数组，并且每个元素的值等于它的下标
+
+```js
+Array(100).fill().map((_,i)=>i+1);
+
+[...Array(100).keys()]
+
+Array.from({length:100},(_,i)=>i)
+```
+
 ## 模拟bind实现
 
 ```js
@@ -210,6 +220,12 @@ function strUnique(str) {
 }
 ```
 
+## 连续字符串去重使用正则
+
+```js
+`aaaabbbccccaaaa`.replace(/(\w)\1+/g,'$1')
+```
+
 ## 找出一个html页面使用的所有html元素标签名
 
 ```js
@@ -302,3 +318,65 @@ function deepCopy(target) {
     return extendObj
 }
 ```
+
+## Promise all的实现
+
+```js
+function promiseAll(promise = []) {
+    return new Promise((resolve, reject) => {
+        if (!Array.isArray(promise) || !promise.length) {
+            return reject(new Error('arguments error'));
+        }
+        const {
+            length
+        } = promise
+        let promiseCounter = 0
+        const result = new Array(length)
+        for (const [index, pro] of promise.entries()) {
+            (function (i) {
+                Promise.resolve(pro).then(res => {
+                    result[i] = res
+                    promiseCounter++
+                    if (promiseCounter === length) {
+                        resolve(result)
+                    }
+                }, error => {
+                    resolve(error)
+                })
+            }(index))
+        }
+    })
+}
+Promise.all = promiseAll
+```
+
+## Promise 的实现
+
+## 获取 url 中的参数
+
+```js
+function getUrlData(url) {
+    let match = (url || window.location.search).match(/\?(.*)/)
+    const objData = {};
+    match = match && match[1];
+    if (!match) {
+        return objData;
+    }
+    match = match.split('&');
+    let strKey;
+    let strVal;
+    match.forEach(function (str) {
+        let val = str.split('=');
+        strKey = decodeURIComponent(val[0]);
+        strVal = val[1] === 'null' || val[1] == null ? '' : decodeURIComponent(val[1]);
+        strKey && (objData[strKey] = strVal);
+    });
+    return objData;
+}
+```
+
+## 其他算法
+
+    算法就太多了，主要靠自己去刷题，以下算法基本上是我或者同事在面试前端岗位的时候碰到过的
+
+    二分查找、快速排序、字符串全排列、从数组中取出n个数和为目的所有数的组合、树的几种遍历方式、查找第K大个数、判断一个单词是否是回文
