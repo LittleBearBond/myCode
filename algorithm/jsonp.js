@@ -1,25 +1,40 @@
-function getData(url, jsonpCallbackName, fn) {
-	var cbname = 'cb' + getData.timer++;
-	var callabckName = 'window.getData.' + cbname;
-	//encodeURIComponent
-	url = url + (/\?/.test(url) ? '&' : '?') + jsonpCallbackName + '=' + callabckName;
-	getData[cbname] = function (data) {
-		try {
-			fn(data);
-		} finally {
-			destory();
-		}
-	}
-	var script = document.createElement('script');
-	script.type = 'text/javascript';
-	script.src = url;
-	script.async = true;
-
-	var destory = function () {
-		script.parentNode.removeChild(script);
-		delete getData[cbname];
-	}
-	script.onerror = destory;
-	(document.head || document.getElementsByTagName('head')[0]).appendChild(script)
+function createScript(url) {
+    const script = document.createElement('script')
+    script.setAttribute('type', 'text/javascript')
+    script.setAttribute('src', url)
+    script.async = true
+    return script
 }
-getData.timer = 1;
+
+function jsonp({
+    url,
+    callbackKeyName = 'callback',
+    data = {}
+} = {}) {
+    return new Promise((resolve, reject) => {
+        const cbName = 'jsonpcallback' + jsonp.index++
+        const dataToStr = Object.entries(data).reduce((arr, [key, val]) => {
+            arr.push(`${key}=${val}`)
+            return arr;
+        }, []).join('&')
+        url += `${url.includes('?') ? `&` : `?`}${callbackKeyName}=${cbName}&${dataToStr}`
+        const el = createScript(url)
+        el.onerror = (error) => {
+            destory()
+            reject(error)
+        }
+        const destory = function () {
+            el.parentNode.removeChild(el)
+            delete window[cbName]
+        }
+        window[cbName] = function (data) {
+            try {
+                resolve(data)
+            } finally {
+                destory()
+            }
+        };
+        (document.head || document.getElementsByTagName('head')[0]).appendChild(el)
+    })
+}
+jsonp.index = 0
