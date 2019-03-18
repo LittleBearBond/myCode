@@ -352,7 +352,7 @@ Promise.all = promiseAll
 
 ## Promise 的实现
 
-    代码太长补贴了
+    代码太长不贴了
 
 ## 获取 url 中的参数
 
