@@ -352,6 +352,8 @@ Promise.all = promiseAll
 
 ## Promise 的实现
 
+    代码太长补贴了
+
 ## 获取 url 中的参数
 
 ```js
@@ -375,8 +377,54 @@ function getUrlData(url) {
 }
 ```
 
+## 斐波那契数
+
+```js
+function fn(n) {
+    if (n === 0) {
+        return 0
+    }
+    if (n === 1 || n === 2) {
+        return 1
+    }
+    return fn(n - 1) + fn(n - 2)
+}
+```
+
+## 实现一个函数，可以按顺序获取到一个DOM节点下面所有的文本
+
+```js
+function getInnerText(el, arrText = []) {
+    if (!el.childNodes.length) {
+        return arrText
+    }
+    for (const child of [...el.childNodes]) {
+        if (child.childNodes.length) {
+            getInnerText(child, arrText)
+        } else {
+            child.textContent && arrText.push(child.textContent)
+        }
+    }
+    return arrText
+}
+
+function getInnerText(el) {
+    const arrText = []
+    const list = [el]
+    while (list.length) {
+        var child = list.shift()
+        if (child.childNodes.length) {
+            list.unshift(...child.childNodes)
+        } else {
+            child.textContent && arrText.push(child.textContent)
+        }
+    }
+    return arrText
+}
+```
+
 ## 其他算法
 
-    算法就太多了，主要靠自己去刷题，以下算法基本上是我或者同事在面试前端岗位的时候碰到过的
+    算法就太多了，主要靠自己去刷题，以下算法基本上是我还记得的，我或者同事在面试前端岗位的时候碰到过的
 
     二分查找、快速排序、字符串全排列、从数组中取出n个数和为目的所有数的组合、树的几种遍历方式、查找第K大个数、判断一个单词是否是回文
