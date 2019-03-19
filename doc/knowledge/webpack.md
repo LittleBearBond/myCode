@@ -2,23 +2,58 @@
 
 ## webpack
 
-[参考地址](https://fengmiaosen.github.io/2017/03/21/webpack-core-code/)
-[参考地址](https://doc.webpack-china.org/contribute/writing-a-plugin/)
-[参考地址](http://taobaofed.org/blog/2016/09/09/webpack-flow/)
-[参考地址](https://juejin.im/post/5980752ef265da3e2e56e82e)
-[参考地址-tapable](https://www.jianshu.com/p/01a606c97d76)
-[参考地址-loader plugin](https://juejin.im/post/5980752ef265da3e2e56e82e)
+- [参考地址](https://fengmiaosen.github.io/2017/03/21/webpack-core-code/)
+- [参考地址](https://doc.webpack-china.org/contribute/writing-a-plugin/)
+- [参考地址](http://taobaofed.org/blog/2016/09/09/webpack-flow/)
+- [参考地址](https://juejin.im/post/5980752ef265da3e2e56e82e)
+- [参考地址-tapable](https://www.jianshu.com/p/01a606c97d76)
+- [参考地址-loader plugin](https://juejin.im/post/5980752ef265da3e2e56e82e)
+- [干货！撸一个webpack插件(内含tapable详解+webpack流程)](https://juejin.im/post/5beb8875e51d455e5c4dd83f)
 
     提供了很多开箱即用的功能，同时它可以用loader和plugin来扩展。webpack本身结构精巧，** 基于tapable的插件架构 ** ，扩展性强，众多的loader或者plugin让webpack显得很复杂
 webpack4.0打包优化策略
 
-[优化策略1](https://juejin.im/post/5abbc2ca5188257ddb0fae9b)
-[优化策略2](https://juejin.im/post/5ac769e7f265da237b225490)
-[优化策略3](https://juejin.im/post/5ac76a8f51882555677ecc06)
+- [优化策略1](https://juejin.im/post/5abbc2ca5188257ddb0fae9b)
+- [优化策略2](https://juejin.im/post/5ac769e7f265da237b225490)
+- [优化策略3](https://juejin.im/post/5ac76a8f51882555677ecc06)
 
 ### tapable 面向切面的插件思想
 
 >声明一个全局的变量this._plugins = {}，插件中使用plugin(name, fn)方法给事件name注册处理方法fn，多次注册形成了事件name的监听链，当事件name触发的时候，执行这些处理方法。处理方法的执行顺序和执行方式依据事件name的触发方式的不同而不同
+
+```js
+import  {
+    SyncHook,
+    SyncBailHook,
+    SyncWaterfallHook,
+    SyncLoopHook,
+    AsyncParallelHook,
+    AsyncParallelBailHook,
+    AsyncSeriesHook,
+    AsyncSeriesBailHook,
+    AsyncSeriesWaterfallHook
+ } from 'tapable'
+
+const hook1 = new SyncHook(["arg1", "arg2", "arg3"]);
+
+//绑定事件到webapck事件流
+hook1.tap('hook1', (arg1, arg2, arg3) => console.log(arg1, arg2, arg3)) //1,2,3
+
+//执行绑定的事件
+hook1.call(1,2,3)
+
+```
+
+| type | function |
+| ------ | ------ |
+| Hook| 所有钩子的后缀 |
+| Waterfall| 同步方法，但是它会传值给下一个函数 |
+| Bail| 熔断：当函数有任何返回值，就会在当前执行函数停止 |
+| Loop| 监听函数返回true表示继续循环，返回undefine表示结束循环 |
+| Sync| 同步方法 |
+| AsyncSeries| 异步串行钩子 |
+| AsyncParallel| 异步并行执行钩子 |
+|   |   |
 
 ### 执行流程
 
