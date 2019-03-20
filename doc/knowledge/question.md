@@ -519,28 +519,6 @@
 
 3、nginx代理
 
-### 移动端适配1px的问题
-
-1、svg
-
-2、缩放viewport 0.5 0.33333
-
-3、ios可直接设置小数
-
-4、border-image、box-shadow
-
-5、缩放
-
-### flex布局
-
-[css-flex布局](./css.md)
-
-[flex](https://segmentfault.com/a/1190000012275086)
-
-### css垂直居中和布局
-
-[各种布局](https://segmentfault.com/a/1190000013565024)
-
 ### webpack
 
 [webpack详解](./webpack.md)

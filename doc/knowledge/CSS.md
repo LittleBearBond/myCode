@@ -81,6 +81,10 @@ box-sizing
 
 ### flex
 
+[css-flex布局](./css.md)
+
+[flex](https://segmentfault.com/a/1190000012275086)
+
     display:flex
     justify-content:flex-start flex-end center space-bettew space-around
     align-items:flex-start flex-end center baseline（baseline 默认是指首行文字） stretch(拉伸至与父容器一致)
@@ -118,3 +122,16 @@ box-sizing
 ### 如何清除浮动
 
     方法太多，触发父级BFC、或者使用:after
+
+### 移动端适配1px的问题
+
+1、svg
+
+2、缩放viewport 0.5 0.33333
+
+3、ios可直接设置小数
+
+4、border-image、box-shadow
+
+5、缩放
+

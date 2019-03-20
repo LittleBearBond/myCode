@@ -137,3 +137,15 @@ UglifyJsPlugin.prototype.apply = function(compiler) {
 };
 //在 webpack 中你经常可以看到 compilation.plugin(‘xxx’, callback) ，你可以把它当作是一个事件的绑定，这些事件在打包时由 webpack 来触发。
 ```
+
+    Webpack中的require.context妙用
+
+```js
+// 创建一个test文件夹（不包含子目录）的上下文，可以require其下的所有js文件
+const context = require.context("./test", false, /\.js$/)
+const importAll = context => {
+    // context.keys() 返回找到的js文件路径
+    context.keys().forEach(key => context(key)
+}
+importAll()
+```
