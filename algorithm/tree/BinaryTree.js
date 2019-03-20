@@ -5,12 +5,12 @@
  * @modify date 2018-05-25 11:18:51
  * @desc [description]
  */
+// https://segmentfault.com/a/1190000018467422?utm_source=weekly&utm_medium=email&utm_campaign=email_weekly
 const Node = function (key) {
 	this.left = null
 	this.right = null
 	this.key = key
 }
-
 function BinaryTree() {
 	this.root = null
 

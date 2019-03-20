@@ -1,12 +1,15 @@
-
 /**
  * @author xiongjian
  * @email xiongjian
  * @create date 2019-01-29 17:22:16
  * @modify date 2019-01-29 17:49:59
  * @desc [description]
-*/
-import React, { useState, useEffect } from 'react';
+ */
+import React, {
+    useState,
+    useEffect,
+    useCallback
+} from 'react';
 
 const useWindowWidth = () => {
     const [width, setWidth] = useState(window.innerWidth);
@@ -30,9 +33,9 @@ const useInput = (initValue) => {
     const [value, setValue] = useState(initValue);
     return {
         value,
-        onChange: function (e) {
-            setValue(e.target.value);
-        }
+        onChange: useCallback(function (event) {
+            setValue(event.currentTarget.value);
+        }, [])
     }
 }
 
@@ -45,22 +48,35 @@ function Example() {
     const width = useWindowWidth()
     useDocumentTitle(name + ' ' + surname)
 
-    return (
-        <>
-            <p>You clicked {count} times</p>
-            <h1>window width {width} times</h1>
-            <button onClick={() => setCount(count + 1)}> Click me </button>
-            <div>
-                <input
-                    {...name}
-                />
-            </div>
-            <div>
-                <input
-                    {...surname}
-                />
-            </div>
-        </ >
+    return ( <
+        >
+        <
+        p > You clicked {
+            count
+        }
+        times < /p> <
+        h1 > window width {
+            width
+        }
+        times < /h1> <
+        button onClick = {
+            () => setCount(count + 1)
+        } > Click me < /button> <
+        div >
+        <
+        input {
+            ...name
+        }
+        /> < /
+        div > <
+        div >
+        <
+        input {
+            ...surname
+        }
+        /> < /
+        div > <
+        / >
     );
 }
 
