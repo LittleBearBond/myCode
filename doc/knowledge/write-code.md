@@ -389,6 +389,27 @@ function fn(n) {
     }
     return fn(n - 1) + fn(n - 2)
 }
+
+const fn = (function () {
+    const temp = {
+        0: 0,
+        1: 1
+    };
+    return function fib(n) {
+        if (!(n in temp)) {
+            temp[n] = fib(n - 1) + fib(n - 2);
+        }
+        return temp[n];
+    }
+}())
+function fnDp(n) {
+    let current = 0;
+    let next = 1;
+    for (let i = 0; i < n; i++) {
+        [current, next] = [next, current + next];
+    }
+    return current;
+}
 ```
 
 ## 实现一个函数，可以按顺序获取到一个DOM节点下面所有的文本
