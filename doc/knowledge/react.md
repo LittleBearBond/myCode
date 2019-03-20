@@ -145,3 +145,17 @@
 ### Typescript React
 
 [demo](../../study-code/typescipt/src/ReactTs.tsx)
+
+### 性能优化
+
+* 更小粒度的组件，组件尽可能的进行拆分、解耦、使用纯函数组件、防止组件内部一个变化引起整个组件diff或者重新渲染
+* 纯函数组件使用React.memo，可以创建自动进行props浅比较的函数式组件
+* 使用生产版本
+* 虚拟化长列表
+* 在一些情况下，重写这个生命周期函数shouldComponentUpdate控制是否重新渲染
+* 使用PureComponent
+* Code Splitting
+* SSR
+* 缓存基础框架、公共模块
+* 使用更高版本的react、webpack
+* key不要使用数组index
