@@ -1,33 +1,30 @@
 # xx经历
 
-[百度、有赞、阿里前端面试总结](https://mp.weixin.qq.com/s/gcG-JL3wt0-Aexwt5nV99g)
-[2018头条春招前端实习生面试题目总结](https://juejin.im/post/5adc5d2f51882567183eb4a9)
-[1月前端面试记](https://juejin.im/post/587dab348d6d810058d87a0a)
-[前端最全知识点](https://juejin.im/entry/59a1a3e25188252444425aee)
-[一年前端面试打怪升级之路](https://juejin.im/post/5a98a8be518825556140ad4c)
-[2017、2018面试分享（js面试题记录）](https://segmentfault.com/a/1190000013827826)
-[3月web前端面试小结 | 掘金技术征文](https://juejin.im/post/5abb44c06fb9a028df22ab37)
-[中高级前端大厂面试秘籍，为你保驾护航金三银四，直通大厂(上)](https://juejin.im/post/5c64d15d6fb9a049d37f9c20)
+- [百度、有赞、阿里前端面试总结](https://mp.weixin.qq.com/s/gcG-JL3wt0-Aexwt5nV99g)
+- [2018头条春招前端实习生面试题目总结](https://juejin.im/post/5adc5d2f51882567183eb4a9)
+- [1月前端面试记](https://juejin.im/post/587dab348d6d810058d87a0a)
+- [前端最全知识点](https://juejin.im/entry/59a1a3e25188252444425aee)
+- [一年前端面试打怪升级之路](https://juejin.im/post/5a98a8be518825556140ad4c)
+- [2017、2018面试分享（js面试题记录）](https://segmentfault.com/a/1190000013827826)
+- [3月web前端面试小结 | 掘金技术征文](https://juejin.im/post/5abb44c06fb9a028df22ab37)
+- [中高级前端大厂面试秘籍，为你保驾护航金三银四，直通大厂(上)](https://juejin.im/post/5c64d15d6fb9a049d37f9c20)
 
 ## 30秒系列
 
-[30秒JS-多看多学很多高级的写法](https://github.com/30-seconds/30-seconds-of-code)
-
-[30秒React](https://github.com/30-seconds/30-seconds-of-react)
-
-[30秒css](https://30-seconds.github.io/30-seconds-of-css/)
-
-[30秒面试](https://30secondsofinterviews.org/)
+- [30秒JS-多看多学很多高级的写法](https://github.com/30-seconds/30-seconds-of-code)
+- [30秒React](https://github.com/30-seconds/30-seconds-of-react)
+- [30秒css](https://30-seconds.github.io/30-seconds-of-css/)
+- [30秒面试](https://30secondsofinterviews.org/)
+- [面试 30 秒翻译](https://github.com/Yangfan2016/learn-translate/blob/master/3-30secondsofinterviews_zh.md)
 
 ## 题目系列
 
-[2018美团前端面试题](https://juejin.im/post/5a96c6326fb9a063626408c8)
-[面试分享：2018阿里巴巴前端面试总结(题目+答案)](https://blog.ihoey.com/posts/Interview/2018-02-28-alibaba-interview.html)
-[Web前端年后跳槽面试复习指南](http://www.jackpu.com/nian-hou-fu-xi-zhi-nan/)
-[饥人谷2018前端面试押题（讲义）](https://zhuanlan.zhihu.com/p/34536462)
-[前端面试题总结](https://segmentfault.com/a/1190000014401170?utm_source=index-hottest)
-
-[jsliang 的 2019 面试准备](https://juejin.im/post/5c8e4cd3f265da67c87454a0)
+- [2018美团前端面试题](https://juejin.im/post/5a96c6326fb9a063626408c8)
+- [面试分享：2018阿里巴巴前端面试总结(题目+答案)](https://blog.ihoey.com/posts/Interview/2018-02-28-alibaba-interview.html)
+- [Web前端年后跳槽面试复习指南](http://www.jackpu.com/nian-hou-fu-xi-zhi-nan/)
+- [饥人谷2018前端面试押题（讲义）](https://zhuanlan.zhihu.com/p/34536462)
+- [前端面试题总结](https://segmentfault.com/a/1190000014401170?utm_source=index-hottest)
+- [jsliang 的 2019 面试准备](https://juejin.im/post/5c8e4cd3f265da67c87454a0)
 
 ## 最棒的 JavaScript 学习指南（2018版）
 
