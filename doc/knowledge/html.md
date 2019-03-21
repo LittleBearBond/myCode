@@ -1,6 +1,7 @@
 # html
 
-[Prefetch Preload async defer](https://www.404forest.com/2017/09/27/use-code-splitting-with-prefetch-to-improve-spa-web-page-load-performance/)
+* [Prefetch Preload async defer](https://www.404forest.com/2017/09/27/use-code-splitting-with-prefetch-to-improve-spa-web-page-load-performance/)
+* [HTML5元素和语义化标签](https://segmentfault.com/a/1190000018585328)
 
 ## defer async
 
