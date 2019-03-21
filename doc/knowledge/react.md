@@ -8,11 +8,10 @@
 
 ### react
 
-[《React源码解析》系列完结！](https://juejin.im/post/5a84682ef265da4e83266cc4)
-
-[各种面试解析](https://zhuanlan.zhihu.com/p/24856035)
-
-[React 源码剖析系列 － 不可思议的 react diff](https://segmentfault.com/a/1190000004003055)
+* [《React源码解析》系列完结！](https://juejin.im/post/5a84682ef265da4e83266cc4)
+* [各种面试解析](https://zhuanlan.zhihu.com/p/24856035)
+* [React 源码剖析系列 － 不可思议的 react diff](https://segmentfault.com/a/1190000004003055)
+* [聊聊列表中的 key 属性 diff](https://zhuanlan.zhihu.com/p/59619074)
 
 ### 调用 setState 之后发生了什么？
 
@@ -134,9 +133,10 @@
 
 ### React Hooks
 
-[hook-demo](../../study-code/react-server/src/pages/HooksTest.js)
-[30分钟精通React Hooks](https://juejin.im/post/5be3ea136fb9a049f9121014)
-[精读《怎么用 React Hooks 造轮子》](https://zhuanlan.zhihu.com/p/50274018)
+* [hook-demo](../../study-code/react-server/src/pages/HooksTest.js)
+* [精读《Function VS Class 组件》](https://zhuanlan.zhihu.com/p/59558396)
+* [30分钟精通React Hooks](https://juejin.im/post/5be3ea136fb9a049f9121014)
+* [精读《怎么用 React Hooks 造轮子》](https://zhuanlan.zhihu.com/p/50274018)
 
 ### React Fiber
 
