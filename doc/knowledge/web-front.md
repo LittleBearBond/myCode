@@ -11,7 +11,7 @@
 
 ## 30秒系列
 
-[30秒JS](https://github.com/30-seconds/30-seconds-of-code)
+[30秒JS-多看多学很多高级的写法](https://github.com/30-seconds/30-seconds-of-code)
 
 [30秒React](https://github.com/30-seconds/30-seconds-of-react)
 

@@ -77,6 +77,22 @@ const flat = function (arr) {
 }
 ```
 
+### flattenObject
+
+```js
+const flattenObject = (obj, prefix = '') =>
+  Object.keys(obj).reduce((acc, k) => {
+    const pre = prefix.length ? prefix + '.' : '';
+    if (typeof obj[k] === 'object'){
+         Object.assign(acc, flattenObject(obj[k], pre + k));
+    } else {
+        acc[pre + k] = obj[k];
+    }
+    return acc;
+  }, {});
+flattenObject({ a: { b: { c: 1 } }, d: 1 }); // { 'a.b.c': 1, d: 1 }
+```
+
 ## 数组去重
 
 ```js
@@ -477,3 +493,221 @@ function _setPrototypeOf(o, p) {
     算法就太多了，主要靠自己去刷题，以下算法基本上是我还记得的，我或者同事在面试前端岗位的时候碰到过的
 
     二分查找、快速排序、字符串全排列、从数组中取出n个数和为目的所有数的组合、树的几种遍历方式、查找第K大个数、判断一个单词是否是回文、背包问题
+
+## Browser Dom
+
+[参考地址](https://github.com/30-seconds/30-seconds-of-code#chunk)
+
+### copyToClipboard
+
+```js
+const copyToClipboard = str => {
+  const el = document.createElement('textarea');
+  el.value = str;
+  el.setAttribute('readonly', '');
+  el.style.position = 'absolute';
+  el.style.left = '-9999px';
+  document.body.appendChild(el);
+  const selected =
+    document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+  if (selected) {
+    document.getSelection().removeAllRanges();
+    document.getSelection().addRange(selected);
+  }
+};
+```
+
+### counter
+
+```js
+const counter = (selector, start, end, step = 1, duration = 2000) => {
+    let current = start
+    let _step = (end - start) * step < 0 ? -step : step
+    let el = document.querySelector(selector)
+    let timer = setInterval(() => {
+        current += _step;
+        el.innerHTML = current;
+        if (current >= end) {
+            el.innerHTML = end;
+            clearInterval(timer);
+            el=null
+        }
+    }, Math.abs(Math.floor(duration / (end - start))));
+    return timer;
+};
+```
+
+### elementContains
+
+```js
+const elContains = (parent , child ) => parent !== child && parent.contais(child)
+```
+
+### elementIsVisibleInViewport
+
+```js
+const elementIsVisiableViewport = (el, isfullVisiavle = false) => {
+    const { left, right, top, bottom } = el.getBoundingClientRect();
+    const { innerHeight, innerWidth } = window
+    return isfullVisiavle ? top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth :
+        ((left > 0 && left < innerWidth) || (right > 0 && right < innerWidth)) &&
+        ((top > 0 && top < innerHeight) || bottom > 0 && bottom < innerHeight)
+}
+```
+
+### getScrollPosition
+
+```js
+const getScrollPosition = (el = window) =>({
+    left : pageXOffset || el.scrollLeft,
+    top : pageYOffset || el.scrollTop,
+})
+```
+
+### hasClass
+
+```js
+const hasClass = (el, className) => el.classList.contains(className);
+```
+
+### insertAfter
+
+```js
+// el.insertAdjacentHTML
+const insertAfter = (el, htmlString) => el.insertAdjacentHTML('afterend', htmlString);
+```
+
+### event on delegate
+
+```js
+function on (el , type , fn , {target = null, useCapture = false} = {}){
+    const delegateFn = opts.target ? (e) => el.matches(e.target) && fn.call(e.target) : fn
+    el.addEventListener(type , delegateFn , useCapture)
+    return delegateFn
+}
+```
+
+### recordAnimationFrames
+
+```js
+const recordAnimationFrames = (callback , isAutoStart = false)=>{
+    let running = false
+    let anf
+    const stop = () =>{
+        cancelAnimationFrame(anf)
+        running = false
+    }
+    const stop = () =>{
+        run()
+        running = true
+    }
+    const run=()=>{
+        if(!running){
+            return
+        }
+        anf = requestAnimationFrame(() => {
+            callback();
+            running && run();
+        });
+    }
+    return {
+        start,stop
+    }
+}
+```
+
+### scrollToTop
+
+```js
+const scrollToTop = (time = .3) => {
+    let runTime = time < 100 ? time *= 1000 : time;
+    const st = pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+    let startTime = Number(new Date());
+    (function run() {
+        requestAnimationFrame(() => {
+            let disTime = Number(new Date()) - startTime;
+            if (disTime > runTime) {
+                window.scrollTo(0, 0)
+                return;
+            }
+            window.scrollTo(0, st * (runTime - disTime) / runTime)
+            run()
+        })
+    }())
+}
+```
+
+### setStyle
+
+```js
+const setStyle = (el, ruleName, val) => Object.assign(el.style, typeof ruleName === 'object' ? ruleName : {
+        [ruleName]: val
+    })
+```
+
+### scrollIntoView
+
+```js
+const smoothScroll = element =>
+  document.querySelector(element).scrollIntoView({
+    behavior: 'smooth'
+  });
+
+// 这个可以和scrollToTop 设计成一个通用方法，详见项目scrollAnimation
+```
+
+### chainAsync
+
+```js
+const chainAsync = fns => {
+    const lastFn = fns[fns.length - 1];
+    let i = 0;
+    let fn;
+    (function next() {
+        fn = fns[i++]
+        fn === lastFn ? lastFn() : fn(next);
+    }())
+}
+```
+
+### compose
+
+```js
+const chainAsync = fns => {
+    return fns.reduce((pre, next) => {
+        return (...args) => pre(next(...args))
+    });
+}
+const chainAsync = fns => {
+    fns.reduce((pre, next) => (...args) => pre(next(...args)))
+}
+```
+
+### composeRight
+
+```js
+const chainAsync = fns => {
+    return fns.reduce((pre, next) => {
+        return (...args) => next(pre(...args))
+    });
+}
+```
+
+### runPromisesInSeries
+
+```js
+const runPromisesInSeries = promises => promises.reduce((p, next) => p.then(next), Promise.resolve());
+```
+
+## Math
+
+### distance
+
+[Math.hypot](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/hypot)
+
+```js
+const distance = (x0, y0, x1, y1) => Math.hypot(x1 - x0, y1 - y0);
+```
