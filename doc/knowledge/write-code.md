@@ -393,7 +393,7 @@ function getUrlData(url) {
 }
 ```
 
-## 斐波那契数
+## 斐波那契数 四种实现方法
 
 ```js
 function fn(n) {
@@ -425,6 +425,10 @@ function fnDp(n) {
         [current, next] = [next, current + next];
     }
     return current;
+}
+
+function fn(n) {
+    return [...Array(n)].reduce((pre, next, index) => pre.concat(index > 1 ? pre[index - 1] + pre[index - 1] : index), [])[n - 1];
 }
 ```
 
