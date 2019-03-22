@@ -12,6 +12,7 @@
 * [各种面试解析](https://zhuanlan.zhihu.com/p/24856035)
 * [React 源码剖析系列 － 不可思议的 react diff](https://segmentfault.com/a/1190000004003055)
 * [聊聊列表中的 key 属性 diff](https://zhuanlan.zhihu.com/p/59619074)
+* [fiber HOC Hooks SSR](https://juejin.im/post/5c92f499f265da612647b754)
 
 ### 调用 setState 之后发生了什么？
 
