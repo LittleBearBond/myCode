@@ -2,7 +2,7 @@
  * @author xiongjian
  * @email xiongjian
  * @create date 2019-01-29 17:22:16
- * @modify date 2019-01-29 17:49:59
+ * @modify date 2019-03-25 10:53:25
  * @desc [description]
  */
 import React, {
@@ -48,36 +48,13 @@ function Example() {
     const width = useWindowWidth()
     useDocumentTitle(name + ' ' + surname)
 
-    return ( <
-        >
-        <
-        p > You clicked {
-            count
-        }
-        times < /p> <
-        h1 > window width {
-            width
-        }
-        times < /h1> <
-        button onClick = {
-            () => setCount(count + 1)
-        } > Click me < /button> <
-        div >
-        <
-        input {
-            ...name
-        }
-        /> < /
-        div > <
-        div >
-        <
-        input {
-            ...surname
-        }
-        /> < /
-        div > <
-        / >
-    );
-}
-
-export default Example
+    return (<>
+        <p> You clicked {count} times </p>
+        <h1> window width {width} times </h1>
+        <button onClick={() => setCount(count + 1)}> Click me </button>
+        <div>
+            <input {...name} />
+        </div>
+        <div> <input {...surname} /> </div>
+    </>);
+} export default Example
