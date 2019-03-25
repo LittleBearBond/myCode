@@ -134,6 +134,7 @@
 
 ### React Hooks
 
+* [编写有弹性的组件 运用hook优化组件](https://overreacted.io/zh-hans/writing-resilient-components/)
 * [hook-demo](../../study-code/react-server/src/pages/HooksTest.js)
 * [精读《Function VS Class 组件》](https://zhuanlan.zhihu.com/p/59558396)
 * [30分钟精通React Hooks](https://juejin.im/post/5be3ea136fb9a049f9121014)
