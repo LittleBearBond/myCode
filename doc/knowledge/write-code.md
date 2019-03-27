@@ -75,6 +75,13 @@ const flat = function (arr) {
     }
     return [...inner(arr)]
 }
+// 6
+const flat = function (arr) {
+    while (arr.some(item => Array.isArray(item))) {
+        arr = [].concat(...arr)
+    }
+    return arr
+}
 ```
 
 ### flattenObject
