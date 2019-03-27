@@ -39,14 +39,64 @@ const useInput = (initValue) => {
     }
 }
 
+/*
+// 计时器不准了，因为每次 count 变化时都会销毁并重新计时。
+// 频繁 生成/销毁 定时器带来了一定性能负担
+useEffect(() => {
+    const id = setInterval(() => {
+        setCount(count + 1);
+    }, 1000);
+    return () => clearInterval(id);
+}, [count]);
+// 想办法不依赖外部变量
+useEffect(() => {
+    const id = setInterval(() => {
+        setCount(c => c + 1);
+    }, 1000);
+    return () => clearInterval(id);
+}, []);
+
+// componentDidUpdate  vs useEffect
+
+componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.currentPage !== this.state.currentPage || // ✅ 更新后重新获取数据
+      prevProps.query !== this.props.query
+    ) {
+      this.fetchResults();
+    }
+  }
+useEffect(() => {
+    function fetchResults() {
+      const url = getFetchUrl();
+      // 数据获取...
+    }
+
+    function getFetchUrl() {
+      return (
+        'http://myapi/results?query' + query +
+        '&page=' + currentPage
+      );
+    }
+    fetchResults();
+  }, [currentPage, query]); // ✅ 更新后重新获取
+*/
+
 function Example() {
     // Declare a new state variable, which we'll call "count"
     const [count, setCount] = useState(0);
+    const [temp, setTemp] = React.useState(5);
     const name = useInput('xj');
     const surname = useInput('bear');
 
     const width = useWindowWidth()
     useDocumentTitle(name + ' ' + surname)
+
+    const log = () => {
+        setTimeout(() => {
+            console.log('3 秒前 temp = 5，现在 temp =', temp);
+        }, 3000);
+    };
 
     return (<>
         <p> You clicked {count} times </p>
@@ -56,5 +106,14 @@ function Example() {
             <input {...name} />
         </div>
         <div> <input {...surname} /> </div>
+        <div
+            onClick={() => {
+                log();
+                setTemp(3);
+                // 3 秒前 temp = 5，现在 temp = 5
+            }}
+        >
+            test setTemp
+    </div>
     </>);
 } export default Example
