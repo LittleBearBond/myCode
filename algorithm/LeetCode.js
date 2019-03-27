@@ -455,3 +455,241 @@ var addTwoNumbers = function (l1, l2) {
 
     return List.next;
 };
+
+var longestPalindrome = function (str) {
+    let left;
+    var maxLen = 0
+    var find = function (i, j) {
+        while (i >= 0 && j < str.length && str[i] === str[j]) {
+            i--;
+            j++
+        }
+        if (j - i - 1 > maxLen) {
+            maxLen = j - i - 1
+            left = i + 1
+        }
+    }
+    for (var i = 0 ; i< str.length;i++) {
+        find(i, i)
+        find(i, i + 1)
+    }
+    return str.slice(left, maxLen + left)
+};
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var countSubstrings = function (str) {
+    var count = 0
+    var find = function (i, j) {
+        while (i >= 0 && j < str.length && str[i] === str[j]) {
+            i--;
+            j++
+            count++
+        }
+    }
+    for (var i = 0 ; i< str.length;i++) {
+        find(i, i)
+        find(i, i + 1)
+    }
+    return count
+};
+
+function longestPalindromeSubseq(s) {
+    var {
+        length: n
+    } = s
+    var dp = [...Array(n)].map(() => Array(n).fill(0))
+
+    for (var i = n - 1; i >= 0; i--) {
+        dp[i][i] = 1;
+        for (var j = i + 1; j < n; j++) {
+            if (s[i] == s[j]) {
+                dp[i][j] = dp[i + 1][j - 1] + 2;
+            } else {
+                dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]);
+            }
+        }
+    }
+
+    return dp[0][n - 1];
+}
+
+
+function ListNode(val) {
+    this.val = val;
+    this.next = null;
+}
+var n1 = new ListNode(1)
+var n2 = new ListNode(2)
+var n3 = new ListNode(3)
+var n4 = new ListNode(4)
+n1.next = n2
+n2.next = n3
+n3.next = n4
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var swapPairs = function (head) {
+    var dummy = new ListNode(0),
+        first = dummy,
+        second = dummy;
+    dummy.next = head;
+    while (first.next !== null && first.next.next !== null) {
+        // 2
+        first = first.next.next;
+        // 3
+        second.next.next = first.next;
+
+        first.next = second.next;
+        second.next = first;
+        first = first.next;
+        second = first;
+    }
+    return dummy.next;
+};
+
+var swapPairs = function (head) {
+    let a = head;
+    const dummy = new ListNode(0);
+    let temp = dummy;
+    while (a !== null && a.next !== null) {
+        const next = a.next.next;
+        const b = a.next;
+        b.next = a;
+        temp.next = b;
+        temp = a;
+        a = next;
+    }
+    if (a) {
+        temp.next = a;
+        a.next = null;
+    } else {
+        temp.next = null;
+    }
+
+    return dummy.next;
+};
+
+var swapPairs = function (head) {
+    var dummy = new ListNode(0)
+    var temp = dummy;
+    var a = head;
+    while (a !== null && a.next !== null) {
+        // 3 5 7
+        var next = a.next.next;
+        // 2 4 6
+        var b = a.next
+        // 0-->2 1-->4  3-->6
+        temp.next = b
+        // 2 -->1  4-->3 6-->5
+        b.next = a
+        // 1 3 5
+        temp = a
+        // 3 5 7
+        a = next
+    }
+    if (a) {
+        temp.next = a
+        a.next = null
+    } else {
+        temp.next = null
+    }
+    return dummy.next
+}
+var removeNthFromEnd = function (head, n) {
+    let pre = head;
+    let next;
+    let index = 0
+    next = head
+    while (index++ < n) {
+        next = next.next
+    }
+    while (next.next) {
+        pre = pre.next
+        next = next.next
+    }
+    pre.next = pre.next.next
+};
+
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var climbStairs = (function (n) {
+    var temp = {
+        1: 1,
+        2: 2
+    }
+    return function fn() {
+        if (n in temp) {
+            return temp[n]
+        }
+        return fn(n - 1) + fn(n - 2)
+    }
+}())
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var rob = function (nums) {
+    if (!nums.length) {
+        return 0
+    }
+    if (nums.length === 1) {
+        return nums[0]
+    }
+    nums[1] = Math.max(nums[0], nums[1])
+    for (const [index, val] of nums.entries()) {
+        if (index < 2) {
+            continue
+        }
+        nums[index] = Math.max(nums[index] + nums[index - 2], nums[index - 1])
+    }
+    console.log(nums)
+};
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var rob = function (nums) {
+    if (!nums.length) {
+        return 0
+    }
+    if (nums.length === 1) {
+        return nums[0]
+    }
+    var pre = nums[0]
+    var curr = Math.max(nums[0], nums[1])
+    var temp
+    for (const [_, val] of nums.slice(2).entries()) {
+        // if (index < 2) {
+        //            continue
+        //        }
+        temp = curr
+        curr = Math.max(val + pre, curr)
+        pre = temp
+    }
+    return curr
+};
+
+/**
+ * @param {number} num
+ * @return {number[]}
+ */
+var countBits = function (num) {
+    var i = 0
+    var reg = /1/g
+    var arr = new Array(num)
+    var match
+    while (i <= num) {
+        match = i.toString(2).match(reg)
+        arr[i] = match ? match.length : 0
+        i++
+    }
+    return arr
+};
