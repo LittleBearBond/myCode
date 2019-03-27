@@ -469,7 +469,7 @@ var longestPalindrome = function (str) {
             left = i + 1
         }
     }
-    for (var i = 0 ; i< str.length;i++) {
+    for (var i = 0; i < str.length; i++) {
         find(i, i)
         find(i, i + 1)
     }
@@ -488,7 +488,7 @@ var countSubstrings = function (str) {
             count++
         }
     }
-    for (var i = 0 ; i< str.length;i++) {
+    for (var i = 0; i < str.length; i++) {
         find(i, i)
         find(i, i + 1)
     }
@@ -693,3 +693,173 @@ var countBits = function (num) {
     }
     return arr
 };
+
+var findSet = function (nums, current, ret, start, target) {
+    if (target < 0) {
+        return
+    }
+    if (target === 0) {
+        ret.push([...current])
+        return
+    }
+    for (let i = start; i < nums.length; i++) {
+        if (i > start && nums[i] === nums[i - 1]) {
+            continue
+        }
+        current.push(nums[i])
+        findSet(nums, current, ret, i + 1, target - nums[i])
+        current.pop()
+    }
+}
+var combinationSum2 = function (nums, target) {
+    var ret = []
+    var current = []
+    nums.sort((a, b) => a - b)
+    findSet(nums, current, ret, 0, target)
+    return ret
+}
+debugger
+combinationSum2([10, 1, 2, 7, 6, 1, 5], 8)
+
+var findSet = function (k, n, current, ret, start, target) {
+    if (target < 0 || current.length > k) {
+        return
+    }
+    if (target === 0 && current.length === k) {
+        ret.push(current.slice())
+        return
+    }
+    for (let i = start; i < n; i++) {
+        current.push(i)
+        findSet(k, n, current, ret, i + 1, target - i)
+        current.pop()
+    }
+}
+var combinationSum3 = function (k, n) {
+    var ret = []
+    var current = []
+    findSet(k, n, current, ret, 1, n)
+    return ret
+}
+debugger
+combinationSum3(3, 7)
+
+var combinationSum4 = function (nums, target) {
+    var ret = 0
+    var curr = []
+    var dfs = function (nums, start, target) {
+        if (target < 0) {
+            return;
+        }
+        if (target === 0) {
+            console.log(curr)
+            ret++
+            return
+        }
+        for (let i = 0; i < nums.length; i++) {
+            curr.push(nums[i])
+            dfs(nums, i, target - nums[i])
+            curr.pop()
+        }
+    }
+    dfs(nums, 0, target)
+    return ret
+};
+debugger
+combinationSum4([1, 2, 3], 4)
+
+function combinationSum4(nums, target) {
+    var dp = Array(target + 1).fill(0)
+    dp[0] = 1;
+    for (let i = 1; i <= target; i++) {
+        for (let n of nums) {
+            if (n > i) {
+                break;
+            }
+            if (n === i) {
+                dp[i]++;
+                continue;
+            }
+            if (dp[i - n]) {
+                dp[i] += dp[i - n];
+            }
+        }
+    }
+    dp[target - 1]
+}
+
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var permute = function (nums) {
+    if (nums.length <= 1) {
+        return [nums]
+    }
+    var retArr = permute(nums.slice(1))
+    var result = [];
+    for (const v of retArr) {
+        for (let i = 0; i <= v.length; i++) {
+            result.push([...v.slice(0, i), nums[0], ...v.slice(i)])
+        }
+    }
+    return result;
+
+};
+
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var permuteUnique = function (nums) {
+    var curr = []
+    var ret = []
+    var used = []
+    nums.sort((a, b) => a - b)
+
+    function dfs(ret, curr, used) {
+        if (curr.length === nums.length) {
+            ret.push(curr.slice())
+            return
+        }
+        for (let i = 0; i < nums.length; i++) {
+            if (used[i] || (i > 0 && nums[i - 1] === nums[i] && used[i - 1] === false)) {
+                continue;
+            }
+            curr.push(nums[i])
+            used[i] = true;
+            dfs(ret, curr, used)
+            used[i] = false;
+            curr.pop()
+        }
+    }
+    dfs(ret, curr, used)
+    return ret
+};
+
+debugger
+permuteUnique([1, 1, 2])
+
+var permuteUnique = function (nums) {
+    if (nums.length <= 1) {
+        return [nums]
+    }
+    var retArr = permuteUnique(nums.slice(1))
+    var result = [];
+    var cache = {},
+        key, curr
+    for (const v of retArr) {
+        for (let i = 0; i <= v.length; i++) {
+            curr = [...v.slice(0, i), nums[0], ...v.slice(i)]
+            key = curr.join('')
+            if (!(key in cache)) {
+                cache[key] = true
+                console.log(key, cache)
+                result.push(curr)
+            }
+        }
+    }
+    return result;
+};
+debugger
+permute([1, 1, 2])
