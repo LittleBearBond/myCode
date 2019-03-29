@@ -863,3 +863,116 @@ var permuteUnique = function (nums) {
 };
 debugger
 permute([1, 1, 2])
+
+
+var flipAndInvertImage = function (A) {
+    for (const a of A) {
+        a.reverse()
+        for (const [i, ia] of a.entries()) {
+            a[i] = a[i] ^ 1
+        }
+    }
+};
+var mergeTwoLists = function (l1, l2) {
+    var head = new ListNode(0)
+    var curr = head
+    while (l1 && l2) {
+        if (l1.val < l2.val) {
+            curr.next = new ListNode(l1.val)
+            l1 = l1.next
+        } else {
+            curr.next = new ListNode(l2.val)
+            l2 = l2.next
+        }
+        curr = curr.next
+    }
+    curr.next = l1 || l2
+    return head.next
+};
+
+var letterCasePermutation = function (nums) {
+    var ret = [
+        ''
+    ]
+    var len = nums.length
+    for (var i = 0; i < len; i++) {
+        if (nums.charCodeAt(i) > 57) {
+            var charU = nums[i].toUpperCase();
+            var charL = nums[i].toLowerCase();
+            ret = ret.slice().map(v => v + charU).concat(ret.map(v => v + charL))
+        } else {
+            ret = ret.map(v => v + nums[i])
+        }
+    }
+    return ret
+};
+
+var maxProfit = function (prices) {
+    var count = 0;
+    var min = Number.MAX_VALUE
+    for (const n of prices) {
+        min = Math.min(min, n)
+        if (n > min) {
+            count += (n - min)
+            min = n
+        }
+    }
+    return count
+};
+/**
+ * @param {string[]} emails
+ * @return {number}
+ */
+var numUniqueEmails = function (emails) {
+    for (let [i, e] of emails.entries()) {
+        emails = e.replace(/(\+.*@)/g, '@').replace(/\.(.+@)/g, (a, b) => b)
+    }
+    return new Set(emails).size
+};
+
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var peakIndexInMountainArray = function (A) {
+    var left = 0
+    var right = A.length - 1
+    var middleIndex, val;
+    while (left <= right) {
+        middleIndex = Math.floor((left + right) / 2)
+        val = A[middleIndex]
+        if (val < A[middleIndex - 1]) {
+            right = middleIndex - 1
+        } else if (val > A[middleIndex - 1] && val < A[middleIndex + 1]) {
+            left = middleIndex + 1
+        } else {
+            return middleIndex
+        }
+    }
+};
+
+/**
+ * @param {number[]} g
+ * @param {number[]} s
+ * @return {number}
+ */
+var findContentChildren = function (g, s) {
+    const sortFn = (a, b) => a - b
+    g.sort(sortFn)
+    s.sort(sortFn)
+    let count = 0
+    var lastIndex = 0
+    for (let [i, v] of g.entries()) {
+        for (let j = lastIndex; j < s.length; j++) {
+            if (i > s.length) {
+                return count
+            }
+            if (s[j] >= v) {
+                count++
+                lastIndex = j + 1
+                break
+            }
+        }
+    }
+    return count
+};
