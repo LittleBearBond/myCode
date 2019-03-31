@@ -513,3 +513,226 @@ var isPalindrome = function(s) {
     }
     return true
 };
+
+/**
+ * @param {number[]} A
+ * @param {number} K
+ * @return {number[]}
+ */
+var addToArrayForm = function(A, K) {
+    var res = []
+    var pre = 0
+    var a
+    while (A.length) {
+        a = A.pop()
+        res.unshift((a + K % 10 + pre) % 10)
+        pre = Math.floor((a + K % 10 + pre) / 10)
+        K = Math.floor(K / 10)
+    }
+    if (K > 0) {
+        k += pre
+        while (K > 0) {
+            res.unshift(K % 10)
+            K = Math.floor(K / 10)
+        }
+    } else if (pre) {
+        res.unshift(pre)
+    }
+
+    console.log(res)
+};
+
+var addStrings = function(num1, num2) {
+    var pre = 0
+    var curr, ret = ''
+    num1 = num1.split('')
+    num2 = num2.split('')
+    while (num1.length || num2.length) {
+        var n1 = num1.pop() | 0
+        var n2 = num2.pop() | 0
+        curr = n1 + n2 + pre
+        ret = curr % 10 + ret
+        pre = Math.floor(curr / 10)
+    }
+    if (pre > 0) {
+        ret = pre + ret
+    }
+    return ret
+};
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var threeSumClosest = function(nums, target) {
+    nums.sort((a, b) => a - b)
+    var closet = nums[0] + nums[1] + nums[2],
+        len = nums.length
+    var l, r, curr
+    for (i = 0; i < len - 2; i++) {
+        l = i + 1
+        r = len - 1
+        while (l < r) {
+            curr = nums[i] + nums[l] + nums[r]
+            if (Math.abs(curr - target) < Math.abs(closet - target)) {
+                closet = curr
+            }
+            if (closet > target) {
+                r--
+            } else if (closet < target) {
+                l++
+            } else {
+                return closet
+            }
+        }
+    }
+    return closet
+};
+
+
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var threeSum = function(nums) {
+    nums.sort((a, b) => a - b)
+    var len = nums.length
+    var ret = [],
+        sum
+    for (i = 0; i < len - 2; i++) {
+        if (nums[i] === nums[i - 1]) {
+            continue;
+        }
+        var j = i + 1;
+        var k = len - 1
+        while (j < k) {
+            sum = nums[i] + nums[j] + nums[k]
+            if (sum === 0) {
+                ret.push([nums[i], nums[j], nums[k]])
+                k--
+                j++
+                // j向右移动，剔除相同的值
+                while (j < k && nums[j] === nums[j - 1]) {
+                    j++
+                }
+                // k向左移动，剔除相同的值
+                while (j < k && nums[k] === nums[k + 1]) {
+                    k--
+                }
+            } else if (sum < 0) {
+                j++
+            } else {
+                k--
+            }
+        }
+    }
+    return ret
+};
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[][]}
+ */
+var fourSum = function(nums, target) {
+    nums.sort((a, b) => a - b)
+    var len = nums.length
+    var ret = [],
+        sum, threeSum
+    for (i = 0; i < len - 3; i++) {
+        if (nums[i] === nums[i - 1]) {
+            continue;
+        }
+        threeSum = target - nums[i]
+        for (var j = i + 1; j < len - 2; j++) {
+            if (j > i + 1 && nums[j] === nums[j - 1]) {
+                continue;
+            }
+            var l = j + 1;
+            var r = len - 1
+            while (l < r) {
+                sum = nums[j] + nums[l] + nums[r]
+                if (threeSum - sum === 0) {
+                    ret.push([nums[i], nums[j], nums[l], nums[r]])
+                    r--
+                    l++
+                    // l向右移动，剔除相同的值
+                    while (l < r && nums[l] === nums[l - 1]) {
+                        l++
+                    }
+                    // r向左移动，剔除相同的值
+                    while (l < r && nums[r] === nums[r + 1]) {
+                        r--
+                    }
+                } else if (threeSum - sum < 0) {
+                    r--
+                } else {
+                    l++
+                }
+            }
+        }
+    }
+    return ret
+};
+
+function twoSum(nums, target) {
+    var cache = {}
+    for (const n of nums) {
+        if ((target - n) in cache) {
+            return [n, target - n]
+        } else {
+            cache[n] = true
+        }
+    }
+    return []
+}
+
+function threeSum(nums, target) {
+    nums.sort((a, b) => a - b)
+    var len = nums.length
+    var twoSum, ret = []
+    for (let i = 0; i < len - 2; i++) {
+        if (nums[i] === nums[i - 1]) {
+            continue;
+        }
+        var l = i + 1
+        var r = len - 1
+        while (l < r) {
+            twoSum = target - nums[i] - nums[l] - nums[r]
+            if (twoSum === 0) {
+                ret.push([nums[i], nums[l], nums[r]])
+                l++
+                r--
+                while (l < r && nums[l] === nums[l - 1]) {
+                    l++
+                }
+                while (l < r && nums[r] === nums[r + 1]) {
+                    r--
+                }
+            } else if (twoSum < 0) {
+                r--
+            } else {
+                l++
+            }
+        }
+    }
+    return ret
+}
+
+function fourSum(nums, target) {
+    var i = 0
+    var len = nums.length
+    var ret = [];
+    nums.sort((a, b) => a - b)
+    for (; i < len - 1; i++) {
+        if (nums[i] === nums[i - 1]) {
+            continue;
+        }
+        var threeResult = threeSum([...nums.slice(0, i), ...nums.slice(i + 1, len)], target - nums[i]);
+        console.log(threeResult, target - nums[i])
+        if (threeResult.length) {
+            ret.push(...threeResult.map(v => ([nums[i], ...v])))
+        }
+    }
+    return ret
+}
