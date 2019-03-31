@@ -724,11 +724,11 @@ function fourSum(nums, target) {
     var len = nums.length
     var ret = [];
     nums.sort((a, b) => a - b)
-    for (; i < len - 1; i++) {
+    for (; i < len - 3; i++) {
         if (nums[i] === nums[i - 1]) {
             continue;
         }
-        var threeResult = threeSum([...nums.slice(0, i), ...nums.slice(i + 1, len)], target - nums[i]);
+        var threeResult = threeSum(nums.slice(i + 1, len), target - nums[i]);
         console.log(threeResult, target - nums[i])
         if (threeResult.length) {
             ret.push(...threeResult.map(v => ([nums[i], ...v])))
