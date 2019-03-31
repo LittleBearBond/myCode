@@ -57,6 +57,8 @@
 
 ## 移动端
 
+[浅谈混合应用的演进](https://juejin.im/post/5b189fc9f265da6e326c5104)
+
 ## 性能优化
 
 [2018 前端性能优化清单](https://juejin.im/post/5a966bd16fb9a0635172a50a)
