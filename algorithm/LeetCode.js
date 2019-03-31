@@ -1,5 +1,5 @@
 // LeetCode 38. Count and Say
-var countAndSay = function (n) {
+var countAndSay = function(n) {
     if (n < 1) {
         return '1'
     }
@@ -33,7 +33,7 @@ console.log(countAndSay(12111))
 
 // LeetCode 125. Valid Palindrome
 
-var isPalindrome = function (str) {
+var isPalindrome = function(str) {
     if (!str) {
         return false;
     }
@@ -47,7 +47,7 @@ console.log(isPalindrome("sdfd df"))
 
 // LeetCode 258. Add Digits
 // num = 38，則 3+8 = 11，1+1 = 2, 2是個為數，回傳2。
-var addDigits = function (num) {
+var addDigits = function(num) {
     if (num < 10) {
         return num
     }
@@ -73,7 +73,7 @@ console.log(addDigits(138))
  * @return {boolean}
  */
 let visited
-var exist = function (board, word) {
+var exist = function(board, word) {
     const arr = new Array(board[0].length)
     visited = Array.from({
         length: board.length
@@ -87,7 +87,7 @@ var exist = function (board, word) {
     }
     return false
 };
-const dfs = function (board, word, i, j, index) {
+const dfs = function(board, word, i, j, index) {
     if (index === word.length) {
         return true
     }
@@ -113,7 +113,7 @@ exist([
     ["A", "D", "E", "E"]
 ], "ABCCED")
 
-var maxProduct = function (nums) {
+var maxProduct = function(nums) {
     if (nums == null || nums.length == 0) {
         return 0;
     }
@@ -135,7 +135,7 @@ var maxProduct = function (nums) {
 
     return res;
 };
-var maxProduct = function (nums) {
+var maxProduct = function(nums) {
     if (nums == null || nums.length == 0) {
         return 0;
     }
@@ -163,7 +163,7 @@ maxProduct([-2, 0, -1])
  * @param {number[]} nums
  * @return {number[][]}
  */
-var threeSum = function (nums) {
+var threeSum = function(nums) {
     const n = nums.length
     const res = []
     let begin, end, sum;
@@ -211,7 +211,7 @@ var threeSum = function (nums) {
  * @param {string} str
  * @return {number}
  */
-var longestValidParentheses = function (str) {
+var longestValidParentheses = function(str) {
     let res = 0;
     let arr = [-1]
     for (const i = 0; i < str.length; i++) {
@@ -235,7 +235,7 @@ console.log(longestValidParentheses('(()'))
  * @param {number[][]} obstacleGrid
  * @return {number}
  */
-var uniquePathsWithObstacles = function (obstacleGrid) {
+var uniquePathsWithObstacles = function(obstacleGrid) {
     var item = new Array(obstacleGrid[0].length)
     var arr = new Array(obstacleGrid.length).fill([...item])
     for (let i = 0; i < obstacleGrid.length; i++) {
@@ -272,7 +272,7 @@ uniquePathsWithObstacles([
  * @param {number[]} nums
  * @return {boolean}
  */
-var containsDuplicate = function (nums) {
+var containsDuplicate = function(nums) {
     const map = {}
     for (const v of nums) {
         if (v in map) {
@@ -286,12 +286,12 @@ var containsDuplicate = function (nums) {
  * @param {string} s
  * @return {number}
  */
-var firstUniqChar = function (s) {
+var firstUniqChar = function(s) {
     const map = {}
     for (const v of s) {
         if (v in map) {
             map[v]++
-            continue
+                continue
         }
         map[v] = 1
     }
@@ -303,7 +303,7 @@ var firstUniqChar = function (s) {
     return -1
 };
 
-var plusOne = function (digits) {
+var plusOne = function(digits) {
     let {
         length
     } = digits
@@ -334,7 +334,7 @@ var plusOne = function (digits) {
  * @param {number} n
  * @return {void} Do not return anything, modify nums1 in-place instead.
  */
-var merge = function (nums1, m, nums2, n) {
+var merge = function(nums1, m, nums2, n) {
     let i = m - 1
     let j = n - 1
     let index = m + n - 1
@@ -351,7 +351,7 @@ var merge = function (nums1, m, nums2, n) {
     }
     return nums1
 };
-const fn = (function () {
+const fn = (function() {
     const temp = {
         0: 0,
         1: 1
@@ -378,7 +378,7 @@ function fiboDp(n) {
  * @param {number[]} nums
  * @return {number}
  */
-var longestConsecutive = function (nums) {
+var longestConsecutive = function(nums) {
     var set = new Set()
     for (const v of nums) {
         set.add(v, 0)
@@ -405,14 +405,14 @@ var longestConsecutive = function (nums) {
  * @param {TreeNode} root
  * @return {number}
  */
-var maxDepth = function (root) {
+var maxDepth = function(root) {
     if (root != null) {
         return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1
     }
     return 0
 };
 
-var singleNumber = function (nums) {
+var singleNumber = function(nums) {
     var sum = n => n.reduce((sum, curr) => {
         return sum += curr
     }, 0)
@@ -424,7 +424,7 @@ var singleNumber = function (nums) {
  * @param {ListNode} l2
  * @return {ListNode}
  */
-var addTwoNumbers = function (l1, l2) {
+var addTwoNumbers = function(l1, l2) {
     var List = new ListNode(0);
     var head = List;
     var sum = 0;
@@ -454,4 +454,62 @@ var addTwoNumbers = function (l1, l2) {
     }
 
     return List.next;
+};
+/**
+ * @param {number} n
+ * @return {string}
+ */
+var countAndSay = function(n) {
+    var str = '1'
+    var i = 1
+    var count = 0
+    while (i < n) {
+        count = 0;
+        // 2 1
+        var conuntAndSay = ''
+        var pre = str[0]
+        for (const s of str) {
+            if (s === pre) {
+                count++
+            } else {
+                conuntAndSay += `${count}${pre}`
+                count = 1
+                pre = s
+            }
+        }
+        conuntAndSay += `${count}${pre}`
+        str = conuntAndSay
+        i++
+    }
+    return str.split('')
+};
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isPalindrome = function(s) {
+    if (!s) {
+        return true
+    }
+    var start = 0
+    var end = s.length - 1
+    var reg = /[a-zA-Z]|[0-9]/
+    s = s.toLowerCase()
+    while (start <= end) {
+        if (!reg.test(s[start])) {
+            start++
+            continue;
+        }
+        if (!reg.test(s[end])) {
+            end--
+            continue;
+        }
+        if (s[start] !== s[end]) {
+            return false
+        }
+        start++
+        end--
+    }
+    return true
 };
