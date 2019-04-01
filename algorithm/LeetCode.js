@@ -1,5 +1,5 @@
 // LeetCode 38. Count and Say
-var countAndSay = function(n) {
+var countAndSay = function (n) {
     if (n < 1) {
         return '1'
     }
@@ -33,7 +33,7 @@ console.log(countAndSay(12111))
 
 // LeetCode 125. Valid Palindrome
 
-var isPalindrome = function(str) {
+var isPalindrome = function (str) {
     if (!str) {
         return false;
     }
@@ -47,7 +47,7 @@ console.log(isPalindrome("sdfd df"))
 
 // LeetCode 258. Add Digits
 // num = 38，則 3+8 = 11，1+1 = 2, 2是個為數，回傳2。
-var addDigits = function(num) {
+var addDigits = function (num) {
     if (num < 10) {
         return num
     }
@@ -73,7 +73,7 @@ console.log(addDigits(138))
  * @return {boolean}
  */
 let visited
-var exist = function(board, word) {
+var exist = function (board, word) {
     const arr = new Array(board[0].length)
     visited = Array.from({
         length: board.length
@@ -87,7 +87,7 @@ var exist = function(board, word) {
     }
     return false
 };
-const dfs = function(board, word, i, j, index) {
+const dfs = function (board, word, i, j, index) {
     if (index === word.length) {
         return true
     }
@@ -113,7 +113,7 @@ exist([
     ["A", "D", "E", "E"]
 ], "ABCCED")
 
-var maxProduct = function(nums) {
+var maxProduct = function (nums) {
     if (nums == null || nums.length == 0) {
         return 0;
     }
@@ -135,7 +135,7 @@ var maxProduct = function(nums) {
 
     return res;
 };
-var maxProduct = function(nums) {
+var maxProduct = function (nums) {
     if (nums == null || nums.length == 0) {
         return 0;
     }
@@ -163,7 +163,7 @@ maxProduct([-2, 0, -1])
  * @param {number[]} nums
  * @return {number[][]}
  */
-var threeSum = function(nums) {
+var threeSum = function (nums) {
     const n = nums.length
     const res = []
     let begin, end, sum;
@@ -211,7 +211,7 @@ var threeSum = function(nums) {
  * @param {string} str
  * @return {number}
  */
-var longestValidParentheses = function(str) {
+var longestValidParentheses = function (str) {
     let res = 0;
     let arr = [-1]
     for (const i = 0; i < str.length; i++) {
@@ -235,7 +235,7 @@ console.log(longestValidParentheses('(()'))
  * @param {number[][]} obstacleGrid
  * @return {number}
  */
-var uniquePathsWithObstacles = function(obstacleGrid) {
+var uniquePathsWithObstacles = function (obstacleGrid) {
     var item = new Array(obstacleGrid[0].length)
     var arr = new Array(obstacleGrid.length).fill([...item])
     for (let i = 0; i < obstacleGrid.length; i++) {
@@ -272,7 +272,7 @@ uniquePathsWithObstacles([
  * @param {number[]} nums
  * @return {boolean}
  */
-var containsDuplicate = function(nums) {
+var containsDuplicate = function (nums) {
     const map = {}
     for (const v of nums) {
         if (v in map) {
@@ -286,12 +286,12 @@ var containsDuplicate = function(nums) {
  * @param {string} s
  * @return {number}
  */
-var firstUniqChar = function(s) {
+var firstUniqChar = function (s) {
     const map = {}
     for (const v of s) {
         if (v in map) {
             map[v]++
-                continue
+            continue
         }
         map[v] = 1
     }
@@ -303,7 +303,7 @@ var firstUniqChar = function(s) {
     return -1
 };
 
-var plusOne = function(digits) {
+var plusOne = function (digits) {
     let {
         length
     } = digits
@@ -334,7 +334,7 @@ var plusOne = function(digits) {
  * @param {number} n
  * @return {void} Do not return anything, modify nums1 in-place instead.
  */
-var merge = function(nums1, m, nums2, n) {
+var merge = function (nums1, m, nums2, n) {
     let i = m - 1
     let j = n - 1
     let index = m + n - 1
@@ -351,7 +351,7 @@ var merge = function(nums1, m, nums2, n) {
     }
     return nums1
 };
-const fn = (function() {
+const fn = (function () {
     const temp = {
         0: 0,
         1: 1
@@ -378,7 +378,7 @@ function fiboDp(n) {
  * @param {number[]} nums
  * @return {number}
  */
-var longestConsecutive = function(nums) {
+var longestConsecutive = function (nums) {
     var set = new Set()
     for (const v of nums) {
         set.add(v, 0)
@@ -405,14 +405,14 @@ var longestConsecutive = function(nums) {
  * @param {TreeNode} root
  * @return {number}
  */
-var maxDepth = function(root) {
+var maxDepth = function (root) {
     if (root != null) {
         return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1
     }
     return 0
 };
 
-var singleNumber = function(nums) {
+var singleNumber = function (nums) {
     var sum = n => n.reduce((sum, curr) => {
         return sum += curr
     }, 0)
@@ -424,7 +424,7 @@ var singleNumber = function(nums) {
  * @param {ListNode} l2
  * @return {ListNode}
  */
-var addTwoNumbers = function(l1, l2) {
+var addTwoNumbers = function (l1, l2) {
     var List = new ListNode(0);
     var head = List;
     var sum = 0;
@@ -459,7 +459,7 @@ var addTwoNumbers = function(l1, l2) {
  * @param {number} n
  * @return {string}
  */
-var countAndSay = function(n) {
+var countAndSay = function (n) {
     var str = '1'
     var i = 1
     var count = 0
@@ -488,7 +488,7 @@ var countAndSay = function(n) {
  * @param {string} s
  * @return {boolean}
  */
-var isPalindrome = function(s) {
+var isPalindrome = function (s) {
     if (!s) {
         return true
     }
@@ -519,7 +519,7 @@ var isPalindrome = function(s) {
  * @param {number} K
  * @return {number[]}
  */
-var addToArrayForm = function(A, K) {
+var addToArrayForm = function (A, K) {
     var res = []
     var pre = 0
     var a
@@ -542,7 +542,7 @@ var addToArrayForm = function(A, K) {
     console.log(res)
 };
 
-var addStrings = function(num1, num2) {
+var addStrings = function (num1, num2) {
     var pre = 0
     var curr, ret = ''
     num1 = num1.split('')
@@ -564,7 +564,7 @@ var addStrings = function(num1, num2) {
  * @param {number} target
  * @return {number}
  */
-var threeSumClosest = function(nums, target) {
+var threeSumClosest = function (nums, target) {
     nums.sort((a, b) => a - b)
     var closet = nums[0] + nums[1] + nums[2],
         len = nums.length
@@ -594,7 +594,7 @@ var threeSumClosest = function(nums, target) {
  * @param {number[]} nums
  * @return {number[][]}
  */
-var threeSum = function(nums) {
+var threeSum = function (nums) {
     nums.sort((a, b) => a - b)
     var len = nums.length
     var ret = [],
@@ -634,7 +634,7 @@ var threeSum = function(nums) {
  * @param {number} target
  * @return {number[][]}
  */
-var fourSum = function(nums, target) {
+var fourSum = function (nums, target) {
     nums.sort((a, b) => a - b)
     var len = nums.length
     var ret = [],
@@ -736,3 +736,152 @@ function fourSum(nums, target) {
     }
     return ret
 }
+const toMap = str => str.reduce((obj, key) => {
+    obj[key] = true
+    obj[key.toUpperCase()] = true
+    return obj
+}, {})
+const one = toMap(["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"])
+const two = toMap(["a", "s", "d", "f", "g", "h", "j", "k", "l"])
+const three = toMap(["z", "x", "c", "v", "b", "n", "m"])
+
+var findWords = function (words) {
+    var ret = []
+    var currLine, isInOneLine
+    for (let w of words) {
+        currLine = w[0] in one ? one : w[0] in two ? two : three
+        isInOneLine = true
+        for (const s of w) {
+            if (!(s in currLine)) {
+                isInOneLine = false
+                break
+            }
+        }
+        isInOneLine && ret.push(w)
+    }
+    return ret
+};
+
+var insertIntoBST = function (root, val) {
+    var newNode = new TreeNode(val)
+    if (root == null) {
+        return newNode
+    }
+
+    var insertNode = function (node, newNode) {
+        if (node.val < newNode.val) {
+            if (node.right === null) {
+                node.right = newNode
+            } else {
+                insertNode(node.right, newNode)
+            }
+        } else {
+            if (node.left === null) {
+                node.left = newNode
+            } else {
+                insertNode(node.left, newNode)
+            }
+        }
+    }
+    insertNode(root, newNode)
+};
+var min = Number.MIN_SAFE_INTEGER
+var minDiffInBST = function (root) {
+    if (root === null) {
+        return 0;
+    }
+    var {
+        left,
+        right,
+        val
+    } = root;
+    if (left && right) {
+        min = Math.min(min, Math.abs(val - right.val), Math.abs(val - left.val))
+        minDiffInBST(left)
+        minDiffInBST(right)
+    } else if (left) {
+        min = Math.min(min, Math.abs(val - left.val))
+        minDiffInBST(left)
+    } else if (right) {
+        min = Math.min(min, Math.abs(val - right.val))
+        minDiffInBST(right)
+    }
+    return min;
+};
+var majorityElement = function (nums) {
+    var cache = {}
+
+    var n = Math.floor(nums.length / 2)
+
+    for (let a of nums) {
+        if (a in cache) {
+            cache[a]++
+            if (cache[a] >= n) {
+                return a
+            }
+        } else {
+            cache[a] = 1
+        }
+    }
+};
+/**
+ * @param {number[][]} matrix
+ * @param {number} target
+ * @return {boolean}
+ */
+var searchMatrix = function (matrix, target) {
+    var len = matrix.length
+    if (!len) {
+        return false
+    }
+    var i = len - 1
+    var j = 0
+    var curr = target - 1
+    while (curr !== target && i >= 0 && j < len) {
+        curr = matrix[i][j]
+        // 不在这一行，往上一行查找
+        if (curr > target) {
+            i--
+            continue;
+        }
+        // 不在第一列
+        if (curr < target) {
+            j++
+            continue;
+        }
+        return true
+    }
+    return false
+};
+
+var generateMatrix = function (n) {
+    var arr = Array(n).fill(0).map(v => Array(n));
+    var c = 1,
+        j = 0;
+    while (c <= n * n) {
+
+        // to Right;
+        // [j][i] j行 i 列；i=j --> i < n-j
+        for (var i = j; i < n - j; i++) {
+            arr[j][i] = c++;
+        }
+        // to Bottom
+        // [i][n-j-1]  i = j+1 ---> n-j;
+        for (var i = j + 1; i < n - j; i++) {
+            arr[i][n - j - 1] = c++;
+        }
+        // to Left
+        // [n-j-1][i] i = n-j-2 --> j
+        for (var i = n - j - 2; i >= j; i--) {
+            arr[n - j - 1][i] = c++;
+        }
+        // to Top
+        // [i][j]  i= n -j -2 --> j
+        for (var i = n - j - 2; i > j; i--) {
+            arr[i][j] = c++;
+        }
+        j++;
+    }
+
+    return arr;
+};

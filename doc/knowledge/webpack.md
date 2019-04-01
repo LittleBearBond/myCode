@@ -16,6 +16,7 @@ webpack4.0打包优化策略
 - [优化策略1](https://juejin.im/post/5abbc2ca5188257ddb0fae9b)
 - [优化策略2](https://juejin.im/post/5ac769e7f265da237b225490)
 - [优化策略3](https://juejin.im/post/5ac76a8f51882555677ecc06)
+- [简单手写webpack](https://github.com/dykily/simple_webpack/blob/master/bundler.js)
 
 ### tapable 面向切面的插件思想
 

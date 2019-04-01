@@ -131,3 +131,7 @@ window.onerror = function(msg,url,line,col,error){
 
     defer: HTML 4.0 规范，其作用是，告诉浏览器，等到 DOM+CSSOM 渲染完成，再执行指定脚本。有顺序，阻塞DOMContentLoaded。能够保证脚本下载顺序。
     async: HTML 5 规范，其作用是，使用另一个进程下载脚本，下载时不会阻塞渲染，并且下载完成后立刻执行。不会阻塞DOMContentLoaded，和defer同事存在的时候，优先级高于defer。不能保证脚本下载顺序
+
+### 排序
+
+[算法及排序](https://juejin.im/post/5c72280351882562914edb61#heading-19)
