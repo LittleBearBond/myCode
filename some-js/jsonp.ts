@@ -1,6 +1,6 @@
 /**
  * @author xiongjian
- * @email xiongjian@didichuxing.com
+ * @email xiongjian@x.com
  * @create date 2017-09-03 12:23:24
  * @modify date 2017-09-03 12:23:24
  * @desc [description]
