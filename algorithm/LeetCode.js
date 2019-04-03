@@ -885,3 +885,139 @@ var generateMatrix = function (n) {
 
     return arr;
 };
+
+
+/**
+ * @param {number[][]} matrix
+ * @param {number} target
+ * @return {boolean}
+ */
+var searchMatrix = function (matrix, target) {
+    var len = matrix.length
+    var oneLen = matrix[0].length
+    if (!len || !oneLen) {
+        return false
+    }
+    var line = 0
+    while (line < len) {
+        if (target < matrix[line][oneLen - 1]) {
+            return binarySearch(matrix[line], target)
+        } else if (target === matrix[line][oneLen - 1]) {
+            return true
+        }
+        line++
+    }
+    return false
+};
+
+var binarySearch = function (arr, target) {
+    var l = 0
+    var r = arr.length - 1
+    var mid;
+    while (l <= r) {
+        mid = Math.floor((l + r) / 2);
+        if (arr[mid] < target) {
+            l = mid + 1
+        } else if (arr[mid] > target) {
+            r = mid - 1
+        } else {
+            return true
+        }
+    }
+    return false
+}
+
+/**
+ * @param {number[][]} matrix
+ * @return {void} Do not return anything, modify matrix in-place instead.
+ */
+var setZeroes = function (matrix) {
+    var len = matrix.length
+    var lineLen = matrix[0].length
+    var vSet = new Set()
+    var hSet = new Set()
+    for (let i = 0; i < len; i++) {
+        for (let j = 0; j < lineLen; j++) {
+            if (matrix[i][j] === 0) {
+                vSet.add(i)
+                hSet.add(j)
+            }
+        }
+    }
+    [...vSet].forEach(i => {
+        for (let v = 0; v < lineLen; v++) {
+            matrix[i][v] = 0
+        }
+    });
+    [...hSet].forEach(j => {
+        for (let h = 0; h < len; h++) {
+            matrix[h][j] = 0
+        }
+    })
+};
+// [5,6,7,0,0,1,2,3]
+// 81. 搜索旋转排序数组 II
+var search = function (nums, target) {
+    var l = 0
+    var r = nums.length - 1
+    var mid, curr
+    while (l <= r) {
+        //处理重复数字
+        while (l < r && nums[l] === nums[l + 1]) {
+            ++l
+        };
+        while (l < r && nums[r] === nums[r - 1]) {
+            --r
+        };
+        mid = Math.floor((l + r) / 2)
+        curr = nums[mid]
+        if (curr === target) {
+            return true
+        }
+        if (curr >= nums[l]) {
+            if (curr > target && target >= nums[l]) {
+                r = mid - 1
+            } else {
+                l = mid + 1
+            }
+        } else {
+            if (curr < target && target <= nums[r]) {
+                l = mid + 1
+            } else {
+                r = mid - 1
+            }
+        }
+    }
+    return false
+};
+/*
+       A
+   B       C
+ D   E   F   G
+前序遍历 A BDE CFG
+中序遍历 DBE A FCG
+*/
+var buildTree = function (preorder, inorder) {
+    var inOrderMap = inorder.reduce((obj, key, index) => {
+        obj[key] = index
+        return obj
+    }, {})
+    var build = function (preStart, preEnd, inStart, inEnd) {
+        // 终止条件
+        if (preStart > preEnd || inStart > inEnd) {
+            return
+        }
+        var root = new TreeNode(preorder[preStart]);
+        // 中序遍历的index
+        var inRoot = inOrderMap[root.val];
+        // 左子树
+        var numsLeft = inRoot - inStart;
+        // 然后我们就可以知道两个子树的起点和终点
+        // preStart + 1 左子树根节点，一直当前节点中序遍历的位置 inRoot - inStart + preStart
+        root.left = build(preStart + 1, preStart + numsLeft, inStart, inRoot - 1);
+        // 右子数，中序遍历的index + 1
+        root.right = build(preStart + numsLeft + 1, preEnd, inRoot + 1, inEnd);
+        return root;
+    }
+    build(0, preorder.length - 1, 0, inorder.length - 1);
+};
