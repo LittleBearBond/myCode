@@ -1,5 +1,6 @@
-# https://mgechev.github.io/javascript-algorithms/index.html
+# 算法
 
-[javascript-algorithms](https://github.com/trekhleb/javascript-algorithms)
-
-[JavaScript 算法与数据结构](https://github.com/trekhleb/javascript-algorithms/blob/master/README.zh-CN.md)
+- [JavaScript手写代码](../doc/knowledge/write-code.md)
+- [javascript-algorithms](https://mgechev.github.io/javascript-algorithms/index.html)
+- [javascript-algorithms](https://github.com/trekhleb/javascript-algorithms)
+- [JavaScript 算法与数据结构](https://github.com/trekhleb/javascript-algorithms/blob/master/README.zh-CN.md)
