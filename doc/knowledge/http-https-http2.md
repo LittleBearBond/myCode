@@ -4,7 +4,7 @@
 
     expires
     Cache-Control
-	Last-Modified，If-Modified-Since
+    Last-Modified，If-Modified-Since
     ETag、If-None-Match
 
     HTTPS（全称：Hyper Text Transfer Protocol over Secure Socket Layer），是以安全为目标的HTTP通道。即HTTP下加入SSL层，HTTPS的安全基础是SSL，因此加密的详细内容就需要SSL

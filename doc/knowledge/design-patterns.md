@@ -32,7 +32,7 @@ var proxy = new Proxy(person, {
 
 ## 迭代器
 
-    把迭代过程从业务逻辑中抽离，$.each 、es6 iterator
+    把迭代过程从业务逻辑中抽离，$.each 、es6 iterator、 for of
 
 ## 发布订阅
 

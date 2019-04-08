@@ -21,7 +21,8 @@
     数组的扩展：扩展运算符...、console.log(...[1,2,3])；aa.push(...bb)；[...document.querySelectorAll('div')]、
 
         扩展运算符的应用:复制数组、替代函数的 apply 方法、合并数组、与解构赋值结合、字符串解构为数组、实现了 Iterator 接口的对象可直接使用...,扩展运算符内部调用的是数据结构的 Iterator 接口，因此只要具有 Iterator 接口的对象，都可以使用扩展运算符
-    Array.from方法用于将两类对象转为真正的数组
+
+    Array.from方法用于将两类对象转为真正的数组，Array.from({length:10},(v,index)=>index)
     Array.of方法用于将一组值，转换为数组
     find()、findIndex() 、fill()、entries()，keys() 和 values()、includes()
 
@@ -49,7 +50,7 @@
     map:Map 数据结构。它类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。也就是说，Object 结构提供了“字符串—值”的对应
 
     Promise:pending、fulfilled、rejected、then、catch、finally、all、race、resolve、reject
-        Promise 新建后就会立即执行：练习题 [](https://juejin.im/post/5a96c6326fb9a063626408c8)
+    Promise 新建后就会立即执行： [练习题](https://juejin.im/post/5a96c6326fb9a063626408c8)
 
     Iterator 和 for...of 循环，Iterator 接口主要供for...of消费，Iterator 接口的目的，就是为所有数据结构，提供了一种统一的访问机制，即for...of循环
     调用 Iterator 接口的场合：解构赋值、扩展运算符、yield*、for...of、Array.from()、Map(), Set(), WeakMap(), WeakSet()、Promise.all()、Promise.race()
@@ -147,6 +148,7 @@
 // babel-preset-stage-1(stage-1)
 // babel-preset-stage-2(stage-2)
 // babel-preset-stage-3(stage-3)
+// babel-preset-stage-3(stage-4)
 {
  // 此项指明，转码的规则
     "presets": [
