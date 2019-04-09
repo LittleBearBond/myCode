@@ -23,6 +23,21 @@
     word-break: normal|break-all|keep-all;
     word-wrap: normal|break-word;
 
+    white-space
+        normal: 忽略/合并空白
+        pre: 保留空白，如同<pre>的行为
+        nowrap: 忽略/合并空白，文本不会换行，直到遇到<br/>
+        pre-wrap: 保留空白，但是会正常地进行换行
+        pre-line: 忽略/合并空白，但是会正常地进行换行
+        inherit: 从父元素继承。
+    word-wrap
+        normal: 只在允许的断字点换行
+        break-word: 在长单词或URL地址内部进行换行
+    word-break
+        normal:依照亚洲和非亚洲语言的文本规则，允许在单词内换行。
+        keep-all:让亚洲语言文本如同非亚洲语言文本那样不允许在任意单词内换行。
+        break-all:允许非亚洲语言文本行如同亚洲语言文本那样可以在任意单词内换行。
+
 ```css
 /**单行省略号**/
 div
