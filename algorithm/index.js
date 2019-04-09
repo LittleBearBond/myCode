@@ -1051,6 +1051,446 @@ var rotate = function (matrix) {
         matrix[i].reverse()
     }
 };
+// 49. Group Anagrams 给定一个字符串数组，将字母异位词组合在一起。字母异位词指字母相同，但排列不同的字符串。
+/**
+ * ["eat", "tea", "tan", "ate", "nat", "bat"]
+ * [
+        ["ate","eat","tea"],
+        ["nat","tan"],
+        ["bat"]
+    ]
+    此题在于如何确定 "ate","eat","tea"这些是相同的字符串，我的一个想法很简单，a-z每个字符对应一个素数，每个单词乘积相等就是同一个串
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+var groupAnagrams = function (strs) {
+    const cache = {}
+    const prime = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103];
+    let total = 1
+    for (const str of strs) {
+        total = 1
+        for (const s of str) {
+            total *= prime[s.charCodeAt(0) - 97]
+        }
+        if (total in cache) {
+            cache[total].push(str)
+        } else {
+            cache[total] = [str]
+        }
+    }
+    return Object.values(cache)
+};
+// 53. Maximum Subarray 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+/**
+ * 需要O(n)复杂度，要得到连续子数组和最大，假设当前为num[i]，前面的和为sum, 当前的和为num[i]+sum, 如果这个数小于num[i]，那就直接等于num[i]，否则就是num[i] + sum 再与之前的max值进行比较
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function (nums) {
+    let sum = 0
+    let max = Number.MIN_SAFE_INTEGER
+    for (const n of nums) {
+        sum = Math.max(n + sum, n)
+        max = Math.max(sum, max)
+    }
+    return max
+};
+// 55. Jump Game 给定一个非负整数数组，你最初位于数组的第一个位置。 数组中的每个元素代表你在该位置可以跳跃的最大长度。 判断你是否能够到达最后一个位置。
+/**
+ * 每个元素代表你能向后挑的长度，直接循环数组，用max记录当前跳跃的最远距离，每次当前索引加上当前值和最远距离做对比，记录最远的位置
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var canJump = function (nums) {
+    var max = 0
+    for (const [i, val] of nums.entries()) {
+        // 前面已经走不到当前索引了，直接返回false
+        if (max < i) {
+            return false
+        }
+        max = Math.max(i + val, max)
+    }
+    return max > nums.length
+};
+// 56. Merge Intervals 给出一个区间的集合，请合并所有重叠的区间。
+/**
+ * Definition for an interval.
+ * function Interval(start, end) {
+ *     this.start = start;
+ *     this.end = end;
+ * }
+ */
+/**
+ * 输入: [[1,3],[2,6],[8,10],[15,18]]
+    输出: [[1,6],[8,10],[15,18]]
+ * @param {Interval[]} intervals
+ * @return {Interval[]}
+ */
+var merge = function (intervals) {
+    if (!intervals.length) {
+        return intervals
+    }
+    // intervals.sort((a, b) => a.start - b.start)
+    var ret = [intervals[0]]
+    for (let i = 1; i < intervals.length; i++) {
+        var inter = intervals[i]
+        if (i > 0 && inter.start <= ret[ret.length - 1].end) {
+            ret[ret.length - 1].end = inter.end
+        } else {
+            ret.push(inter)
+        }
+    }
+    return ret
+};
+
+// 59. Spiral Matrix II 给定一个正整数 n，生成一个包含 1 到 n2 所有元素，且元素按顺时针顺序螺旋排列的正方形矩阵。
+/**
+ * →(右) ---> ↓(下) ---> ←（左） --->  ↑（上）
+ * @param {number} n
+ * @return {number[][]}
+ */
+var generateMatrix = function (n) {
+    // 构造一个N*N的二维数组
+    var ret = Array(n).fill(0).map(v => Array(n).fill(0))
+    var i, j = 0, count = 0
+    while (count++ <= n * n) {
+        // ➡️ [j][i] j行 i 列；i=j --> i < n-j
+        for (i = j; i < n - j; i++) {
+            ret[j][i] = count++
+        }
+        // ➡⤵️[i][n-j-1]  i = j+1 ---> n-j;
+        for (i = j + 1; i < n - j; i++) {
+            ret[i][n - j - 1] = count++
+        }
+        // ➡⬅️[n-j-1][i] i = n-j-2 --> j
+        for (i = n - j - 2; i >= j; i--) {
+            ret[n - j - 1][i] = count++
+        }
+        // ➡⬅⤴️ i= n -j -2 --> j
+        for (i = n - j - 2; i > j; i--) {
+            ret[i][j] = count++
+        }
+        j++
+    }
+    return ret
+}
+// 62. Unique Paths
+/**
+ * m*n 第一行第一列都是1 以后每格的值都是[i-1][j]+[j-1][i]
+ * @param {number} m
+ * @param {number} n
+ * @return {number}
+ */
+var uniquePaths = function (m, n) {
+    // 其实可以用一维数组搞定
+    var dp = Array(m).fill(1).map(v => Array(n).fill(1))
+    for (var i = 1; i < m; i++) {
+        for (var j = 1; j < n; j++) {
+            dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+        }
+    }
+    return dp[m - 1][n - 1]
+};
+// 63. Unique Paths II 不同路径 II
+/**
+ * @param {number[][]} obstacleGrid
+ * @return {number}
+ */
+var uniquePathsWithObstacles = function (obstacleGrid) {
+    var m = obstacleGrid.length
+    if (!m) {
+        return 0
+    }
+    var n = obstacleGrid[0].length
+    var dp = Array(m).fill(1).map(v => Array(n).fill(1))
+    for (var i = 0; i < m; i++) {
+        for (var j = 0; j < n; j++) {
+            if (obstacleGrid[i][j] === 0) {
+                dp[i][j] = 0
+            } else if (i === 0 && j === 0) {
+                dp[i][j] = 1
+            } else if (i === 0) {
+                dp[i][j] = dp[i][j - 1]
+            } else if (j === 0) {
+                dp[i][j] = dp[i - 1][j]
+            } else {
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+            }
+        }
+    }
+    return dp[m - 1][n - 1]
+};
+// 64. Minimum Path Sum 给定一个包含非负整数的 m x n 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。
+/**
+ * 最小路径，dp[i][j] = Math.min(grid[i][j] + dp[i - 1][j], grid[i][j] + dp[i][j - 1])
+ *
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var minPathSum = function (grid) {
+    var m = grid.length
+    var n = grid[0].length
+    var dp = Array(m).fill(0).map(v => Array(n).fill(0))
+    for (var i = 0; i < m; i++) {
+        for (var j = 0; j < n; j++) {
+            if (i === 0 && j === 0) {
+                dp[i][j] = grid[i][j]
+            } else if (i === 0) {
+                dp[i][j] = grid[i][j] + dp[i][j - 1]
+            } else if (j === 0) {
+                dp[i][j] = grid[i][j] + dp[i - 1][j]
+            } else {
+                dp[i][j] = Math.min(grid[i][j] + dp[i - 1][j], grid[i][j] + dp[i][j - 1])
+            }
+        }
+    }
+    return dp[m - 1][n - 1]
+};
+// 直接修改grid 的值，不用新创建二维数组
+var minPathSum = function (grid) {
+    var m = grid.length
+    var n = grid[0].length
+    for (var i = 0; i < m; i++) {
+        for (var j = 0; j < n; j++) {
+            if (i === 0 && j !== 0) {
+                grid[i][j] += grid[i][j - 1]
+                continue;
+            }
+            if (j === 0 && i !== 0) {
+                grid[i][j] += grid[i - 1][j]
+                continue;
+            }
+            if (j !== 0 && i !== 0) {
+                grid[i][j] += Math.min(grid[i - 1][j], grid[i][j - 1])
+            }
+        }
+    }
+    return grid[m - 1][n - 1]
+};
+// 69. Sqrt(x)
+/**
+ * 技巧 牛顿
+ * @param {number} x
+ * @return {number}
+ */
+var mySqrt = function (x) {
+    var n = x
+    while (n * n > x) {
+        n = ((n + x / n) / 2) | 0
+    }
+    return n
+};
+// 70. Climbing Stairs
+/**
+ * 一次爬一步或者两步 爬到地n步的方式是 dp[n] = dp[n-1] + dp[n-2]
+ * @param {number} n
+ * @return {number}
+ */
+var climbStairs = (function () {
+    var temp = {
+        1: 1,
+        2: 2
+    }
+    return function fn(n) {
+        if (!(n in temp)) {
+            temp[n] = fn(n - 1) + fn(n - 2)
+        }
+        return temp[n]
+    }
+}())
+// 71. Simplify Path 简化路径
+/**
+ * @param {string} path
+ * @return {string}
+ */
+var simplifyPath = function (path) {
+    var pathArr = path.split('/')
+    var newPath = []
+    for (let p of pathArr) {
+        if (p === '' || p === '.') {
+            continue;
+        } else if (p === '..') {
+            newPath.pop()
+        } else {
+            newPath.push(p)
+        }
+    }
+    return `/${newPath.join('/')}`
+};
+// 73. Set Matrix Zeroes 给定一个 m x n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为 0。请使用原地算法。
+/**
+ * 先渠道i j 为 0 的 然后重置
+ * @param {number[][]} matrix
+ * @return {void} Do not return anything, modify matrix in-place instead.
+ */
+var setZeroes = function (matrix) {
+    var len = matrix.length
+    var lineLen = matrix[0].length
+    var vSet = new Set()
+    var hSet = new Set()
+    for (let i = 0; i < len; i++) {
+        for (let j = 0; j < lineLen; j++) {
+            if (matrix[i][j] === 0) {
+                vSet.add(i)
+                hSet.add(j)
+            }
+        }
+    }
+    for (let i of vSet) {
+        for (let v = 0; v < lineLen; v++) {
+            matrix[i][v] = 0
+        }
+    }
+    for (let j of hSet) {
+        for (let h = 0; h < len; h++) {
+            matrix[h][j] = 0
+        }
+    }
+}
+// 74. Search a 2D Matrix 搜索二维矩阵
+/**
+ * 从左到右按升序排列
+ * 每行的第一个整数大于前一行的最后一个整数
+ * 直接target 对比每一行最后一个元素的值，如果target小于这一行最后一个值，肯定就在这一行里面
+ * @param {number[][]} matrix
+ * @param {number} target
+ * @return {boolean}
+ */
+var searchMatrix = function (matrix, target) {
+    var len = matrix.length
+    var oneLen = len ? matrix[0].length : 0
+    if (!len || !oneLen) {
+        return false
+    }
+    var line = 0
+    while (line < len) {
+        if (target < matrix[line][oneLen - 1]) {
+            return binarySearch(matrix[line], target)
+        } else if (target === matrix[line][oneLen - 1]) {
+            return true
+        }
+        line++
+    }
+    return false
+}
+// 75. Sort Colors 颜色分类
+/**
+ * 双指针 右边存储2  左边存储0 中间不动
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var sortColors = function (nums) {
+    var left = 0
+    var right = nums.length - 1
+    var i = 0
+    while (left < right) {
+        if (n === 0) {
+            [nums[i], nums[left]] = [nums[left], nums[i]]
+            left++
+            i++
+            continue;
+        }
+        if (n === 2) {
+            [nums[i], nums[right]] = [nums[right], nums[i]]
+            i++
+            right--
+        }
+    }
+    return nums
+};
+var sortColors = function (nums) {
+    const n = nums.length
+    let left = 0;
+    let right = n - 1
+    const swap = function (i, j) {
+        [nums[i], nums[j]] = [nums[j], nums[i]]
+    }
+    for (let i = 0; i < n; i++) {
+        while (nums[i] === 2 && i < right) {
+            swap(i, right--)
+        }
+        while (nums[i] === 0 && i > left) {
+            swap(i, left++)
+        }
+    }
+};
+// 77. Combinations 给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合。
+/**
+ * 此题类似全排列。直接简答的DFS搞定
+ * @param {number} n
+ * @param {number} k
+ * @return {number[][]}
+ */
+var combine = function (n, k) {
+    var nums = Array.from({ length: n }, (v, i) => i + 1)
+    var ret = []
+    var used = {}
+    var dfs = function (current, start) {
+        if (current.length === k) {
+            return ret.push(current.slice());
+        }
+        for (let i = start; i < nums.length; i++) {
+            if (used[i]) {
+                continue;
+            }
+            used[i] = true
+            current.push(nums[i])
+            dfs(current, i + 1)
+            used[i] = false
+            current.pop()
+        }
+    }
+    dfs([], 0)
+    return ret
+};
+// 78. Subsets 给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。 说明：解集不能包含重复的子集。
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var subsets = function (nums) {
+    var ret = []
+    var dfs = function (current, start) {
+        for (var i = start; i < nums.length; i++) {
+            current.push(nums[i])
+            ret.push(current.slice())
+            dfs(current, i + 1)
+            current.pop()
+        }
+    }
+    dfs([], 0)
+    return ret
+};
+/**
+ *
+// 寻找规律，后面元素和前面元素集合的集合
+//[]-->[]
+//[1]-->[] | [1]
+//[1,2]--> [] [1] | [2] [1,2]
+//[1,2,3]--> [] [1] [2] [1,2] |  [3] [1,3] [2,3] [1,2,3]
+ * @param {*} nums
+ */
+var subsets = function (nums) {
+    var result = []
+    for (const n of nums) {
+        for (var i = 0, len = result.length; i < len; i++) {
+            result.push([...result[i], n])
+        }
+        result.push([n])
+    }
+    result.push([])
+    return result
+};
+// 79. Word Search 单词搜索
+/**
+ * dfs
+ * @param {character[][]} board
+ * @param {string} word
+ * @return {boolean}
+ */
+var exist = function (board, word) {
+
+};
 
 // 81. Search in Rotated Sorted Array II 搜索旋转排序数组 II
 var search = function (nums, target) {
