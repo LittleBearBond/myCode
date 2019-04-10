@@ -9,6 +9,8 @@
 [Promise.js](../../algorithm/Promise.js)
 
 [8张图帮你一步步看清 async/await 和 promise 的执行顺序](http://web.jobbole.com/95515/)
+[JavaScript 运行机制--Event Loop详解](https://juejin.im/post/5aab2d896fb9a028b86dc2fd)
+[JavaScript 运行机制--Event Loop 运行机制](https://juejin.im/post/5b67108e5188251aa30c8811)
 
 ### testcase
 
