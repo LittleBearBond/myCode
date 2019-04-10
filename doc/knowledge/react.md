@@ -162,3 +162,11 @@
 * 缓存基础框架、公共模块
 * 使用更高版本的react、webpack
 * key不要使用数组index
+
+### react vs  vue
+
+* vue mvvm 双向绑定，react 只是试图层，数据需要手动调用setState才会重新render,vue在数组修改值的时候只能调用内部封装过的api,arr[index] 这不行，不过在vue3 改用[Proxy](http://es6.ruanyifeng.com/#docs/proxy)来实现了
+* react生态强大 vue好多都是官方维护
+* react组件化更接近元素html，组件嵌套重用方便，加上高阶组件复用逻辑的复用更方便，有时候配合Decorator修饰器使用很方便，vue很多时候需要使用自定义指令来实现
+* typescript 的支持
+* react UI库强大，vue比较欠缺
