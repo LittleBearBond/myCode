@@ -140,6 +140,7 @@
 * [精读《Function VS Class 组件》](https://zhuanlan.zhihu.com/p/59558396)
 * [30分钟精通React Hooks](https://juejin.im/post/5be3ea136fb9a049f9121014)
 * [精读《怎么用 React Hooks 造轮子》](https://zhuanlan.zhihu.com/p/50274018)
+* [【React深入】从Mixin到HOC再到Hook](https://juejin.im/post/5cad39b3f265da03502b1c0a)
 
 ### React Fiber
 
