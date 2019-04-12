@@ -150,3 +150,17 @@ const importAll = context => {
 }
 importAll()
 ```
+
+### 优化
+
+webpack优化
+
+- webpack-bundle-analyzer  分析代码体积组成
+- 配置externals
+- 引入 DllPlugin 和 DllReferencePlugin
+- 删除无用的依赖
+- 压缩的时候去掉sourcemap,去掉警告信息
+- 选择合适devtool
+- 减少构建搜索或编译路径 配置alias和noPase
+- 区分线上和开发环境，线上环境自动移除相关代码
+- 多线程压缩，开启cache loader
