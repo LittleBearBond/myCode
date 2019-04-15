@@ -82,6 +82,8 @@ const flat = function (arr) {
     }
     return arr
 }
+// 7 es10 自带api
+arr.flat(Number.MAX_VALUE)
 ```
 
 ### flattenObject
