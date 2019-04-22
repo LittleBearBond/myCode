@@ -3,6 +3,7 @@
 ## 布局
 
 [CSS布局解决方案](https://segmentfault.com/a/1190000013565024)
+[网易云音乐2018动画总结](https://v.youku.com/v_show/id_XNDEzNTgxOTAwNA==.html?spm=a2h3j.8428770.3416059.1)
 
 ## CSS基础 CSS3 flex grid
 
