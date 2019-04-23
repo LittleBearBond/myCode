@@ -152,7 +152,7 @@ var a2 = function () {
 // func = a2
 ```
 
-### ** 得到 func = compose(...chain) = a2 **
+### **得到 func = compose(...chain) = a2**
 
 ### dispatch = func(store.dispatch) --> a2(store.dispatch)
 
