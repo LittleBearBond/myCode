@@ -164,6 +164,11 @@
 * 使用更高版本的react、webpack
 * key不要使用数组index
 
+### React ssr
+
+[demo](../../study-code/react-server/src/entry-server.js)
+[使用 React + Koa 从零开始一步一步的带你开发一个 36kr SSR 案例](https://juejin.im/post/5cb86c866fb9a068b47b7338?utm_source=gold_browser_extension)
+
 ### react vs  vue
 
 * vue mvvm 双向绑定，react 只是试图层，数据需要手动调用setState才会重新render,vue在数组修改值的时候只能调用内部封装过的api,arr[index] 这不行，不过在vue3 改用[Proxy](http://es6.ruanyifeng.com/#docs/proxy)来实现了
