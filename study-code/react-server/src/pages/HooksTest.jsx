@@ -8,7 +8,8 @@
 import React, {
     useState,
     useEffect,
-    useCallback
+    useCallback,
+    useReducer
 } from 'react';
 
 const useWindowWidth = () => {
@@ -48,6 +49,7 @@ useEffect(() => {
     }, 1000);
     return () => clearInterval(id);
 }, [count]);
+
 // 想办法不依赖外部变量
 useEffect(() => {
     const id = setInterval(() => {
@@ -100,7 +102,7 @@ function Example() {
 
     return (<>
         <p> You clicked {count} times </p>
-        <h1> window width {width} times </h1>
+        <h1> window width {width} px </h1>
         <button onClick={() => setCount(count + 1)}> Click me </button>
         <div>
             <input {...name} />
@@ -116,4 +118,30 @@ function Example() {
             test setTemp
     </div>
     </>);
-} export default Example
+}
+
+const initState = { count: 0 }
+const reducer = (state, action) => {
+    switch (action.type) {
+        case 'increment':
+            return { count: state.count + 1 };
+        case 'decrement':
+            return { count: state.count - 1 };
+        case 'reset':
+            return initState;
+        default:
+            return state;
+    }
+};
+
+export function UseStateTest() {
+    const [state, dispatch] = useReducer(reducer, initState);
+    return <div>
+        <h1>{state.count}</h1>
+        <button onClick={() => dispatch({ type: 'increment' })}>+</button>
+        <button onClick={() => dispatch({ type: 'decrement' })}>-</button>
+        <button onClick={() => dispatch({ type: 'reset' })}>reset</button>
+    </div>
+}
+
+export default Example
