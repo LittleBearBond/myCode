@@ -83,5 +83,8 @@
         "not dead",
         "not ie <= 11",
         "not op_mini all"
-    ]
+    ],
+    "devDependencies": {
+        "eslint-plugin-react-hooks": "^1.6.0"
+    }
 }
