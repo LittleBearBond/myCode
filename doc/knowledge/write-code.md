@@ -444,6 +444,7 @@ function fn(n) {
 ## 实现一个函数，可以按顺序获取到一个DOM节点下面所有的文本
 
 ```js
+// 递归
 function getInnerText(el, arrText = []) {
     if (!el.childNodes.length) {
         return arrText
@@ -457,7 +458,7 @@ function getInnerText(el, arrText = []) {
     }
     return arrText
 }
-
+// 非递归
 function getInnerText(el) {
     const arrText = []
     const list = [el]
