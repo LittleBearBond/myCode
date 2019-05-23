@@ -26,6 +26,7 @@
 - [饥人谷2018前端面试押题（讲义）](https://zhuanlan.zhihu.com/p/34536462)
 - [前端面试题总结](https://segmentfault.com/a/1190000014401170?utm_source=index-hottest)
 - [jsliang 的 2019 面试准备](https://juejin.im/post/5c8e4cd3f265da67c87454a0)
+- [2019 前端面试 | 知其然，并知其所以然](https://juejin.im/post/5ce4171ff265da1bd04eb4f3?utm_source=gold_browser_extension)
 
 ## 最棒的 JavaScript 学习指南（2018版）
 

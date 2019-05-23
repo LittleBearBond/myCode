@@ -1,0 +1,26 @@
+{
+    "name": "mycode",
+    "version": "1.0.0",
+    "description": "- **algorithm** 算法练习 - **study-code** 平时新知识学习的代码 - **source-code-study** 框架或者库源码学习，自己对源代码理解并加上相关注释 - **components** 自己写着玩的东西 - **study-materials** 各种学习资料 - **book-code** 购买书籍的部分代码，在学习的时候自己按自己的习惯对代码有改动或添加 - **my-test** 一些测试性的代码",
+    "main": ".eslintrc.js",
+    "directories": {
+        "doc": "doc"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/LittleBearBond/myCode.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/LittleBearBond/myCode/issues"
+    },
+    "homepage": "https://github.com/LittleBearBond/myCode#readme",
+    "devDependencies": {
+        "eslint-config-alloy": "^1.4.2"
+    }
+}

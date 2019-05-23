@@ -25,7 +25,7 @@ Cache.prototype.push = function (key, val) {
     this.size++;
 }
 
-Cache.prototype.get = function (key, val) {
+Cache.prototype.get = function (key) {
     const item = this.cache[key];
     if (typeof item === 'undefined') {
         return undefined;
@@ -60,7 +60,7 @@ Cache.prototype.size = function () {
     return this.size;
 }
 
-debugger
+// debugger
 var c = new Cache(4)
 c.push('adam', 29)
 c.push('john', 26)
@@ -171,7 +171,7 @@ LRUCache.prototype.pop = function () {
  * var param_1 = obj.get(key)
  * obj.put(key,value)
  */
-var cache = new LRUCache(2 /* 缓存容量 */ );
+var cache = new LRUCache(2 /* 缓存容量 */);
 
 cache.put(1, 1);
 cache.put(2, 2);
@@ -183,13 +183,13 @@ cache.get(1); // 返回 -1 (未找到)
 cache.get(3); // 返回  3
 cache.get(4); // 返回  4 */
 
-var cache = new LRUCache(2 /* 缓存容量 */ );
-debugger
-cache.get(2);
-cache.put(2);
-cache.put(2, 6);
-cache.put(1);
-cache.put(1, 5);
-cache.put(1, 2);
-cache.get(1);
-cache.get(2);
+var cache1 = new LRUCache(2 /* 缓存容量 */);
+// debugger
+cache1.get(2);
+cache1.put(2);
+cache1.put(2, 6);
+cache1.put(1);
+cache1.put(1, 5);
+cache1.put(1, 2);
+cache1.get(1);
+cache1.get(2);

@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-redeclare */
 // LeetCode 104. Maximum Depth of Binary Tree
 var maxDepth = function (rootNode) {
     var find = function (node) {
@@ -138,12 +140,25 @@ var isBalanced = function (root) {
     var right = getDeep(root.right)
     return Math.abs(left - right) <= 1 && isBalanced(root.left) && isBalanced(root.right)
 };
-var isBalanced = function (root) {
-    var checkIsBalanced = function (node) {
 
+var isBalanced = function (root) {
+    var getHeight = function (node) {
+        if (node === null) {
+            return 0
+        }
+        const left = getHeight(node.left)
+        if (left === -1) {
+            return -1
+        }
+        const right = getHeight(node.right)
+        if (right === -1) {
+            return -1
+        }
+        return Math.abs(left - right) > 1 ? -1 : Math.max(left, right) + 1
     }
-    return checkIsBalanced(root) !== -1
+    return getHeight(root) !== -1
 };
+
 /**
  * @param {TreeNode} root
  * @return {number[]}

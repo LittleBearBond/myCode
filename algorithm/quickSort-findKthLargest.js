@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-redeclare */
 /**
  * @author 熊建
  * @email
@@ -16,9 +18,9 @@ function quickSort(arr, left, right) {
      * partitionIndex为分组界限;
      */
     var len = arr.length,
-        partitionIndex,
-        left = typeof left !== 'number' ? 0 : left,
-        right = typeof right !== 'number' ? len - 1 : right;
+        partitionIndex;
+    left = typeof left !== 'number' ? 0 : left;
+    right = typeof right !== 'number' ? len - 1 : right;
 
     // 如果需要排序的起始索引小于终止索引则执行排序;递归的终止条件；
     if (left < right) {

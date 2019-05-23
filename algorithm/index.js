@@ -1,20 +1,25 @@
+/* eslint-disable no-redeclare */
+/* eslint-disable no-unused-vars */
 // 1. Two Sum
 /**
  * @param {number[]} nums
  * @param {number} target
  * @return {number[]}
  */
-var twoSum = function(nums, target) {
+var twoSum = function (nums, target) {
     var cache = {}
     for (const [i, n] of nums.entries()) {
         if ((target - n) in nums) {
             return [i, cache[target - n]]
         }
-        cache[n] = index
+        cache[n] = i
     }
     return []
 };
-
+function ListNode(val) {
+    this.val = val;
+    this.next = null;
+}
 // 2. Add Two Numbers
 /**
  * Definition for singly-linked list.
@@ -29,12 +34,12 @@ var twoSum = function(nums, target) {
  * @param {ListNode} l2
  * @return {ListNode}
  */
-var addTwoNumbers = function(l1, l2) {
+var addTwoNumbers = function (l1, l2) {
     // 进位
     var carry = 0
-        // 初始一个临时节点
+    // 初始一个临时节点
     var root = new ListNode(0)
-    var head = root
+    var curr = root
     var sum = 0
     while (l1 !== null || l2 !== null) {
         if (l1 !== null) {
@@ -54,25 +59,24 @@ var addTwoNumbers = function(l1, l2) {
             carry = 0
         }
         var newNode = new ListNode(sum)
-            // 重置为0
+        // 重置为0
         sum = 0
-        head.next = newNode
-        head = newNode
+        curr.next = newNode
+        curr = newNode
     }
     // 最后一位还有值
     if (carry > 0) {
-        head.next = new ListNode(carry)
+        curr.next = new ListNode(carry)
     }
     return root.next
 };
-var addTwoNumbers = function(l1, l2) {
+var addTwoNumbers = function (l1, l2) {
     var List = new ListNode(0);
     var head = List;
     var sum = 0;
     var carry = 0;
     // sum 做另外一种处理
     while (l1 !== null || l2 !== null || sum > 0) {
-
         if (l1 !== null) {
             sum += l1.val;
             l1 = l1.next;
@@ -106,7 +110,7 @@ var addTwoNumbers = function(l1, l2) {
  * @param {string} s
  * @return {number}
  */
-var lengthOfLongestSubstring = function(str) {
+var lengthOfLongestSubstring = function (str) {
     var map = {}
     var maxLen = 0
     for (let i = 0; i < str.length; i++) {
@@ -124,7 +128,7 @@ var lengthOfLongestSubstring = function(str) {
  * @param {string} s
  * @return {string}
  */
-var longestPalindrome = function(s) {
+var longestPalindrome = function (s) {
     var len = s.length
     if (len <= 1) {
         return true
@@ -133,7 +137,8 @@ var longestPalindrome = function(s) {
         return s[0] === s[1]
     }
     var maxLen = 0
-    var find = function(i, j) {
+    let left;
+    var find = function (i, j) {
         while (i >= 0 && j < len && s[i] === s[j]) {
             i--;
             j++
@@ -160,10 +165,10 @@ var longestPalindrome = function(s) {
  * @param {number} x
  * @return {boolean}
  */
-var isPalindrome = function(x) {
+var isPalindrome = function (x) {
     return x.toString() === x.toString().split('').reverse().join('')
 };
-var isPalindrome = function(x) {
+var isPalindrome = function (x) {
     x = String(x)
     let l = 0,
         r = x.length - 1
@@ -182,7 +187,7 @@ var isPalindrome = function(x) {
  * @param {number[]} height
  * @return {number}
  */
-var maxArea = function(height) {
+var maxArea = function (height) {
     var i = 0
     var j = height.length - 1
     var max = 0
@@ -220,36 +225,36 @@ const M = ["", "M", "MM", "MMM"];
 const C = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"];
 const X = ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"];
 const I = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
-var intToRoman = function(num) {
+var intToRoman = function (num) {
     // 配置好个位数 十位数  百位数 千位数的对应罗马数字，然后分别计算得到个十百千位对应的值
     return M[parseInt(num / 1000, 10)] + C[parseInt(num % 1000 / 100, 10)] + X[parseInt(num % 100 / 10, 10)] + I[parseInt(num % 10, 10)]
 };
 
 // 13. Roman to Integer 罗马数字转整数
 const addMap = {
-        I: 1,
-        V: 5,
-        X: 10,
-        L: 50,
-        C: 100,
-        D: 500,
-        M: 1000
-    }
-    // 观察规律，这些是需要直接减去的值
+    I: 1,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000
+}
+// 观察规律，这些是需要直接减去的值
 const minusMap = Object.entries({
-        IV: -2,
-        IX: -2,
-        XL: -20,
-        XC: -20,
-        CD: -200,
-        CM: -200,
-    })
-    // "LVIII" "MCMXCIV"
-    /**
-     * @param {string} s
-     * @return {number}
-     */
-var romanToInt = function(s) {
+    IV: -2,
+    IX: -2,
+    XL: -20,
+    XC: -20,
+    CD: -200,
+    CM: -200,
+})
+// "LVIII" "MCMXCIV"
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var romanToInt = function (s) {
     var sum = 0
     for (const [key, val] of minusMap) {
         if (s.includes(key)) {
@@ -266,7 +271,7 @@ var romanToInt = function(s) {
  * @param {string[]} strs
  * @return {string}
  */
-var longestCommonPrefix = function(strs) {
+var longestCommonPrefix = function (strs) {
     if (!strs.length) {
         return ''
     }
@@ -286,7 +291,7 @@ var longestCommonPrefix = function(strs) {
  * @param {string[]} strs
  * @return {string}
  */
-var longestCommonPrefix = function(strs) {
+var longestCommonPrefix = function (strs) {
     if (!strs.length) {
         return ''
     }
@@ -308,7 +313,7 @@ var longestCommonPrefix = function(strs) {
  * @param {number[]} nums
  * @return {number[][]}
  */
-var threeSum = function(nums) {
+var threeSum = function (nums) {
     nums.sort((a, b) => a - b)
     var ret = []
     var len = nums.length
@@ -354,7 +359,7 @@ var threeSum = function(nums) {
  * @param {number} target
  * @return {number}
  */
-var threeSumClosest = function(nums, target) {
+var threeSumClosest = function (nums, target) {
     nums.sort((a, b) => a - b)
     let ret, sum, min = Number.MAX_VALUE,
         len = nums.length
@@ -386,14 +391,14 @@ var threeSumClosest = function(nums, target) {
  * @return {string[]}
  */
 const config = ["0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"]
-var letterCombinations = function(digits) {
+var letterCombinations = function (digits) {
     if (!digits || !digits.length) {
         return []
     }
     digits = digits.split('').map(v => config[parseInt(v, 10)])
     var len = digits.length
     var ret = []
-    var dfs = function(current, start) {
+    var dfs = function (current, start) {
         if (current.length === len) {
             ret.push(current.join(''))
             return;
@@ -414,12 +419,12 @@ var letterCombinations = function(digits) {
  * @param {number} target
  * @return {number[][]}
  */
-var fourSum = function(nums, target) {
+var fourSum = function (nums, target) {
     nums.sort((a, b) => a - b)
     var len = nums.length
     var ret = [],
         sum, threeSum
-    for (i = 0; i < len - 3; i++) {
+    for (let i = 0; i < len - 3; i++) {
         if (nums[i] === nums[i - 1]) {
             continue;
         }
@@ -480,7 +485,7 @@ function fourSum(nums, target) {
  * @param {number} n
  * @return {ListNode}
  */
-var removeNthFromEnd = function(head, n) {
+var removeNthFromEnd = function (head, n) {
     var slow = head
     var fast = head
     var i = 0;
@@ -500,7 +505,7 @@ var removeNthFromEnd = function(head, n) {
  * @param {string} s
  * @return {boolean}
  */
-var isValid = function(s) {
+var isValid = function (s) {
     const LEFT = {
         '(': true,
         '[': true,
@@ -530,7 +535,7 @@ var isValid = function(s) {
  * @param {ListNode} l2
  * @return {ListNode}
  */
-var mergeTwoLists = function(l1, l2) {
+var mergeTwoLists = function (l1, l2) {
     var root = new ListNode(0);
     var curr = root
     while (l1 !== null && l2 != null) {
@@ -559,7 +564,7 @@ var mergeTwoLists = function(l1, l2) {
     }
     return root.next
 };
-var mergeTwoLists = function(l1, l2) {
+var mergeTwoLists = function (l1, l2) {
     var head = new ListNode(0)
     var curr = head
     while (l1 && l2) {
@@ -580,12 +585,12 @@ var mergeTwoLists = function(l1, l2) {
  * @param {number} n
  * @return {string[]}
  */
-var generateParenthesis = function(n) {
+var generateParenthesis = function (n) {
     if (n <= 0) {
         return []
     }
     var ret = []
-    var dfs = function(str, l, r) {
+    var dfs = function (str, l, r) {
         if (str.length === 2 * n) {
             ret.push(str)
             return
@@ -611,7 +616,7 @@ var generateParenthesis = function(n) {
  * @param {ListNode} head
  * @return {ListNode}
  */
-var swapPairs = function(head) {
+var swapPairs = function (head) {
     if (head === null || head.next === null) {
         return head
     }
@@ -621,7 +626,7 @@ var swapPairs = function(head) {
     return next
 };
 // 26. Remove Duplicates from Sorted Array 删除排序数组中的重复项
-var removeDuplicates = function(nums) {
+var removeDuplicates = function (nums) {
     var index = 0
     for (const [i, v] of nums.entries()) {
         if (v !== nums[i + 1] && i < nums.length) {
@@ -631,7 +636,7 @@ var removeDuplicates = function(nums) {
     return index
 };
 // 27. Remove Element
-var removeElement = function(nums, val) {
+var removeElement = function (nums, val) {
     var index = 0
     for (const n of nums) {
         if (n !== val) {
@@ -647,7 +652,7 @@ var removeElement = function(nums, val) {
  * @param {string} searchStr
  * @return {number}
  */
-var strStr = function(sourceStr, searchStr) {
+var strStr = function (sourceStr, searchStr) {
     var i = 0,
         j = 0,
         sourceLen = sourceStr.length,
@@ -681,7 +686,7 @@ var strStr = function(sourceStr, searchStr) {
  * @param {string} s
  * @return {number}
  */
-var longestValidParentheses = function(s) {
+var longestValidParentheses = function (s) {
     var res = 0
     var temp = [-1]
     for (let i = 0; i < s.length; i++) {
@@ -689,7 +694,7 @@ var longestValidParentheses = function(s) {
             temp.push(i)
         } else {
             temp.pop()
-                // 数组里面还有值
+            // 数组里面还有值
             if (temp.length) {
                 res = Math.max(res, i - temp[temp.length - 1])
             } else {
@@ -708,7 +713,7 @@ var longestValidParentheses = function(s) {
  * @param {number} target
  * @return {number}
  */
-var search = function(nums, target) {
+var search = function (nums, target) {
     var l = 0
     var r = nums.length
     var mid, curr
@@ -732,7 +737,7 @@ var search = function(nums, target) {
             }
         }
     }
-    return nums[left] === target ? left : -1;
+    return nums[l] === target ? l : -1;
 };
 // 34. Find First and Last Position of Element in Sorted Array 给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。你的算法时间复杂度必须是 O(log n) 级别
 /**
@@ -741,12 +746,12 @@ var search = function(nums, target) {
  * @param {number} target
  * @return {number[]}
  */
-var searchRange = function(nums, target) {
+var searchRange = function (nums, target) {
     var l = 0
     var r = nums.length
     while (l <= r) {
         var mid = Math.floor((l + r) / 2)
-            // 查找最开始出现的位置
+        // 查找最开始出现的位置
         if (nums[mid] >= target) {
             r = mid - 1
         } else {
@@ -759,10 +764,10 @@ var searchRange = function(nums, target) {
     }
     var left = l
     r = nums.length
-        // 再次二分找到最后一次出现的
+    // 再次二分找到最后一次出现的
     while (l <= r) {
         mid = l + Math.floor((r - l) / 2)
-            // 这里等于的时候也要加一 因为是查找最后出现的值
+        // 这里等于的时候也要加一 因为是查找最后出现的值
         if (nums[mid] <= target) {
             l = mid + 1;
         } else {
@@ -776,7 +781,7 @@ var searchRange = function(nums, target) {
  */
 // 35. Search Insert Position 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
 // 查找到第一次出现的位置即可，否则返回l
-var searchInsert = function(nums, target) {
+var searchInsert = function (nums, target) {
     var len = nums.length
     if (!len || target < nums[0]) {
         return 0
@@ -808,7 +813,7 @@ var searchInsert = function(nums, target) {
  * @param {number} n
  * @return {string}
  */
-var countAndSay = function(n) {
+var countAndSay = function (n) {
     var str = '1'
     var i = 1
     var count = 0
@@ -839,10 +844,10 @@ var countAndSay = function(n) {
  * @param {number} target
  * @return {number[][]}
  */
-var combinationSum = function(candidates, target) {
+var combinationSum = function (candidates, target) {
     var ret = []
     candidates.sort((a, b) => a - b)
-    var dfs = function(curr, start, target) {
+    var dfs = function (curr, start, target) {
         if (target < 0) {
             return
         }
@@ -852,9 +857,9 @@ var combinationSum = function(candidates, target) {
         }
         for (var i = start; i < candidates.length; i++) {
             curr.push(candidates[i])
-                // 可以重复利用当前这个数这里i不用➕1
+            // 可以重复利用当前这个数这里i不用➕1
             dfs(curr, i, target - candidates[i])
-                // 吐出之前这个数，往前回退
+            // 吐出之前这个数，往前回退
             curr.pop()
         }
     }
@@ -868,10 +873,10 @@ var combinationSum = function(candidates, target) {
  * @param {number} target
  * @return {number[][]}
  */
-var combinationSum2 = function(candidates, target) {
+var combinationSum2 = function (candidates, target) {
     var ret = []
     candidates.sort((a, b) => a - b)
-    var dfs = function(curr, start, target) {
+    var dfs = function (curr, start, target) {
         if (target < 0) {
             return
         }
@@ -885,9 +890,9 @@ var combinationSum2 = function(candidates, target) {
                 continue;
             }
             curr.push(candidates[i])
-                // 不可以重复利用当前这个数这里i➕1
+            // 不可以重复利用当前这个数这里i➕1
             dfs(curr, i + 1, target - candidates[i])
-                // 吐出之前这个数，往前回退
+            // 吐出之前这个数，往前回退
             curr.pop()
         }
     }
@@ -900,7 +905,7 @@ var combinationSum2 = function(candidates, target) {
  * @param {string} num2
  * @return {string}
  */
-var multiply = function(num1, num2) {
+var multiply = function (num1, num2) {
     var a = num1.split('').map(v => v | 0)
     var b = num2.split('').map(v => v | 0)
     var aLen = a.length,
@@ -956,7 +961,7 @@ var multiply = function(num1, num2) {
  * @param {number[]} nums
  * @return {number[][]}
  */
-var permute = function(nums) {
+var permute = function (nums) {
     if (nums.length === 1) {
         return [nums]
     }
@@ -970,10 +975,10 @@ var permute = function(nums) {
     return ret
 };
 // 只要是组合一般都能用dfs来搞定
-var permute = function(nums) {
+var permute = function (nums) {
     var ret = []
     var used = []
-    var dfs = function(curr) {
+    var dfs = function (curr) {
         if (curr.length === nums.length) {
             ret.push(curr.slice())
             return;
@@ -997,11 +1002,11 @@ var permute = function(nums) {
  * @param {number[]} nums
  * @return {number[][]}
  */
-var permuteUnique = function(nums) {
+var permuteUnique = function (nums) {
     var ret = []
     var used = []
     nums.sort((a, b) => a - b)
-    var dfs = function(curr) {
+    var dfs = function (curr) {
         if (curr.length === nums.length) {
             ret.push(curr.slice())
             return
@@ -1017,7 +1022,7 @@ var permuteUnique = function(nums) {
             curr.pop()
         }
     }
-    dfs(curr, used)
+    dfs([], used)
     return ret
 };
 // 48. Rotate Image  给定一个 n × n 的二维矩阵表示一个图像。 将图像顺时针旋转 90 度
@@ -1040,7 +1045,7 @@ var permuteUnique = function(nums) {
  * @param {number[][]} matrix
  * @return {void} Do not return anything, modify matrix in-place instead.
  */
-var rotate = function(matrix) {
+var rotate = function (matrix) {
     var n = matrix.length
     for (var i = 0; i < n; i++) {
         // 以对角线为轴进行翻转，j取 i+1到 n, 因为对称轴是（i,i）
@@ -1063,7 +1068,7 @@ var rotate = function(matrix) {
  * @param {string[]} strs
  * @return {string[][]}
  */
-var groupAnagrams = function(strs) {
+var groupAnagrams = function (strs) {
     const cache = {}
     const prime = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103];
     let total = 1
@@ -1086,7 +1091,7 @@ var groupAnagrams = function(strs) {
  * @param {number[]} nums
  * @return {number}
  */
-var maxSubArray = function(nums) {
+var maxSubArray = function (nums) {
     let sum = 0
     let max = Number.MIN_SAFE_INTEGER
     for (const n of nums) {
@@ -1101,7 +1106,7 @@ var maxSubArray = function(nums) {
  * @param {number[]} nums
  * @return {boolean}
  */
-var canJump = function(nums) {
+var canJump = function (nums) {
     var max = 0
     for (const [i, val] of nums.entries()) {
         // 前面已经走不到当前索引了，直接返回false
@@ -1126,7 +1131,7 @@ var canJump = function(nums) {
  * @param {Interval[]} intervals
  * @return {Interval[]}
  */
-var merge = function(intervals) {
+var merge = function (intervals) {
     if (!intervals.length) {
         return intervals
     }
@@ -1149,40 +1154,40 @@ var merge = function(intervals) {
  * @param {number} n
  * @return {number[][]}
  */
-var generateMatrix = function(n) {
-        // 构造一个N*N的二维数组
-        var ret = Array(n).fill(0).map(v => Array(n).fill(0))
-        var i, j = 0,
-            count = 0
-        while (count++ <= n * n) {
-            // ➡️ [j][i] j行 i 列；i=j --> i < n-j
-            for (i = j; i < n - j; i++) {
-                ret[j][i] = count++
-            }
-            // ➡⤵️[i][n-j-1]  i = j+1 ---> n-j;
-            for (i = j + 1; i < n - j; i++) {
-                ret[i][n - j - 1] = count++
-            }
-            // ➡⬅️[n-j-1][i] i = n-j-2 --> j
-            for (i = n - j - 2; i >= j; i--) {
-                ret[n - j - 1][i] = count++
-            }
-            // ➡⬅⤴️ i= n -j -2 --> j
-            for (i = n - j - 2; i > j; i--) {
-                ret[i][j] = count++
-            }
-            j++
+var generateMatrix = function (n) {
+    // 构造一个N*N的二维数组
+    var ret = Array(n).fill(0).map(v => Array(n).fill(0))
+    var i, j = 0,
+        count = 0
+    while (count++ <= n * n) {
+        // ➡️ [j][i] j行 i 列；i=j --> i < n-j
+        for (i = j; i < n - j; i++) {
+            ret[j][i] = count++
         }
-        return ret
+        // ➡⤵️[i][n-j-1]  i = j+1 ---> n-j;
+        for (i = j + 1; i < n - j; i++) {
+            ret[i][n - j - 1] = count++
+        }
+        // ➡⬅️[n-j-1][i] i = n-j-2 --> j
+        for (i = n - j - 2; i >= j; i--) {
+            ret[n - j - 1][i] = count++
+        }
+        // ➡⬅⤴️ i= n -j -2 --> j
+        for (i = n - j - 2; i > j; i--) {
+            ret[i][j] = count++
+        }
+        j++
     }
-    // 62. Unique Paths
-    /**
-     * m*n 第一行第一列都是1 以后每格的值都是[i-1][j]+[j-1][i]
-     * @param {number} m
-     * @param {number} n
-     * @return {number}
-     */
-var uniquePaths = function(m, n) {
+    return ret
+}
+// 62. Unique Paths
+/**
+ * m*n 第一行第一列都是1 以后每格的值都是[i-1][j]+[j-1][i]
+ * @param {number} m
+ * @param {number} n
+ * @return {number}
+ */
+var uniquePaths = function (m, n) {
     // 其实可以用一维数组搞定
     var dp = Array(m).fill(1).map(v => Array(n).fill(1))
     for (var i = 1; i < m; i++) {
@@ -1197,7 +1202,7 @@ var uniquePaths = function(m, n) {
  * @param {number[][]} obstacleGrid
  * @return {number}
  */
-var uniquePathsWithObstacles = function(obstacleGrid) {
+var uniquePathsWithObstacles = function (obstacleGrid) {
     var m = obstacleGrid.length
     if (!m) {
         return 0
@@ -1228,7 +1233,7 @@ var uniquePathsWithObstacles = function(obstacleGrid) {
  * @param {number[][]} grid
  * @return {number}
  */
-var minPathSum = function(grid) {
+var minPathSum = function (grid) {
     var m = grid.length
     var n = grid[0].length
     var dp = Array(m).fill(0).map(v => Array(n).fill(0))
@@ -1248,7 +1253,7 @@ var minPathSum = function(grid) {
     return dp[m - 1][n - 1]
 };
 // 直接修改grid 的值，不用新创建二维数组
-var minPathSum = function(grid) {
+var minPathSum = function (grid) {
     var m = grid.length
     var n = grid[0].length
     for (var i = 0; i < m; i++) {
@@ -1274,7 +1279,7 @@ var minPathSum = function(grid) {
  * @param {number} x
  * @return {number}
  */
-var mySqrt = function(x) {
+var mySqrt = function (x) {
     var n = x
     while (n * n > x) {
         n = ((n + x / n) / 2) | 0
@@ -1287,30 +1292,31 @@ var mySqrt = function(x) {
  * @param {number} n
  * @return {number}
  */
-var climbStairs = (function() {
-        var temp = {
-            1: 1,
-            2: 2
+var climbStairs = (function () {
+    var temp = {
+        1: 1,
+        2: 2
+    }
+    return function fn(n) {
+        if (!(n in temp)) {
+            temp[n] = fn(n - 1) + fn(n - 2)
         }
-        return function fn(n) {
-            if (!(n in temp)) {
-                temp[n] = fn(n - 1) + fn(n - 2)
-            }
-            return temp[n]
-        }
-    }())
-    // 71. Simplify Path 简化路径
-    /**
-     * @param {string} path
-     * @return {string}
-     */
-var simplifyPath = function(path) {
+        return temp[n]
+    }
+}())
+// 71. Simplify Path 简化路径
+/**
+ * @param {string} path
+ * @return {string}
+ */
+var simplifyPath = function (path) {
     var pathArr = path.split('/')
     var newPath = []
     for (let p of pathArr) {
         if (p === '' || p === '.') {
             continue;
-        } else if (p === '..') {
+        }
+        if (p === '..') {
             newPath.pop()
         } else {
             newPath.push(p)
@@ -1324,74 +1330,75 @@ var simplifyPath = function(path) {
  * @param {number[][]} matrix
  * @return {void} Do not return anything, modify matrix in-place instead.
  */
-var setZeroes = function(matrix) {
-        var len = matrix.length
-        var lineLen = matrix[0].length
-        var vSet = new Set()
-        var hSet = new Set()
-        for (let i = 0; i < len; i++) {
-            for (let j = 0; j < lineLen; j++) {
-                if (matrix[i][j] === 0) {
-                    vSet.add(i)
-                    hSet.add(j)
-                }
-            }
-        }
-        for (let i of vSet) {
-            for (let v = 0; v < lineLen; v++) {
-                matrix[i][v] = 0
-            }
-        }
-        for (let j of hSet) {
-            for (let h = 0; h < len; h++) {
-                matrix[h][j] = 0
+var setZeroes = function (matrix) {
+    var len = matrix.length
+    var lineLen = matrix[0].length
+    var vSet = new Set()
+    var hSet = new Set()
+    for (let i = 0; i < len; i++) {
+        for (let j = 0; j < lineLen; j++) {
+            if (matrix[i][j] === 0) {
+                vSet.add(i)
+                hSet.add(j)
             }
         }
     }
-    // 74. Search a 2D Matrix 搜索二维矩阵
-    /**
-     * 从左到右按升序排列
-     * 每行的第一个整数大于前一行的最后一个整数
-     * 直接target 对比每一行最后一个元素的值，如果target小于这一行最后一个值，肯定就在这一行里面
-     * @param {number[][]} matrix
-     * @param {number} target
-     * @return {boolean}
-     */
-var searchMatrix = function(matrix, target) {
-        var len = matrix.length
-        var oneLen = len ? matrix[0].length : 0
-        if (!len || !oneLen) {
-            return false
+    for (let i of vSet) {
+        for (let v = 0; v < lineLen; v++) {
+            matrix[i][v] = 0
         }
-        var line = 0
-        while (line < len) {
-            if (target < matrix[line][oneLen - 1]) {
-                return binarySearch(matrix[line], target)
-            } else if (target === matrix[line][oneLen - 1]) {
-                return true
-            }
-            line++
+    }
+    for (let j of hSet) {
+        for (let h = 0; h < len; h++) {
+            matrix[h][j] = 0
         }
+    }
+}
+// 74. Search a 2D Matrix 搜索二维矩阵
+function binarySearch() { }
+/**
+ * 从左到右按升序排列
+ * 每行的第一个整数大于前一行的最后一个整数
+ * 直接target 对比每一行最后一个元素的值，如果target小于这一行最后一个值，肯定就在这一行里面
+ * @param {number[][]} matrix
+ * @param {number} target
+ * @return {boolean}
+ */
+var searchMatrix = function (matrix, target) {
+    var len = matrix.length
+    var oneLen = len ? matrix[0].length : 0
+    if (!len || !oneLen) {
         return false
     }
-    // 75. Sort Colors 颜色分类
-    /**
-     * 双指针 右边存储2  左边存储0 中间不动
-     * @param {number[]} nums
-     * @return {void} Do not return anything, modify nums in-place instead.
-     */
-var sortColors = function(nums) {
+    var line = 0
+    while (line < len) {
+        if (target < matrix[line][oneLen - 1]) {
+            return binarySearch(matrix[line], target)
+        } else if (target === matrix[line][oneLen - 1]) {
+            return true
+        }
+        line++
+    }
+    return false
+}
+// 75. Sort Colors 颜色分类
+/**
+ * 双指针 右边存储2  左边存储0 中间不动
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var sortColors = function (nums) {
     var left = 0
     var right = nums.length - 1
     var i = 0
     while (left < right) {
-        if (n === 0) {
+        if (nums[i] === 0) {
             [nums[i], nums[left]] = [nums[left], nums[i]]
             left++
             i++
             continue;
         }
-        if (n === 2) {
+        if (nums[i] === 2) {
             [nums[i], nums[right]] = [nums[right], nums[i]]
             i++
             right--
@@ -1399,11 +1406,11 @@ var sortColors = function(nums) {
     }
     return nums
 };
-var sortColors = function(nums) {
+var sortColors = function (nums) {
     const n = nums.length
     let left = 0;
     let right = n - 1
-    const swap = function(i, j) {
+    const swap = function (i, j) {
         [nums[i], nums[j]] = [nums[j], nums[i]]
     }
     for (let i = 0; i < n; i++) {
@@ -1422,11 +1429,11 @@ var sortColors = function(nums) {
  * @param {number} k
  * @return {number[][]}
  */
-var combine = function(n, k) {
+var combine = function (n, k) {
     var nums = Array.from({ length: n }, (v, i) => i + 1)
     var ret = []
     var used = {}
-    var dfs = function(current, start) {
+    var dfs = function (current, start) {
         if (current.length === k) {
             return ret.push(current.slice());
         }
@@ -1449,9 +1456,9 @@ var combine = function(n, k) {
  * @param {number[]} nums
  * @return {number[][]}
  */
-var subsets = function(nums) {
+var subsets = function (nums) {
     var ret = []
-    var dfs = function(current, start) {
+    var dfs = function (current, start) {
         for (var i = start; i < nums.length; i++) {
             current.push(nums[i])
             ret.push(current.slice())
@@ -1471,7 +1478,7 @@ var subsets = function(nums) {
 //[1,2,3]--> [] [1] [2] [1,2] |  [3] [1,3] [2,3] [1,2,3]
  * @param {*} nums
  */
-var subsets = function(nums) {
+var subsets = function (nums) {
     var result = []
     for (const n of nums) {
         for (var i = 0, len = result.length; i < len; i++) {
@@ -1489,12 +1496,12 @@ var subsets = function(nums) {
  * @param {string} word
  * @return {boolean}
  */
-var exist = function(board, word) {
+var exist = function (board, word) {
 
 };
 
 // 81. Search in Rotated Sorted Array II 搜索旋转排序数组 II
-var search = function(nums, target) {
+var search = function (nums, target) {
     var l = 0
     var r = nums.length
     var mid, curr
@@ -1525,5 +1532,5 @@ var search = function(nums, target) {
             }
         }
     }
-    return nums[left] === target ? left : -1;
+    return nums[l] === target ? l : -1;
 };
