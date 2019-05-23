@@ -34,7 +34,7 @@ var addTwoNumbers = function(l1, l2) {
     var carry = 0
         // 初始一个临时节点
     var root = new ListNode(0)
-    var head = root
+    var curr = root
     var sum = 0
     while (l1 !== null || l2 !== null) {
         if (l1 !== null) {
@@ -56,12 +56,12 @@ var addTwoNumbers = function(l1, l2) {
         var newNode = new ListNode(sum)
             // 重置为0
         sum = 0
-        head.next = newNode
-        head = newNode
+        curr.next = newNode
+        curr = newNode
     }
     // 最后一位还有值
     if (carry > 0) {
-        head.next = new ListNode(carry)
+        curr.next = new ListNode(carry)
     }
     return root.next
 };
@@ -72,7 +72,6 @@ var addTwoNumbers = function(l1, l2) {
     var carry = 0;
     // sum 做另外一种处理
     while (l1 !== null || l2 !== null || sum > 0) {
-
         if (l1 !== null) {
             sum += l1.val;
             l1 = l1.next;
