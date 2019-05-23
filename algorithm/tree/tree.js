@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const Node = function (key) {
     this.key = key;
     this.left = null;
@@ -161,14 +162,14 @@ var removeNode = function (node, key) {
         node = node.left;
         return node
     }
-	 //找到右侧最小值
-	 var aux = findMinNode(node.right);
-	 //把这个值更新到当前这个节点
-	 node.key = aux.key;
-	 //移除原来这个节点
-	 node.right = removeNode(node.right, aux.key);
-	 //返回给父级
-	 return node;
+    //找到右侧最小值
+    var aux = findMinNode(node.right);
+    //把这个值更新到当前这个节点
+    node.key = aux.key;
+    //移除原来这个节点
+    node.right = removeNode(node.right, aux.key);
+    //返回给父级
+    return node;
 }
 
 
