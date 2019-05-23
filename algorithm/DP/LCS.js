@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-redeclare */
 //https://segmentfault.com/a/1190000012864957
 
 function LCS(str1, str2) {

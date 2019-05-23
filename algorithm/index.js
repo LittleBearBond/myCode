@@ -1315,7 +1315,8 @@ var simplifyPath = function (path) {
     for (let p of pathArr) {
         if (p === '' || p === '.') {
             continue;
-        } else if (p === '..') {
+        }
+        if (p === '..') {
             newPath.pop()
         } else {
             newPath.push(p)
