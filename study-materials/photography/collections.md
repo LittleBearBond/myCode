@@ -3,6 +3,7 @@
 [拍妹子有哪些需要专门注意的地方](https://www.zhihu.com/question/20902967/answer/146079212)
 [男生气质拍照指南，想不帅都难！](https://weibo.com/tv/v/HsLUYh4YJ?fid=1034:4368570155472533)
 [技巧](https://weibo.com/tv/v/HreTYs3Td?fid=1034:4364907198481031)
+[技巧](https://weibo.com/tv/v/HvF8cuYZq?fid=1034:4375451288711229)
 
 ## 摄影基础知识
 
