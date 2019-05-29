@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-redeclare */
 /**
  * @param {string} s
  * @return {number}
