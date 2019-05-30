@@ -344,6 +344,31 @@ function deepCopy(target) {
 }
 ```
 
+## 函数柯里化
+
+```js
+// 1
+function currying(func) {
+    const args = []
+    return function ret(...rest) {
+        if (rest.length === 0) {
+            return func(...args)
+        }
+        args.push(...rest)
+        return ret
+    }
+}
+// 2
+function currying(fn, length) {
+    length = length || fn.length
+    return function ret(...args) {
+        ret.length >= length
+            ? fn(...args)
+            : (...arg) => ret(...args, ...arg)
+    }
+}
+```
+
 ## Promise all的实现
 
 ```js
