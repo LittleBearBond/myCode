@@ -13,6 +13,12 @@ sudo kill -9 `ps -ef | grep nginx  | grep -v grep|awk '{print $2}'`
 
 kill -TERM ps -ef | grep nginx | grep -v grep | awk '{print $2}' #（立刻停止）
 
+sudo nginx -s stop && sudo nginx
+
+sudo pkill nginx
+
+sudo nginx
+
 sudo nginx -s stop
 
 sudo nginx -s reload

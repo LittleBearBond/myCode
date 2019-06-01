@@ -9,6 +9,7 @@
 - [3月web前端面试小结 | 掘金技术征文](https://juejin.im/post/5abb44c06fb9a028df22ab37)
 - [中高级前端大厂面试秘籍，为你保驾护航金三银四，直通大厂(上)](https://juejin.im/post/5c64d15d6fb9a049d37f9c20)
 - [前端面试分享】- 寒冬求职上篇](https://juejin.im/post/5cdb7bc26fb9a0321557044d?utm_source=gold_browser_extension)
+- [字节跳动 今日头条 前端 面经合集](https://www.nowcoder.com/discuss/180861?type=2)
 
 ## 30秒系列
 

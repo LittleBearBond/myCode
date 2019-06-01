@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 var urls = [
     "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2168427908,4072089613&fm=200&gp=0.jpg",
     "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=281396915,1736731169&fm=26&gp=0.jpg",
@@ -33,9 +34,9 @@ function loadImg(url) {
         img.onerror = reject
         img.src = url
     })
-};
+}
 
-function limitLoad(urls, handler, limit) {
+function limitLoad(urls, handler, limit = 3) {
     // 对数组做一个拷贝
     const sequence = [].concat(urls)
 
@@ -47,18 +48,18 @@ function limitLoad(urls, handler, limit) {
 
     // 利用数组的 reduce 方法来以队列的形式执行
     return sequence.reduce((lastPromise, nextUrl, currentIndex) => {
-            return lastPromise.then(() => {
-                // 返回最快改变状态的 Promise
-                return Promise.race(promises)
-            }).catch(err => {
-                // 这里的 catch 不仅用来捕获 前面 then 方法抛出的错误
-                // 更重要的是防止中断整个链式调用
-                console.error(err)
-            }).then((res) => {
-                // 用新的 Promise 替换掉最快改变状态的 Promise
-                promises[res] = handler(sequence[currentIndex]).then(() => res);
-            })
-        }, Promise.resolve())
+        return lastPromise.then(() => {
+            // 返回最快改变状态的 Promise
+            return Promise.race(promises)
+        }).catch(err => {
+            // 这里的 catch 不仅用来捕获 前面 then 方法抛出的错误
+            // 更重要的是防止中断整个链式调用
+            console.error(err)
+        }).then((res) => {
+            // 用新的 Promise 替换掉最快改变状态的 Promise
+            promises[res] = handler(sequence[currentIndex]).then(() => res);
+        })
+    }, Promise.resolve())
         .then(() => Promise.all(promises))
 }
 limitLoad(urls, loadImg, 3)
@@ -78,7 +79,7 @@ function loadImgs(urls, n = 3) {
         }
     }
     Promise.race(promise).then(load)
-    Promise.all(promise).then(() => console.log('all loaded'))
+    // Promise.all(promise).then(() => console.log('all loaded'))
 }
 
 /*

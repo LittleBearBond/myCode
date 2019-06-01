@@ -20,13 +20,6 @@ function List(array) {
     }
 }
 
-function traverseList(listHead) {
-    while (listHead) {
-        console.log(listHead.val)
-        listHead = listHead.next
-    }
-}
-
 function reverseList(listHead) {
     let pre = null
     while (listHead) {
