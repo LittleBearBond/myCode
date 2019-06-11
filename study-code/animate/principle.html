@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- https://ppt.baomitu.com/d/4a475069#/1 -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>principle</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background: #282c34;
+        }
+
+        #root,
+        #root-canvas {
+            width: 200px;
+            height: 200px;
+            background: #ff0;
+            margin: 0 auto;
+            transform-origin: center center;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- https://ppt.baomitu.com/d/4a475069#/1 -->
+    <div id="root"></div>
+    <canvas id="root-canvas"></ca>
+        <script>
+            function update() {
+
+            }
+            const Tricker = {
+
+            }
+            // const tricker = new Tricker()
+
+            const block = document.getElementById('root')
+
+
+            /* let rotation = 0;
+            let startTime = null;
+            // 2s 一个循环
+            const T = 5000;
+            requestAnimationFrame(function update() {
+                if (!startTime) {
+                    startTime = Date.now();
+                }
+                const p = (Date.now() - startTime) / T;
+                block.style.transform = `rotate(${360 * p}deg)`;
+                requestAnimationFrame(update);
+            }); */
+
+            function update({
+                target
+            }, {
+                count,
+                time
+            }) {
+                // target.style.transform = `rotate(${count++}deg)`;
+                target.style.transform = `rotate(${360 * time / 6000}deg)`;
+            }
+
+            class Ticker {
+                tick(update, context) {
+                    let count = 0;
+                    let startTime = Date.now();
+                    requestAnimationFrame(function next() {
+                        count++;
+                        const time = Date.now() - startTime;
+                        if (update(context, {
+                                count,
+                                time
+                            }) !== false) {
+                            requestAnimationFrame(next);
+                        }
+                    });
+                }
+            }
+
+            const ticker = new Ticker();
+
+            ticker.tick(update, {
+                target: block
+            });
+
+        </script>
+</body>
+
+</html>
