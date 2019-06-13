@@ -60,6 +60,15 @@ git merge --squash projectname_aa # squash 参数为静默合并，合并时仅�
 4 git stash drop  删除文件
 5 git stash pop   恢复文件的同时 也删除文件
 
+--统计项目各个成员 commit 的情况，比如你可以查看你自己的项目的 commit 数以及他人对你项目的贡献数
+
+git shortlog -sn
+git shortlog -sn --no-merges      # 不包含 merge commit
+git log --since="0 am" 　　　     # 查看今日的提交
+git log --author="shfshanyue"     # 查看 shfshanyue 的提交
+git log --grep="#12"              # 查找提交信息中包换关键字的提交
+git log -S "setTimeout"           # 查看提交内容中包换关机子的提交
+
 --查看远程库信息
 1 git remote      查看远程库的信息
 2 git remote –v   查看远程库的详细信息
@@ -86,7 +95,7 @@ git log --oneline --graph
 –before ——显示发生某个日期之前的提交
 
 不仅显示提交说明、提交者以及提交日期，还会显示这每次提交实际修改的内容
-git -log -p filename 
+git -log -p filename
 
 查看尚未合并的变更
 git log --no-merges master
