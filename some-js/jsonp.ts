@@ -67,7 +67,7 @@ function jsonp({
     url,
     callbackKeyName = 'callback',
     data = {}
-} = {}) {
+}: any = {}) {
     return new Promise((resolve, reject) => {
         const cbName = 'jsonpcallback' + jsonp.index++
         const dataToStr = Object.entries(data).reduce((arr, [key, val]) => {
