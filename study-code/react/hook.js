@@ -1,4 +1,6 @@
+// https://usehooks.com/
 // https://mp.weixin.qq.com/s/fp-GNIcz5zwrikcM0648DQ
+// https://github.com/linpenghui958/note/blob/master/useHooks.md
 // Hook
 function useEventListener(eventName, handler, element = global) {
     // 创建一个储存处理方法的ref
