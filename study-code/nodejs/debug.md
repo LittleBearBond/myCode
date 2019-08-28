@@ -1,5 +1,7 @@
 # debug
 
+https://nodejs.org/zh-cn/docs/guides/debugging-getting-started/
+https://www.cnblogs.com/knightreturn/p/6480637.html
 
 ## Inspector
 
@@ -108,6 +110,6 @@ WebSockets request was expected
 
 node --inspect ./test-debug/index.js
 
-chrome://inspect--> Discover network targets Configure
+chrome://inspect--> Discover network targets Configure --> 127.0.0.1:9229
 
 chrome-devtools://devtools/bundled/js_app.html?experiments=true&v8only=true&ws=127.0.0.1:5493/655a23a8-987e-41d1-942d-5311cb56a02f
