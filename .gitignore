@@ -37,3 +37,4 @@ tmp-cmd/
 #IntellijIdea
 test-index.js
 test-index.html
+**/npm-debug.log
