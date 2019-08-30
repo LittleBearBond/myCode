@@ -101,7 +101,7 @@ var proxy = new Proxy(person, {
 
     1、抽出成配置，在通过相应的key去查找对应条件；列表页状态映射，数字转文字，这样少些if else
 
-```js
+```jsx
 const obj = {
     title: '操作',
     dataIndex: 'operate',
