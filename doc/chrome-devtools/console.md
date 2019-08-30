@@ -1,11 +1,12 @@
 # console
 
-###console.xxx
+### console.xxx
 
 - console.log：普通信息
 - console.info：提示类信息
 - console.error：错误信息
 - console.warn：警示信息
+
 ```js
 console.log(id);//元素的id 直接能找到对应元素,`id`不要加引号
 console.log('翯翯翯翯~');
@@ -68,15 +69,18 @@ console.error("Error: %s (%i)", "Server is  not responding",500);
   </tr>
 </table>
 
-###console.clear()
+### console.clear()
 
-###console.assert(expression, object)
+
+### console.assert(expression, object)
+
 ```js
 var isDebug=false;
 console.assert(isDebug,'断言，前面的是否正确。。。');
 ```
 
-###console.group  console.groupEnd console.groupCollapsed(object[, object, ...])
+### console.group  console.groupEnd console.groupCollapsed(object[, object, ...])
+
 ```js
 console.group("app.foo");
 console.log("来自foo模块的信息 blah blah blah...");
@@ -96,7 +100,8 @@ if (!authenticated) {
 console.groupEnd();
 ```
 
-###console.table
+### console.table
+
 ```js
 var data = [{'品名': 'xx', '数量': 4}, {'品名': 'xxx', '数量': 3}];
 console.table(data);
@@ -119,7 +124,8 @@ family.son = new Person("Mike", "Doyle", 8);
 console.table(family, ["firstName", "lastName", "age"]);
 ```
 
-###console.count(label)
+### console.count(label)
+
 ``` js
 function foo(){
     //其他函数逻辑blah blah。。。
@@ -130,14 +136,16 @@ foo();
 foo();
 ```
 
-###console.dir(object)
+### console.dir(object)
+
 经常使用，查看一个对象的属性以及属性值
 ``` js
 console.dir(document.body);
 console.log(document.body);
 ```
 
-###console.time & console.timeEnd
+### console.time & console.timeEnd
+
 代码执行时间测试
 ```js
 console.time("Array initialize");
@@ -149,7 +157,8 @@ console.timeEnd("Array initialize");
 array = null;
 ```
 
-###console.profile console.profileEnd  console.timeLine console.timeLineEnd
+### console.profile console.profileEnd  console.timeLine console.timeLineEnd
+
 ```js
 profile("init")
 profileEnd("init")
@@ -158,31 +167,37 @@ profileEnd("init")
 
 ```
 
-### $
+###  $
+
 Chrome 控制台中原生支持选择器
 |$()  |  document.querySelector()|
 |$$() |  返回一个选中的DOM对象，等同于document.querySelectorAll|
 |$x() |  R$x(path)方法返回一个数组，包含匹配特定XPath表达式的所有DOM元素|
 |$_   |   属性返回上一个表达式的值|
 
-###inspect
+### inspect
+
 ```js
 inspect($('p'))//方法打开相关面板，并选中相应的元素：DOM元素在Elements面板中显示，JavaScript对象在Profiles中显示
 ```
 
-###copy
+### copy
+
 通过此命令可以将在控制台获取到的内容复制到剪贴板
 
-###keys & values
+### keys & values
+
 ```js
 var tboy={name:'xj',gender:'unknown',hobby:'opposite to the gender'};
 keys(tboy);
 values(tboy);
 ```
 
-###monitor & unmonitor
+### monitor & unmonitor
+
 monitor(function)，它接收一个函数名作为参数，比如function a,每次a被执行了，都会在控制台输出一条信息，里面包含了函数的名称a及执行时所传入的参数。
 而unmonitor(function)便是用来停止这一监听
+
 ```js
 function sayHello(name){
     alert('hello,'+name);
@@ -194,7 +209,8 @@ unmonitor(sayHello);
 sayHello('xj');
 ```
 
-###debug & undebug
+### debug & undebug
+
 ```js
 function sayHello(name){
     debugger
@@ -204,10 +220,12 @@ function sayHello(name){
 sayHello('xj');
 ```
 
-###Frame Selection
+### Frame Selection
+
 ![Frame Selection](https://developer.chrome.com/devtools/docs/console-files/frame-selection.png)
 
-###Filtering console output
+### Filtering console output
+
 - All Shows all console output.
 - Errors Only show output from console.error().
 - Warnings Only show output from console.warn().
@@ -216,21 +234,18 @@ sayHello('xj');
 - Debug Only show output from console.timeEnd() and console.debug().
 ![Frame Selection](https://developer.chrome.com/devtools/docs/console-files/filter-errors.png)
 
-###Monitoring events
+### Monitoring events
+
 ```js
 monitorEvents(document.body, "click");
 unmonitorEvents(document.body);
 ```
 
-###multi-line commands
+### multi-line commands
+
 `Shift` + `Enter`
 
-###设置控制台输出Log XMLHttpRequests
+### 设置控制台输出Log XMLHttpRequests
+
+
   可以看到页面发出的ajax请求，然后更具调用栈定位到相关代码，还可以在network看到相关发送和返回的数据，以及该请求的其他信息
-
-
-
-
-
-
-
