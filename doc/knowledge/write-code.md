@@ -104,6 +104,23 @@ const flattenObject = (obj, prefix = '') =>
 flattenObject({ a: { b: { c: 1 } }, d: 1 }); // { 'a.b.c': 1, d: 1 }
 ```
 
+### getObjectByKey
+
+```js
+// var obj = {a:{b:1}}   getObjectByKey(obj,'a.b')==>1
+// var obj = {a:{b:[0,{c:1}]}}   getObjectByKey(obj,'a.b.[1].c')==>1
+export const getObjectByKey = (data, key) =>
+  key.split('.').reduce((innerData, innerKey) => {
+    const match = innerKey.match(/\[(\d+)\]/);
+    if (match) {
+      // eslint-disable-next-line no-bitwise
+      return innerData[match[1] | 0];
+    }
+    return innerKey in innerData && innerData[innerKey];
+  }, data);
+
+```
+
 ## 数组去重
 
 ```js
