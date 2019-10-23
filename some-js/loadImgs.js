@@ -69,7 +69,7 @@ function loadImgs(urls, n = 3) {
     const nextUls = urls.slice(n)
     const promise = preUrl.map((url, index) => loadImg(url).then(() => index));
     let i = 0
-    let {
+    const {
         length
     } = nextUls
     const load = index => {
@@ -79,7 +79,6 @@ function loadImgs(urls, n = 3) {
         }
     }
     Promise.race(promise).then(load)
-    // Promise.all(promise).then(() => console.log('all loaded'))
 }
 
 /*
