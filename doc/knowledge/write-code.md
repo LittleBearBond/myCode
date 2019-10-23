@@ -4,7 +4,7 @@
 
 ## 函数节流、防抖
 
-```js
+``` js
 function debounce(fn, time, ...args) {
     const that = this
     let timer = null;
@@ -30,8 +30,8 @@ function throttle(fn, time, ...args) {
     let isFirstTime = true
     let lastTime
     let timer
-    return function (...arg) {
-        const run = function () {
+    return function(...arg) {
+        const run = function() {
             fn.apply(that, [...args, ...arg])
             lastTime = Number(new Date())
             timer = null
@@ -54,19 +54,21 @@ function throttle(fn, time, ...args) {
 
 ## 扁平化嵌套数组/flat实现
 
-```js
-const arr = [1,[3,6],[7,[8,9],20,26],18]
+``` js
+const arr = [1, [3, 6],
+    [7, [8, 9], 20, 26], 18
+]
 // 1
 String(arr).split(',')
 // 2
-JSON.stringify(arr).replace(/\[|]/g,'').split(',')
+JSON.stringify(arr).replace(/\[|]/g, '').split(',')
 // 3
-const flat = arr => arr.reduce((pre, curr) => pre.concat(Array.isArray(curr) ? flat(curr): curr), [])
+const flat = arr => arr.reduce((pre, curr) => pre.concat(Array.isArray(curr) ? flat(curr) : curr), [])
 // 4
-const flat = arr => [].concat(...arr.map(v=>Array.isArray(v) ? flat(v): v))
+const flat = arr => [].concat(...arr.map(v => Array.isArray(v) ? flat(v) : v))
 // 5
-const flat = function (arr) {
-    const inner = function* (arr) {
+const flat = function(arr) {
+    const inner = function*(arr) {
         for (const v of arr) {
             if (Array.isArray(v)) {
                 yield* inner(v)
@@ -78,7 +80,7 @@ const flat = function (arr) {
     return [...inner(arr)]
 }
 // 6
-const flat = function (arr) {
+const flat = function(arr) {
     while (arr.some(item => Array.isArray(item))) {
         arr = [].concat(...arr)
     }
@@ -90,40 +92,46 @@ arr.flat(Number.MAX_VALUE)
 
 ### flattenObject
 
-```js
+``` js
 const flattenObject = (obj, prefix = '') =>
-  Object.keys(obj).reduce((acc, k) => {
-    const pre = prefix.length ? prefix + '.' : '';
-    if (typeof obj[k] === 'object'){
-         Object.assign(acc, flattenObject(obj[k], pre + k));
-    } else {
-        acc[pre + k] = obj[k];
-    }
-    return acc;
-  }, {});
-flattenObject({ a: { b: { c: 1 } }, d: 1 }); // { 'a.b.c': 1, d: 1 }
+    Object.keys(obj).reduce((acc, k) => {
+        const pre = prefix.length ? prefix + '.' : '';
+        if (typeof obj[k] === 'object') {
+            Object.assign(acc, flattenObject(obj[k], pre + k));
+        } else {
+            acc[pre + k] = obj[k];
+        }
+        return acc;
+    }, {});
+flattenObject({
+    a: {
+        b: {
+            c: 1
+        }
+    },
+    d: 1
+}); // { 'a.b.c': 1, d: 1 }
 ```
 
 ### getObjectByKey
 
-```js
+``` js
 // var obj = {a:{b:1}}   getObjectByKey(obj,'a.b')==>1
 // var obj = {a:{b:[0,{c:1}]}}   getObjectByKey(obj,'a.b.[1].c')==>1
 export const getObjectByKey = (data, key) =>
-  key.split('.').reduce((innerData, innerKey) => {
-    const match = innerKey.match(/\[(\d+)\]/);
-    if (match) {
-      // eslint-disable-next-line no-bitwise
-      return innerData[match[1] | 0];
-    }
-    return innerKey in innerData && innerData[innerKey];
-  }, data);
-
+    key.split('.').reduce((innerData, innerKey) => {
+        const match = innerKey.match(/\[(\d+)\]/);
+        if (match) {
+            // eslint-disable-next-line no-bitwise
+            return innerData[match[1] | 0];
+        }
+        return innerKey in innerData && innerData[innerKey];
+    }, data);
 ```
 
 ## 数组去重
 
-```js
+``` js
 const arr = [1, 2, 1, 3, 4, 5, 4, 3]
 // 1
 [...new Set(arr)]
@@ -141,34 +149,36 @@ const handle = array => {
 
 ## 不用循环，创建一个长度为 100 的数组，并且每个元素的值等于它的下标
 
-```js
-Array(100).fill().map((_,i)=>i+1);
+``` js
+Array(100).fill().map((_, i) => i + 1);
 
 [...Array(100).keys()]
 
-Array.from({length:100},(_,i)=>i)
+Array.from({
+    length: 100
+}, (_, i) => i)
 ```
 
 ## 模拟bind实现
 
-```js
+``` js
 // 简单实现，没管原型
-Function.prototype.bind = function (...args) {
+Function.prototype.bind = function(...args) {
     const that = this
     const fn = args.shift();
-    return function (...arg) {
+    return function(...arg) {
         return that.apply(fn, [...args, ...arg])
     };
 };
 
-Function.prototype.bind = function (...args) {
+Function.prototype.bind = function(...args) {
     if (typeof this !== 'function') {
         throw new TypeError('not function');
     }
     const that = this
     const toThis = args.shift();
-    const fn = function () {}
-    const bindFn = function (...arg) {
+    const fn = function() {}
+    const bindFn = function(...arg) {
         return that.apply(this instanceof fn ? this : toThis, [...args, ...arg])
     };
     fn.prototype = Object.create(this.prototype)
@@ -179,7 +189,7 @@ Function.prototype.bind = function (...args) {
 
 ## 发布订阅模式
 
-```js
+``` js
 class Observer {
     constructor() {
         this.events = {}
@@ -231,8 +241,8 @@ class Observer {
 
 ## 模拟New实现
 
-```js
-const handle = function (...args) {
+``` js
+const handle = function(...args) {
     const fn = args.shift()
     const obj = Object.create(fn.prototype)
     const o = fn.apply(obj, args)
@@ -242,7 +252,7 @@ const handle = function (...args) {
 
 ## 字符串去重，并且找出出现字符最多的字符以及次数
 
-```js
+``` js
 function strUnique(str) {
     const cache = {}
     let mostStr,
@@ -251,10 +261,10 @@ function strUnique(str) {
     for (const s of str) {
         if (s in cache) {
             cache[s]++
-                if (cache[s] > num) {
-                    num = cache[s]
-                    mostStr = s
-                }
+            if (cache[s] > num) {
+                num = cache[s]
+                mostStr = s
+            }
             continue;
         }
         arr.push(s)
@@ -266,19 +276,19 @@ function strUnique(str) {
 
 ## 连续字符串去重使用正则
 
-```js
-`aaaabbbccccaaaa`.replace(/(\w)\1+/g,'$1')
+``` js
+`aaaabbbccccaaaa` .replace(/(\w)\1+/g, '$1')
 ```
 
 ## 找出一个html页面使用的所有html元素标签名
 
-```js
+``` js
 [...new Set([...document.all].map(h => h.tagName))]
 ```
 
 ## 连表反转
 
-```js
+``` js
 // 这个都算不上算法
 function reverse(head) {
     let pre = null
@@ -294,7 +304,7 @@ function reverse(head) {
 
 ## 手写jsonp
 
-```js
+``` js
 function createScript(url) {
     const script = document.createElement('script')
     script.setAttribute('type', 'text/javascript')
@@ -311,20 +321,20 @@ function jsonp({
     return new Promise((resolve, reject) => {
         const cbName = 'jsonpcallback' + jsonp.index++
         const dataToStr = Object.entries(data).reduce((arr, [key, val]) => {
-            arr.push(`${key}=${val}`)
+            arr.push( `${key}=${val}` )
             return arr;
         }, []).join('&')
-        url += `${url.includes('?') ? `&` : `?`}${callbackKeyName}=${cbName}&${dataToStr}`
+        url += `${url.includes('?') ? ` & ` : ` ? `}${callbackKeyName}=${cbName}&${dataToStr}`
         const el = createScript(url)
         el.onerror = (error) => {
             destory()
             reject(error)
         }
-        const destory = function () {
+        const destory = function() {
             el.parentNode.removeChild(el)
             delete window[cbName]
         }
-        window[cbName] = function (data) {
+        window[cbName] = function(data) {
             try {
                 resolve(data)
             } finally {
@@ -339,7 +349,7 @@ jsonp.index = 0
 
 ## 对象的深拷贝
 
-```js
+``` js
 function deepCopy(target) {
     const extendObj = Array.isArray(target) ? [] : {}
     if (Array.isArray(target)) {
@@ -365,7 +375,7 @@ function deepCopy(target) {
 
 ## 函数柯里化
 
-```js
+``` js
 // 1
 function currying(func) {
     const args = []
@@ -381,16 +391,16 @@ function currying(func) {
 function currying(fn, length) {
     length = length || fn.length
     return function ret(...args) {
-        ret.length >= length
-            ? fn(...args)
-            : (...arg) => ret(...args, ...arg)
+        ret.length >= length ?
+            fn(...args) :
+            (...arg) => ret(...args, ...arg)
     }
 }
 ```
 
 ## Promise all的实现
 
-```js
+``` js
 function promiseAll(promise = []) {
     return new Promise((resolve, reject) => {
         if (!Array.isArray(promise) || !promise.length) {
@@ -402,7 +412,7 @@ function promiseAll(promise = []) {
         let promiseCounter = 0
         const result = new Array(length)
         for (const [index, pro] of promise.entries()) {
-            (function (i) {
+            (function(i) {
                 Promise.resolve(pro).then(res => {
                     result[i] = res
                     promiseCounter++
@@ -425,30 +435,28 @@ Promise.all = promiseAll
 
 ## 获取 url 中的参数
 
-```js
+``` js
 function getUrlData(url) {
     let match = (url || window.location.search).match(/\?(.*)/)
-    const objData = {};
+    const ret = {};
     match = match && match[1];
     if (!match) {
-        return objData;
+        return ret;
     }
-    match = match.split('&');
-    let strKey;
-    let strVal;
-    match.forEach(function (str) {
-        let val = str.split('=');
-        strKey = decodeURIComponent(val[0]);
-        strVal = val[1] === 'null' || val[1] == null ? '' : decodeURIComponent(val[1]);
-        strKey && (objData[strKey] = strVal);
-    });
-    return objData;
+    let strKey, strVal;
+    return match.split('&').reduce((ret, str) => {
+        const [key, val] = str.split('=');
+        strKey = decodeURIComponent(key);
+        strVal = val === 'null' || val == null ? '' : decodeURIComponent(val);
+        strKey && (ret[strKey] = strVal);
+        return ret
+    }, ret);
 }
 ```
 
 ## 斐波那契数 四种实现方法
 
-```js
+``` js
 function fn(n) {
     if (n === 0) {
         return 0
@@ -459,7 +467,7 @@ function fn(n) {
     return fn(n - 1) + fn(n - 2)
 }
 
-const fn = (function () {
+const fn = (function() {
     const temp = {
         0: 0,
         1: 1
@@ -471,6 +479,7 @@ const fn = (function () {
         return temp[n];
     }
 }())
+
 function fnDp(n) {
     let current = 0;
     let next = 1;
@@ -487,7 +496,7 @@ function fn(n) {
 
 ## 实现一个函数，可以按顺序获取到一个DOM节点下面所有的文本
 
-```js
+``` js
 // 递归
 function getInnerText(el, arrText = []) {
     if (!el.childNodes.length) {
@@ -520,7 +529,7 @@ function getInnerText(el) {
 
 ## 继承
 
-```js
+``` js
 // babel 的实现
 function _inherits(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
@@ -558,29 +567,29 @@ function _setPrototypeOf(o, p) {
 
 ### copyToClipboard
 
-```js
+``` js
 const copyToClipboard = str => {
-  const el = document.createElement('textarea');
-  el.value = str;
-  el.setAttribute('readonly', '');
-  el.style.position = 'absolute';
-  el.style.left = '-9999px';
-  document.body.appendChild(el);
-  const selected =
-    document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;
-  el.select();
-  document.execCommand('copy');
-  document.body.removeChild(el);
-  if (selected) {
-    document.getSelection().removeAllRanges();
-    document.getSelection().addRange(selected);
-  }
+    const el = document.createElement('textarea');
+    el.value = str;
+    el.setAttribute('readonly', '');
+    el.style.position = 'absolute';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
+    const selected =
+        document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    if (selected) {
+        document.getSelection().removeAllRanges();
+        document.getSelection().addRange(selected);
+    }
 };
 ```
 
 ### counter
 
-```js
+``` js
 const counter = (selector, start, end, step = 1, duration = 2000) => {
     let current = start
     let _step = (end - start) * step < 0 ? -step : step
@@ -591,7 +600,7 @@ const counter = (selector, start, end, step = 1, duration = 2000) => {
         if (current >= end) {
             el.innerHTML = end;
             clearInterval(timer);
-            el=null
+            el = null
         }
     }, Math.abs(Math.floor(duration / (end - start))));
     return timer;
@@ -600,16 +609,24 @@ const counter = (selector, start, end, step = 1, duration = 2000) => {
 
 ### elementContains
 
-```js
-const elContains = (parent , child ) => parent !== child && parent.contais(child)
+``` js
+const elContains = (parent, child) => parent !== child && parent.contais(child)
 ```
 
 ### elementIsVisibleInViewport
 
-```js
+``` js
 const elementIsVisiableViewport = (el, isfullVisiavle = false) => {
-    const { left, right, top, bottom } = el.getBoundingClientRect();
-    const { innerHeight, innerWidth } = window
+    const {
+        left,
+        right,
+        top,
+        bottom
+    } = el.getBoundingClientRect();
+    const {
+        innerHeight,
+        innerWidth
+    } = window
     return isfullVisiavle ? top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth :
         ((left > 0 && left < innerWidth) || (right > 0 && right < innerWidth)) &&
         ((top > 0 && top < innerHeight) || bottom > 0 && bottom < innerHeight)
@@ -618,52 +635,55 @@ const elementIsVisiableViewport = (el, isfullVisiavle = false) => {
 
 ### getScrollPosition
 
-```js
-const getScrollPosition = (el = window) =>({
-    left : pageXOffset || el.scrollLeft,
-    top : pageYOffset || el.scrollTop,
+``` js
+const getScrollPosition = (el = window) => ({
+    left: pageXOffset || el.scrollLeft,
+    top: pageYOffset || el.scrollTop,
 })
 ```
 
 ### hasClass
 
-```js
+``` js
 const hasClass = (el, className) => el.classList.contains(className);
 ```
 
 ### insertAfter
 
-```js
+``` js
 // el.insertAdjacentHTML
 const insertAfter = (el, htmlString) => el.insertAdjacentHTML('afterend', htmlString);
 ```
 
 ### event on delegate
 
-```js
-function on (el , type , fn , {target = null, useCapture = false} = {}){
+``` js
+function on(el, type, fn, {
+    target = null,
+    useCapture = false
+} = {}) {
     const delegateFn = opts.target ? (e) => el.matches(e.target) && fn.call(e.target) : fn
-    el.addEventListener(type , delegateFn , useCapture)
+    el.addEventListener(type, delegateFn, useCapture)
     return delegateFn
 }
 ```
 
 ### recordAnimationFrames
 
-```js
-const recordAnimationFrames = (callback , isAutoStart = false)=>{
+``` js
+const recordAnimationFrames = (callback, isAutoStart = false) => {
     let running = false
     let anf
-    const stop = () =>{
+    const stop = () => {
         cancelAnimationFrame(anf)
         running = false
     }
-    const stop = () =>{
+    const stop = () => {
         run()
         running = true
     }
-    const run=()=>{
-        if(!running){
+    const run = () => {
+        if (!running) {
             return
         }
         anf = requestAnimationFrame(() => {
@@ -672,14 +692,15 @@ const recordAnimationFrames = (callback , isAutoStart = false)=>{
         });
     }
     return {
-        start,stop
+        start,
+        stop
     }
 }
 ```
 
 ### scrollToTop
 
-```js
+``` js
 const scrollToTop = (time = .3) => {
     let runTime = time < 100 ? time *= 1000 : time;
     const st = pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
@@ -700,26 +721,26 @@ const scrollToTop = (time = .3) => {
 
 ### setStyle
 
-```js
+``` js
 const setStyle = (el, ruleName, val) => Object.assign(el.style, typeof ruleName === 'object' ? ruleName : {
-        [ruleName]: val
-    })
+    [ruleName]: val
+})
 ```
 
 ### scrollIntoView
 
-```js
+``` js
 const smoothScroll = element =>
-  document.querySelector(element).scrollIntoView({
-    behavior: 'smooth'
-  });
+    document.querySelector(element).scrollIntoView({
+        behavior: 'smooth'
+    });
 
 // 这个可以和scrollToTop 设计成一个通用方法，详见项目scrollAnimation
 ```
 
 ### chainAsync
 
-```js
+``` js
 const chainAsync = fns => {
     const lastFn = fns[fns.length - 1];
     let i = 0;
@@ -733,7 +754,7 @@ const chainAsync = fns => {
 
 ### compose
 
-```js
+``` js
 const chainAsync = fns => {
     return fns.reduce((pre, next) => {
         return (...args) => pre(next(...args))
@@ -746,7 +767,7 @@ const chainAsync = fns => {
 
 ### composeRight
 
-```js
+``` js
 const chainAsync = fns => {
     return fns.reduce((pre, next) => {
         return (...args) => next(pre(...args))
@@ -756,7 +777,7 @@ const chainAsync = fns => {
 
 ### runPromisesInSeries
 
-```js
+``` js
 const runPromisesInSeries = promises => promises.reduce((p, next) => p.then(next), Promise.resolve());
 ```
 
@@ -766,6 +787,7 @@ const runPromisesInSeries = promises => promises.reduce((p, next) => p.then(next
 
 [Math.hypot](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/hypot)
 
-```js
+``` js
 const distance = (x0, y0, x1, y1) => Math.hypot(x1 - x0, y1 - y0);
 ```
+
