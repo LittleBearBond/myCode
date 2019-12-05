@@ -93,16 +93,26 @@ arr.flat(Number.MAX_VALUE)
 ### flattenObject
 
 ``` js
-const flattenObject = (obj, prefix = '') =>
-    Object.keys(obj).reduce((acc, k) => {
-        const pre = prefix.length ? prefix + '.' : '';
-        if (typeof obj[k] === 'object') {
-            Object.assign(acc, flattenObject(obj[k], pre + k));
+export const flattenObject = (obj, prefix = '') =>
+  Object.keys(obj).reduce((acc, k) => {
+    const pre = prefix.length ? `${prefix}.` : '';
+    const curr = obj[k]
+    if (Object.prototype.toString.call(curr) === '[object Object]') {
+      Object.assign(acc, flattenObject(curr, pre + k));
+    } else if (Array.isArray(curr)) {
+      curr.forEach((val, index) => {
+        const currKey = `${pre}${k}[${index}]`
+        if (typeof val === 'object') {
+          Object.assign(acc, flattenObject(val, currKey));
         } else {
-            acc[pre + k] = obj[k];
+          acc[currKey] = val;
         }
-        return acc;
-    }, {});
+      })
+    } else {
+      acc[pre + k] = curr;
+    }
+    return acc;
+  }, {});
 flattenObject({
     a: {
         b: {
@@ -111,6 +121,54 @@ flattenObject({
     },
     d: 1
 }); // { 'a.b.c': 1, d: 1 }
+
+/*
+var aa ={
+  "a": {
+    "bb": {
+      "cc": 1
+    },
+    "c": 1
+  },
+  "b": {
+    "bb": {
+      "cc": 1
+    }
+  },
+  "c": {
+    "bb": {
+      "cc": 1
+    }
+  },
+  "d": 1,
+  "e": [
+    1,
+    2
+  ],
+  "f": [
+    {
+      "ff": 1
+    },
+    [
+      1,
+      2
+    ]
+  ]
+}
+
+{
+  "a.bb.cc": 1,
+  "a.c": 1,
+  "b.bb.cc": 1,
+  "c.bb.cc": 1,
+  "d": 1,
+  "e[0]": 1,
+  "e[1]": 2,
+  "f[0].ff": 1,
+  "f[1].0": 1,
+  "f[1].1": 2
+}
+ */
 ```
 
 ### getObjectByKey
@@ -119,14 +177,47 @@ flattenObject({
 // var obj = {a:{b:1}}   getObjectByKey(obj,'a.b')==>1
 // var obj = {a:{b:[0,{c:1}]}}   getObjectByKey(obj,'a.b.[1].c')==>1
 export const getObjectByKey = (data, key) =>
-    key.split('.').reduce((innerData, innerKey) => {
-        const match = innerKey.match(/\[(\d+)\]/);
-        if (match) {
-            // eslint-disable-next-line no-bitwise
-            return innerData[match[1] | 0];
-        }
-        return innerKey in innerData && innerData[innerKey];
-    }, data);
+  key
+    .replace(/([\w])(\[)/gi, '$1.[')
+    .split('.')
+    .reduce((innerData, innerKey) => {
+      const match = innerKey.match(/\[(\d+)\]/);
+      if (match) {
+        // eslint-disable-next-line no-bitwise
+        return innerData[match[1] | 0];
+      }
+      return innerKey && innerKey in innerData ? innerData[innerKey] : innerData;
+    }, data)
+```
+
+### setObjectByKey
+
+```js
+export const setObjectByKey = (data, key, value) => {
+  let currData = data;
+  const keys = key.split('.');
+  const { length } = keys;
+  let index = 0;
+  for (let oneKey of keys) {
+    // [0] [1]
+    const match = oneKey.match(/\[(\d+)\]/);
+    if (match && match.length) {
+      // eslint-disable-next-line prefer-destructuring
+      oneKey = match[1];
+    }
+    if (index === length - 1) {
+      currData[oneKey] = value;
+      break;
+    }
+    currData = currData[oneKey];
+    if (!currData) {
+      break;
+      // throw new Error(`${key} is error , ${oneKey} val is null`);
+    }
+    index += 1;
+  }
+  return data;
+};
 ```
 
 ## 数组去重
