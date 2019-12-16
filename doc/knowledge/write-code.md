@@ -186,8 +186,13 @@ export const getObjectByKey = (data, key) =>
         // eslint-disable-next-line no-bitwise
         return innerData[match[1] | 0];
       }
-      return innerKey && innerKey in innerData ? innerData[innerKey] : innerData;
-    }, data)
+      try {
+        // 执行 innerKey in innerData 可能会报错
+        return innerData && innerKey && innerKey in innerData ? innerData[innerKey] : innerData;
+      } catch {
+        return undefined
+      }
+    }, data);
 ```
 
 ### setObjectByKey
@@ -195,7 +200,8 @@ export const getObjectByKey = (data, key) =>
 ```js
 export const setObjectByKey = (data, key, value) => {
   let currData = data;
-  const keys = key.split('.');
+  // 'c.f[0].h' ==>'c.f.[0].h'
+  const keys = key.replace(/(\w+)(\[\d+\])/gi, (all, $1, $2) => `${$1}.${$2}`).split('.');
   const { length } = keys;
   let index = 0;
   for (let oneKey of keys) {
