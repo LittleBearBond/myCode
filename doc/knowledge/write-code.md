@@ -226,6 +226,20 @@ export const setObjectByKey = (data, key, value) => {
 };
 ```
 
+## toCamelCaseVar
+
+```js
+const toCamelCaseVar = (variable) => {
+  variable = variable.replace(/[\_|-](\w)/g, function (all, letter) {
+    return letter.toUpperCase();
+  });
+  return variable.slice(0, 1).toLowerCase() + variable.slice(1)
+ }
+
+console.log(toCamelCaseVar('Foo_style_css')) // fooStyleCss
+console.log(toCamelCaseVar('Foo-style-css')) // fooStyleCss
+```
+
 ## 数组去重
 
 ``` js
