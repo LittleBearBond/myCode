@@ -470,9 +470,9 @@ export default function compose(middlewares) {
   - [https://github.com/umijs/umi/blob/master/packages/core/src/Service/PluginAPI.ts#L122](https://github.com/umijs/umi/blob/master/packages/core/src/Service/PluginAPI.ts#L122)
 - hook 执行的部分切换为 [tapable](https://github.com/webpack/tapable): [https://github.com/umijs/umi/blob/master/memo/packages/core.md](https://github.com/umijs/umi/blob/master/memo/packages/core.md)
 <a name="JHHLd"></a>
+
 ### G6-Editor 插件
-[https://code.alipay.com/bankprod/yitian-assets/blob/sprint_yitian-assets_S911113763_20200305/src/page/ServiceEditor/G6Container/utils/registerCommand/index.ts](https://code.alipay.com/bankprod/yitian-assets/blob/sprint_yitian-assets_S911113763_20200305/src/page/ServiceEditor/G6Container/utils/registerCommand/index.ts)<br />[https://code.alipay.com/bankprod/yitian-assets/blob/sprint_yitian-assets_S911113763_20200305/src/page/ServiceEditor/G6Container/utils/registerEvents/index.ts](https://code.alipay.com/bankprod/yitian-assets/blob/sprint_yitian-assets_S911113763_20200305/src/page/ServiceEditor/G6Container/utils/registerEvents/index.ts)
-<a name="3sbFB"></a>
+
 ## Tapable
 
 - [https://github.com/webpack/tapable/tree/tapable-1](https://github.com/webpack/tapable/tree/tapable-1)
