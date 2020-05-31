@@ -22,5 +22,8 @@
     "homepage": "https://github.com/LittleBearBond/myCode#readme",
     "devDependencies": {
         "eslint-config-alloy": "^1.4.2"
+    },
+    "dependencies": {
+        "request": "^2.88.0"
     }
 }

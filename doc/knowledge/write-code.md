@@ -567,6 +567,40 @@ function getUrlData(url) {
 }
 ```
 
+## 设置URL参数
+
+```js
+ function setUrlParam(name, value, url) {
+    url = url || window.location.href;
+    var re = new RegExp("(^|&|\\?)" + name + "=([^&]*)(&|$)", "ig"),
+        m = url.match(re),
+        endsWith = function(target, str, ignorecase) {
+            var end_str = target.substring(target.length - str.length);
+            return ignorecase ? end_str.toLowerCase() === str.toLowerCase() :
+                end_str === str;
+        };
+    if (m) {
+        return (url.replace(re, function($0, $1, $2, $3) {
+            if (!value) {
+                return $1 == '?' ? $1 : $3; //return ''; 20130910 xj 修正
+            } else {
+                return ($0.replace($2, value));
+            }
+        }));
+    }
+    if (!value) {
+        return url;
+    }
+    if (!~url.indexOf('?')) {
+        return (url + '?' + name + '=' + value);
+    }
+    if (endsWith(url, '?')) {
+        return (url + name + '=' + value);
+    }
+    return endsWith(url, '&') ? (url + name + '=' + value) : (url + '&' + name + '=' + value);
+},
+```
+
 ## 斐波那契数 四种实现方法
 
 ``` js
