@@ -26,10 +26,8 @@
   return acc
 }, 0);
 ```
-运行结果<br />![image.png](https://intranetproxy.alipay.com/skylark/lark/0/2020/png/224068/1589350768127-3b5b8c5a-aa60-4e71-a9e4-c0d4706b7dfd.png#align=left&display=inline&height=165&margin=%5Bobject%20Object%5D&name=image.png&originHeight=330&originWidth=1036&size=159223&status=done&style=none&width=518)
-<a name="Y0tvH"></a>
+运行结果
 ### 替代forEach
-![image.png](https://intranetproxy.alipay.com/skylark/lark/0/2020/png/224068/1589801211390-baf2352e-b30f-417d-b25b-d34bbc0f06d2.png#align=left&display=inline&height=144&margin=%5Bobject%20Object%5D&name=image.png&originHeight=144&originWidth=863&size=54468&status=done&style=none&width=863)
 <a name="6B1CH"></a>
 ### 数组里所有值的和
 ```javascript
@@ -361,8 +359,6 @@ function createThunkMiddleware(extraArgument) {
 <a name="iTSPR"></a>
 ### koa compose
 >
-
-> ![image.png](https://intranetproxy.alipay.com/skylark/lark/0/2020/png/224068/1589459981800-732b63c8-ce37-4a84-9965-e1003a1dff15.png#align=left&display=inline&height=507&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1284&originWidth=1718&size=147638&status=done&style=none&width=678)
 > [https://github.com/koajs/compose/blob/master/index.js](https://github.com/koajs/compose/blob/master/index.js)
 
 ```javascript
