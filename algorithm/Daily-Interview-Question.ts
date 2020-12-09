@@ -122,3 +122,48 @@ right 收缩宽度：$0.2857 × 300 = 85.71$
 left 最终宽度：$500 - 214.29 = 285.71$
 right 最终宽度：$400 - 85.71 = 314.29$
  */
+
+/*
+第 153 题：实现一个批量请求函数 multiRequest(urls, maxNum) #378
+要求最大并发数 maxNum
+每当有一个请求返回，就留下一个空位，可以增加新的请求
+所有请求完成后，结果按照 urls 里面的顺序依次打出
+*/
+
+function loadImage(url, index): Promise<number> {
+    return new Promise((reslove, reject) => {
+        const img = new Image()
+        img.onload = () => {
+            reslove(index)
+        }
+        img.onerror = () => {
+            reject(index)
+        }
+        img.src = url
+    });
+}
+
+function multiRequest(urls: string[], maxNum: number) {
+    const requests = urls.slice(0, maxNum).map((url, i) => loadImage(url, i).then((index) => {
+        console.log(url, i)
+        return index
+    }));
+
+    return urls.slice(maxNum).reduce((pro, url, i) => {
+        return pro.then(() => {
+            return Promise.race(requests)
+        }).catch(err => {
+            // 这里的 catch 不仅用来捕获 前面 then 方法抛出的错误
+            // 更重要的是防止中断整个链式调用
+            console.error(err)
+        }).then(index => {
+            requests[index] = loadImage(url, index).then(() => {
+                console.log(url, i)
+                return index
+            });
+        });
+    }, Promise.resolve()).then(() => {
+        return Promise.all(requests)
+    });
+}
+
