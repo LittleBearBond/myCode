@@ -167,3 +167,122 @@ function multiRequest(urls: string[], maxNum: number) {
     });
 }
 
+// https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/320
+// 二分查找如何定位左边界和右边界
+
+function binarySearch(arr: Array<string | number>, target) {
+    let left = 0
+    /**
+     * 这里是有讲究的
+     * right = arr.length -1 ,一直搜索到【left,right】   while(left <= rigth) right = middle-1
+     * right = arr.length    ,一直搜索到【left,right-1】 while(left < rigth) right = middle
+     */
+    let right = arr.length - 1
+    while (left <= right) {
+        const middle = Math.floor((left + right) / 2)
+        if (arr[middle] === target) {
+            return middle
+        }
+        if (arr[middle] < target) {
+            left = middle + 1
+        } else {
+            right = middle - 1
+        }
+    }
+    return -1
+}
+
+// 明白了开闭区间，在写一个能够制定左右搜索的方法,这个用递归来实现一下
+function binarySearch1(arr: Array<string | number>, target) {
+    // 这个是【left,right】
+    const search = function (arr: Array<string | number>, ret, left = 0, right) {
+        if (left <= right) {
+            return -1
+        }
+        const middle = Math.floor((left + right) / 2)
+        if (arr[middle] === ret) {
+            return;
+        }
+        if (arr[middle] < ret) {
+            return search(arr, ret, left + 1, middle)
+        } else {
+            return search(arr, ret, left, middle - 1)
+        }
+    }
+    return search(arr, target, 0, target.legth - 1)
+}
+function binarySearchLeft(arr: Array<string | number>, target) {
+    let left = 0
+    let right = arr.length
+    while (left < right) {
+        const middle = Math.floor((left + right) / 2)
+        if (arr[middle] === target) {
+            right = middle // 重点 右边往左移动
+        } else if (arr[middle] < target) {
+            left = middle + 1
+        } else {
+            right = middle
+        }
+    }
+    if (left === arr.length) {
+        return -1
+    }
+    return arr[left] === target ? left : -1
+}
+function binarySearchRight(arr: Array<string | number>, target) {
+    let left = 0
+    let right = arr.length
+    while (left < right) {
+        const middle = Math.floor((left + right) / 2)
+        if (arr[middle] === target) {
+            left = middle + 1 // 重点 左边在往右移，最后找到的时候right= left-1
+        } else if (arr[middle] < target) {
+            left = middle + 1
+        } else {
+            right = middle
+        }
+    }
+    // left 左边的都是<=target
+    if (left === 0) {
+        return -1
+    }
+    return arr[left - 1] === target ? left - 1 : -1
+}
+const searchLeftRight = function (nums, target) {
+    let left = 0, mid, right = nums.length;
+    while (left < right) {
+        mid = (left + right) >>> 1;
+        if (nums[mid] > target) {
+            right = mid;
+        } else if (nums[mid] < target) {
+            left = mid + 1;
+        } else if (nums[mid] == target) {
+            right = mid;
+        }
+    }
+    let leftIndex = -1, rightIndex = -1;
+    if (left == nums.length) {
+        return [-1, -1];
+    }
+    else {
+        leftIndex = nums[left] == target ? left : -1;
+    }
+    left = 0; right = nums.length;
+    while (left < right) {
+        mid = (left + right) >>> 1;
+        if (nums[mid] > target) {
+            right = mid;
+        } else if (nums[mid] < target) {
+            left = mid + 1;
+        } else if (nums[mid] == target) {
+            left = mid + 1;
+        }
+    }
+    if (left == 0) {
+        return [-1, -1];
+    }
+    else {
+        rightIndex = nums[left - 1] == target ? left - 1 : -1;
+    }
+    return [leftIndex, rightIndex];
+};
