@@ -301,3 +301,5 @@ var isIsomorphic = function (s, t) {
     var tp = patternToArr(t)
     return String(sp) === String(tp)
 };
+
+
