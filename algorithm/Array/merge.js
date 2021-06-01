@@ -18,7 +18,6 @@ var merge = function (intervals) {
             [Number.MAX_VALUE, Number.MAX_VALUE]
         ])
         .reduce((curr, next) => {
-            console.log(curr, next)
             if (curr[curr.length - 1] > next[0]) {
                 curr[curr.length - 1] = Math.max(curr[curr.length - 1], next[next.length - 1])
                 return curr
@@ -60,3 +59,19 @@ console.log(
         [15, 18]
     ])
 )
+
+var merge = function (intervals) {
+    const res = [];
+    intervals
+        .sort((a, b) => a.start - b.start)
+        .reduce((curr, next) => {
+            if (curr.end <= next.start) {
+                curr.end = Math.max(curr.end, next.end);
+            } else {
+                res.push(curr)
+                return next
+            }
+            return curr
+        });
+    return res;
+};

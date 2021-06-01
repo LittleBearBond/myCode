@@ -15,5 +15,5 @@ var canJump = function (nums) {
         }
         i++
     }
-    return true
+    return max >= nums.length
 };

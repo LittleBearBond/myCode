@@ -1534,3 +1534,49 @@ var search = function (nums, target) {
     }
     return nums[l] === target ? l : -1;
 };
+var isObject = v => Object.prototype.toString.call(v) === "[object Object]"
+
+function flattenObject(obj, prefix = '') {
+    return Object.keys(obj).reduce((acc, key) => {
+        const currKey = prefix ? `${prefix}.${key}` : key
+        Object.assign(acc, isObject(obj[key]) ? flattenObject(obj[key], currKey) : {
+            [currKey]: obj[key]
+        });
+        return acc
+    }, {});
+}
+
+
+function permutate(str) {
+    if (!str || str.length === 1) {
+        return [str]
+    }
+    const ret;
+    const res = permutate(str.slice(1));
+    for (const curr of res) {
+        for (let i = 0; i < curr.length; i++) {
+            ret.push(curr.slice(0, i) + str[0] + curr.slice(i))
+        }
+    }
+    return ret
+}
+
+function findSets(arr, ret) {
+    const res = []
+    find(arr, res, [], ret);
+    return res
+}
+function find(arr, res, curr, ret, start) {
+    if (ret === 0) {
+        return res.push(curr.slice());
+    }
+    if (res < 0) {
+        return;
+    }
+    for (let i = start; i < arr.length; i++) {
+        curr.push(arr[i])
+        find(arr, res, curr, ret - arr[i], i++)
+        // 移除最后一个回退
+        curr.pop();
+    }
+}

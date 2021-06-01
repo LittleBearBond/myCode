@@ -15,6 +15,7 @@ var subsets = function (nums) {
 	result.push([])
 	return result
 };
+
 console.log(subsets([1, 2, 3]))
 var findUnsortedSubarray = function(nums) {
     var len = nums.length;

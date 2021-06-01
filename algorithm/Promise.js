@@ -120,7 +120,6 @@ Promise.prototype.then = function (onReslove, onRejected) {
                 try {
                     const value = onRejected(that.data)
                     resolvePromise(promise2, value, resolve, reject)
-
                 } catch (error) {
                     reject(error)
                 }
