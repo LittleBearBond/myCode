@@ -164,3 +164,4 @@ webpack优化
 - 减少构建搜索或编译路径 配置alias和noPase
 - 区分线上和开发环境，线上环境自动移除相关代码
 - 多线程压缩，开启cache loader
+- 开启tree shaking

@@ -1580,3 +1580,30 @@ function find(arr, res, curr, ret, start) {
         curr.pop();
     }
 }
+
+function quickSort(arr, left, right) {
+    if (left < right) {
+        const index = partition(arr, left, right)
+        quickSort(arr, left, index - 1)
+        quickSort(arr, index + 1, right)
+    }
+}
+function partition(arr, left, right) {
+    // left right mid 取中间值最优
+    const first = arr[left];
+    while (left < right) {
+        while (left < right && arr[right] >= first) {
+            right--
+        }
+        swap(arr, left, right)
+        while (left < right && arr[left] <= first) {
+            left++
+        }
+        swap(arr, left, right)
+    }
+    return left
+}
+
+function swap(arr, i, j) {
+    [arr[i], arr[j]] = [arr[j], arr[i]]
+}

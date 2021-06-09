@@ -1,10 +1,11 @@
 # 手写代码
 
 [](https://juejin.im/post/5cef46226fb9a07eaf2b7516)
+[动态规划](https://juejin.cn/post/6970860903092715550?utm_source=gold_browser_extension#heading-7)
 
 ## 函数节流、防抖
 
-``` js
+```js
 function debounce(fn, time, ...args) {
     const that = this
     let timer = null;
@@ -54,7 +55,7 @@ function throttle(fn, time, ...args) {
 
 ## 扁平化嵌套数组/flat实现
 
-``` js
+```js
 const arr = [1, [3, 6],
     [7, [8, 9], 20, 26], 18
 ]
@@ -92,27 +93,27 @@ arr.flat(Number.MAX_VALUE)
 
 ### flattenObject
 
-``` js
+```js
 export const flattenObject = (obj, prefix = '') =>
-  Object.keys(obj).reduce((acc, k) => {
-    const pre = prefix.length ? `${prefix}.` : '';
-    const curr = obj[k]
-    if (Object.prototype.toString.call(curr) === '[object Object]') {
-      Object.assign(acc, flattenObject(curr, pre + k));
-    } else if (Array.isArray(curr)) {
-      curr.forEach((val, index) => {
-        const currKey = `${pre}${k}[${index}]`
-        if (typeof val === 'object') {
-          Object.assign(acc, flattenObject(val, currKey));
+    Object.keys(obj).reduce((acc, k) => {
+        const pre = prefix.length ? `${prefix}.` : '';
+        const curr = obj[k]
+        if (Object.prototype.toString.call(curr) === '[object Object]') {
+            Object.assign(acc, flattenObject(curr, pre + k));
+        } else if (Array.isArray(curr)) {
+            curr.forEach((val, index) => {
+                const currKey = `${pre}${k}[${index}]`
+                if (typeof val === 'object') {
+                    Object.assign(acc, flattenObject(val, currKey));
+                } else {
+                    acc[currKey] = val;
+                }
+            })
         } else {
-          acc[currKey] = val;
+            acc[pre + k] = curr;
         }
-      })
-    } else {
-      acc[pre + k] = curr;
-    }
-    return acc;
-  }, {});
+        return acc;
+    }, {});
 flattenObject({
     a: {
         b: {
@@ -171,27 +172,44 @@ var aa ={
  */
 ```
 
+### 实现一个 add 方法
+
+```js
+function add(...args) {
+    const resArgs = [...args]
+
+    function fn(...innerArgs) {
+        resArgs.push(...innerArgs)
+        return fn;
+    }
+    fn.toString = () => {
+        return resArgs.reduce((acc, c) => acc + c)
+    }
+    return fn;
+}
+```
+
 ### getObjectByKey
 
-``` js
+```js
 // var obj = {a:{b:1}}   getObjectByKey(obj,'a.b')==>1
 // var obj = {a:{b:[0,{c:1}]}}   getObjectByKey(obj,'a.b.[1].c')==>1
 export const getObjectByKey = (data, key) =>
-  key
+    key
     .replace(/([\w])(\[)/gi, '$1.[')
     .split('.')
     .reduce((innerData, innerKey) => {
-      const match = innerKey.match(/\[(\d+)\]/);
-      if (match) {
-        // eslint-disable-next-line no-bitwise
-        return innerData[match[1] | 0];
-      }
-      try {
-        // 执行 innerKey in innerData 可能会报错
-        return innerData && innerKey && innerKey in innerData ? innerData[innerKey] : innerData;
-      } catch {
-        return undefined
-      }
+        const match = innerKey.match(/\[(\d+)\]/);
+        if (match) {
+            // eslint-disable-next-line no-bitwise
+            return innerData[match[1] | 0];
+        }
+        try {
+            // 执行 innerKey in innerData 可能会报错
+            return innerData && innerKey && innerKey in innerData ? innerData[innerKey] : innerData;
+        } catch {
+            return undefined
+        }
     }, data);
 ```
 
@@ -199,30 +217,32 @@ export const getObjectByKey = (data, key) =>
 
 ```js
 export const setObjectByKey = (data, key, value) => {
-  let currData = data;
-  // 'c.f[0].h' ==>'c.f.[0].h'
-  const keys = key.replace(/(\w+)(\[\d+\])/gi, (all, $1, $2) => `${$1}.${$2}`).split('.');
-  const { length } = keys;
-  let index = 0;
-  for (let oneKey of keys) {
-    // [0] [1]
-    const match = oneKey.match(/\[(\d+)\]/);
-    if (match && match.length) {
-      // eslint-disable-next-line prefer-destructuring
-      oneKey = match[1];
+    let currData = data;
+    // 'c.f[0].h' ==>'c.f.[0].h'
+    const keys = key.replace(/(\w+)(\[\d+\])/gi, (all, $1, $2) => `${$1}.${$2}`).split('.');
+    const {
+        length
+    } = keys;
+    let index = 0;
+    for (let oneKey of keys) {
+        // [0] [1]
+        const match = oneKey.match(/\[(\d+)\]/);
+        if (match && match.length) {
+            // eslint-disable-next-line prefer-destructuring
+            oneKey = match[1];
+        }
+        if (index === length - 1) {
+            currData[oneKey] = value;
+            break;
+        }
+        currData = currData[oneKey];
+        if (!currData) {
+            break;
+            // throw new Error(`${key} is error , ${oneKey} val is null`);
+        }
+        index += 1;
     }
-    if (index === length - 1) {
-      currData[oneKey] = value;
-      break;
-    }
-    currData = currData[oneKey];
-    if (!currData) {
-      break;
-      // throw new Error(`${key} is error , ${oneKey} val is null`);
-    }
-    index += 1;
-  }
-  return data;
+    return data;
 };
 ```
 
@@ -230,11 +250,11 @@ export const setObjectByKey = (data, key, value) => {
 
 ```js
 const toCamelCaseVar = (variable) => {
-  variable = variable.replace(/[\_|-](\w)/g, function (all, letter) {
-    return letter.toUpperCase();
-  });
-  return variable.slice(0, 1).toLowerCase() + variable.slice(1)
- }
+    variable = variable.replace(/[\_|-](\w)/g, function(all, letter) {
+        return letter.toUpperCase();
+    });
+    return variable.slice(0, 1).toLowerCase() + variable.slice(1)
+}
 
 console.log(toCamelCaseVar('Foo_style_css')) // fooStyleCss
 console.log(toCamelCaseVar('Foo-style-css')) // fooStyleCss
@@ -242,7 +262,7 @@ console.log(toCamelCaseVar('Foo-style-css')) // fooStyleCss
 
 ## 数组去重
 
-``` js
+```js
 const arr = [1, 2, 1, 3, 4, 5, 4, 3]
 // 1
 [...new Set(arr)]
@@ -260,7 +280,7 @@ const handle = array => {
 
 ## 不用循环，创建一个长度为 100 的数组，并且每个元素的值等于它的下标
 
-``` js
+```js
 Array(100).fill().map((_, i) => i + 1);
 
 [...Array(100).keys()]
@@ -270,11 +290,11 @@ Array.from({
 }, (_, i) => i)
 ```
 
-## 获取两个数组的差集 const a =[1,2,3] const b = [3,4,5] ==>差集[1,2,4,5]
+## 获取两个数组的差集 const a =[1, 2, 3] const b = [3, 4, 5] ==>差集[1, 2, 4, 5]
 
 ## 模拟bind实现
 
-``` js
+```js
 // 简单实现，没管原型
 Function.prototype.bind = function(...args) {
     const that = this
@@ -302,7 +322,7 @@ Function.prototype.bind = function(...args) {
 
 ## 发布订阅模式
 
-``` js
+```js
 class Observer {
     constructor() {
         this.events = {}
@@ -354,7 +374,7 @@ class Observer {
 
 ## 模拟New实现
 
-``` js
+```js
 const handle = function(...args) {
     const fn = args.shift()
     const obj = Object.create(fn.prototype)
@@ -365,7 +385,7 @@ const handle = function(...args) {
 
 ## 字符串去重，并且找出出现字符最多的字符以及次数
 
-``` js
+```js
 function strUnique(str) {
     const cache = {}
     let mostStr,
@@ -389,35 +409,40 @@ function strUnique(str) {
 
 ## 连续字符串去重使用正则
 
-``` js
-`aaaabbbccccaaaa` .replace(/(\w)\1+/g, '$1')
+```js
+`aaaabbbccccaaaa`.replace(/(\w)\1+/g, '$1')
 ```
 
 ## 找出一个html页面使用的所有html元素标签名
 
-``` js
+```js
 [...new Set([...document.all].map(h => h.tagName))]
 ```
 
 ## 连表反转
 
-``` js
+```js
 // 这个都算不上算法
+/*
+----curr->next-----
+----next->curr---
+ */
 function reverse(head) {
     let pre = null
     let next
     while (head) {
         next = head.next
-        head.pre = pre
+        head.next = pre
         pre = head
         head = next
     }
+    return head
 }
 ```
 
 ## 手写jsonp
 
-``` js
+```js
 function createScript(url) {
     const script = document.createElement('script')
     script.setAttribute('type', 'text/javascript')
@@ -434,7 +459,7 @@ function jsonp({
     return new Promise((resolve, reject) => {
         const cbName = 'jsonpcallback' + jsonp.index++
         const dataToStr = Object.entries(data).reduce((arr, [key, val]) => {
-            arr.push( `${key}=${val}` )
+            arr.push(`${key}=${val}`)
             return arr;
         }, []).join('&')
         url += `${url.includes('?') ? ` & ` : ` ? `}${callbackKeyName}=${cbName}&${dataToStr}`
@@ -462,7 +487,7 @@ jsonp.index = 0
 
 ## 对象的深拷贝
 
-``` js
+```js
 function deepCopy(target) {
     const extendObj = Array.isArray(target) ? [] : {}
     if (Array.isArray(target)) {
@@ -488,7 +513,7 @@ function deepCopy(target) {
 
 ## 函数柯里化
 
-``` js
+```js
 // 1
 function currying(func) {
     const args = []
@@ -513,7 +538,7 @@ function currying(fn, length) {
 
 ## Promise all的实现
 
-``` js
+```js
 function promiseAll(promise = []) {
     return new Promise((resolve, reject) => {
         if (!Array.isArray(promise) || !promise.length) {
@@ -548,7 +573,7 @@ Promise.all = promiseAll
 
 ## 获取 url 中的参数
 
-``` js
+```js
 function getUrlData(url) {
     let match = (url || window.location.search).match(/\?(.*)/)
     const ret = {};
@@ -571,39 +596,39 @@ function getUrlData(url) {
 
 ```js
  function setUrlParam(name, value, url) {
-    url = url || window.location.href;
-    var re = new RegExp("(^|&|\\?)" + name + "=([^&]*)(&|$)", "ig"),
-        m = url.match(re),
-        endsWith = function(target, str, ignorecase) {
-            var end_str = target.substring(target.length - str.length);
-            return ignorecase ? end_str.toLowerCase() === str.toLowerCase() :
-                end_str === str;
-        };
-    if (m) {
-        return (url.replace(re, function($0, $1, $2, $3) {
-            if (!value) {
-                return $1 == '?' ? $1 : $3; //return ''; 20130910 xj 修正
-            } else {
-                return ($0.replace($2, value));
-            }
-        }));
-    }
-    if (!value) {
-        return url;
-    }
-    if (!~url.indexOf('?')) {
-        return (url + '?' + name + '=' + value);
-    }
-    if (endsWith(url, '?')) {
-        return (url + name + '=' + value);
-    }
-    return endsWith(url, '&') ? (url + name + '=' + value) : (url + '&' + name + '=' + value);
-},
+     url = url || window.location.href;
+     var re = new RegExp("(^|&|\\?)" + name + "=([^&]*)(&|$)", "ig"),
+         m = url.match(re),
+         endsWith = function(target, str, ignorecase) {
+             var end_str = target.substring(target.length - str.length);
+             return ignorecase ? end_str.toLowerCase() === str.toLowerCase() :
+                 end_str === str;
+         };
+     if (m) {
+         return (url.replace(re, function($0, $1, $2, $3) {
+             if (!value) {
+                 return $1 == '?' ? $1 : $3; //return ''; 20130910 xj 修正
+             } else {
+                 return ($0.replace($2, value));
+             }
+         }));
+     }
+     if (!value) {
+         return url;
+     }
+     if (!~url.indexOf('?')) {
+         return (url + '?' + name + '=' + value);
+     }
+     if (endsWith(url, '?')) {
+         return (url + name + '=' + value);
+     }
+     return endsWith(url, '&') ? (url + name + '=' + value) : (url + '&' + name + '=' + value);
+ },
 ```
 
 ## 斐波那契数 四种实现方法
 
-``` js
+```js
 function fn(n) {
     if (n === 0) {
         return 0
@@ -643,7 +668,7 @@ function fn(n) {
 
 ## 实现一个函数，可以按顺序获取到一个DOM节点下面所有的文本
 
-``` js
+```js
 // 递归
 function getInnerText(el, arrText = []) {
     if (!el.childNodes.length) {
@@ -676,7 +701,7 @@ function getInnerText(el) {
 
 ## 继承
 
-``` js
+```js
 // babel 的实现
 function _inherits(subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
@@ -714,7 +739,7 @@ function _setPrototypeOf(o, p) {
 
 ### copyToClipboard
 
-``` js
+```js
 const copyToClipboard = str => {
     const el = document.createElement('textarea');
     el.value = str;
@@ -736,7 +761,7 @@ const copyToClipboard = str => {
 
 ### counter
 
-``` js
+```js
 const counter = (selector, start, end, step = 1, duration = 2000) => {
     let current = start
     let _step = (end - start) * step < 0 ? -step : step
@@ -756,13 +781,13 @@ const counter = (selector, start, end, step = 1, duration = 2000) => {
 
 ### elementContains
 
-``` js
+```js
 const elContains = (parent, child) => parent !== child && parent.contais(child)
 ```
 
 ### elementIsVisibleInViewport
 
-``` js
+```js
 const elementIsVisiableViewport = (el, isfullVisiavle = false) => {
     const {
         left,
@@ -782,7 +807,7 @@ const elementIsVisiableViewport = (el, isfullVisiavle = false) => {
 
 ### getScrollPosition
 
-``` js
+```js
 const getScrollPosition = (el = window) => ({
     left: pageXOffset || el.scrollLeft,
     top: pageYOffset || el.scrollTop,
@@ -791,20 +816,20 @@ const getScrollPosition = (el = window) => ({
 
 ### hasClass
 
-``` js
+```js
 const hasClass = (el, className) => el.classList.contains(className);
 ```
 
 ### insertAfter
 
-``` js
+```js
 // el.insertAdjacentHTML
 const insertAfter = (el, htmlString) => el.insertAdjacentHTML('afterend', htmlString);
 ```
 
 ### event on delegate
 
-``` js
+```js
 function on(el, type, fn, {
     target = null,
     useCapture = false
@@ -817,7 +842,7 @@ function on(el, type, fn, {
 
 ### recordAnimationFrames
 
-``` js
+```js
 const recordAnimationFrames = (callback, isAutoStart = false) => {
     let running = false
     let anf
@@ -847,7 +872,7 @@ const recordAnimationFrames = (callback, isAutoStart = false) => {
 
 ### scrollToTop
 
-``` js
+```js
 const scrollToTop = (time = .3) => {
     let runTime = time < 100 ? time *= 1000 : time;
     const st = pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
@@ -868,7 +893,7 @@ const scrollToTop = (time = .3) => {
 
 ### setStyle
 
-``` js
+```js
 const setStyle = (el, ruleName, val) => Object.assign(el.style, typeof ruleName === 'object' ? ruleName : {
     [ruleName]: val
 })
@@ -876,7 +901,7 @@ const setStyle = (el, ruleName, val) => Object.assign(el.style, typeof ruleName 
 
 ### scrollIntoView
 
-``` js
+```js
 const smoothScroll = element =>
     document.querySelector(element).scrollIntoView({
         behavior: 'smooth'
@@ -887,7 +912,7 @@ const smoothScroll = element =>
 
 ### chainAsync
 
-``` js
+```js
 const chainAsync = fns => {
     const lastFn = fns[fns.length - 1];
     let i = 0;
@@ -901,7 +926,7 @@ const chainAsync = fns => {
 
 ### compose
 
-``` js
+```js
 const chainAsync = fns => {
     return fns.reduce((pre, next) => {
         return (...args) => pre(next(...args))
@@ -914,7 +939,7 @@ const chainAsync = fns => {
 
 ### composeRight
 
-``` js
+```js
 const chainAsync = fns => {
     return fns.reduce((pre, next) => {
         return (...args) => next(pre(...args))
@@ -924,7 +949,7 @@ const chainAsync = fns => {
 
 ### runPromisesInSeries
 
-``` js
+```js
 const runPromisesInSeries = promises => promises.reduce((p, next) => p.then(next), Promise.resolve());
 ```
 
@@ -934,7 +959,6 @@ const runPromisesInSeries = promises => promises.reduce((p, next) => p.then(next
 
 [Math.hypot](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/hypot)
 
-``` js
+```js
 const distance = (x0, y0, x1, y1) => Math.hypot(x1 - x0, y1 - y0);
 ```
-
